@@ -91,6 +91,38 @@ function MyApplications({ student, onBack }) {
                 {application.status || "Pending"}
               </span>
             </p>
+            {application.faculty && (
+  <>
+    <hr />
+
+    <h3>Faculty Guide</h3>
+
+    <p>
+      <strong>Name:</strong>{" "}
+      {application.faculty.name}
+    </p>
+
+    <p>
+      <strong>Department:</strong>{" "}
+      {application.faculty.department}
+    </p>
+
+    <p>
+      <strong>Email:</strong>{" "}
+      {application.faculty.email}
+    </p>
+
+    <p>
+      <strong>Phone:</strong>{" "}
+      {application.faculty.phone || "N/A"}
+    </p>
+
+    <p>
+      <strong>Designation:</strong>{" "}
+      {application.faculty.designation || "N/A"}
+    </p>
+  </>
+)}
           </div>
         ))}
       </div>

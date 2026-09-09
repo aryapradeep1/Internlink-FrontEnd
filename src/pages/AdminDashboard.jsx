@@ -8,9 +8,8 @@ function AdminDashboard({ admin, onLogout }) {
   const [companies, setCompanies] = useState([]);
   const [applications, setApplications] = useState([]);
   const [faculty, setFaculty] = useState([]);
-  const [selectedFaculty, setSelectedFaculty] = useState({});
   const [message, setMessage] = useState("");
-
+  const [pendingFaculty, setPendingFaculty] = useState([]);
   // ======================================================
   // FETCH PENDING COMPANIES
   // ======================================================
@@ -84,6 +83,32 @@ function AdminDashboard({ admin, onLogout }) {
     }
   };
 
+
+// ======================================================
+// FETCH PENDING FACULTY
+// ======================================================
+
+const fetchPendingFaculty = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/admin/pending-faculty"
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      setPendingFaculty(data.faculty);
+    } else {
+      setMessage(
+        data.message || "Failed to load pending faculty"
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    setMessage("Unable to connect to server");
+  }
+};
+
   // ======================================================
   // LOAD DATA WHEN DASHBOARD OPENS
   // ======================================================
@@ -92,6 +117,7 @@ function AdminDashboard({ admin, onLogout }) {
     fetchPendingCompanies();
     fetchCollegeApplications();
     fetchFaculty();
+     fetchPendingFaculty();
   }, []);
 
   // ======================================================
@@ -152,68 +178,99 @@ function AdminDashboard({ admin, onLogout }) {
     }
   };
 
-  // ======================================================
-  // SELECT FACULTY
-  // ======================================================
 
-  const handleFacultyChange = (applicationId, facultyId) => {
-    setSelectedFaculty((prev) => ({
-      ...prev,
-      [applicationId]: facultyId,
-    }));
-  };
+// ======================================================
+// APPROVE FACULTY
+// ======================================================
 
-  // ======================================================
-  // ASSIGN FACULTY
-  // ======================================================
-
-  const handleAssignFaculty = async (applicationId) => {
-    const facultyId = selectedFaculty[applicationId];
-
-    if (!facultyId) {
-      setMessage("Please select a faculty member first.");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/admin/assign-faculty/${applicationId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            facultyId: facultyId,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        setMessage(
-          "Faculty assigned successfully!"
-        );
-
-        fetchCollegeApplications();
-
-        // Remove selected faculty for this application
-        setSelectedFaculty((prev) => {
-          const updated = { ...prev };
-          delete updated[applicationId];
-          return updated;
-        });
-      } else {
-        setMessage(
-          data.message || "Failed to assign faculty"
-        );
+const handleApproveFaculty = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/admin/approve-faculty/${id}`,
+      {
+        method: "PUT",
       }
-    } catch (error) {
-      console.error(error);
-      setMessage("Unable to connect to server");
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      setMessage("Faculty approved successfully!");
+      fetchPendingFaculty();
+      fetchFaculty();
+    } else {
+      setMessage(
+        data.message || "Failed to approve faculty"
+      );
     }
-  };
+  } catch (error) {
+    console.error(error);
+    setMessage("Unable to connect to server");
+  }
+};
+
+// ======================================================
+// REJECT FACULTY
+// ======================================================
+
+const handleRejectFaculty = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/admin/reject-faculty/${id}`,
+      {
+        method: "PUT",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      setMessage("Faculty rejected successfully!");
+      fetchPendingFaculty();
+      fetchFaculty();
+    } else {
+      setMessage(
+        data.message || "Failed to reject faculty"
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    setMessage("Unable to connect to server");
+  }
+};
+
+ 
+// ======================================================
+// APPROVE APPLICATION - AUTOMATIC FACULTY ASSIGNMENT
+// ======================================================
+
+const handleApproveApplication = async (id) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/admin/verify-application/${id}`,
+      {
+        method: "PUT",
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      setMessage(data.message);
+
+      // Refresh applications
+      fetchCollegeApplications();
+    } else {
+      setMessage(
+        data.message || "Failed to approve application"
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    setMessage("Unable to connect to server");
+  }
+};
+  
 
   // ======================================================
   // REJECT APPLICATION
@@ -329,6 +386,72 @@ function AdminDashboard({ admin, onLogout }) {
             <button
               onClick={() =>
                 handleReject(company._id)
+              }
+            >
+              Reject
+            </button>
+          </div>
+        ))
+      )}
+
+      {/* ==================================================
+          FACULTY MANAGEMENT
+      ================================================== */}
+
+      <hr />
+
+      <h2>
+        Pending Faculty Registrations
+      </h2>
+
+      {pendingFaculty.length === 0 ? (
+        <p>No pending faculty registrations.</p>
+      ) : (
+        pendingFaculty.map((member) => (
+          <div
+            className="faculty-card"
+            key={member._id}
+          >
+            <h3>
+              {member.name}
+            </h3>
+
+            <p>
+              <strong>Email:</strong>{" "}
+              {member.email}
+            </p>
+
+            <p>
+              <strong>Department:</strong>{" "}
+              {member.department}
+            </p>
+
+            <p>
+              <strong>Phone:</strong>{" "}
+              {member.phone || "N/A"}
+            </p>
+
+            <p>
+              <strong>Designation:</strong>{" "}
+              {member.designation || "N/A"}
+            </p>
+
+            <p>
+              <strong>Status:</strong>{" "}
+              {member.status}
+            </p>
+
+            <button
+              onClick={() =>
+                handleApproveFaculty(member._id)
+              }
+            >
+              Approve
+            </button>
+
+            <button
+              onClick={() =>
+                handleRejectFaculty(member._id)
               }
             >
               Reject
@@ -466,50 +589,25 @@ function AdminDashboard({ admin, onLogout }) {
             {/* ==================================================
                 FACULTY ASSIGNMENT
             ================================================== */}
+<h3>
+  College Verification
+</h3>
 
-            <h3>
-              Assign Faculty Guide
-            </h3>
+<p>
+  Faculty will be assigned automatically based on the
+  student's department and faculty workload.
+</p>
 
-            <select
-              value={
-                selectedFaculty[application._id] || ""
-              }
-              onChange={(e) =>
-                handleFacultyChange(
-                  application._id,
-                  e.target.value
-                )
-              }
-            >
-              <option value="">
-                -- Select Faculty --
-              </option>
-
-              {faculty.map((member) => (
-                <option
-                  key={member._id}
-                  value={member._id}
-                >
-                  {member.name} -{" "}
-                  {member.department}
-                </option>
-              ))}
-            </select>
-
-            <br />
-            <br />
-
-            <button
-              onClick={() =>
-                handleAssignFaculty(
-                  application._id
-                )
-              }
-            >
-              Assign Faculty
-            </button>
-
+<button
+  onClick={() =>
+    handleApproveApplication(
+      application._id
+    )
+  }
+>
+  Approve & Assign Faculty
+</button>
+           
             <button
               onClick={() =>
                 handleRejectApplication(

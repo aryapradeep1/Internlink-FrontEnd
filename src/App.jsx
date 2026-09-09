@@ -18,6 +18,7 @@ import Internships from "./pages/Internships";
 import MyInternship from "./pages/MyInternship";
 import FacultyLogin from "./pages/FacultyLogin";
 import FacultyDashboard from "./pages/FacultyDashboard";
+import FacultyRegister from "./pages/FacultyRegister";
 
 function App() {
   const [page, setPage] = useState("register");
@@ -47,6 +48,10 @@ const handleAdminLogin = (adminData) => {
 const handleFacultyLogin = (facultyData) => {
   setFaculty(facultyData);
   setPage("facultyDashboard");
+};
+
+const goToFacultyRegister = () => {
+  setPage("facultyRegister");
 };
 
   // Student login
@@ -236,6 +241,14 @@ const goToInternshipDetails = (company, internship) => {
   <FacultyLogin
     onLogin={handleFacultyLogin}
     onBack={goToLogin}
+     onRegister={goToFacultyRegister}
+  />
+)}
+
+{page === "facultyRegister" && (
+  <FacultyRegister
+    onRegisterSuccess={() => setPage("facultyLogin")}
+    onBackToLogin={() => setPage("facultyLogin")}
   />
 )}
 

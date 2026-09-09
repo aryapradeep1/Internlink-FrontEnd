@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FacultyLogin({ onLogin, onBack }) {
+function FacultyLogin({ onLogin, onBack, onRegister  }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -64,6 +64,9 @@ function FacultyLogin({ onLogin, onBack }) {
 
       <button onClick={onBack}>
         Back
+      </button>
+            <button onClick={onRegister}>
+        New Faculty? Register Here
       </button>
     </div>
   );
