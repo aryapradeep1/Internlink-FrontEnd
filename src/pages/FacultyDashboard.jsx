@@ -17,14 +17,14 @@ function FacultyDashboard({ faculty, onLogout }) {
         return;
       }
 
-      const response = await fetch(
-        `http://localhost:5000/api/faculty/applications/${facultyId}`
-      );
+    const response = await fetch(
+  `http://localhost:5000/api/internship-assignments/faculty/${facultyId}`
+);
 
       const data = await response.json();
 
       if (data.status === "success") {
-        setApplications(data.applications);
+       setApplications(data.assignments);
       } else {
         setMessage(
           data.message || "Failed to load assigned students"

@@ -6,6 +6,7 @@ function Login({
   onGoToCompanyLogin,
   onGoToAdminLogin,
     onGoToFacultyLogin,
+     onGoToCompanyGuideLogin,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -112,6 +113,10 @@ function Login({
     Login as Faculty
   </span>
 </p>
+
+<button onClick={() => onGoToCompanyGuideLogin()}>
+  Company Guide Login
+</button>
         {message && <p className="success-message">{message}</p>}
         {error && <p className="error-message">{error}</p>}
       </div>

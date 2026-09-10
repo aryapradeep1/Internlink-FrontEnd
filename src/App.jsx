@@ -19,7 +19,8 @@ import MyInternship from "./pages/MyInternship";
 import FacultyLogin from "./pages/FacultyLogin";
 import FacultyDashboard from "./pages/FacultyDashboard";
 import FacultyRegister from "./pages/FacultyRegister";
-
+import CompanyGuideLogin from "./pages/CompanyGuideLogin";
+import CompanyGuideDashboard from "./pages/CompanyGuideDashboard";
 function App() {
   const [page, setPage] = useState("register");
   const [student, setStudent] = useState(null);
@@ -28,6 +29,7 @@ function App() {
   const [selectedInternship, setSelectedInternship] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [faculty, setFaculty] = useState(null);
+  const [companyGuide, setCompanyGuide] = useState(null);
 
 
   const goToAdminLogin = () => {
@@ -125,6 +127,16 @@ const goToInternshipDetails = (company, internship) => {
     setPage("companies");
   };
 
+
+  const handleCompanyGuideLogin = (guideData) => {
+  setCompanyGuide(guideData);
+  setPage("companyGuideDashboard");
+};
+
+const goToCompanyGuideLogin = () => {
+  setPage("companyGuideLogin");
+};
+
   return (
     <>
       {/* Registration Page */}
@@ -143,6 +155,7 @@ const goToInternshipDetails = (company, internship) => {
   onGoToCompanyLogin={goToCompanyLogin}
   onGoToAdminLogin={goToAdminLogin}
   onGoToFacultyLogin={() => setPage("facultyLogin")}
+   onGoToCompanyGuideLogin={goToCompanyGuideLogin}
 />
       )}
 
@@ -276,6 +289,25 @@ const goToInternshipDetails = (company, internship) => {
       setAdmin(null);
       setPage("login");
     }}
+
+  />
+)}
+
+{page === "companyGuideDashboard" && (
+  <CompanyGuideDashboard
+    guide={companyGuide}
+    onLogout={() => {
+      setCompanyGuide(null);
+      setPage("login");
+    }}
+  />
+)}
+
+
+{page === "companyGuideLogin" && (
+  <CompanyGuideLogin
+    onLogin={handleCompanyGuideLogin}
+    onBack={goToLogin}
   />
 )}
         
