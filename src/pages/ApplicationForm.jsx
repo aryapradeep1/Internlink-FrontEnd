@@ -7,16 +7,36 @@ function ApplicationForm({
   onBack,
   onSuccess,
 }) {
-  const [whyApply, setWhyApply] = useState("");
-  const [resume, setResume] = useState("");
+  const [resume, setResume] = useState(null);
+  const [markList, setMarkList] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!whyApply.trim()) {
-      setError("Please explain why you want to apply.");
+    // Check documents
+    if (!resume) {
+      setError("Please upload your CV / Resume.");
+      return;
+    }
+
+    if (!markList) {
+      setError(
+        "Please upload your mark list up to the current semester."
+      );
+      return;
+    }
+
+    // Allow PDF only
+    if (resume.type !== "application/pdf") {
+      setError("CV / Resume must be a PDF file.");
+      return;
+    }
+
+    if (markList.type !== "application/pdf") {
+      setError("Mark List must be a PDF file.");
       return;
     }
 
@@ -45,23 +65,23 @@ function ApplicationForm({
     setError("");
 
     try {
+      // Create FormData
+      const formData = new FormData();
+
+      formData.append("student", studentId);
+      formData.append("company", companyId);
+      formData.append("internship", internshipId);
+      formData.append("position", internship.title);
+
+      // Add files
+      formData.append("resume", resume);
+      formData.append("markList", markList);
+
       const response = await fetch(
         "http://localhost:5000/api/applications/apply",
         {
           method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            student: studentId,
-            company: companyId,
-            internship: internshipId,
-            position: internship.title,
-            whyApply: whyApply,
-            resume: resume,
-          }),
+          body: formData,
         }
       );
 
@@ -127,35 +147,49 @@ function ApplicationForm({
 
         <form onSubmit={handleSubmit}>
 
+          {/* CV / Resume */}
+
           <div className="form-group">
 
             <label>
-              Why do you want to apply?
+              CV / Resume <strong>*</strong>
             </label>
 
-            <textarea
-              value={whyApply}
+            <input
+              type="file"
+              accept=".pdf,application/pdf"
               onChange={(e) =>
-                setWhyApply(e.target.value)
+                setResume(e.target.files[0])
               }
-              placeholder="Explain why you are interested in this internship..."
-              rows="6"
             />
+
+            <small>
+              Upload your CV / Resume in PDF format.
+            </small>
 
           </div>
 
+          {/* Mark List */}
+
           <div className="form-group">
 
-            <label>Resume</label>
+            <label>
+              Mark List up to Current Semester{" "}
+              <strong>*</strong>
+            </label>
 
             <input
-              type="text"
-              value={resume}
+              type="file"
+              accept=".pdf,application/pdf"
               onChange={(e) =>
-                setResume(e.target.value)
+                setMarkList(e.target.files[0])
               }
-              placeholder="Enter resume link (optional)"
             />
+
+            <small>
+              Upload one merged PDF containing your
+              mark lists up to the current semester.
+            </small>
 
           </div>
 

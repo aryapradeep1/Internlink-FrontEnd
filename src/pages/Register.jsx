@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Register({ onRegisterSuccess, onGoToLogin }) {
   const [formData, setFormData] = useState({
@@ -9,9 +9,39 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
     department: "",
     semester: "",
     phone: "",
+    college: "",
   });
 
+  const [colleges, setColleges] = useState([]);
   const [message, setMessage] = useState("");
+
+  // Fetch approved colleges
+  useEffect(() => {
+    const fetchColleges = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/admin/colleges"
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.status === "success") {
+          const approvedColleges = data.colleges.filter(
+            (college) => college.status === "Approved"
+          );
+
+          setColleges(approvedColleges);
+        } else {
+          setMessage("Failed to load colleges");
+        }
+      } catch (error) {
+        console.error(error);
+        setMessage("Unable to load colleges");
+      }
+    };
+
+    fetchColleges();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -42,7 +72,7 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
 
       if (response.ok) {
         setMessage("Registration successful!");
-        
+
         setFormData({
           name: "",
           email: "",
@@ -51,7 +81,12 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
           department: "",
           semester: "",
           phone: "",
+          college: "",
         });
+
+        setTimeout(() => {
+          onRegisterSuccess();
+        }, 1000);
       } else {
         setMessage(data.message);
       }
@@ -129,14 +164,39 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
           required
         />
 
-        <button type="submit">Register</button>
+        {/* College Selection */}
+        <select
+          name="college"
+          value={formData.college}
+          onChange={handleChange}
+          required
+        >
+          <option value="">
+            Select College
+          </option>
+
+          {colleges.map((college) => (
+            <option
+              key={college._id}
+              value={college._id}
+            >
+              {college.collegeName} (
+              {college.collegeCode})
+            </option>
+          ))}
+        </select>
+
+        <button type="submit">
+          Register
+        </button>
       </form>
+
       <p className="login-link">
-  Already have an account?{" "}
-  <span onClick={onGoToLogin}>
-    Login
-  </span>
-</p>
+        Already have an account?{" "}
+        <span onClick={onGoToLogin}>
+          Login
+        </span>
+      </p>
 
       {message && <p>{message}</p>}
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 function FacultyDashboard({ faculty, onLogout }) {
   const [applications, setApplications] = useState([]);
+  const [logbooks, setLogbooks] = useState([]);
   const [message, setMessage] = useState("");
 
   // ======================================================
@@ -17,14 +18,14 @@ function FacultyDashboard({ faculty, onLogout }) {
         return;
       }
 
-    const response = await fetch(
-  `http://localhost:5000/api/internship-assignments/faculty/${facultyId}`
-);
+      const response = await fetch(
+        `http://localhost:5000/api/internship-assignments/faculty/${facultyId}`
+      );
 
       const data = await response.json();
 
       if (data.status === "success") {
-       setApplications(data.assignments);
+        setApplications(data.assignments);
       } else {
         setMessage(
           data.message || "Failed to load assigned students"
@@ -37,11 +38,101 @@ function FacultyDashboard({ faculty, onLogout }) {
   };
 
   // ======================================================
+  // FETCH FACULTY LOGBOOKS
+  // ======================================================
+
+  const fetchLogbooks = async () => {
+    try {
+      const facultyId = faculty?.id || faculty?._id;
+
+      if (!facultyId) {
+        return;
+      }
+
+      const response = await fetch(
+        `http://localhost:5000/api/logbook/faculty/${facultyId}`
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setLogbooks(data);
+      } else {
+        setMessage(
+          data.message || "Failed to load logbooks"
+        );
+      }
+    } catch (error) {
+      console.error("Fetch Logbooks Error:", error);
+      setMessage("Unable to load logbooks");
+    }
+  };
+
+  // ======================================================
+  // APPROVE LOGBOOK
+  // ======================================================
+
+  const approveLogbook = async (logbookId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/logbook/faculty/approve/${logbookId}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("Logbook approved successfully.");
+        fetchLogbooks();
+      } else {
+        setMessage(
+          data.message || "Failed to approve logbook"
+        );
+      }
+    } catch (error) {
+      console.error("Approve Logbook Error:", error);
+      setMessage("Unable to approve logbook");
+    }
+  };
+
+  // ======================================================
+  // REJECT LOGBOOK
+  // ======================================================
+
+  const rejectLogbook = async (logbookId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/logbook/faculty/reject/${logbookId}`,
+        {
+          method: "PUT",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage("Logbook rejected successfully.");
+        fetchLogbooks();
+      } else {
+        setMessage(
+          data.message || "Failed to reject logbook"
+        );
+      }
+    } catch (error) {
+      console.error("Reject Logbook Error:", error);
+      setMessage("Unable to reject logbook");
+    }
+  };
+
+  // ======================================================
   // LOAD DATA
   // ======================================================
 
   useEffect(() => {
     fetchAssignedStudents();
+    fetchLogbooks();
   }, [faculty]);
 
   // ======================================================
@@ -83,7 +174,9 @@ function FacultyDashboard({ faculty, onLogout }) {
         </p>
       )}
 
-      {/* ASSIGNED STUDENTS */}
+      {/* ======================================================
+          ASSIGNED STUDENTS
+          ====================================================== */}
 
       <h2>
         Assigned Internship Students
@@ -190,8 +283,128 @@ function FacultyDashboard({ faculty, onLogout }) {
         ))
       )}
 
+      <hr />
+
+      {/* ======================================================
+          LOGBOOK REVIEW
+          ====================================================== */}
+
+      <h2>
+        📖 Logbook Review
+      </h2>
+
+      {logbooks.length === 0 ? (
+        <p>
+          No logbook entries available.
+        </p>
+      ) : (
+        logbooks.map((logbook) => (
+          <div
+            className="application-card"
+            key={logbook._id}
+          >
+
+            <h3>
+              Student Logbook Entry
+            </h3>
+
+            <p>
+              <strong>Student:</strong>{" "}
+              {logbook.student?.name || "N/A"}
+            </p>
+
+            <p>
+              <strong>Register Number:</strong>{" "}
+              {logbook.student?.registerNumber || "N/A"}
+            </p>
+
+            <p>
+              <strong>Internship:</strong>{" "}
+              {logbook.internship?.title || "N/A"}
+            </p>
+
+            <p>
+              <strong>Date:</strong>{" "}
+              {new Date(logbook.date).toLocaleDateString()}
+            </p>
+
+            <p>
+              <strong>Hours Worked:</strong>{" "}
+              {logbook.hoursWorked} hours
+            </p>
+
+            <p>
+              <strong>Work Done:</strong>{" "}
+              {logbook.workDone}
+            </p>
+
+            <p>
+              <strong>What I Learned:</strong>{" "}
+              {logbook.learnings}
+            </p>
+
+            {/* COMPANY GUIDE STATUS */}
+
+            <p>
+              <strong>Company Guide Status:</strong>{" "}
+              {logbook.companyGuideStatus || "Pending"}
+            </p>
+
+            {/* FACULTY STATUS */}
+
+            <p>
+              <strong>Faculty Status:</strong>{" "}
+              {logbook.facultyStatus || "Pending"}
+            </p>
+
+            {/* WAITING FOR COMPANY GUIDE */}
+
+            {logbook.companyGuideStatus === "Pending" && (
+              <p>
+                ⏳ Waiting for Company Guide approval
+              </p>
+            )}
+
+            {/* REJECTED BY COMPANY GUIDE */}
+
+            {logbook.companyGuideStatus === "Rejected" && (
+              <p>
+                ❌ Rejected by Company Guide
+              </p>
+            )}
+
+            {/* FACULTY APPROVAL/REJECTION */}
+
+            {logbook.companyGuideStatus === "Approved" &&
+              logbook.facultyStatus === "Pending" && (
+                <div>
+
+                  <button
+                    onClick={() =>
+                      approveLogbook(logbook._id)
+                    }
+                  >
+                    ✅ Approve
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      rejectLogbook(logbook._id)
+                    }
+                  >
+                    ❌ Reject
+                  </button>
+
+                </div>
+              )}
+
+          </div>
+        ))
+      )}
+
     </div>
   );
 }
 
 export default FacultyDashboard;
+

@@ -5,7 +5,8 @@ function StudentDashboard({
   onLogout,
   onGoToInternships,
   onGoToMyApplications,
-  onGoToMyInternship
+  onGoToMyInternship,
+  onGoToLogbook,
 }) {
   return (
     <div className="dashboard-container">
@@ -44,10 +45,12 @@ function StudentDashboard({
         </button>
 
         <button onClick={onGoToMyInternship}>
-  🎓 My Internship
-      </button>
+          🎓 My Internship
+        </button>
 
-        <button>📖 Logbook</button>
+        <button onClick={onGoToLogbook}>
+          📖 Logbook
+        </button>
       </div>
 
       <button onClick={onLogout} className="logout-btn">

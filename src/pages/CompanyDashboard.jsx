@@ -5,96 +5,75 @@ function CompanyDashboard({
   onLogout,
   onPostInternship,
 }) {
-  const [applications, setApplications] =
-    useState([]);
+  const [applications, setApplications] = useState([]);
+  const [guides, setGuides] = useState([]);
 
-  const [loading, setLoading] =
-    useState(true);
-
-  const [error, setError] =
-    useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   // =====================================================
   // FETCH APPLICATIONS FOR THIS COMPANY
   // =====================================================
 
-  useEffect(() => {
-    const companyId =
-      company?.id || company?._id;
+  const fetchApplications = async () => {
+    try {
+      const companyId = company?.id || company?._id;
 
-    console.log(
-      "COMPANY OBJECT:",
-      company
-    );
+      if (!companyId) {
+        setError("Company information not found");
+        setLoading(false);
+        return;
+      }
 
-    console.log(
-      "COMPANY ID:",
-      companyId
-    );
-
-    if (!companyId) {
-      console.log(
-        "Company ID not found"
+      const response = await fetch(
+        `http://localhost:5000/api/applications/company/${companyId}`
       );
 
-      setError(
-        "Company information not found"
-      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch applications");
+      }
 
+      const data = await response.json();
+
+      setApplications(data.applications || []);
       setLoading(false);
+    } catch (error) {
+      console.error("Application fetch error:", error);
 
-      return;
+      setError("Unable to load applications");
+      setLoading(false);
     }
+  };
 
-    console.log(
-      "Fetching applications for company:",
-      companyId
-    );
+  // =====================================================
+  // FETCH APPROVED COMPANY GUIDES
+  // =====================================================
 
-    fetch(
-      `http://localhost:5000/api/applications/company/${companyId}`
-    )
-      .then((response) => {
+  const fetchGuides = async () => {
+    try {
+      const companyId = company?.id || company?._id;
 
-        console.log(
-          "Application response status:",
-          response.status
-        );
+      if (!companyId) {
+        return;
+      }
 
-        if (!response.ok) {
-          throw new Error(
-            "Failed to fetch applications"
-          );
-        }
+      const response = await fetch(
+        `http://localhost:5000/api/company-guides/company/${companyId}`
+      );
 
-        return response.json();
-      })
-      .then((data) => {
+      const data = await response.json();
 
-        console.log(
-          "APPLICATIONS RECEIVED:",
-          data
-        );
+      if (data.status === "success") {
+        setGuides(data.guides || []);
+      }
+    } catch (error) {
+      console.error("Company Guide fetch error:", error);
+    }
+  };
 
-        setApplications(
-          data.applications || []
-        );
-
-        setLoading(false);
-      })
-      .catch((error) => {
-
-        console.error(
-          "Application fetch error:",
-          error
-        );
-
-        setError(
-          "Unable to load applications"
-        );
-
-        setLoading(false);
-      });
+  useEffect(() => {
+    fetchApplications();
+    fetchGuides();
   }, [company]);
 
   // =====================================================
@@ -106,15 +85,13 @@ function CompanyDashboard({
     status
   ) => {
     try {
-
       const response = await fetch(
         `http://localhost:5000/api/applications/status/${applicationId}`,
         {
           method: "PUT",
 
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
 
           body: JSON.stringify({
@@ -123,23 +100,19 @@ function CompanyDashboard({
         }
       );
 
-      const data =
-        await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          data.message ||
-            "Failed to update status"
+          data.message || "Failed to update status"
         );
       }
 
-      // Update application in frontend
       setApplications(
         (previousApplications) =>
           previousApplications.map(
             (application) =>
-              application._id ===
-              applicationId
+              application._id === applicationId
                 ? {
                     ...application,
                     status: status,
@@ -149,11 +122,61 @@ function CompanyDashboard({
       );
 
       alert(data.message);
-
     } catch (error) {
-
       console.error(
         "Update status error:",
+        error
+      );
+
+      alert(error.message);
+    }
+  };
+
+  // =====================================================
+  // ASSIGN COMPANY GUIDE
+  // =====================================================
+
+  const assignCompanyGuide = async (
+    assignmentId,
+    companyGuideId
+  ) => {
+    if (!companyGuideId) {
+      alert("Please select a Company Guide");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/internship-assignments/company-guide/${assignmentId}`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            companyGuideId: companyGuideId,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Failed to assign Company Guide"
+        );
+      }
+
+      alert(data.message);
+
+      // Refresh applications after assignment
+      fetchApplications();
+    } catch (error) {
+      console.error(
+        "Assign Company Guide Error:",
         error
       );
 
@@ -165,8 +188,7 @@ function CompanyDashboard({
     <div className="company-dashboard-container">
 
       <h1>
-        Welcome,{" "}
-        {company?.companyName}!
+        Welcome, {company?.companyName}!
       </h1>
 
       <p>
@@ -174,9 +196,7 @@ function CompanyDashboard({
         received from students.
       </p>
 
-      <button
-        onClick={onPostInternship}
-      >
+      <button onClick={onPostInternship}>
         + Post Internship Opportunity
       </button>
 
@@ -316,15 +336,10 @@ function CompanyDashboard({
               </p>
 
               {/* ============================= */}
-              {/* APPLICATION DETAILS */}
+              {/* APPLICATION STATUS */}
               {/* ============================= */}
 
-              <p>
-                <strong>
-                  Why Apply:
-                </strong>{" "}
-                {application.whyApply}
-              </p>
+              <hr />
 
               <p>
                 <strong>
@@ -333,12 +348,37 @@ function CompanyDashboard({
                 {application.status}
               </p>
 
+              {/* ============================= */}
+              {/* STUDENT DOCUMENTS */}
+              {/* ============================= */}
+
               {application.resume && (
                 <p>
                   <strong>
-                    Resume:
+                    CV / Resume:
                   </strong>{" "}
-                  {application.resume}
+                  <a
+                    href={`http://localhost:5000/${application.resume}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View CV
+                  </a>
+                </p>
+              )}
+
+              {application.markList && (
+                <p>
+                  <strong>
+                    Mark List:
+                  </strong>{" "}
+                  <a
+                    href={`http://localhost:5000/${application.markList}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Mark List
+                  </a>
                 </p>
               )}
 
@@ -376,18 +416,137 @@ function CompanyDashboard({
               )}
 
               {/* ============================= */}
-              {/* AFTER COMPANY APPROVAL */}
+              {/* COMPANY APPROVED */}
               {/* ============================= */}
 
               {application.status ===
                 "CompanyApproved" && (
-                <p>
-                  <strong>
+                <div>
+
+                  <p>
+                    <strong>
+                      Application approved by
+                      company.
+                    </strong>
+                  </p>
+
+                  <p>
                     Waiting for college
                     verification.
-                  </strong>
-                </p>
+                  </p>
+
+                </div>
               )}
+
+              {/* ============================= */}
+              {/* COLLEGE APPROVED */}
+              {/* ============================= */}
+
+              {application.status ===
+                "CollegeApproved" && (
+                <div>
+
+                  <hr />
+
+                  <h4>
+                    Company Guide
+                  </h4>
+
+                  {application.companyGuide ? (
+                    <div>
+
+                      <p>
+                        <strong>
+                          Name:
+                        </strong>{" "}
+                        {
+                          application
+                            .companyGuide
+                            ?.name
+                        }
+                      </p>
+
+                      <p>
+                        <strong>
+                          Email:
+                        </strong>{" "}
+                        {
+                          application
+                            .companyGuide
+                            ?.email
+                        }
+                      </p>
+
+                      <p>
+                        <strong>
+                          Employee ID:
+                        </strong>{" "}
+                        {
+                          application
+                            .companyGuide
+                            ?.employeeId
+                        }
+                      </p>
+
+                      <p>
+                        Company Guide already
+                        assigned.
+                      </p>
+
+                    </div>
+                  ) : (
+                    <div>
+
+                      <p>
+                        <strong>
+                          Assign a Company Guide
+                        </strong>
+                      </p>
+
+                      <select
+                        defaultValue=""
+                        onChange={(event) =>
+                          assignCompanyGuide(
+                            application
+                              .assignmentId,
+                            event.target.value
+                          )
+                        }
+                      >
+                        <option value="">
+                          Select Company Guide
+                        </option>
+
+                        {guides.map(
+                          (guide) => (
+                            <option
+                              key={guide._id}
+                              value={guide._id}
+                            >
+                              {guide.name} -{" "}
+                              {guide.employeeId}
+                            </option>
+                          )
+                        )}
+
+                      </select>
+
+                      {guides.length === 0 && (
+                        <p>
+                          No approved Company
+                          Guides available.
+                        </p>
+                      )}
+
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* ============================= */}
+              {/* COMPANY REJECTED */}
+              {/* ============================= */}
 
               {application.status ===
                 "CompanyRejected" && (

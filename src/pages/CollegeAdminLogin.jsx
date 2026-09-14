@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 
-function Login({
-  onLogin,
-  onGoToRegister,
-  onGoToCompanyLogin,
-  onGoToAdminLogin,
-  onGoToFacultyLogin,
-  onGoToCompanyGuideLogin,
-  onGoToCollegeLogin,
-  onGoToCollegeRegister,
-}) {
+function CollegeAdminLogin({ onLogin, onBack }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -23,7 +14,7 @@ function Login({
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/students/login",
+        "http://localhost:5000/api/college-admin/login",
         {
           method: "POST",
           headers: {
@@ -39,10 +30,12 @@ function Login({
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message || "Login successful!");
+        setMessage(
+          data.message || "Login successful!"
+        );
 
         setTimeout(() => {
-          onLogin(data.student);
+          onLogin(data.collegeAdmin);
         }, 1000);
       } else {
         setError(
@@ -60,10 +53,10 @@ function Login({
       <div className="login-box">
         <h1>Interlink</h1>
 
-        <h2>FYUGP Student Login</h2>
+        <h2>College Admin Login</h2>
 
         <p className="subtitle">
-          Login to access your internship portal
+          Login to manage your college internship activities
         </p>
 
         <form onSubmit={handleLogin}>
@@ -100,69 +93,6 @@ function Login({
           </button>
         </form>
 
-        {/* Student Registration */}
-
-        <p className="register-link">
-          Don't have an account?{" "}
-          <span onClick={onGoToRegister}>
-            Register
-          </span>
-        </p>
-
-        {/* Company Login */}
-
-        <p className="register-link">
-          Are you a company?{" "}
-          <span onClick={onGoToCompanyLogin}>
-            Login as Company
-          </span>
-        </p>
-
-        {/* Platform Admin Login */}
-
-        <p className="register-link">
-          Are you an admin?{" "}
-          <span onClick={onGoToAdminLogin}>
-            Login as Admin
-          </span>
-        </p>
-
-        {/* Faculty Login */}
-
-        <p className="register-link">
-          Are you a faculty?{" "}
-          <span onClick={onGoToFacultyLogin}>
-            Login as Faculty
-          </span>
-        </p>
-
-        {/* Company Guide Login */}
-
-        <button
-          type="button"
-          onClick={onGoToCompanyGuideLogin}
-        >
-          Company Guide Login
-        </button>
-
-        {/* College Login */}
-
-        <p className="register-link">
-          Are you a college?{" "}
-          <span onClick={onGoToCollegeLogin}>
-            Login as College
-          </span>
-        </p>
-
-        {/* College Registration */}
-
-        <p className="register-link">
-          Are you a college?{" "}
-          <span onClick={onGoToCollegeRegister}>
-            Register your college
-          </span>
-        </p>
-
         {message && (
           <p className="success-message">
             {message}
@@ -174,9 +104,15 @@ function Login({
             {error}
           </p>
         )}
+
+        <p className="register-link">
+          <span onClick={onBack}>
+            ← Back to Login
+          </span>
+        </p>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default CollegeAdminLogin;

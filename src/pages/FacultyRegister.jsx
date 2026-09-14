@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
   const [name, setName] = useState("");
@@ -7,10 +7,52 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
   const [department, setDepartment] = useState("");
   const [phone, setPhone] = useState("");
   const [designation, setDesignation] = useState("");
+  const [college, setCollege] = useState("");
+
+  const [colleges, setColleges] = useState([]);
   const [message, setMessage] = useState("");
+
+  // ==========================================
+  // GET APPROVED COLLEGES
+  // ==========================================
+
+  useEffect(() => {
+    const fetchColleges = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/admin/colleges"
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          const approvedColleges = data.colleges.filter(
+            (college) => college.status === "Approved"
+          );
+
+          setColleges(approvedColleges);
+        }
+      } catch (error) {
+        console.error("Error fetching colleges:", error);
+      }
+    };
+
+    fetchColleges();
+  }, []);
+
+  // ==========================================
+  // FACULTY REGISTRATION
+  // ==========================================
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    setMessage("");
+
+    if (!college) {
+      setMessage("Please select your college");
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -27,6 +69,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
             department,
             phone,
             designation,
+            college,
           }),
         }
       );
@@ -35,7 +78,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
       if (data.status === "success") {
         setMessage(
-          "Registration successful! Your account is waiting for admin approval."
+          "Registration successful! Your account is waiting for college approval."
         );
 
         setTimeout(() => {
@@ -59,9 +102,12 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
       <form onSubmit={handleRegister}>
 
+        {/* NAME */}
+
         <div>
           <label>Name</label>
           <br />
+
           <input
             type="text"
             value={name}
@@ -74,9 +120,12 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
         <br />
 
+        {/* EMAIL */}
+
         <div>
           <label>Email</label>
           <br />
+
           <input
             type="email"
             value={email}
@@ -89,9 +138,12 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
         <br />
 
+        {/* PASSWORD */}
+
         <div>
           <label>Password</label>
           <br />
+
           <input
             type="password"
             value={password}
@@ -104,9 +156,43 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
         <br />
 
+        {/* COLLEGE */}
+
+        <div>
+          <label>College</label>
+          <br />
+
+          <select
+            value={college}
+            onChange={(e) =>
+              setCollege(e.target.value)
+            }
+            required
+          >
+            <option value="">
+              Select your college
+            </option>
+
+            {colleges.map((collegeItem) => (
+              <option
+                key={collegeItem._id}
+                value={collegeItem._id}
+              >
+                {collegeItem.collegeName} (
+                {collegeItem.collegeCode})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <br />
+
+        {/* DEPARTMENT */}
+
         <div>
           <label>Department</label>
           <br />
+
           <input
             type="text"
             value={department}
@@ -120,9 +206,12 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
         <br />
 
+        {/* PHONE */}
+
         <div>
           <label>Phone</label>
           <br />
+
           <input
             type="tel"
             value={phone}
@@ -135,9 +224,12 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
         <br />
 
+        {/* DESIGNATION */}
+
         <div>
           <label>Designation</label>
           <br />
+
           <input
             type="text"
             value={designation}
