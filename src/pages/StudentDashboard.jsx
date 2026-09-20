@@ -7,6 +7,8 @@ function StudentDashboard({
   onGoToMyApplications,
   onGoToMyInternship,
   onGoToLogbook,
+  onGoToProfile,
+  onGoToChangePassword,
 }) {
   return (
     <div className="dashboard-container">
@@ -34,8 +36,19 @@ function StudentDashboard({
       </div>
 
       <div className="dashboard-menu">
-        <button>👤 My Profile</button>
 
+        {/* Profile */}
+        <button onClick={onGoToProfile}>
+          👤 My Profile
+        </button>
+
+       
+
+        <button onClick={onGoToChangePassword}>
+          🔐 Change Password
+        </button>
+
+        {/* Internship */}
         <button onClick={onGoToInternships}>
           💼 Available Internships
         </button>
@@ -51,6 +64,7 @@ function StudentDashboard({
         <button onClick={onGoToLogbook}>
           📖 Logbook
         </button>
+
       </div>
 
       <button onClick={onLogout} className="logout-btn">

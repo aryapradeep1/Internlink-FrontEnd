@@ -4,20 +4,32 @@ function CompanyDashboard({
   company,
   onLogout,
   onPostInternship,
+  onGoToProfile,
 }) {
   const [applications, setApplications] = useState([]);
   const [guides, setGuides] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  const [guidesLoading, setGuidesLoading] = useState(true);
+
   const [error, setError] = useState("");
+  const [guideError, setGuideError] = useState("");
 
   // =====================================================
-  // FETCH APPLICATIONS FOR THIS COMPANY
+  // GET COMPANY ID
+  // =====================================================
+
+  const getCompanyId = () => {
+    return company?.id || company?._id;
+  };
+
+  // =====================================================
+  // FETCH APPLICATIONS
   // =====================================================
 
   const fetchApplications = async () => {
     try {
-      const companyId = company?.id || company?._id;
+      const companyId = getCompanyId();
 
       if (!companyId) {
         setError("Company information not found");
@@ -29,31 +41,35 @@ function CompanyDashboard({
         `http://localhost:5000/api/applications/company/${companyId}`
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch applications");
-      }
-
       const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Failed to fetch applications"
+        );
+      }
+
       setApplications(data.applications || []);
-      setLoading(false);
+      setError("");
     } catch (error) {
       console.error("Application fetch error:", error);
-
       setError("Unable to load applications");
+    } finally {
       setLoading(false);
     }
   };
 
   // =====================================================
-  // FETCH APPROVED COMPANY GUIDES
+  // FETCH COMPANY GUIDES
   // =====================================================
 
   const fetchGuides = async () => {
     try {
-      const companyId = company?.id || company?._id;
+      const companyId = getCompanyId();
 
       if (!companyId) {
+        setGuideError("Company information not found");
+        setGuidesLoading(false);
         return;
       }
 
@@ -63,13 +79,31 @@ function CompanyDashboard({
 
       const data = await response.json();
 
-      if (data.status === "success") {
-        setGuides(data.guides || []);
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Failed to fetch Company Guides"
+        );
       }
+
+      setGuides(data.guides || []);
+      setGuideError("");
     } catch (error) {
-      console.error("Company Guide fetch error:", error);
+      console.error(
+        "Company Guide fetch error:",
+        error
+      );
+
+      setGuideError(
+        "Unable to load Company Guides"
+      );
+    } finally {
+      setGuidesLoading(false);
     }
   };
+
+  // =====================================================
+  // LOAD DATA
+  // =====================================================
 
   useEffect(() => {
     fetchApplications();
@@ -77,7 +111,7 @@ function CompanyDashboard({
   }, [company]);
 
   // =====================================================
-  // COMPANY APPROVE / REJECT APPLICATION
+  // UPDATE APPLICATION STATUS
   // =====================================================
 
   const updateStatus = async (
@@ -89,13 +123,11 @@ function CompanyDashboard({
         `http://localhost:5000/api/applications/status/${applicationId}`,
         {
           method: "PUT",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
-            status: status,
+            status,
           }),
         }
       );
@@ -104,7 +136,8 @@ function CompanyDashboard({
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Failed to update status"
+          data.message ||
+            "Failed to update status"
         );
       }
 
@@ -115,7 +148,7 @@ function CompanyDashboard({
               application._id === applicationId
                 ? {
                     ...application,
-                    status: status,
+                    status,
                   }
                 : application
           )
@@ -125,6 +158,61 @@ function CompanyDashboard({
     } catch (error) {
       console.error(
         "Update status error:",
+        error
+      );
+
+      alert(error.message);
+    }
+  };
+
+  // =====================================================
+  // UPDATE COMPANY GUIDE STATUS
+  // =====================================================
+
+  const updateGuideStatus = async (
+    guideId,
+    status
+  ) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/company-guides/status/${guideId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Failed to update Company Guide status"
+        );
+      }
+
+      setGuides(
+        (previousGuides) =>
+          previousGuides.map(
+            (guide) =>
+              guide._id === guideId
+                ? {
+                    ...guide,
+                    status,
+                  }
+                : guide
+          )
+      );
+
+      alert(data.message);
+    } catch (error) {
+      console.error(
+        "Company Guide status error:",
         error
       );
 
@@ -145,18 +233,23 @@ function CompanyDashboard({
       return;
     }
 
+    if (!assignmentId) {
+      alert(
+        "Internship assignment not found"
+      );
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:5000/api/internship-assignments/company-guide/${assignmentId}`,
         {
           method: "PUT",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
-            companyGuideId: companyGuideId,
+            companyGuideId,
           }),
         }
       );
@@ -172,7 +265,6 @@ function CompanyDashboard({
 
       alert(data.message);
 
-      // Refresh applications after assignment
       fetchApplications();
     } catch (error) {
       console.error(
@@ -184,8 +276,35 @@ function CompanyDashboard({
     }
   };
 
+  // =====================================================
+  // FILTER GUIDES
+  // =====================================================
+
+  const pendingGuides = guides.filter(
+    (guide) =>
+      guide.status === "Pending"
+  );
+
+  const approvedGuides = guides.filter(
+    (guide) =>
+      guide.status === "Approved"
+  );
+
+  const rejectedGuides = guides.filter(
+    (guide) =>
+      guide.status === "Rejected"
+  );
+
+  // =====================================================
+  // UI
+  // =====================================================
+
   return (
     <div className="company-dashboard-container">
+
+      {/* ================================================= */}
+      {/* HEADER */}
+      {/* ================================================= */}
 
       <h1>
         Welcome, {company?.companyName}!
@@ -193,14 +312,237 @@ function CompanyDashboard({
 
       <p>
         Manage internship applications
-        received from students.
+        and Company Guides.
       </p>
+
+      {/* ================================================= */}
+      {/* DASHBOARD BUTTONS */}
+      {/* ================================================= */}
+
+      <button onClick={onGoToProfile}>
+        👤 My Profile
+      </button>
 
       <button onClick={onPostInternship}>
         + Post Internship Opportunity
       </button>
 
       <hr />
+
+      {/* ================================================= */}
+      {/* COMPANY GUIDES */}
+      {/* ================================================= */}
+
+      <h2>
+        👨‍💼 Company Guides / Employees
+      </h2>
+
+      <p>
+        Manage employees registered as
+        Company Guides for your company.
+      </p>
+
+      {guidesLoading && (
+        <p>
+          Loading Company Guides...
+        </p>
+      )}
+
+      {guideError && (
+        <p style={{ color: "red" }}>
+          {guideError}
+        </p>
+      )}
+
+      {!guidesLoading &&
+        !guideError &&
+        guides.length === 0 && (
+          <p>
+            No Company Guides registered
+            for your company.
+          </p>
+        )}
+
+      {/* ================================================= */}
+      {/* PENDING GUIDES */}
+      {/* ================================================= */}
+
+      {!guidesLoading &&
+        pendingGuides.length > 0 && (
+          <div>
+
+            <h3>
+              Pending Company Guides
+            </h3>
+
+            {pendingGuides.map(
+              (guide) => (
+                <div
+                  className="application-card"
+                  key={guide._id}
+                >
+
+                  <h4>
+                    {guide.name}
+                  </h4>
+
+                  <p>
+                    <strong>
+                      Email:
+                    </strong>{" "}
+                    {guide.email}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Employee ID:
+                    </strong>{" "}
+                    {guide.employeeId}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Status:
+                    </strong>{" "}
+                    {guide.status}
+                  </p>
+
+                  <button
+                    onClick={() =>
+                      updateGuideStatus(
+                        guide._id,
+                        "Approved"
+                      )
+                    }
+                  >
+                    ✅ Approve
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      updateGuideStatus(
+                        guide._id,
+                        "Rejected"
+                      )
+                    }
+                  >
+                    ❌ Reject
+                  </button>
+
+                </div>
+              )
+            )}
+
+          </div>
+        )}
+
+      {/* ================================================= */}
+      {/* APPROVED GUIDES */}
+      {/* ================================================= */}
+
+      {!guidesLoading &&
+        approvedGuides.length > 0 && (
+          <div>
+
+            <h3>
+              Approved Company Guides
+            </h3>
+
+            {approvedGuides.map(
+              (guide) => (
+                <div
+                  className="application-card"
+                  key={guide._id}
+                >
+
+                  <h4>
+                    {guide.name}
+                  </h4>
+
+                  <p>
+                    <strong>
+                      Email:
+                    </strong>{" "}
+                    {guide.email}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Employee ID:
+                    </strong>{" "}
+                    {guide.employeeId}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Status:
+                    </strong>{" "}
+                    {guide.status}
+                  </p>
+
+                </div>
+              )
+            )}
+
+          </div>
+        )}
+
+      {/* ================================================= */}
+      {/* REJECTED GUIDES */}
+      {/* ================================================= */}
+
+      {!guidesLoading &&
+        rejectedGuides.length > 0 && (
+          <div>
+
+            <h3>
+              Rejected Company Guides
+            </h3>
+
+            {rejectedGuides.map(
+              (guide) => (
+                <div
+                  className="application-card"
+                  key={guide._id}
+                >
+
+                  <h4>
+                    {guide.name}
+                  </h4>
+
+                  <p>
+                    <strong>
+                      Email:
+                    </strong>{" "}
+                    {guide.email}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Employee ID:
+                    </strong>{" "}
+                    {guide.employeeId}
+                  </p>
+
+                  <p>
+                    <strong>
+                      Status:
+                    </strong>{" "}
+                    {guide.status}
+                  </p>
+
+                </div>
+              )
+            )}
+
+          </div>
+        )}
+
+      <hr />
+
+      {/* ================================================= */}
+      {/* APPLICATIONS */}
+      {/* ================================================= */}
 
       <h2>
         Applications Received
@@ -213,7 +555,7 @@ function CompanyDashboard({
       )}
 
       {error && (
-        <p>
+        <p style={{ color: "red" }}>
           {error}
         </p>
       )}
@@ -235,16 +577,18 @@ function CompanyDashboard({
               key={application._id}
             >
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* STUDENT DETAILS */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               <h3>
                 {application.student?.name}
               </h3>
 
               <p>
-                <strong>Email:</strong>{" "}
+                <strong>
+                  Email:
+                </strong>{" "}
                 {application.student?.email}
               </p>
 
@@ -288,9 +632,9 @@ function CompanyDashboard({
                 }
               </p>
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* INTERNSHIP DETAILS */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               <hr />
 
@@ -335,9 +679,9 @@ function CompanyDashboard({
                 }
               </p>
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* APPLICATION STATUS */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               <hr />
 
@@ -348,9 +692,9 @@ function CompanyDashboard({
                 {application.status}
               </p>
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* STUDENT DOCUMENTS */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               {application.resume && (
                 <p>
@@ -382,9 +726,9 @@ function CompanyDashboard({
                 </p>
               )}
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* COMPANY ACTIONS */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               {application.status ===
                 "Pending" && (
@@ -415,9 +759,9 @@ function CompanyDashboard({
                 </div>
               )}
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* COMPANY APPROVED */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               {application.status ===
                 "CompanyApproved" && (
@@ -438,9 +782,9 @@ function CompanyDashboard({
                 </div>
               )}
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* COLLEGE APPROVED */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               {application.status ===
                 "CollegeApproved" && (
@@ -513,25 +857,29 @@ function CompanyDashboard({
                           )
                         }
                       >
+
                         <option value="">
                           Select Company Guide
                         </option>
 
-                        {guides.map(
+                        {approvedGuides.map(
                           (guide) => (
                             <option
                               key={guide._id}
                               value={guide._id}
                             >
                               {guide.name} -{" "}
-                              {guide.employeeId}
+                              {
+                                guide.employeeId
+                              }
                             </option>
                           )
                         )}
 
                       </select>
 
-                      {guides.length === 0 && (
+                      {approvedGuides.length ===
+                        0 && (
                         <p>
                           No approved Company
                           Guides available.
@@ -544,9 +892,9 @@ function CompanyDashboard({
                 </div>
               )}
 
-              {/* ============================= */}
+              {/* ========================================= */}
               {/* COMPANY REJECTED */}
-              {/* ============================= */}
+              {/* ========================================= */}
 
               {application.status ===
                 "CompanyRejected" && (
@@ -561,6 +909,10 @@ function CompanyDashboard({
         )}
 
       <br />
+
+      {/* ================================================= */}
+      {/* LOGOUT */}
+      {/* ================================================= */}
 
       <button onClick={onLogout}>
         Logout

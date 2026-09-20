@@ -1,111 +1,123 @@
 import React, { useEffect, useState } from "react";
 
-function AdminDashboard({ onLogout }) {
-  const [companies, setCompanies] = useState([]);
-  const [colleges, setColleges] = useState([]);
-  const [approvedCompanies, setApprovedCompanies] = useState([]);
-  const [approvedColleges, setApprovedColleges] = useState([]);
-  const [message, setMessage] = useState("");
-const [companySearch, setCompanySearch] = useState("");
-const [collegeSearch, setCollegeSearch] = useState("");
-  // =========================
-  // FETCH PENDING COMPANIES
-  // =========================
+function AdminDashboard({
+  admin,
+  onLogout,
+  onChangePassword,
+}) {
+  const [pendingCompanies, setPendingCompanies] =
+    useState([]);
 
-  const fetchCompanies = async () => {
+  const [approvedCompanies, setApprovedCompanies] =
+    useState([]);
+
+  const [pendingColleges, setPendingColleges] =
+    useState([]);
+
+  const [approvedColleges, setApprovedColleges] =
+    useState([]);
+
+  const [searchCompany, setSearchCompany] =
+    useState("");
+
+  const [searchCollege, setSearchCollege] =
+    useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  // ======================================================
+  // FETCH ADMIN DATA
+  // ======================================================
+
+  const fetchAdminData = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/admin/pending-companies"
-      );
+      setLoading(true);
 
-      const data = await response.json();
+      const [
+        pendingCompanyResponse,
+        approvedCompanyResponse,
+        pendingCollegeResponse,
+        approvedCollegeResponse,
+      ] = await Promise.all([
+        fetch(
+          "http://localhost:5000/api/admin/pending-companies"
+        ),
 
-      if (data.status === "success") {
-        setCompanies(data.companies);
+        fetch(
+          "http://localhost:5000/api/admin/approved-companies"
+        ),
+
+        fetch(
+          "http://localhost:5000/api/admin/pending-colleges"
+        ),
+
+        fetch(
+          "http://localhost:5000/api/admin/approved-colleges"
+        ),
+      ]);
+
+      const pendingCompanyData =
+        await pendingCompanyResponse.json();
+
+      const approvedCompanyData =
+        await approvedCompanyResponse.json();
+
+      const pendingCollegeData =
+        await pendingCollegeResponse.json();
+
+      const approvedCollegeData =
+        await approvedCollegeResponse.json();
+
+      if (
+        pendingCompanyData.status === "success"
+      ) {
+        setPendingCompanies(
+          pendingCompanyData.companies || []
+        );
+      }
+
+      if (
+        approvedCompanyData.status === "success"
+      ) {
+        setApprovedCompanies(
+          approvedCompanyData.companies || []
+        );
+      }
+
+      if (
+        pendingCollegeData.status === "success"
+      ) {
+        setPendingColleges(
+          pendingCollegeData.colleges || []
+        );
+      }
+
+      if (
+        approvedCollegeData.status === "success"
+      ) {
+        setApprovedColleges(
+          approvedCollegeData.colleges || []
+        );
       }
     } catch (error) {
-      console.error(error);
-      setMessage("Unable to connect to server");
-    }
-  };
-
-  // =========================
-  // FETCH APPROVED COMPANIES
-  // =========================
-
-  const fetchApprovedCompanies = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/admin/approved-companies"
+      console.error(
+        "Admin Dashboard Error:",
+        error
       );
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        setApprovedCompanies(data.companies);
-      }
-    } catch (error) {
-      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
-
-  // =========================
-  // FETCH PENDING COLLEGES
-  // =========================
-
-  const fetchColleges = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/admin/pending-colleges"
-      );
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        setColleges(data.colleges);
-      }
-    } catch (error) {
-      console.error(error);
-      setMessage("Unable to connect to server");
-    }
-  };
-
-  // =========================
-  // FETCH APPROVED COLLEGES
-  // =========================
-
-  const fetchApprovedColleges = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/admin/approved-colleges"
-      );
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        setApprovedColleges(data.colleges);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // =========================
-  // LOAD DATA
-  // =========================
 
   useEffect(() => {
-    fetchCompanies();
-    fetchApprovedCompanies();
-    fetchColleges();
-    fetchApprovedColleges();
+    fetchAdminData();
   }, []);
 
-  // =========================
+  // ======================================================
   // APPROVE COMPANY
-  // =========================
+  // ======================================================
 
-  const approveCompany = async (id) => {
+  const handleApproveCompany = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/admin/approve-company/${id}`,
@@ -116,21 +128,31 @@ const [collegeSearch, setCollegeSearch] = useState("");
 
       const data = await response.json();
 
-      setMessage(data.message);
+      if (data.status === "success") {
+        alert("Company approved successfully");
 
-      fetchCompanies();
-      fetchApprovedCompanies();
+        fetchAdminData();
+      } else {
+        alert(
+          data.message ||
+            "Failed to approve company"
+        );
+      }
     } catch (error) {
-      console.error(error);
-      setMessage("Unable to approve company");
+      console.error(
+        "Approve Company Error:",
+        error
+      );
+
+      alert("Unable to approve company");
     }
   };
 
-  // =========================
+  // ======================================================
   // REJECT COMPANY
-  // =========================
+  // ======================================================
 
-  const rejectCompany = async (id) => {
+  const handleRejectCompany = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/admin/reject-company/${id}`,
@@ -141,20 +163,31 @@ const [collegeSearch, setCollegeSearch] = useState("");
 
       const data = await response.json();
 
-      setMessage(data.message);
+      if (data.status === "success") {
+        alert("Company rejected successfully");
 
-      fetchCompanies();
+        fetchAdminData();
+      } else {
+        alert(
+          data.message ||
+            "Failed to reject company"
+        );
+      }
     } catch (error) {
-      console.error(error);
-      setMessage("Unable to reject company");
+      console.error(
+        "Reject Company Error:",
+        error
+      );
+
+      alert("Unable to reject company");
     }
   };
 
-  // =========================
+  // ======================================================
   // APPROVE COLLEGE
-  // =========================
+  // ======================================================
 
-  const approveCollege = async (id) => {
+  const handleApproveCollege = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/admin/approve-college/${id}`,
@@ -165,21 +198,31 @@ const [collegeSearch, setCollegeSearch] = useState("");
 
       const data = await response.json();
 
-      setMessage(data.message);
+      if (data.status === "success") {
+        alert("College approved successfully");
 
-      fetchColleges();
-      fetchApprovedColleges();
+        fetchAdminData();
+      } else {
+        alert(
+          data.message ||
+            "Failed to approve college"
+        );
+      }
     } catch (error) {
-      console.error(error);
-      setMessage("Unable to approve college");
+      console.error(
+        "Approve College Error:",
+        error
+      );
+
+      alert("Unable to approve college");
     }
   };
 
-  // =========================
+  // ======================================================
   // REJECT COLLEGE
-  // =========================
+  // ======================================================
 
-  const rejectCollege = async (id) => {
+  const handleRejectCollege = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/admin/reject-college/${id}`,
@@ -190,1000 +233,556 @@ const [collegeSearch, setCollegeSearch] = useState("");
 
       const data = await response.json();
 
-      setMessage(data.message);
+      if (data.status === "success") {
+        alert("College rejected successfully");
 
-      fetchColleges();
+        fetchAdminData();
+      } else {
+        alert(
+          data.message ||
+            "Failed to reject college"
+        );
+      }
     } catch (error) {
-      console.error(error);
-      setMessage("Unable to reject college");
+      console.error(
+        "Reject College Error:",
+        error
+      );
+
+      alert("Unable to reject college");
     }
   };
 
-  // =========================
-  // SMALL ICON COMPONENT
-  // =========================
+  // ======================================================
+  // SEARCH FILTERS
+  // ======================================================
 
-  const Icon = ({ children }) => (
-    <div
-      style={{
-        width: "44px",
-        height: "44px",
-        borderRadius: "12px",
-        backgroundColor: "#f1f5f9",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "21px",
-        flexShrink: 0,
-      }}
-    >
-      {children}
-    </div>
-  );
+  const filteredPendingCompanies =
+    pendingCompanies.filter((company) =>
+      company.companyName
+        ?.toLowerCase()
+        .includes(
+          searchCompany.toLowerCase()
+        )
+    );
 
-  // =========================
-  // SUMMARY CARD
-  // =========================
+  const filteredApprovedCompanies =
+    approvedCompanies.filter((company) =>
+      company.companyName
+        ?.toLowerCase()
+        .includes(
+          searchCompany.toLowerCase()
+        )
+    );
 
-  const SummaryCard = ({ title, value, icon, description }) => (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
-        borderRadius: "16px",
-        padding: "20px",
-        display: "flex",
-        alignItems: "center",
-        gap: "15px",
-        boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)",
-      }}
-    >
-      <Icon>{icon}</Icon>
+  const filteredPendingColleges =
+    pendingColleges.filter((college) =>
+      college.collegeName
+        ?.toLowerCase()
+        .includes(
+          searchCollege.toLowerCase()
+        )
+    );
 
-      <div>
-        <p
-          style={{
-            margin: "0 0 5px",
-            fontSize: "13px",
-            color: "#64748b",
-          }}
-        >
-          {title}
-        </p>
+  const filteredApprovedColleges =
+    approvedColleges.filter((college) =>
+      college.collegeName
+        ?.toLowerCase()
+        .includes(
+          searchCollege.toLowerCase()
+        )
+    );
 
-        <h2
-          style={{
-            margin: "0 0 3px",
-            fontSize: "28px",
-            color: "#111827",
-          }}
-        >
-          {value}
-        </h2>
+  // ======================================================
+  // LOADING
+  // ======================================================
 
-        <p
-          style={{
-            margin: 0,
-            fontSize: "12px",
-            color: "#94a3b8",
-          }}
-        >
-          {description}
-        </p>
+  if (loading) {
+    return (
+      <div className="dashboard-container">
+        <h1>Admin Dashboard</h1>
+        <p>Loading dashboard...</p>
       </div>
-    </div>
-  );
+    );
+  }
 
-  // =========================
-  // COMPANY CARD
-  // =========================
-
-  const CompanyCard = ({ company, pending }) => (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
-        borderRadius: "14px",
-        padding: "20px",
-        marginBottom: "14px",
-        boxShadow: "0 2px 6px rgba(15, 23, 42, 0.03)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: "13px",
-            alignItems: "flex-start",
-          }}
-        >
-          <Icon>🏢</Icon>
-
-          <div>
-            <h3
-              style={{
-                margin: "0 0 5px",
-                fontSize: "17px",
-                color: "#111827",
-              }}
-            >
-              {company.companyName}
-            </h3>
-
-            <p
-              style={{
-                margin: 0,
-                fontSize: "13px",
-                color: "#64748b",
-              }}
-            >
-              {company.email}
-            </p>
-          </div>
-        </div>
-
-        <span
-          style={{
-            backgroundColor: pending ? "#fff7ed" : "#ecfdf5",
-            color: pending ? "#c2410c" : "#047857",
-            padding: "6px 10px",
-            borderRadius: "20px",
-            fontSize: "11px",
-            fontWeight: "600",
-          }}
-        >
-          {pending ? "Pending" : "Approved"}
-        </span>
-      </div>
-
-      <div
-        style={{
-          marginTop: "18px",
-          paddingTop: "15px",
-          borderTop: "1px solid #f1f5f9",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "12px",
-        }}
-      >
-        <div>
-          <p
-            style={{
-              margin: "0 0 4px",
-              fontSize: "11px",
-              color: "#94a3b8",
-            }}
-          >
-            LOCATION
-          </p>
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "#334155",
-            }}
-          >
-            {company.location || "Not provided"}
-          </p>
-        </div>
-
-        <div>
-          <p
-            style={{
-              margin: "0 0 4px",
-              fontSize: "11px",
-              color: "#94a3b8",
-            }}
-          >
-            DESCRIPTION
-          </p>
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "#334155",
-            }}
-          >
-            {company.description || "Not provided"}
-          </p>
-        </div>
-      </div>
-
-      {pending && (
-        <div
-          style={{
-            marginTop: "18px",
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <button
-            onClick={() => approveCompany(company._id)}
-            style={{
-              padding: "9px 18px",
-              border: "none",
-              borderRadius: "8px",
-              backgroundColor: "#111827",
-              color: "#ffffff",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
-          >
-            Approve
-          </button>
-
-          <button
-            onClick={() => rejectCompany(company._id)}
-            style={{
-              padding: "9px 18px",
-              border: "1px solid #e5e7eb",
-              borderRadius: "8px",
-              backgroundColor: "#ffffff",
-              color: "#dc2626",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
-          >
-            Reject
-          </button>
-        </div>
-      )}
-    </div>
-  );
-
-  // =========================
-  // COLLEGE CARD
-  // =========================
-
-  const CollegeCard = ({ college, pending }) => (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        border: "1px solid #e5e7eb",
-        borderRadius: "14px",
-        padding: "20px",
-        marginBottom: "14px",
-        boxShadow: "0 2px 6px rgba(15, 23, 42, 0.03)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: "13px",
-            alignItems: "flex-start",
-          }}
-        >
-          <Icon>🎓</Icon>
-
-          <div>
-            <h3
-              style={{
-                margin: "0 0 5px",
-                fontSize: "17px",
-                color: "#111827",
-              }}
-            >
-              {college.collegeName}
-            </h3>
-
-            <p
-              style={{
-                margin: 0,
-                fontSize: "13px",
-                color: "#64748b",
-              }}
-            >
-              {college.email}
-            </p>
-          </div>
-        </div>
-
-        <span
-          style={{
-            backgroundColor: pending ? "#fff7ed" : "#ecfdf5",
-            color: pending ? "#c2410c" : "#047857",
-            padding: "6px 10px",
-            borderRadius: "20px",
-            fontSize: "11px",
-            fontWeight: "600",
-          }}
-        >
-          {pending ? "Pending" : "Approved"}
-        </span>
-      </div>
-
-      <div
-        style={{
-          marginTop: "18px",
-          paddingTop: "15px",
-          borderTop: "1px solid #f1f5f9",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "12px",
-        }}
-      >
-        <div>
-          <p
-            style={{
-              margin: "0 0 4px",
-              fontSize: "11px",
-              color: "#94a3b8",
-            }}
-          >
-            LOCATION
-          </p>
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "#334155",
-            }}
-          >
-            {college.location || "Not provided"}
-          </p>
-        </div>
-
-        <div>
-          <p
-            style={{
-              margin: "0 0 4px",
-              fontSize: "11px",
-              color: "#94a3b8",
-            }}
-          >
-            UNIVERSITY
-          </p>
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: "13px",
-              color: "#334155",
-            }}
-          >
-            {college.university || "Not provided"}
-          </p>
-        </div>
-      </div>
-
-      {pending && (
-        <div
-          style={{
-            marginTop: "18px",
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <button
-            onClick={() => approveCollege(college._id)}
-            style={{
-              padding: "9px 18px",
-              border: "none",
-              borderRadius: "8px",
-              backgroundColor: "#111827",
-              color: "#ffffff",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
-          >
-            Approve
-          </button>
-
-          <button
-            onClick={() => rejectCollege(college._id)}
-            style={{
-              padding: "9px 18px",
-              border: "1px solid #e5e7eb",
-              borderRadius: "8px",
-              backgroundColor: "#ffffff",
-              color: "#dc2626",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
-          >
-            Reject
-          </button>
-        </div>
-      )}
-    </div>
-  );
-
-  // =========================
-  // SECTION HEADER
-  // =========================
-
-  const SectionHeader = ({ icon, title, count }) => (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "18px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
-        <span style={{ fontSize: "20px" }}>{icon}</span>
-
-        <h2
-          style={{
-            margin: 0,
-            fontSize: "20px",
-            color: "#111827",
-          }}
-        >
-          {title}
-        </h2>
-      </div>
-
-      <span
-        style={{
-          backgroundColor: "#f1f5f9",
-          color: "#475569",
-          padding: "6px 10px",
-          borderRadius: "20px",
-          fontSize: "12px",
-          fontWeight: "600",
-        }}
-      >
-        {count}
-      </span>
-    </div>
-  );
-
-// =========================
-// SEARCH FILTERS
-// =========================
-
-const filteredApprovedCompanies = approvedCompanies.filter((company) =>
-  `${company.companyName} ${company.email} ${company.location || ""}`
-    .toLowerCase()
-    .includes(companySearch.toLowerCase())
-);
-
-const filteredApprovedColleges = approvedColleges.filter((college) =>
-  `${college.collegeName} ${college.email} ${college.location || ""} ${
-    college.university || ""
-  }`
-    .toLowerCase()
-    .includes(collegeSearch.toLowerCase())
-);
-
-  // =========================
-  // MAIN UI
-  // =========================
+  // ======================================================
+  // DASHBOARD
+  // ======================================================
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f8fafc",
-        fontFamily:
-          "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
-        color: "#111827",
-      }}
-    >
-      {/* TOP HEADER */}
+    <div className="dashboard-container">
 
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          borderBottom: "1px solid #e5e7eb",
-          padding: "18px 30px",
-        }}
-      >
+      {/* ==================================================
+          HEADER
+      ================================================== */}
+
+      <div className="dashboard-header">
+
+        <div>
+          <h1>Admin Dashboard</h1>
+
+          {admin?.name && (
+            <p>
+              Welcome,{" "}
+              <strong>{admin.name}</strong>
+            </p>
+          )}
+        </div>
+
         <div
           style={{
-            maxWidth: "1180px",
-            margin: "0 auto",
             display: "flex",
-            justifyContent: "space-between",
+            gap: "10px",
             alignItems: "center",
           }}
         >
-          <div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <div
-                style={{
-                  width: "38px",
-                  height: "38px",
-                  borderRadius: "10px",
-                  backgroundColor: "#111827",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: "700",
-                }}
-              >
-                IL
-              </div>
-
-              <div>
-                <h1
-                  style={{
-                    margin: 0,
-                    fontSize: "19px",
-                    fontWeight: "700",
-                  }}
-                >
-                  InterLink
-                </h1>
-
-                <p
-                  style={{
-                    margin: "2px 0 0",
-                    fontSize: "11px",
-                    color: "#64748b",
-                  }}
-                >
-                  Internship Management Platform
-                </p>
-              </div>
-            </div>
-          </div>
-
           <button
-            onClick={onLogout}
-            style={{
-              padding: "9px 16px",
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "8px",
-              color: "#334155",
-              fontSize: "13px",
-              cursor: "pointer",
-            }}
+            onClick={onChangePassword}
           >
-            Logout
+            🔐 Change Password
+          </button>
+
+          <button onClick={onLogout}>
+            🚪 Logout
           </button>
         </div>
+
       </div>
 
-      {/* MAIN CONTENT */}
+      {/* ==================================================
+          SUMMARY CARDS
+      ================================================== */}
 
-      <div
+      <div className="dashboard-menu">
+
+        <div className="student-info">
+          <h3>Pending Companies</h3>
+          <h2>{pendingCompanies.length}</h2>
+        </div>
+
+        <div className="student-info">
+          <h3>Approved Companies</h3>
+          <h2>{approvedCompanies.length}</h2>
+        </div>
+
+        <div className="student-info">
+          <h3>Pending Colleges</h3>
+          <h2>{pendingColleges.length}</h2>
+        </div>
+
+        <div className="student-info">
+          <h3>Approved Colleges</h3>
+          <h2>{approvedColleges.length}</h2>
+        </div>
+
+      </div>
+
+      {/* ==================================================
+          COMPANY SECTION
+      ================================================== */}
+
+      <h2>🏢 Company Management</h2>
+
+      <input
+        type="text"
+        placeholder="Search company..."
+        value={searchCompany}
+        onChange={(e) =>
+          setSearchCompany(e.target.value)
+        }
         style={{
-          maxWidth: "1180px",
-          margin: "0 auto",
-          padding: "35px 25px 50px",
+          width: "100%",
+          maxWidth: "400px",
+          padding: "10px",
+          marginBottom: "20px",
         }}
-      >
-        {/* WELCOME */}
+      />
 
-        <div style={{ marginBottom: "28px" }}>
-          <p
-            style={{
-              margin: "0 0 7px",
-              fontSize: "13px",
-              color: "#64748b",
-            }}
-          >
-            ADMINISTRATION
-          </p>
+      {/* ==================================================
+          PENDING COMPANIES
+      ================================================== */}
 
-          <h1
-            style={{
-              margin: 0,
-              fontSize: "30px",
-              fontWeight: "700",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            Admin Dashboard
-          </h1>
+      <h3>
+        ⏳ Pending Company Registrations
+      </h3>
 
-          <p
-            style={{
-              margin: "8px 0 0",
-              color: "#64748b",
-              fontSize: "14px",
-            }}
-          >
-            Manage registered companies and colleges.
-          </p>
-        </div>
-
-        {/* MESSAGE */}
-
-        {message && (
-          <div
-            style={{
-              marginBottom: "22px",
-              padding: "12px 15px",
-              backgroundColor: "#ffffff",
-              border: "1px solid #e2e8f0",
-              borderRadius: "10px",
-              color: "#334155",
-              fontSize: "13px",
-            }}
-          >
-            {message}
-          </div>
-        )}
-
-        {/* SUMMARY CARDS */}
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-            gap: "16px",
-            marginBottom: "35px",
-          }}
-        >
-          <SummaryCard
-            title="Pending Companies"
-            value={companies.length}
-            icon="⏳"
-            description="Awaiting approval"
-          />
-
-          <SummaryCard
-            title="Approved Companies"
-            value={approvedCompanies.length}
-            icon="🏢"
-            description="Active companies"
-          />
-
-          <SummaryCard
-            title="Pending Colleges"
-            value={colleges.length}
-            icon="⏳"
-            description="Awaiting approval"
-          />
-
-          <SummaryCard
-            title="Approved Colleges"
-            value={approvedColleges.length}
-            icon="🎓"
-            description="Registered colleges"
-          />
-        </div>
-
-        {/* =========================
-            COMPANY MANAGEMENT
-        ========================= */}
-
-        <div style={{ marginBottom: "38px" }}>
-          <SectionHeader
-            icon="🏢"
-            title="Company Management"
-            count={companies.length + approvedCompanies.length}
-          />
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "22px",
-            }}
-          >
-            {/* Pending Companies */}
-
-            <div
-              style={{
-                backgroundColor: "#f8fafc",
-                border: "1px solid #e5e7eb",
-                borderRadius: "16px",
-                padding: "20px",
-              }}
-            >
-              <div style={{ marginBottom: "18px" }}>
-                <h3
-                  style={{
-                    margin: "0 0 4px",
-                    fontSize: "15px",
-                  }}
-                >
-                  Pending Registrations
-                </h3>
-
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Companies waiting for approval
-                </p>
-              </div>
-
-              {companies.length === 0 ? (
-                <div
-                  style={{
-                    padding: "30px 15px",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                    color: "#94a3b8",
-                    fontSize: "13px",
-                  }}
-                >
-                  No pending companies
-                </div>
-              ) : (
-                companies.map((company) => (
-                  <CompanyCard
-                    key={company._id}
-                    company={company}
-                    pending={true}
-                  />
-                ))
-              )}
-            </div>
-
-            {/* Approved Companies */}
-
-            <div
-              style={{
-                backgroundColor: "#f8fafc",
-                border: "1px solid #e5e7eb",
-                borderRadius: "16px",
-                padding: "20px",
-              }}
-            >
-              <div style={{ marginBottom: "18px" }}>
-                <h3
-                  style={{
-                    margin: "0 0 4px",
-                    fontSize: "15px",
-                  }}
-                >
-                  Approved Companies
-                </h3>
-
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Companies approved by admin
-                </p>
-                <p
-  style={{
-    margin: 0,
-    fontSize: "12px",
-    color: "#64748b",
-  }}
->
-  Companies approved by admin
-</p>
-<input
-  type="text"
-  placeholder="Search companies..."
-  value={companySearch}
-  onChange={(e) => setCompanySearch(e.target.value)}
-  style={{
-    width: "100%",
-    boxSizing: "border-box",
-    padding: "11px 14px",
-    marginTop: "15px",
-    marginBottom: "15px",
-    border: "1px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "13px",
-    outline: "none",
-  }}
-/>
-              </div>
-
-              {approvedCompanies.length === 0 ? (
-                <div
-                  style={{
-                    padding: "30px 15px",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                    color: "#94a3b8",
-                    fontSize: "13px",
-                  }}
-                >
-                  No approved companies
-                </div>
-              ) : (
-               filteredApprovedCompanies.map((company) => (
-                  <CompanyCard
-                    key={company._id}
-                    company={company}
-                    pending={false}
-                  />
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* =========================
-            COLLEGE MANAGEMENT
-        ========================= */}
-
+      {filteredPendingCompanies.length === 0 ? (
+        <p>No pending companies.</p>
+      ) : (
         <div>
-          <SectionHeader
-            icon="🎓"
-            title="College Management"
-            count={colleges.length + approvedColleges.length}
-          />
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "22px",
-            }}
-          >
-            {/* Pending Colleges */}
-
-            <div
-              style={{
-                backgroundColor: "#f8fafc",
-                border: "1px solid #e5e7eb",
-                borderRadius: "16px",
-                padding: "20px",
-              }}
-            >
-              <div style={{ marginBottom: "18px" }}>
-                <h3
-                  style={{
-                    margin: "0 0 4px",
-                    fontSize: "15px",
-                  }}
-                >
-                  Pending Registrations
+          {filteredPendingCompanies.map(
+            (company) => (
+              <div
+                className="student-info"
+                key={company._id}
+                style={{
+                  marginBottom: "15px",
+                }}
+              >
+                <h3>
+                  {company.companyName}
                 </h3>
 
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Colleges waiting for approval
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {company.email}
                 </p>
-              </div>
 
-              {colleges.length === 0 ? (
-                <div
-                  style={{
-                    padding: "30px 15px",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                    color: "#94a3b8",
-                    fontSize: "13px",
-                  }}
-                >
-                  No pending colleges
-                </div>
-              ) : (
-                colleges.map((college) => (
-                  <CollegeCard
-                    key={college._id}
-                    college={college}
-                    pending={true}
-                  />
-                ))
-              )}
-            </div>
-
-            {/* Approved Colleges */}
-
-            <div
-              style={{
-                backgroundColor: "#f8fafc",
-                border: "1px solid #e5e7eb",
-                borderRadius: "16px",
-                padding: "20px",
-              }}
-            >
-              <div style={{ marginBottom: "18px" }}>
-                <h3
-                  style={{
-                    margin: "0 0 4px",
-                    fontSize: "15px",
-                  }}
-                >
-                  Approved Colleges
-                </h3>
-                  <p
-  style={{
-    margin: 0,
-    fontSize: "12px",
-    color: "#64748b",
-  }}
->
-  Colleges approved by admin
-</p>
-<input
-  type="text"
-  placeholder="Search colleges..."
-  value={collegeSearch}
-  onChange={(e) => setCollegeSearch(e.target.value)}
-  style={{
-    width: "100%",
-    boxSizing: "border-box",
-    padding: "11px 14px",
-    marginTop: "15px",
-    marginBottom: "15px",
-    border: "1px solid #e2e8f0",
-    borderRadius: "8px",
-    fontSize: "13px",
-    outline: "none",
-  }}
-/>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Colleges approved by admin
+                <p>
+                  <strong>Location:</strong>{" "}
+                  {company.location ||
+                    "Not provided"}
                 </p>
-              </div>
 
-              {approvedColleges.length === 0 ? (
-                <div
-                  style={{
-                    padding: "30px 15px",
-                    textAlign: "center",
-                    backgroundColor: "#ffffff",
-                    borderRadius: "12px",
-                    color: "#94a3b8",
-                    fontSize: "13px",
-                  }}
-                >
-                  No approved colleges
+                <p>
+                  <strong>Description:</strong>{" "}
+                  {company.description ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Status:</strong>{" "}
+                  {company.status}
+                </p>
+
+                <div className="dashboard-menu">
+
+                  <button
+                    onClick={() =>
+                      handleApproveCompany(
+                        company._id
+                      )
+                    }
+                  >
+                    ✅ Approve
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      handleRejectCompany(
+                        company._id
+                      )
+                    }
+                  >
+                    ❌ Reject
+                  </button>
+
                 </div>
-              ) : (
-               filteredApprovedColleges.map((college) => (
-                  <CollegeCard
-                    key={college._id}
-                    college={college}
-                    pending={false}
-                  />
-                ))
-              )}
-            </div>
-          </div>
+              </div>
+            )
+          )}
         </div>
-      </div>
+      )}
+
+      {/* ==================================================
+          APPROVED COMPANIES
+      ================================================== */}
+
+      <h3>
+        ✅ Approved Companies
+      </h3>
+
+      {filteredApprovedCompanies.length === 0 ? (
+        <p>No approved companies.</p>
+      ) : (
+        <div>
+          {filteredApprovedCompanies.map(
+            (company) => (
+              <div
+                className="student-info"
+                key={company._id}
+                style={{
+                  marginBottom: "15px",
+                }}
+              >
+                <h3>
+                  {company.companyName}
+                </h3>
+
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {company.email}
+                </p>
+
+                <p>
+                  <strong>Location:</strong>{" "}
+                  {company.location ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Description:</strong>{" "}
+                  {company.description ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Internships Posted:</strong>{" "}
+                  {company.internships?.length || 0}
+                </p>
+
+                {company.internships &&
+                  company.internships.length >
+                    0 && (
+                    <div>
+                      <h4>
+                        Posted Internships
+                      </h4>
+
+                      {company.internships.map(
+                        (internship, index) => (
+                          <div
+                            key={
+                              internship._id ||
+                              index
+                            }
+                            style={{
+                              border:
+                                "1px solid #ddd",
+                              padding: "10px",
+                              marginBottom:
+                                "10px",
+                              borderRadius:
+                                "6px",
+                            }}
+                          >
+                            <p>
+                              <strong>
+                                Position:
+                              </strong>{" "}
+                              {internship.position ||
+                                "Not provided"}
+                            </p>
+
+                            <p>
+                              <strong>
+                                Eligibility:
+                              </strong>{" "}
+                              {internship.eligibility ||
+                                "Not provided"}
+                            </p>
+
+                            <p>
+                              <strong>
+                                Skills Required:
+                              </strong>{" "}
+                              {internship.skillsRequired ||
+                                "Not provided"}
+                            </p>
+
+                            <p>
+                              <strong>
+                                Duration:
+                              </strong>{" "}
+                              {internship.duration ||
+                                "Not provided"}
+                            </p>
+
+                            <p>
+                              <strong>
+                                Deadline:
+                              </strong>{" "}
+                              {internship.deadline ||
+                                "Not provided"}
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+
+              </div>
+            )
+          )}
+        </div>
+      )}
+
+      {/* ==================================================
+          COLLEGE SECTION
+      ================================================== */}
+
+      <h2>🎓 College Management</h2>
+
+      <input
+        type="text"
+        placeholder="Search college..."
+        value={searchCollege}
+        onChange={(e) =>
+          setSearchCollege(e.target.value)
+        }
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          padding: "10px",
+          marginBottom: "20px",
+        }}
+      />
+
+      {/* ==================================================
+          PENDING COLLEGES
+      ================================================== */}
+
+      <h3>
+        ⏳ Pending College Registrations
+      </h3>
+
+      {filteredPendingColleges.length === 0 ? (
+        <p>No pending colleges.</p>
+      ) : (
+        <div>
+          {filteredPendingColleges.map(
+            (college) => (
+              <div
+                className="student-info"
+                key={college._id}
+                style={{
+                  marginBottom: "15px",
+                }}
+              >
+                <h3>
+                  {college.collegeName}
+                </h3>
+
+                <p>
+                  <strong>College Code:</strong>{" "}
+                  {college.collegeCode}
+                </p>
+
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {college.email}
+                </p>
+
+                <p>
+                  <strong>Phone:</strong>{" "}
+                  {college.phone ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Location:</strong>{" "}
+                  {college.location ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Website:</strong>{" "}
+                  {college.website ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Status:</strong>{" "}
+                  {college.status}
+                </p>
+
+                <div className="dashboard-menu">
+
+                  <button
+                    onClick={() =>
+                      handleApproveCollege(
+                        college._id
+                      )
+                    }
+                  >
+                    ✅ Approve
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      handleRejectCollege(
+                        college._id
+                      )
+                    }
+                  >
+                    ❌ Reject
+                  </button>
+
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      )}
+
+      {/* ==================================================
+          APPROVED COLLEGES
+      ================================================== */}
+
+      <h3>
+        ✅ Approved Colleges
+      </h3>
+
+      {filteredApprovedColleges.length === 0 ? (
+        <p>No approved colleges.</p>
+      ) : (
+        <div>
+          {filteredApprovedColleges.map(
+            (college) => (
+              <div
+                className="student-info"
+                key={college._id}
+                style={{
+                  marginBottom: "15px",
+                }}
+              >
+                <h3>
+                  {college.collegeName}
+                </h3>
+
+                <p>
+                  <strong>College Code:</strong>{" "}
+                  {college.collegeCode}
+                </p>
+
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {college.email}
+                </p>
+
+                <p>
+                  <strong>Phone:</strong>{" "}
+                  {college.phone ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Location:</strong>{" "}
+                  {college.location ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Website:</strong>{" "}
+                  {college.website ||
+                    "Not provided"}
+                </p>
+
+                <p>
+                  <strong>Status:</strong>{" "}
+                  {college.status}
+                </p>
+
+                <p>
+                  <strong>
+                    Registered:
+                  </strong>{" "}
+                  {college.createdAt
+                    ? new Date(
+                        college.createdAt
+                      ).toLocaleDateString()
+                    : "Not available"}
+                </p>
+
+              </div>
+            )
+          )}
+        </div>
+      )}
+
     </div>
   );
 }
 
 export default AdminDashboard;
-

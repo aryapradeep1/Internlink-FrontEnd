@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-function CollegeDashboard({ college, onLogout }) {
+function CollegeDashboard({
+  college,
+  onLogout,
+  onGoToProfile,
+}) {
   const [students, setStudents] = useState([]);
   const [faculty, setFaculty] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -32,7 +36,8 @@ function CollegeDashboard({ college, onLogout }) {
 
       const studentsData = await studentsRes.json();
       const facultyData = await facultyRes.json();
-      const applicationsData = await applicationsRes.json();
+      const applicationsData =
+        await applicationsRes.json();
 
       if (studentsData.status === "success") {
         setStudents(studentsData.students);
@@ -43,7 +48,9 @@ function CollegeDashboard({ college, onLogout }) {
       }
 
       if (applicationsData.status === "success") {
-        setApplications(applicationsData.applications);
+        setApplications(
+          applicationsData.applications
+        );
       }
     } catch (error) {
       console.error("College dashboard error:", error);
@@ -211,6 +218,7 @@ function CollegeDashboard({ college, onLogout }) {
 
   return (
     <div style={styles.container}>
+
       {/* ======================================
           HEADER
       ====================================== */}
@@ -226,12 +234,23 @@ function CollegeDashboard({ college, onLogout }) {
           </p>
         </div>
 
-        <button
-          onClick={onLogout}
-          style={styles.logoutButton}
-        >
-          Logout
-        </button>
+        <div style={styles.headerButtons}>
+
+          <button
+            onClick={onGoToProfile}
+            style={styles.profileButton}
+          >
+            👤 My Profile
+          </button>
+
+          <button
+            onClick={onLogout}
+            style={styles.logoutButton}
+          >
+            Logout
+          </button>
+
+        </div>
       </div>
 
       {/* ======================================
@@ -333,6 +352,7 @@ function CollegeDashboard({ college, onLogout }) {
               <p style={styles.number}>
                 {approvedFaculty.length}
               </p>
+
               <small>
                 {pendingFaculty.length} pending requests
               </small>
@@ -367,11 +387,13 @@ function CollegeDashboard({ college, onLogout }) {
             </p>
 
             <p>
-              <strong>Email:</strong> {college.email}
+              <strong>Email:</strong>{" "}
+              {college.email}
             </p>
 
             <p>
-              <strong>Phone:</strong> {college.phone}
+              <strong>Phone:</strong>{" "}
+              {college.phone}
             </p>
 
             <p>
@@ -403,9 +425,15 @@ function CollegeDashboard({ college, onLogout }) {
                 <thead>
                   <tr>
                     <th style={styles.th}>Name</th>
-                    <th style={styles.th}>Register No.</th>
-                    <th style={styles.th}>Department</th>
-                    <th style={styles.th}>Semester</th>
+                    <th style={styles.th}>
+                      Register No.
+                    </th>
+                    <th style={styles.th}>
+                      Department
+                    </th>
+                    <th style={styles.th}>
+                      Semester
+                    </th>
                     <th style={styles.th}>Email</th>
                     <th style={styles.th}>Phone</th>
                   </tr>
@@ -454,8 +482,6 @@ function CollegeDashboard({ college, onLogout }) {
         <div>
           <h2>Faculty Management</h2>
 
-          {/* Pending Faculty */}
-
           <h3 style={styles.sectionTitle}>
             Pending Faculty Requests
           </h3>
@@ -468,8 +494,12 @@ function CollegeDashboard({ college, onLogout }) {
                 <thead>
                   <tr>
                     <th style={styles.th}>Name</th>
-                    <th style={styles.th}>Department</th>
-                    <th style={styles.th}>Designation</th>
+                    <th style={styles.th}>
+                      Department
+                    </th>
+                    <th style={styles.th}>
+                      Designation
+                    </th>
                     <th style={styles.th}>Email</th>
                     <th style={styles.th}>Action</th>
                   </tr>
@@ -478,7 +508,9 @@ function CollegeDashboard({ college, onLogout }) {
                 <tbody>
                   {pendingFaculty.map((f) => (
                     <tr key={f._id}>
-                      <td style={styles.td}>{f.name}</td>
+                      <td style={styles.td}>
+                        {f.name}
+                      </td>
 
                       <td style={styles.td}>
                         {f.department}
@@ -518,8 +550,6 @@ function CollegeDashboard({ college, onLogout }) {
             </div>
           )}
 
-          {/* Approved Faculty */}
-
           <h3 style={styles.sectionTitle}>
             Approved Faculty
           </h3>
@@ -532,8 +562,12 @@ function CollegeDashboard({ college, onLogout }) {
                 <thead>
                   <tr>
                     <th style={styles.th}>Name</th>
-                    <th style={styles.th}>Department</th>
-                    <th style={styles.th}>Designation</th>
+                    <th style={styles.th}>
+                      Department
+                    </th>
+                    <th style={styles.th}>
+                      Designation
+                    </th>
                     <th style={styles.th}>Email</th>
                     <th style={styles.th}>
                       Assigned Students
@@ -544,7 +578,9 @@ function CollegeDashboard({ college, onLogout }) {
                 <tbody>
                   {approvedFaculty.map((f) => (
                     <tr key={f._id}>
-                      <td style={styles.td}>{f.name}</td>
+                      <td style={styles.td}>
+                        {f.name}
+                      </td>
 
                       <td style={styles.td}>
                         {f.department}
@@ -592,7 +628,9 @@ function CollegeDashboard({ college, onLogout }) {
                   </h3>
 
                   <p>
-                    <strong>Register Number:</strong>{" "}
+                    <strong>
+                      Register Number:
+                    </strong>{" "}
                     {app.student?.registerNumber}
                   </p>
 
@@ -631,14 +669,15 @@ function CollegeDashboard({ college, onLogout }) {
 
                   {app.faculty && (
                     <p>
-                      <strong>Faculty Guide:</strong>{" "}
+                      <strong>
+                        Faculty Guide:
+                      </strong>{" "}
                       {app.faculty.name}
                     </p>
                   )}
 
-                  {/* College Actions */}
-
-                  {app.status === "CompanyApproved" && (
+                  {app.status ===
+                    "CompanyApproved" && (
                     <div>
                       <button
                         onClick={() =>
@@ -646,7 +685,9 @@ function CollegeDashboard({ college, onLogout }) {
                             app._id
                           )
                         }
-                        style={styles.approveButton}
+                        style={
+                          styles.approveButton
+                        }
                       >
                         Approve & Assign Faculty
                       </button>
@@ -657,7 +698,9 @@ function CollegeDashboard({ college, onLogout }) {
                             app._id
                           )
                         }
-                        style={styles.rejectButton}
+                        style={
+                          styles.rejectButton
+                        }
                       >
                         Reject
                       </button>
@@ -670,19 +713,23 @@ function CollegeDashboard({ college, onLogout }) {
                     </p>
                   )}
 
-                  {app.status === "CompanyRejected" && (
+                  {app.status ===
+                    "CompanyRejected" && (
                     <p style={styles.rejected}>
                       Rejected by company
                     </p>
                   )}
 
-                  {app.status === "CollegeApproved" && (
+                  {app.status ===
+                    "CollegeApproved" && (
                     <p style={styles.approved}>
-                      Internship approved and faculty assigned
+                      Internship approved and faculty
+                      assigned
                     </p>
                   )}
 
-                  {app.status === "CollegeRejected" && (
+                  {app.status ===
+                    "CollegeRejected" && (
                     <p style={styles.rejected}>
                       Rejected by college
                     </p>
@@ -703,8 +750,8 @@ function CollegeDashboard({ college, onLogout }) {
           <h2>Faculty Workload</h2>
 
           <p>
-            Faculty assignment is automatically based on
-            department and current student workload.
+            Faculty assignment is automatically based
+            on department and current student workload.
           </p>
 
           {approvedFaculty.length === 0 ? (
@@ -715,7 +762,9 @@ function CollegeDashboard({ college, onLogout }) {
                 <thead>
                   <tr>
                     <th style={styles.th}>Faculty</th>
-                    <th style={styles.th}>Department</th>
+                    <th style={styles.th}>
+                      Department
+                    </th>
                     <th style={styles.th}>
                       Assigned Students
                     </th>
@@ -747,6 +796,7 @@ function CollegeDashboard({ college, onLogout }) {
     </div>
   );
 }
+
 
 // ==========================================
 // STATUS STYLE
@@ -783,6 +833,7 @@ const getStatusStyle = (status) => {
   };
 };
 
+
 // ==========================================
 // STYLES
 // ==========================================
@@ -809,6 +860,12 @@ const styles = {
     paddingBottom: "20px",
   },
 
+  headerButtons: {
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+  },
+
   title: {
     margin: 0,
     fontSize: "28px",
@@ -817,6 +874,15 @@ const styles = {
   subtitle: {
     marginTop: "5px",
     color: "#666",
+  },
+
+  profileButton: {
+    padding: "10px 20px",
+    background: "#0d6efd",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
   },
 
   logoutButton: {

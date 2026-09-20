@@ -7,6 +7,7 @@ function Login({
   onGoToAdminLogin,
   onGoToFacultyLogin,
   onGoToCompanyGuideLogin,
+  onGoToCompanyGuideRegister,
   onGoToCollegeLogin,
   onGoToCollegeRegister,
 }) {
@@ -45,9 +46,7 @@ function Login({
           onLogin(data.student);
         }, 1000);
       } else {
-        setError(
-          data.message || "Invalid email or password"
-        );
+        setError(data.message || "Invalid email or password");
       }
     } catch (error) {
       console.error(error);
@@ -74,9 +73,7 @@ function Login({
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -88,9 +85,7 @@ function Login({
               type="password"
               placeholder="Enter your password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -118,7 +113,7 @@ function Login({
           </span>
         </p>
 
-        {/* Platform Admin Login */}
+        {/* Admin Login */}
 
         <p className="register-link">
           Are you an admin?{" "}
@@ -144,6 +139,15 @@ function Login({
         >
           Company Guide Login
         </button>
+
+        {/* Company Guide Registration */}
+
+        <p className="register-link">
+          Are you a company guide?{" "}
+          <span onClick={onGoToCompanyGuideRegister}>
+            Register as Company Guide
+          </span>
+        </p>
 
         {/* College Login */}
 

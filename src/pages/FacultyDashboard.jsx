@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function FacultyDashboard({ faculty, onLogout }) {
+function FacultyDashboard({ faculty, onLogout,  onGoToProfile, }) {
   const [applications, setApplications] = useState([]);
   const [logbooks, setLogbooks] = useState([]);
   const [message, setMessage] = useState("");
@@ -160,9 +160,13 @@ function FacultyDashboard({ faculty, onLogout }) {
         {faculty?.designation || "Faculty"}
       </p>
 
-      <button onClick={onLogout}>
-        Logout
-      </button>
+      <button onClick={onGoToProfile}>
+  👤 My Profile
+</button>
+
+<button onClick={onLogout}>
+  Logout
+</button>
 
       <hr />
 

@@ -1,89 +1,113 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function CompanyGuideDashboard({ guide, onLogout }) {
+function CompanyGuideDashboard({
+  guide,
+  onLogout,
+  onGoToProfile,
+}) {
   const [assignments, setAssignments] = useState([]);
   const [logbooks, setLogbooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState("");
 
-  // ==========================================
+  const [loadingAssignments, setLoadingAssignments] =
+    useState(true);
+
+  const [loadingLogbooks, setLoadingLogbooks] =
+    useState(true);
+
+  const [error, setError] = useState("");
+
+  const guideId = guide?.id || guide?._id;
+
+  // ==============================
   // FETCH ASSIGNED STUDENTS
-  // ==========================================
+  // ==============================
 
-  const fetchAssignments = async () => {
-    try {
-      const guideId = guide?.id || guide?._id;
-
+  useEffect(() => {
+    const fetchAssignments = async () => {
       if (!guideId) {
-        setMessage("Company Guide information not found.");
-        setLoading(false);
+        setError("Company Guide information not found");
+        setLoadingAssignments(false);
         return;
       }
 
-      const response = await fetch(
-        `http://localhost:5000/api/internship-assignments/company-guide/${guideId}`
-      );
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        setAssignments(data.assignments || []);
-      } else {
-        setMessage(
-          data.message || "Failed to load assigned internships"
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/internship-assignments/company-guide/${guideId}`
         );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setAssignments(
+            data.assignments || []
+          );
+        } else {
+          setError(
+            data.message ||
+              "Failed to load assigned students"
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Fetch Company Guide Assignments Error:",
+          error
+        );
+
+        setError(
+          "Unable to load assigned students"
+        );
+      } finally {
+        setLoadingAssignments(false);
       }
+    };
 
-      setLoading(false);
-    } catch (error) {
-      console.error(
-        "Fetch Company Guide Assignments Error:",
-        error
-      );
+    fetchAssignments();
+  }, [guideId]);
 
-      setMessage("Unable to connect to server");
-      setLoading(false);
-    }
-  };
-
-  // ==========================================
+  // ==============================
   // FETCH LOGBOOKS
-  // ==========================================
+  // ==============================
 
-  const fetchLogbooks = async () => {
-    try {
-      const guideId = guide?.id || guide?._id;
-
+  useEffect(() => {
+    const fetchLogbooks = async () => {
       if (!guideId) {
+        setLoadingLogbooks(false);
         return;
       }
 
-      const response = await fetch(
-        `http://localhost:5000/api/logbook/company-guide/${guideId}`
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setLogbooks(data);
-      } else {
-        setMessage(
-          data.message || "Failed to load logbooks"
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/logbook/company-guide/${guideId}`
         );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setLogbooks(
+            data.logbooks || []
+          );
+        } else {
+          console.error(
+            data.message ||
+              "Failed to load logbooks"
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Fetch Company Guide Logbooks Error:",
+          error
+        );
+      } finally {
+        setLoadingLogbooks(false);
       }
-    } catch (error) {
-      console.error(
-        "Fetch Company Guide Logbooks Error:",
-        error
-      );
+    };
 
-      setMessage("Unable to load logbooks");
-    }
-  };
+    fetchLogbooks();
+  }, [guideId]);
 
-  // ==========================================
-  // COMPANY GUIDE APPROVE LOGBOOK
-  // ==========================================
+  // ==============================
+  // APPROVE LOGBOOK
+  // ==============================
 
   const approveLogbook = async (logbookId) => {
     try {
@@ -91,18 +115,30 @@ function CompanyGuideDashboard({ guide, onLogout }) {
         `http://localhost:5000/api/logbook/company-guide/approve/${logbookId}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("Logbook approved successfully.");
-
-        await fetchLogbooks();
+        setLogbooks((previousLogbooks) =>
+          previousLogbooks.map((logbook) =>
+            logbook._id === logbookId
+              ? {
+                  ...logbook,
+                  companyGuideStatus:
+                    "Approved",
+                }
+              : logbook
+          )
+        );
       } else {
-        setMessage(
-          data.message || "Failed to approve logbook."
+        alert(
+          data.message ||
+            "Failed to approve logbook"
         );
       }
     } catch (error) {
@@ -111,13 +147,13 @@ function CompanyGuideDashboard({ guide, onLogout }) {
         error
       );
 
-      setMessage("Unable to approve logbook.");
+      alert("Unable to approve logbook");
     }
   };
 
-  // ==========================================
-  // COMPANY GUIDE REJECT LOGBOOK
-  // ==========================================
+  // ==============================
+  // REJECT LOGBOOK
+  // ==============================
 
   const rejectLogbook = async (logbookId) => {
     try {
@@ -125,18 +161,30 @@ function CompanyGuideDashboard({ guide, onLogout }) {
         `http://localhost:5000/api/logbook/company-guide/reject/${logbookId}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("Logbook rejected.");
-
-        await fetchLogbooks();
+        setLogbooks((previousLogbooks) =>
+          previousLogbooks.map((logbook) =>
+            logbook._id === logbookId
+              ? {
+                  ...logbook,
+                  companyGuideStatus:
+                    "Rejected",
+                }
+              : logbook
+          )
+        );
       } else {
-        setMessage(
-          data.message || "Failed to reject logbook."
+        alert(
+          data.message ||
+            "Failed to reject logbook"
         );
       }
     } catch (error) {
@@ -145,241 +193,238 @@ function CompanyGuideDashboard({ guide, onLogout }) {
         error
       );
 
-      setMessage("Unable to reject logbook.");
+      alert("Unable to reject logbook");
     }
   };
 
-  // ==========================================
-  // LOAD DATA
-  // ==========================================
-
-  useEffect(() => {
-    fetchAssignments();
-    fetchLogbooks();
-  }, [guide]);
-
-  // ==========================================
-  // LOADING
-  // ==========================================
-
-  if (loading) {
-    return (
-      <div className="company-guide-dashboard">
-        <h2>Company Guide Dashboard</h2>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  // ==========================================
-  // DASHBOARD
-  // ==========================================
-
   return (
-    <div className="company-guide-dashboard">
+    <div className="dashboard-container">
 
-      {/* ======================================
+      {/* ==============================
           HEADER
-      ====================================== */}
+      ============================== */}
 
-      <h1>Company Guide Dashboard</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+          flexWrap: "wrap",
+          gap: "10px",
+        }}
+      >
+        <div>
+          <h1>Company Guide Dashboard</h1>
 
-      <h2>
-        Welcome, {guide?.name || "Company Guide"}
-      </h2>
+          <h3>
+            Welcome, {guide?.name || "Company Guide"}
+          </h3>
+        </div>
 
-      <p>
-        <strong>Email:</strong>{" "}
-        {guide?.email || "N/A"}
-      </p>
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+          }}
+        >
+          <button onClick={onGoToProfile}>
+            👤 My Profile
+          </button>
 
-      <p>
-        <strong>Employee ID:</strong>{" "}
-        {guide?.employeeId || "N/A"}
-      </p>
+          <button onClick={onLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
 
-      <p>
-        <strong>Status:</strong>{" "}
-        {guide?.status || "Approved"}
-      </p>
+      {/* ==============================
+          GUIDE DETAILS
+      ============================== */}
 
-      <button onClick={onLogout}>
-        Logout
-      </button>
+      <div className="student-info">
 
-      {/* ======================================
-          MESSAGE
-      ====================================== */}
-
-      {message && (
         <p>
-          <strong>{message}</strong>
+          <strong>Name:</strong>{" "}
+          {guide?.name || "Not available"}
+        </p>
+
+        <p>
+          <strong>Email:</strong>{" "}
+          {guide?.email || "Not available"}
+        </p>
+
+        <p>
+          <strong>Employee ID:</strong>{" "}
+          {guide?.employeeId ||
+            "Not available"}
+        </p>
+
+        <p>
+          <strong>Status:</strong>{" "}
+          {guide?.status || "Approved"}
+        </p>
+
+      </div>
+
+      {error && (
+        <p style={{ color: "red" }}>
+          {error}
         </p>
       )}
 
-      <hr />
+      {/* ==============================
+          ASSIGNED STUDENTS
+      ============================== */}
 
-      {/* ======================================
-          ASSIGNED INTERNSHIP STUDENTS
-      ====================================== */}
+      <h2 style={{ marginTop: "30px" }}>
+        👨‍🎓 Assigned Students
+      </h2>
 
-      <h2>Assigned Internship Students</h2>
-
-      {assignments.length === 0 ? (
-        <p>No students assigned yet.</p>
+      {loadingAssignments ? (
+        <p>Loading assigned students...</p>
+      ) : assignments.length === 0 ? (
+        <p>
+          No students have been assigned yet.
+        </p>
       ) : (
         assignments.map((assignment) => (
           <div
             key={assignment._id}
-            className="assignment-card"
+            className="student-info"
+            style={{
+              marginBottom: "20px",
+            }}
           >
 
-            {/* ================================
-                STUDENT INFORMATION
-            ================================= */}
-
-            <h3>Student Information</h3>
+            <h3>
+              Student Details
+            </h3>
 
             <p>
               <strong>Name:</strong>{" "}
-              {assignment.student?.name || "N/A"}
+              {assignment.student?.name ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Register Number:</strong>{" "}
-              {assignment.student?.registerNumber || "N/A"}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {assignment.student?.email || "N/A"}
+              {assignment.student
+                ?.registerNumber ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Department:</strong>{" "}
-              {assignment.student?.department || "N/A"}
+              {assignment.student
+                ?.department ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Semester:</strong>{" "}
-              {assignment.student?.semester || "N/A"}
+              {assignment.student?.semester ||
+                "Not available"}
             </p>
 
             <p>
-              <strong>Phone:</strong>{" "}
-              {assignment.student?.phone || "N/A"}
+              <strong>Email:</strong>{" "}
+              {assignment.student?.email ||
+                "Not available"}
             </p>
 
-            {/* ================================
-                INTERNSHIP INFORMATION
-            ================================= */}
+            <hr />
 
-            <h3>Internship Information</h3>
+            <h3>
+              Internship Details
+            </h3>
 
             <p>
-              <strong>Internship:</strong>{" "}
-              {assignment.internship?.title || "N/A"}
+              <strong>Position:</strong>{" "}
+              {assignment.internship?.position ||
+                assignment.internship?.title ||
+                "Not available"}
             </p>
 
             <p>
-              <strong>Duration:</strong>{" "}
-              {assignment.internship?.duration || "N/A"}
+              <strong>Company:</strong>{" "}
+              {assignment.company
+                ?.companyName ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Location:</strong>{" "}
-              {assignment.internship?.location || "N/A"}
+              {assignment.company?.location ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Status:</strong>{" "}
-              {assignment.status || "N/A"}
+              {assignment.status ||
+                "Not available"}
             </p>
 
-            <p>
-              <strong>Credits:</strong>{" "}
-              {assignment.credits || 2}
-            </p>
+            <hr />
 
-            {/* ================================
-                COMPANY INFORMATION
-            ================================= */}
-
-            <h3>Company Information</h3>
-
-            <p>
-              <strong>Company:</strong>{" "}
-              {assignment.company?.companyName || "N/A"}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {assignment.company?.email || "N/A"}
-            </p>
-
-            <p>
-              <strong>Location:</strong>{" "}
-              {assignment.company?.location || "N/A"}
-            </p>
-
-            {/* ================================
-                FACULTY GUIDE
-            ================================= */}
-
-            <h3>Faculty Guide</h3>
+            <h3>
+              Faculty Guide
+            </h3>
 
             <p>
               <strong>Name:</strong>{" "}
-              {assignment.facultyGuide?.name || "N/A"}
+              {assignment.facultyGuide
+                ?.name ||
+                "Not assigned"}
             </p>
 
             <p>
               <strong>Email:</strong>{" "}
-              {assignment.facultyGuide?.email || "N/A"}
+              {assignment.facultyGuide
+                ?.email ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Department:</strong>{" "}
-              {assignment.facultyGuide?.department || "N/A"}
+              {assignment.facultyGuide
+                ?.department ||
+                "Not available"}
             </p>
 
           </div>
         ))
       )}
 
-      <hr />
+      {/* ==============================
+          LOGBOOKS
+      ============================== */}
 
-      {/* ======================================
-          LOGBOOK REVIEW
-      ====================================== */}
+      <h2 style={{ marginTop: "30px" }}>
+        📖 Student Logbooks
+      </h2>
 
-      <h2>📖 Logbook Review</h2>
-
-      {logbooks.length === 0 ? (
-        <p>No logbook entries available.</p>
+      {loadingLogbooks ? (
+        <p>Loading logbooks...</p>
+      ) : logbooks.length === 0 ? (
+        <p>
+          No logbook entries available.
+        </p>
       ) : (
         logbooks.map((logbook) => (
           <div
             key={logbook._id}
-            className="assignment-card"
+            className="student-info"
+            style={{
+              marginBottom: "20px",
+            }}
           >
 
-            <h3>Student Logbook Entry</h3>
-
-            <p>
-              <strong>Student:</strong>{" "}
-              {logbook.student?.name || "N/A"}
-            </p>
-
-            <p>
-              <strong>Register Number:</strong>{" "}
-              {logbook.student?.registerNumber || "N/A"}
-            </p>
-
-            <p>
-              <strong>Internship:</strong>{" "}
-              {logbook.internship?.title || "N/A"}
-            </p>
+            <h3>
+              {logbook.student?.name ||
+                "Student"}
+            </h3>
 
             <p>
               <strong>Date:</strong>{" "}
@@ -387,7 +432,7 @@ function CompanyGuideDashboard({ guide, onLogout }) {
                 ? new Date(
                     logbook.date
                   ).toLocaleDateString()
-                : "N/A"}
+                : "Not available"}
             </p>
 
             <p>
@@ -397,50 +442,67 @@ function CompanyGuideDashboard({ guide, onLogout }) {
 
             <p>
               <strong>Work Done:</strong>{" "}
-              {logbook.workDone || "N/A"}
+              {logbook.workDone ||
+                "Not available"}
             </p>
 
             <p>
               <strong>What I Learned:</strong>{" "}
-              {logbook.learnings || "N/A"}
+              {logbook.learnings ||
+                "Not available"}
             </p>
 
             <p>
               <strong>Company Guide Status:</strong>{" "}
-              {logbook.companyGuideStatus || "Pending"}
+              {logbook.companyGuideStatus ||
+                "Pending"}
             </p>
-
-            {/* =================================
-                COMPANY GUIDE BUTTONS
-            ================================= */}
-
-            {logbook.companyGuideStatus ===
-              "Pending" && (
-              <div>
-
-                <button
-                  onClick={() =>
-                    approveLogbook(logbook._id)
-                  }
-                >
-                  ✅ Approve
-                </button>
-
-                <button
-                  onClick={() =>
-                    rejectLogbook(logbook._id)
-                  }
-                >
-                  ❌ Reject
-                </button>
-
-              </div>
-            )}
 
             <p>
               <strong>Faculty Status:</strong>{" "}
-              {logbook.facultyStatus || "Pending"}
+              {logbook.facultyStatus ||
+                "Pending"}
             </p>
+
+            {/* ==============================
+                LOGBOOK ACTIONS
+            ============================== */}
+
+            {logbook.companyGuideStatus !==
+              "Approved" &&
+              logbook.companyGuideStatus !==
+                "Rejected" && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    marginTop: "15px",
+                    flexWrap: "wrap",
+                  }}
+                >
+
+                  <button
+                    onClick={() =>
+                      approveLogbook(
+                        logbook._id
+                      )
+                    }
+                  >
+                    ✅ Approve Logbook
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      rejectLogbook(
+                        logbook._id
+                      )
+                    }
+                  >
+                    ❌ Reject Logbook
+                  </button>
+
+                </div>
+              )}
 
           </div>
         ))
