@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 function FacultyDashboard({ faculty, onLogout,  onGoToProfile, }) {
   const [applications, setApplications] = useState([]);
-  const [logbooks, setLogbooks] = useState([]);
-  const [message, setMessage] = useState("");
-
+const [logbooks, setLogbooks] = useState([]);
+const [markInputs, setMarkInputs] = useState({});
+const [message, setMessage] = useState("");
   // ======================================================
   // FETCH ASSIGNED STUDENTS
   // ======================================================
@@ -125,6 +125,57 @@ function FacultyDashboard({ faculty, onLogout,  onGoToProfile, }) {
       setMessage("Unable to reject logbook");
     }
   };
+
+const saveMark = async (assignmentId) => {
+  try {
+    const facultyId = faculty?.id || faculty?._id;
+    const mark = markInputs[assignmentId];
+
+    console.log("Assignment ID:", assignmentId);
+    console.log("Faculty ID:", facultyId);
+    console.log("Mark:", mark);
+
+    if (mark === undefined || mark === "") {
+      alert("Please enter a mark.");
+      return;
+    }
+
+    const response = await fetch(
+      `http://localhost:5000/api/internship-assignments/faculty/mark/${assignmentId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          facultyId,
+          mark,
+        }),
+      }
+    );
+
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+
+    console.log("Backend response:", data);
+
+    if (response.ok) {
+      alert(
+        `Mark saved successfully. Total hours: ${data.totalHours}`
+      );
+
+      fetchAssignedStudents();
+    } else {
+      alert(
+        data.message || "Failed to save mark"
+      );
+    }
+  } catch (error) {
+    console.error("Save Mark Error:", error);
+    alert("Unable to connect to backend");
+  }
+};
 
   // ======================================================
   // LOAD DATA
@@ -282,7 +333,45 @@ function FacultyDashboard({ faculty, onLogout,  onGoToProfile, }) {
               <strong>Application Status:</strong>{" "}
               {application.status}
             </p>
+         <hr />
 
+<h3>Internship Evaluation</h3>
+
+<p>
+  <strong>Mark:</strong>{" "}
+  {application.mark !== null &&
+  application.mark !== undefined
+    ? application.mark
+    : "Not given yet"}
+</p>
+
+{application.status === "Completed" ? (
+  <div>
+    <input
+      type="number"
+      min="0"
+      max="100"
+      placeholder="Enter mark"
+      value={markInputs[application._id] || ""}
+      onChange={(e) =>
+        setMarkInputs({
+          ...markInputs,
+          [application._id]: e.target.value,
+        })
+      }
+    />
+
+    <button
+      onClick={() => saveMark(application._id)}
+    >
+      Save Mark
+    </button>
+  </div>
+) : (
+  <p>
+    ⏳ Mark can be given only after internship completion.
+  </p>
+)}
           </div>
         ))
       )}

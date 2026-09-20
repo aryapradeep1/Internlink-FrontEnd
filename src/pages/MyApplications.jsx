@@ -9,7 +9,7 @@ function MyApplications({ student, onBack }) {
     const fetchApplications = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/applications/student/${student.id}`
+`http://localhost:5000/api/applications/student/${student.id || student._id}`
         );
 
         const data = await response.json();

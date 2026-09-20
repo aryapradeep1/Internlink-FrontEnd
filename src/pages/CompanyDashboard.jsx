@@ -8,6 +8,7 @@ function CompanyDashboard({
 }) {
   const [applications, setApplications] = useState([]);
   const [guides, setGuides] = useState([]);
+  const [certificateFiles, setCertificateFiles] = useState({});
 
   const [loading, setLoading] = useState(true);
   const [guidesLoading, setGuidesLoading] = useState(true);
@@ -20,7 +21,12 @@ function CompanyDashboard({
   // =====================================================
 
   const getCompanyId = () => {
-    return company?.id || company?._id;
+    const companyId = company?.id || company?._id;
+
+    console.log("LOGGED IN COMPANY:", company);
+    console.log("COMPANY ID USED:", companyId);
+
+    return companyId;
   };
 
   // =====================================================
@@ -84,6 +90,16 @@ function CompanyDashboard({
           data.message || "Failed to fetch Company Guides"
         );
       }
+
+      console.log(
+        "COMPANY ID REQUESTED:",
+        companyId
+      );
+
+      console.log(
+        "GUIDES RECEIVED FROM BACKEND:",
+        data.guides
+      );
 
       setGuides(data.guides || []);
       setGuideError("");
@@ -296,15 +312,110 @@ function CompanyDashboard({
   );
 
   // =====================================================
+  // UPLOAD INTERNSHIP CERTIFICATE
+  // =====================================================
+
+  const uploadCertificate = async (
+    assignmentId
+  ) => {
+    const file =
+      certificateFiles[assignmentId];
+
+    if (!file) {
+      alert(
+        "Please select a certificate PDF"
+      );
+      return;
+    }
+
+    if (
+      file.type !==
+      "application/pdf"
+    ) {
+      alert(
+        "Certificate must be a PDF file"
+      );
+      return;
+    }
+
+    const companyId =
+      getCompanyId();
+
+    if (!companyId) {
+      alert(
+        "Company information not found"
+      );
+      return;
+    }
+
+    if (!assignmentId) {
+      alert(
+        "Internship assignment not found"
+      );
+      return;
+    }
+
+    try {
+      const formData =
+        new FormData();
+
+      formData.append(
+        "certificate",
+        file
+      );
+
+      formData.append(
+        "companyId",
+        companyId
+      );
+
+      const response =
+        await fetch(
+          `http://localhost:5000/api/internship-assignments/certificate/${assignmentId}`,
+          {
+            method: "PUT",
+            body: formData,
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Failed to upload certificate"
+        );
+      }
+
+      alert(data.message);
+
+      setCertificateFiles(
+        (previousFiles) => ({
+          ...previousFiles,
+          [assignmentId]: null,
+        })
+      );
+
+      fetchApplications();
+    } catch (error) {
+      console.error(
+        "Certificate Upload Error:",
+        error
+      );
+
+      alert(error.message);
+    }
+  };
+
+  // =====================================================
   // UI
   // =====================================================
 
   return (
     <div className="company-dashboard-container">
 
-      {/* ================================================= */}
       {/* HEADER */}
-      {/* ================================================= */}
 
       <h1>
         Welcome, {company?.companyName}!
@@ -315,17 +426,19 @@ function CompanyDashboard({
         and Company Guides.
       </p>
 
-      {/* ================================================= */}
       {/* DASHBOARD BUTTONS */}
-      {/* ================================================= */}
 
-      <button onClick={onGoToProfile}>
-        👤 My Profile
-      </button>
+      <div className="dashboard-menu">
 
-      <button onClick={onPostInternship}>
-        + Post Internship Opportunity
-      </button>
+        <button onClick={onGoToProfile}>
+          👤 My Profile
+        </button>
+
+        <button onClick={onPostInternship}>
+          💼 Post Internship Opportunity
+        </button>
+
+      </div>
 
       <hr />
 
@@ -338,8 +451,9 @@ function CompanyDashboard({
       </h2>
 
       <p>
-        Manage employees registered as
-        Company Guides for your company.
+        Company Guides register separately.
+        You can approve or reject their
+        registration here.
       </p>
 
       {guidesLoading && (
@@ -577,9 +691,7 @@ function CompanyDashboard({
               key={application._id}
             >
 
-              {/* ========================================= */}
               {/* STUDENT DETAILS */}
-              {/* ========================================= */}
 
               <h3>
                 {application.student?.name}
@@ -632,11 +744,9 @@ function CompanyDashboard({
                 }
               </p>
 
-              {/* ========================================= */}
-              {/* INTERNSHIP DETAILS */}
-              {/* ========================================= */}
-
               <hr />
+
+              {/* INTERNSHIP DETAILS */}
 
               <h4>
                 Internship Details
@@ -679,11 +789,9 @@ function CompanyDashboard({
                 }
               </p>
 
-              {/* ========================================= */}
-              {/* APPLICATION STATUS */}
-              {/* ========================================= */}
-
               <hr />
+
+              {/* APPLICATION STATUS */}
 
               <p>
                 <strong>
@@ -692,15 +800,14 @@ function CompanyDashboard({
                 {application.status}
               </p>
 
-              {/* ========================================= */}
-              {/* STUDENT DOCUMENTS */}
-              {/* ========================================= */}
+              {/* DOCUMENTS */}
 
               {application.resume && (
                 <p>
                   <strong>
                     CV / Resume:
                   </strong>{" "}
+
                   <a
                     href={`http://localhost:5000/${application.resume}`}
                     target="_blank"
@@ -716,6 +823,7 @@ function CompanyDashboard({
                   <strong>
                     Mark List:
                   </strong>{" "}
+
                   <a
                     href={`http://localhost:5000/${application.markList}`}
                     target="_blank"
@@ -726,9 +834,7 @@ function CompanyDashboard({
                 </p>
               )}
 
-              {/* ========================================= */}
               {/* COMPANY ACTIONS */}
-              {/* ========================================= */}
 
               {application.status ===
                 "Pending" && (
@@ -759,9 +865,7 @@ function CompanyDashboard({
                 </div>
               )}
 
-              {/* ========================================= */}
               {/* COMPANY APPROVED */}
-              {/* ========================================= */}
 
               {application.status ===
                 "CompanyApproved" && (
@@ -782,9 +886,7 @@ function CompanyDashboard({
                 </div>
               )}
 
-              {/* ========================================= */}
               {/* COLLEGE APPROVED */}
-              {/* ========================================= */}
 
               {application.status ===
                 "CollegeApproved" && (
@@ -889,12 +991,58 @@ function CompanyDashboard({
                     </div>
                   )}
 
+                  {/* ================================================= */}
+                  {/* INTERNSHIP CERTIFICATE */}
+                  {/* ================================================= */}
+{application.assignmentStatus === "Completed" && (
+  <>
+    <hr />
+
+    <h4>Internship Certificate</h4>
+
+    {application.certificate ? (
+      <p>
+        ✅ Certificate already uploaded.
+      </p>
+    ) : (
+      <>
+        <p>
+          Upload the official internship
+          completion certificate.
+        </p>
+
+        <input
+          type="file"
+          accept=".pdf,application/pdf"
+          onChange={(event) =>
+            setCertificateFiles(
+              (previousFiles) => ({
+                ...previousFiles,
+                [application.assignmentId]:
+                  event.target.files[0],
+              })
+            )
+          }
+        />
+
+        <button
+          onClick={() =>
+            uploadCertificate(
+              application.assignmentId
+            )
+          }
+        >
+          Upload Certificate
+        </button>
+      </>
+    )}
+  </>
+)}
+
                 </div>
               )}
 
-              {/* ========================================= */}
               {/* COMPANY REJECTED */}
-              {/* ========================================= */}
 
               {application.status ===
                 "CompanyRejected" && (
@@ -910,9 +1058,7 @@ function CompanyDashboard({
 
       <br />
 
-      {/* ================================================= */}
       {/* LOGOUT */}
-      {/* ================================================= */}
 
       <button onClick={onLogout}>
         Logout

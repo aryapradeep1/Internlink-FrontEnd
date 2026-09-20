@@ -229,9 +229,15 @@ function CompanyGuideDashboard({
             flexWrap: "wrap",
           }}
         >
-          <button onClick={onGoToProfile}>
-            👤 My Profile
-          </button>
+ <button
+  onClick={() => {
+    alert("Profile button clicked");
+    console.log("onGoToProfile:", onGoToProfile);
+    onGoToProfile();
+  }}
+>
+  👤 My Profile
+</button>
 
           <button onClick={onLogout}>
             Logout
