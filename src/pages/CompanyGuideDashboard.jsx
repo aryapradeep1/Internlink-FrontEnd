@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import "../css/CompanyDashboard.css";
 function CompanyGuideDashboard({
   guide,
   onLogout,

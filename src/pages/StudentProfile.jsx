@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/StudentProfile.css";
 
 function StudentProfile({
   student,
@@ -35,102 +36,380 @@ function StudentProfile({
     fetchProfile();
   }, [student.id]);
 
+  /* ======================================================
+     LOADING
+  ====================================================== */
+
   if (loading) {
     return (
-      <div className="dashboard-container">
-        <h2>My Profile</h2>
-        <p>Loading profile...</p>
+      <div className="student-profile-page">
+        <div className="student-profile-loading">
+          <div className="profile-loader"></div>
+
+          <h2>Loading your profile</h2>
+
+          <p>Please wait while we fetch your information.</p>
+        </div>
       </div>
     );
   }
+
+  /* ======================================================
+     ERROR
+  ====================================================== */
 
   if (error) {
     return (
-      <div className="dashboard-container">
-        <h2>My Profile</h2>
-        <p>{error}</p>
+      <div className="student-profile-page">
+        <div className="student-profile-error">
 
-        <button onClick={onBack}>
-          ← Back to Dashboard
-        </button>
+          <div className="profile-error-icon">
+            !
+          </div>
+
+          <h2>Unable to load profile</h2>
+
+          <p>{error}</p>
+
+          <button
+            className="profile-back-btn"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
+        </div>
       </div>
     );
   }
 
+  /* ======================================================
+     PROFILE
+  ====================================================== */
+
   return (
-    <div className="dashboard-container">
-      <h1>👤 My Profile</h1>
+    <div className="student-profile-page">
 
-      <div className="student-info">
+      {/* ==================================================
+          TOP BAR
+      ================================================== */}
 
-        <h3>Personal Information</h3>
+      <div className="student-profile-topbar">
 
-        <p>
-          <strong>Name:</strong> {profile.name}
-        </p>
+        <div className="profile-brand">
 
-        <p>
-          <strong>Email:</strong> {profile.email}
-        </p>
+          <div className="profile-logo">
+            <span className="profile-logo-i">I</span>
+            <span className="profile-logo-link">↗</span>
+          </div>
 
-        <p>
-          <strong>Phone:</strong> {profile.phone}
-        </p>
+          <div className="profile-brand-text">
+            <span className="profile-brand-name">
+              InterLink
+            </span>
 
-        <h3>Academic Information</h3>
+            <span className="profile-brand-tagline">
+              FYUGP INTERNSHIP PLATFORM
+            </span>
+          </div>
 
-        <p>
-          <strong>Register Number:</strong>{" "}
-          {profile.registerNumber}
-        </p>
+        </div>
 
-        <p>
-          <strong>Department:</strong>{" "}
-          {profile.department}
-        </p>
-
-        <p>
-          <strong>Semester:</strong>{" "}
-          {profile.semester}
-        </p>
-
-        <h3>College Information</h3>
-
-        {profile.college ? (
-          <>
-            <p>
-              <strong>College:</strong>{" "}
-              {profile.college.collegeName}
-            </p>
-
-            <p>
-              <strong>College Code:</strong>{" "}
-              {profile.college.collegeCode}
-            </p>
-
-        
-          </>
-        ) : (
-          <p>College information not available</p>
-        )}
-
-      </div>
-
-      <div className="dashboard-menu">
-
-        <button onClick={onEdit}>
-          ✏️ Edit Profile
-        </button>
-
-        <button onClick={onChangePassword}>
-          🔐 Change Password
-        </button>
-
-        <button onClick={onBack}>
-          ← Back to Dashboard
+        <button
+          className="top-back-btn"
+          onClick={onBack}
+        >
+          ← Dashboard
         </button>
 
       </div>
+
+
+      {/* ==================================================
+          MAIN CONTENT
+      ================================================== */}
+
+      <main className="student-profile-content">
+
+        {/* HEADER */}
+
+        <div className="student-profile-heading">
+
+          <div>
+
+            <span className="profile-eyebrow">
+              STUDENT ACCOUNT
+            </span>
+
+            <h1>My Profile</h1>
+
+            <p>
+              View your personal, academic and college
+              information.
+            </p>
+
+          </div>
+
+          <div className="profile-avatar">
+            {profile.name
+              ? profile.name.charAt(0).toUpperCase()
+              : "S"}
+          </div>
+
+        </div>
+
+
+        {/* ==================================================
+            PROFILE CARD
+        ================================================== */}
+
+        <div className="student-profile-card">
+
+          {/* PERSONAL INFORMATION */}
+
+          <section className="profile-section">
+
+            <div className="profile-section-heading">
+
+              <div className="profile-section-icon mint-icon">
+                👤
+              </div>
+
+              <div>
+                <h2>Personal Information</h2>
+                <p>Your basic contact information</p>
+              </div>
+
+            </div>
+
+
+            <div className="profile-details-grid">
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Full Name
+                </span>
+
+                <span className="detail-value">
+                  {profile.name || "Not provided"}
+                </span>
+
+              </div>
+
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Email Address
+                </span>
+
+                <span className="detail-value">
+                  {profile.email || "Not provided"}
+                </span>
+
+              </div>
+
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Phone Number
+                </span>
+
+                <span className="detail-value">
+                  {profile.phone || "Not provided"}
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* DIVIDER */}
+
+          <div className="profile-divider"></div>
+
+
+          {/* ACADEMIC INFORMATION */}
+
+          <section className="profile-section">
+
+            <div className="profile-section-heading">
+
+              <div className="profile-section-icon peach-icon">
+                🎓
+              </div>
+
+              <div>
+                <h2>Academic Information</h2>
+                <p>Your FYUGP academic details</p>
+              </div>
+
+            </div>
+
+
+            <div className="profile-details-grid">
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Register Number
+                </span>
+
+                <span className="detail-value">
+                  {profile.registerNumber ||
+                    "Not provided"}
+                </span>
+
+              </div>
+
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Department
+                </span>
+
+                <span className="detail-value">
+                  {profile.department ||
+                    "Not provided"}
+                </span>
+
+              </div>
+
+
+              <div className="profile-detail">
+
+                <span className="detail-label">
+                  Semester
+                </span>
+
+                <span className="detail-value">
+                  {profile.semester ||
+                    "Not provided"}
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* DIVIDER */}
+
+          <div className="profile-divider"></div>
+
+
+          {/* COLLEGE INFORMATION */}
+
+          <section className="profile-section">
+
+            <div className="profile-section-heading">
+
+              <div className="profile-section-icon lavender-icon">
+                🏫
+              </div>
+
+              <div>
+                <h2>College Information</h2>
+                <p>Your registered institution</p>
+              </div>
+
+            </div>
+
+
+            {profile.college ? (
+
+              <div className="profile-details-grid">
+
+                <div className="profile-detail">
+
+                  <span className="detail-label">
+                    College
+                  </span>
+
+                  <span className="detail-value">
+                    {profile.college.collegeName ||
+                      "Not provided"}
+                  </span>
+
+                </div>
+
+
+                <div className="profile-detail">
+
+                  <span className="detail-label">
+                    College Code
+                  </span>
+
+                  <span className="detail-value">
+                    {profile.college.collegeCode ||
+                      "Not provided"}
+                  </span>
+
+                </div>
+
+              </div>
+
+            ) : (
+
+              <div className="college-unavailable">
+                College information not available
+              </div>
+
+            )}
+
+          </section>
+
+        </div>
+
+
+        {/* ==================================================
+            ACTIONS
+        ================================================== */}
+
+        <div className="student-profile-actions">
+
+          <button
+            className="profile-primary-action"
+            onClick={onEdit}
+          >
+            <span>✏️</span>
+            Edit Profile
+          </button>
+
+
+          <button
+            className="profile-secondary-action"
+            onClick={onChangePassword}
+          >
+            <span>🔐</span>
+            Change Password
+          </button>
+
+
+          <button
+            className="profile-back-action"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
+        </div>
+
+
+        {/* FOOTER NOTE */}
+
+        <p className="profile-footer-note">
+          InterLink · FYUGP Internship Management Platform
+        </p>
+
+      </main>
+
     </div>
   );
 }

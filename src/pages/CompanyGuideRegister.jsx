@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/Signup.css";
 
 function CompanyGuideRegister({
   onRegisterSuccess,
@@ -155,152 +156,308 @@ function CompanyGuideRegister({
   // ======================================================
 
   return (
-    <div className="dashboard-container">
+    <div className="signup-page company-guide-signup">
 
-      <h1>🧑‍💼 Company Guide Registration</h1>
+      {/* Decorative background */}
+      <div className="signup-orbit signup-orbit-one"></div>
+      <div className="signup-orbit signup-orbit-two"></div>
 
-      <form onSubmit={handleSubmit}>
+      {/* Back button */}
+      <button
+        type="button"
+        className="signup-back-button"
+        onClick={onBack}
+      >
+        ← Back to Company Guide Login
+      </button>
 
-        <div className="student-info">
+      <div className="signup-shell">
 
-          {/* NAME */}
+        {/* LEFT SIDE */}
+        <div className="signup-visual">
 
-          <label>Name</label>
+          <div className="signup-visual-badge">
+            <span>✦</span>
+            Company Guide Portal
+          </div>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-            placeholder="Enter your name"
-            required
-          />
+          <h1>
+            Mentor the
+            <br />
+            <span>real experience.</span>
+          </h1>
 
-          {/* EMAIL */}
+          <p className="signup-visual-text">
+            Become a company guide and help students
+            turn their internship experience into
+            meaningful professional growth.
+          </p>
 
-          <label>Email</label>
+          {/* Illustration */}
+          <div className="guide-illustration">
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            placeholder="Enter your email"
-            required
-          />
+            <div className="guide-window">
 
-          {/* PASSWORD */}
+              <div className="guide-window-top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
 
-          <label>Password</label>
+              <div className="guide-window-body">
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            placeholder="Enter password"
-            minLength="6"
-            required
-          />
+                <div className="guide-person">
+                  <div className="guide-head"></div>
+                  <div className="guide-body"></div>
+                </div>
 
-          {/* EMPLOYEE ID */}
+                <div className="guide-student">
+                  <div className="student-head"></div>
+                  <div className="student-body"></div>
+                </div>
 
-          <label>Employee ID</label>
+                <div className="guide-message">
+                  <span>✓</span>
+                  Student Progress
+                </div>
 
-          <input
-            type="text"
-            value={employeeId}
-            onChange={(e) =>
-              setEmployeeId(e.target.value)
-            }
-            placeholder="Enter employee ID"
-            required
-          />
+                <div className="guide-message guide-message-two">
+                  <span>✦</span>
+                  Guidance
+                </div>
 
-          {/* COMPANY */}
+              </div>
+            </div>
 
-          <label>Company</label>
+            <div className="guide-floating-card guide-card-one">
+              <strong>60+</strong>
+              <small>Hours</small>
+            </div>
 
-          {loadingCompanies ? (
-            <p>Loading approved companies...</p>
-          ) : companies.length === 0 ? (
-            <p style={{ color: "red" }}>
-              No approved companies available.
+            <div className="guide-floating-card guide-card-two">
+              <strong>2</strong>
+              <small>Credits</small>
+            </div>
+
+          </div>
+
+          <div className="signup-visual-footer">
+            <span>INTERLINK</span>
+            <span>Internship Management Platform</span>
+          </div>
+
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="signup-form-area">
+
+          <div className="signup-form-header">
+            <span className="signup-small-label">
+              COMPANY GUIDE
+            </span>
+
+            <h2>Create your guide account</h2>
+
+            <p>
+              Register using your company details.
+              Your account will be available after
+              company approval.
             </p>
-          ) : (
-            <select
-              value={company}
-              onChange={(e) =>
-                setCompany(e.target.value)
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="signup-form"
+          >
+
+            {/* NAME */}
+            <div className="signup-field">
+              <label>Name</label>
+
+              <div className="signup-input-wrap">
+                <span className="signup-input-icon">
+                  ◯
+                </span>
+
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) =>
+                    setName(e.target.value)
+                  }
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* EMAIL */}
+            <div className="signup-field">
+              <label>Email</label>
+
+              <div className="signup-input-wrap">
+                <span className="signup-input-icon">
+                  @
+                </span>
+
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                  placeholder="Enter your work email"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* PASSWORD */}
+            <div className="signup-field">
+              <label>Password</label>
+
+              <div className="signup-input-wrap">
+                <span className="signup-input-icon">
+                  ◈
+                </span>
+
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
+                  placeholder="Minimum 6 characters"
+                  minLength="6"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* EMPLOYEE ID */}
+            <div className="signup-field">
+              <label>Employee ID</label>
+
+              <div className="signup-input-wrap">
+                <span className="signup-input-icon">
+                  #
+                </span>
+
+                <input
+                  type="text"
+                  value={employeeId}
+                  onChange={(e) =>
+                    setEmployeeId(e.target.value)
+                  }
+                  placeholder="Enter your employee ID"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* COMPANY */}
+            <div className="signup-field">
+              <label>Company</label>
+
+              <div className="signup-input-wrap">
+                <span className="signup-input-icon">
+                  ◫
+                </span>
+
+                {loadingCompanies ? (
+                  <div className="signup-loading">
+                    Loading approved companies...
+                  </div>
+                ) : companies.length === 0 ? (
+                  <div className="signup-error-inline">
+                    No approved companies available.
+                  </div>
+                ) : (
+                  <select
+                    value={company}
+                    onChange={(e) =>
+                      setCompany(e.target.value)
+                    }
+                    required
+                  >
+                    <option value="">
+                      Select your company
+                    </option>
+
+                    {companies.map((item) => (
+                      <option
+                        key={item._id}
+                        value={item._id}
+                      >
+                        {item.companyName}
+                      </option>
+                    ))}
+                  </select>
+                )}
+
+              </div>
+            </div>
+
+            {/* SUCCESS MESSAGE */}
+            {message && (
+              <div className="signup-message signup-success">
+                <span>✓</span>
+                {message}
+              </div>
+            )}
+
+            {/* ERROR MESSAGE */}
+            {error && (
+              <div className="signup-message signup-error">
+                <span>!</span>
+                {error}
+              </div>
+            )}
+
+            {/* REGISTER */}
+            <button
+              type="submit"
+              className="signup-submit"
+              disabled={
+                loading ||
+                loadingCompanies ||
+                companies.length === 0
               }
-              required
             >
-              <option value="">
-                Select your company
-              </option>
+              <span>
+                {loading
+                  ? "Registering..."
+                  : "Create Guide Account"}
+              </span>
 
-              {companies.map((item) => (
-                <option
-                  key={item._id}
-                  value={item._id}
-                >
-                  {item.companyName}
-                </option>
-              ))}
-            </select>
-          )}
+              {!loading && (
+                <span className="signup-submit-arrow">
+                  →
+                </span>
+              )}
+            </button>
 
-        </div>
+          </form>
 
-        {/* SUCCESS MESSAGE */}
+          {/* BOTTOM BACK */}
+          <div className="signup-login-footer">
+            <span>
+              Already have a guide account?
+            </span>
 
-        {message && (
-          <p style={{ color: "green" }}>
-            {message}
-          </p>
-        )}
-
-        {/* ERROR MESSAGE */}
-
-        {error && (
-          <p style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
-
-        {/* BUTTONS */}
-
-        <div className="dashboard-menu">
-
-          <button
-            type="submit"
-            disabled={
-              loading ||
-              loadingCompanies ||
-              companies.length === 0
-            }
-          >
-            {loading
-              ? "Registering..."
-              : "📝 Register"}
-          </button>
-
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Login
-          </button>
+            <button
+              type="button"
+              onClick={onBack}
+            >
+              Back to Company Guide Login →
+            </button>
+          </div>
 
         </div>
-
-      </form>
-
+      </div>
     </div>
   );
 }
 
 export default CompanyGuideRegister;
+

@@ -1,3 +1,7 @@
+/* =====================================================
+   INTERLINK - APPLICATION FORM
+   ===================================================== */
+
 .application-form-container {
   min-height: 100vh;
   display: flex;
@@ -5,6 +9,7 @@
   align-items: center;
   padding: 30px;
   box-sizing: border-box;
+  background: #f6f9f7;
 }
 
 .application-form-card {
@@ -13,16 +18,21 @@
   padding: 35px;
   border-radius: 12px;
   box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e1ebe5;
+  box-shadow: 0 8px 25px rgba(40, 85, 68, 0.08);
 }
 
 .application-form-card h1 {
   text-align: center;
   margin-bottom: 10px;
+  color: #285544;
 }
 
 .application-form-card h2 {
   text-align: center;
   margin-bottom: 25px;
+  color: #285544;
 }
 
 .internship-summary {
@@ -31,6 +41,7 @@
 
 .internship-summary p {
   margin: 10px 0;
+  color: #566c61;
 }
 
 .form-group {
@@ -41,6 +52,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
+  color: #304d40;
 }
 
 .form-group textarea,
@@ -48,9 +60,21 @@
   width: 100%;
   padding: 12px;
   box-sizing: border-box;
-  border-radius: 6px;
-  border: 1px solid #aaa;
+  border-radius: 7px;
+  border: 1px solid #ccdcd3;
+  background: #ffffff;
+  color: #24382f;
   font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group textarea:focus,
+.form-group input:focus {
+  border-color: #6da889;
+  box-shadow: 0 0 0 3px rgba(109, 168, 137, 0.12);
 }
 
 .form-group textarea {
@@ -59,17 +83,924 @@
 
 .error-message {
   margin-bottom: 15px;
+  padding: 10px 12px;
+  border-radius: 7px;
+  background: #fff1f1;
+  color: #b42318;
+  border: 1px solid #f3c6c6;
 }
 
 .application-buttons {
   display: flex;
   gap: 10px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .application-buttons button {
   padding: 10px 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 7px;
   cursor: pointer;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   INTERLINK - INTERNSHIP DETAILS PAGE
+   ===================================================== */
+
+.internship-details-page {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+
+  background: #f6f9f7;
+  color: #24382f;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+  box-sizing: border-box;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   HEADER
+   Header never scrolls
+   ===================================================== */
+
+.internship-details-page .internship-details-header {
+  width: 100%;
+  height: 68px;
+  min-height: 68px;
+
+  padding: 0 48px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e6ece8;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  position: relative;
+  z-index: 100;
+}
+
+
+/* =====================================================
+   INTERLINK LOGO
+   ===================================================== */
+
+.internship-details-page .internship-details-logo {
+  margin: 0;
+  padding: 0;
+
+  font-size: 24px !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+
+  color: #285544 !important;
+
+  letter-spacing: -0.7px;
+
+  opacity: 1 !important;
+}
+
+
+.internship-details-page .internship-details-logo span {
+  color: #79b596 !important;
+}
+
+
+/* =====================================================
+   HEADER RIGHT TEXT
+   ===================================================== */
+
+.internship-details-page .internship-details-header-text {
+  margin: 0;
+
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+
+  font-weight: 600 !important;
+
+  color: #718078 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   SCROLLABLE CONTENT
+   Only this area scrolls
+   ===================================================== */
+
+.internship-details-page .internship-details-content {
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 78px 40px 50px;
+
+  background: #f6f9f7;
+
+  box-sizing: border-box;
+
+  scroll-behavior: smooth;
+}
+
+
+/* =====================================================
+   CUSTOM SCROLLBAR
+   ===================================================== */
+
+.internship-details-page .internship-details-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.internship-details-page .internship-details-content::-webkit-scrollbar-track {
+  background: #eef4f0;
+}
+
+.internship-details-page .internship-details-content::-webkit-scrollbar-thumb {
+  background: #b7cfc1;
+  border-radius: 10px;
+}
+
+.internship-details-page .internship-details-content::-webkit-scrollbar-thumb:hover {
+  background: #91b5a1;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+   IMPORTANT:
+   This stays visible even when page scrolls.
+   ===================================================== */
+
+.internship-details-page .internship-back-button {
+  position: fixed;
+
+  top: 84px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: min(1080px, calc(100% - 80px));
+
+  margin: 0;
+
+  padding: 0;
+
+  background: transparent !important;
+  border: none !important;
+
+  text-align: left;
+
+  color: #356b54 !important;
+
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+
+  font-weight: 650 !important;
+
+  cursor: pointer;
+
+  z-index: 90;
+
+  opacity: 1 !important;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.internship-details-page .internship-back-button:hover {
+  color: #1f4735 !important;
+
+  transform:
+    translateX(-50%)
+    translateY(-1px);
+}
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.internship-details-page .internship-hero {
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 0 auto 20px;
+
+  padding: 30px 34px;
+
+  background: #285544 !important;
+
+  border-radius: 16px;
+
+  position: relative;
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 8px 22px rgba(40, 85, 68, 0.12);
+}
+
+
+/* Decorative circle */
+
+.internship-details-page .internship-hero::after {
+  content: "";
+
+  position: absolute;
+
+  width: 190px;
+  height: 190px;
+
+  right: -60px;
+  top: -80px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.07);
+
+  pointer-events: none;
+}
+
+
+/* Second decorative circle */
+
+.internship-details-page .internship-hero::before {
+  content: "";
+
+  position: absolute;
+
+  width: 90px;
+  height: 90px;
+
+  right: 100px;
+  bottom: -55px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  pointer-events: none;
+}
+
+
+.internship-details-page .internship-hero-content {
+  position: relative;
+
+  z-index: 2;
+}
+
+
+/* =====================================================
+   HERO LABEL
+   ===================================================== */
+
+.internship-details-page .internship-label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #a9d5bd !important;
+
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 700 !important;
+
+  letter-spacing: 1.1px;
+
+  text-transform: uppercase;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   HERO TITLE
+   ===================================================== */
+
+.internship-details-page .internship-hero h1 {
+  margin: 0 0 9px !important;
+  padding: 0 !important;
+
+  color: #ffffff !important;
+
+  font-size: 32px !important;
+  line-height: 1.2 !important;
+
+  font-weight: 800 !important;
+
+  letter-spacing: -0.8px;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   COMPANY + LOCATION
+   ===================================================== */
+
+.internship-details-page .internship-company-location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  color: #d8ebe1 !important;
+
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+
+  opacity: 1 !important;
+}
+
+
+.internship-details-page .dot-separator {
+  color: #91c5a9 !important;
+}
+
+
+/* =====================================================
+   MAIN TWO COLUMN LAYOUT
+   ===================================================== */
+
+.internship-details-page .internship-main-layout {
+  width: 100%;
+  max-width: 1080px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    310px;
+
+  gap: 20px;
+
+  align-items: start;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   LEFT MAIN CARD
+   ===================================================== */
+
+.internship-details-page .internship-main-card {
+  background: #ffffff;
+
+  border: 1px solid #e2eae5;
+
+  border-radius: 15px;
+
+  padding: 25px 27px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 5px 18px rgba(32, 64, 48, 0.04);
+}
+
+
+/* =====================================================
+   CONTENT SECTION
+   ===================================================== */
+
+.internship-details-page .internship-section {
+  margin: 0;
+
+  padding: 0 0 21px;
+
+  margin-bottom: 21px;
+
+  border-bottom: 1px solid #edf1ef;
+}
+
+
+.internship-details-page .internship-section:last-child {
+  margin-bottom: 0;
+
+  padding-bottom: 0;
+
+  border-bottom: none;
+}
+
+
+/* =====================================================
+   SECTION HEADING
+   ===================================================== */
+
+.internship-details-page .internship-section h2 {
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+
+  color: #285544 !important;
+
+  font-size: 17px !important;
+  line-height: 1.4 !important;
+
+  font-weight: 750 !important;
+
+  letter-spacing: -0.1px;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   SECTION TEXT
+   ===================================================== */
+
+.internship-details-page .internship-section p {
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: #596c62 !important;
+
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+
+  font-weight: 400 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   DETAIL VALUE
+   ===================================================== */
+
+.internship-details-page .internship-detail-value {
+  color: #596c62 !important;
+
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+
+  font-weight: 400 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   SKILLS
+   ===================================================== */
+
+.internship-details-page .skills-container {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+
+/* Individual skill */
+
+.internship-details-page .skill-tag {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 11px;
+
+  background: #edf7f1;
+
+  border: 1px solid #d7e9de;
+
+  border-radius: 20px;
+
+  color: #32684f !important;
+
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 650 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* No skills */
+
+.internship-details-page .no-skills {
+  color: #78877f !important;
+
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   RIGHT APPLY CARD
+   ===================================================== */
+
+.internship-details-page .internship-apply-card {
+  background: #ffffff;
+
+  border: 1px solid #dfe9e3;
+
+  border-radius: 15px;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 5px 18px rgba(32, 64, 48, 0.05);
+
+  position: sticky;
+
+  top: 12px;
+
+  z-index: 10;
+}
+
+
+/* =====================================================
+   APPLY CARD HEADER
+   ===================================================== */
+
+.internship-details-page .apply-card-heading {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  padding-bottom: 17px;
+
+  border-bottom: 1px solid #edf1ef;
+}
+
+
+/* =====================================================
+   APPLY ICON
+   ===================================================== */
+
+.internship-details-page .apply-icon {
+  width: 30px;
+  height: 30px;
+
+  min-width: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #eaf5ee;
+
+  color: #285544 !important;
+
+  font-size: 14px !important;
+
+  font-weight: 800 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   APPLY CARD TITLE
+   ===================================================== */
+
+.internship-details-page .apply-card-heading h2 {
+  margin: 0 0 3px !important;
+  padding: 0 !important;
+
+  color: #285544 !important;
+
+  font-size: 17px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 750 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   APPLY CARD DESCRIPTION
+   ===================================================== */
+
+.internship-details-page .apply-card-heading p {
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: #77867f !important;
+
+  font-size: 11px !important;
+  line-height: 1.5 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   APPLY INFORMATION
+   ===================================================== */
+
+.internship-details-page .apply-info {
+  padding: 12px 0 15px;
+}
+
+
+/* Information row */
+
+.internship-details-page .apply-info-row {
+  padding: 10px 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+/* Information label */
+
+.internship-details-page .apply-info-label {
+  color: #89968f !important;
+
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 700 !important;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+  opacity: 1 !important;
+}
+
+
+/* Information value */
+
+.internship-details-page .apply-info-row strong {
+  color: #304c3f !important;
+
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+
+  font-weight: 650 !important;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   APPLY BUTTON
+   ===================================================== */
+
+.internship-details-page .internship-apply-button {
+  width: 100%;
+
+  min-height: 43px;
+
+  padding: 10px 14px;
+
+  border: none !important;
+
+  border-radius: 9px;
+
+  background: #285544 !important;
+
+  color: #ffffff !important;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+
+  font-weight: 700 !important;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  opacity: 1 !important;
+}
+
+
+/* Arrow/icon inside button */
+
+.internship-details-page .internship-apply-button span {
+  color: #ffffff !important;
+
+  font-size: 16px !important;
+
+  opacity: 1 !important;
+}
+
+
+/* Hover */
+
+.internship-details-page .internship-apply-button:hover {
+  background: #1d4032 !important;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 12px rgba(40, 85, 68, 0.18);
+}
+
+
+/* Active */
+
+.internship-details-page .internship-apply-button:active {
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   APPLY NOTE
+   ===================================================== */
+
+.internship-details-page .apply-note {
+  margin: 10px 0 0 !important;
+  padding: 0 !important;
+
+  color: #8a968f !important;
+
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+
+  text-align: center;
+
+  opacity: 1 !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE - TABLET
+   ===================================================== */
+
+@media (max-width: 800px) {
+
+  .internship-details-page .internship-details-header {
+    padding: 0 24px;
+  }
+
+
+  .internship-details-page .internship-details-content {
+    padding:
+      75px
+      20px
+      40px;
+  }
+
+
+  .internship-details-page .internship-back-button {
+    width: calc(100% - 40px);
+
+    top: 84px;
+  }
+
+
+  .internship-details-page .internship-main-layout {
+    grid-template-columns: 1fr;
+  }
+
+
+  .internship-details-page .internship-apply-card {
+    position: static;
+  }
+}
+
+
+/* =====================================================
+   RESPONSIVE - MOBILE
+   ===================================================== */
+
+@media (max-width: 520px) {
+
+  .internship-details-page .internship-details-header {
+    height: 62px;
+    min-height: 62px;
+
+    padding: 0 18px;
+  }
+
+
+  .internship-details-page .internship-details-logo {
+    font-size: 22px !important;
+  }
+
+
+  .internship-details-page .internship-details-header-text {
+    display: none;
+  }
+
+
+  .internship-details-page .internship-details-content {
+    padding:
+      70px
+      14px
+      35px;
+  }
+
+
+  .internship-details-page .internship-back-button {
+    width: calc(100% - 28px);
+
+    top: 78px;
+
+    font-size: 13px !important;
+  }
+
+
+  .internship-details-page .internship-hero {
+    padding: 25px 22px;
+
+    border-radius: 14px;
+  }
+
+
+  .internship-details-page .internship-hero h1 {
+    font-size: 27px !important;
+  }
+
+
+  .internship-details-page .internship-main-card {
+    padding: 22px 20px;
+  }
+
+
+  .internship-details-page .internship-apply-card {
+    padding: 20px;
+  }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+   ===================================================== */
+
+@media (max-width: 380px) {
+
+  .internship-details-page .internship-details-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .internship-details-page .internship-back-button {
+    width: calc(100% - 20px);
+  }
+
+
+  .internship-details-page .internship-hero {
+    padding: 22px 18px;
+  }
+
+
+  .internship-details-page .internship-hero h1 {
+    font-size: 24px !important;
+  }
+
+
+  .internship-details-page .internship-main-card {
+    padding: 19px 17px;
+  }
 }

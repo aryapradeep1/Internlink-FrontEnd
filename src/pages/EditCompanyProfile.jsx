@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/EditCompanyProfile.css";
 
 function EditCompanyProfile({
   company,
@@ -60,94 +61,264 @@ function EditCompanyProfile({
       } else {
         setError(data.message);
       }
-    } catch (error) {
-      console.error("Edit company profile error:", error);
-      setError("Unable to update company profile");
-    } finally {
+   } catch (error) {
+  console.error("Edit company profile error:", error);
+  console.error("Error details:", error.message);
+  setError(error.message || "Unable to update company profile");
+} finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="dashboard-container">
-      <h1>✏️ Edit Company Profile</h1>
+    <div className="edit-company-page">
 
-      {message && (
-        <p style={{ color: "green" }}>
-          {message}
-        </p>
-      )}
-
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <div className="student-info">
-
-          <label>Company Name</label>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) =>
-              setCompanyName(e.target.value)
-            }
-            required
-          />
-
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            required
-          />
-
-          <label>Description</label>
-          <textarea
-            value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
-            required
-          />
-
-          <label>Location</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) =>
-              setLocation(e.target.value)
-            }
-            required
-          />
-
+      {/* PAGE HEADER */}
+      <div className="edit-company-header">
+        <div className="edit-company-header-icon">
+          ✎
         </div>
 
-        <div className="dashboard-menu">
+        <div>
+          <div className="edit-company-eyebrow">
+            COMPANY ACCOUNT
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? "Saving..."
-              : "💾 Save Changes"}
-          </button>
+          <h1>Edit Company Profile</h1>
 
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Profile
-          </button>
-
+          <p>
+            Update your organization's information
+            displayed on InternLink.
+          </p>
         </div>
-      </form>
+      </div>
+
+      {/* FORM WORKSPACE */}
+      <div className="edit-company-workspace">
+
+        {/* LEFT INFORMATION PANEL */}
+        <div className="edit-company-info-panel">
+
+          <div className="edit-company-info-badge">
+            I
+          </div>
+
+          <h2>
+            {company?.companyName || "Company"}
+          </h2>
+
+          <p>
+            Keep your company information accurate so
+            students and colleges can view the correct
+            organization details.
+          </p>
+
+          <div className="edit-company-info-list">
+
+            <div className="edit-company-info-item">
+              <span>●</span>
+              <div>
+                <strong>Company Name</strong>
+                <small>
+                  Your registered organization name
+                </small>
+              </div>
+            </div>
+
+            <div className="edit-company-info-item">
+              <span>@</span>
+              <div>
+                <strong>Email Address</strong>
+                <small>
+                  Your company contact email
+                </small>
+              </div>
+            </div>
+
+            <div className="edit-company-info-item">
+              <span>⌖</span>
+              <div>
+                <strong>Location</strong>
+                <small>
+                  Where your organization is located
+                </small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* RIGHT FORM PANEL */}
+        <div className="edit-company-form-panel">
+
+          <div className="edit-company-form-heading">
+            <div>
+              <span>ORGANIZATION DETAILS</span>
+              <h2>Company Information</h2>
+            </div>
+
+            <div className="edit-company-secure-icon">
+              ✦
+            </div>
+          </div>
+
+          {/* SUCCESS MESSAGE */}
+          {message && (
+            <div className="edit-company-message edit-company-success">
+              <span>✓</span>
+              <div>
+                <strong>Profile updated</strong>
+                <p>{message}</p>
+              </div>
+            </div>
+          )}
+
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="edit-company-message edit-company-error">
+              <span>!</span>
+              <div>
+                <strong>Unable to update profile</strong>
+                <p>{error}</p>
+              </div>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit}>
+
+            {/* COMPANY NAME */}
+            <div className="edit-company-field">
+              <label htmlFor="companyName">
+                Company Name
+              </label>
+
+              <div className="edit-company-input-wrap">
+                <span className="edit-company-input-icon">
+                  ●
+                </span>
+
+                <input
+                  id="companyName"
+                  type="text"
+                  value={companyName}
+                  onChange={(e) =>
+                    setCompanyName(e.target.value)
+                  }
+                  placeholder="Enter company name"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* EMAIL */}
+            <div className="edit-company-field">
+              <label htmlFor="companyEmail">
+                Email Address
+              </label>
+
+              <div className="edit-company-input-wrap">
+                <span className="edit-company-input-icon">
+                  @
+                </span>
+
+                <input
+                  id="companyEmail"
+                  type="email"
+                  value={email}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                  placeholder="Enter company email"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* LOCATION */}
+            <div className="edit-company-field">
+              <label htmlFor="companyLocation">
+                Location
+              </label>
+
+              <div className="edit-company-input-wrap">
+                <span className="edit-company-input-icon">
+                  ⌖
+                </span>
+
+                <input
+                  id="companyLocation"
+                  type="text"
+                  value={location}
+                  onChange={(e) =>
+                    setLocation(e.target.value)
+                  }
+                  placeholder="Enter company location"
+                 
+                />
+              </div>
+            </div>
+
+            {/* DESCRIPTION */}
+            <div className="edit-company-field">
+              <div className="edit-company-label-row">
+                <label htmlFor="companyDescription">
+                  Company Description
+                </label>
+
+                <span>
+                  About your organization
+                </span>
+              </div>
+
+              <textarea
+                id="companyDescription"
+                value={description}
+                onChange={(e) =>
+                  setDescription(e.target.value)
+                }
+                placeholder="Tell students about your company..."
+                rows="5"
+               
+              />
+            </div>
+
+            {/* ACTIONS */}
+            <div className="edit-company-actions">
+
+              <button
+                type="button"
+                className="edit-company-cancel"
+                onClick={onBack}
+                disabled={loading}
+              >
+                <span>←</span>
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                className="edit-company-save"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="edit-company-spinner"></span>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <span>✓</span>
+                    Save Changes
+                  </>
+                )}
+              </button>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+
     </div>
   );
 }

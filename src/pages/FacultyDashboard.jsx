@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
+import "../css/FacultyDashboard.css";
+import ChangePassword from "./ChangePassword";
 
-function FacultyDashboard({ faculty, onLogout,  onGoToProfile, }) {
+function FacultyDashboard({
+  faculty,
+  onLogout,
+  onGoToProfile,
+   onChangePassword,
+}) {
   const [applications, setApplications] = useState([]);
-const [logbooks, setLogbooks] = useState([]);
-const [markInputs, setMarkInputs] = useState({});
-const [message, setMessage] = useState("");
-  // ======================================================
-  // FETCH ASSIGNED STUDENTS
-  // ======================================================
+  const [logbooks, setLogbooks] = useState([]);
+  const [markInputs, setMarkInputs] = useState({});
+  const [message, setMessage] = useState("");
+
+  // UI-only navigation state
+  const [activeSection, setActiveSection] = useState("dashboard");
+
+  // =========================
+  // EXISTING FUNCTIONAL LOGIC
+  // =========================
 
   const fetchAssignedStudents = async () => {
     try {
       const facultyId = faculty?.id || faculty?._id;
-
-      if (!facultyId) {
-        setMessage("Faculty information not found.");
-        return;
-      }
 
       const response = await fetch(
         `http://localhost:5000/api/internship-assignments/faculty/${facultyId}`
@@ -25,29 +31,16 @@ const [message, setMessage] = useState("");
       const data = await response.json();
 
       if (data.status === "success") {
-        setApplications(data.assignments);
-      } else {
-        setMessage(
-          data.message || "Failed to load assigned students"
-        );
+        setApplications(data.assignments || []);
       }
     } catch (error) {
-      console.error("Fetch Assigned Students Error:", error);
-      setMessage("Unable to connect to server");
+      console.error("Error fetching assigned students:", error);
     }
   };
-
-  // ======================================================
-  // FETCH FACULTY LOGBOOKS
-  // ======================================================
 
   const fetchLogbooks = async () => {
     try {
       const facultyId = faculty?.id || faculty?._id;
-
-      if (!facultyId) {
-        return;
-      }
 
       const response = await fetch(
         `http://localhost:5000/api/logbook/faculty/${facultyId}`
@@ -55,22 +48,13 @@ const [message, setMessage] = useState("");
 
       const data = await response.json();
 
-      if (response.ok) {
-        setLogbooks(data);
-      } else {
-        setMessage(
-          data.message || "Failed to load logbooks"
-        );
+      if (data.status === "success") {
+        setLogbooks(data.logbooks || []);
       }
     } catch (error) {
-      console.error("Fetch Logbooks Error:", error);
-      setMessage("Unable to load logbooks");
+      console.error("Error fetching logbooks:", error);
     }
   };
-
-  // ======================================================
-  // APPROVE LOGBOOK
-  // ======================================================
 
   const approveLogbook = async (logbookId) => {
     try {
@@ -78,28 +62,25 @@ const [message, setMessage] = useState("");
         `http://localhost:5000/api/logbook/faculty/approve/${logbookId}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (data.status === "success") {
         setMessage("Logbook approved successfully.");
         fetchLogbooks();
       } else {
-        setMessage(
-          data.message || "Failed to approve logbook"
-        );
+        setMessage(data.message);
       }
     } catch (error) {
-      console.error("Approve Logbook Error:", error);
-      setMessage("Unable to approve logbook");
+      console.error("Approve logbook error:", error);
+      setMessage("Unable to approve logbook.");
     }
   };
-
-  // ======================================================
-  // REJECT LOGBOOK
-  // ======================================================
 
   const rejectLogbook = async (logbookId) => {
     try {
@@ -107,397 +88,994 @@ const [message, setMessage] = useState("");
         `http://localhost:5000/api/logbook/faculty/reject/${logbookId}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
 
       const data = await response.json();
 
-      if (response.ok) {
-        setMessage("Logbook rejected successfully.");
+      if (data.status === "success") {
+        setMessage("Logbook rejected.");
         fetchLogbooks();
       } else {
-        setMessage(
-          data.message || "Failed to reject logbook"
-        );
+        setMessage(data.message);
       }
     } catch (error) {
-      console.error("Reject Logbook Error:", error);
-      setMessage("Unable to reject logbook");
+      console.error("Reject logbook error:", error);
+      setMessage("Unable to reject logbook.");
     }
   };
 
-const saveMark = async (assignmentId) => {
-  try {
-    const facultyId = faculty?.id || faculty?._id;
-    const mark = markInputs[assignmentId];
+  const saveMark = async (assignmentId) => {
+    try {
+      const facultyId = faculty?.id || faculty?._id;
 
-    console.log("Assignment ID:", assignmentId);
-    console.log("Faculty ID:", facultyId);
-    console.log("Mark:", mark);
+      const response = await fetch(
+        `http://localhost:5000/api/internship-assignments/faculty/mark/${assignmentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            facultyId,
+            mark: markInputs[assignmentId],
+          }),
+        }
+      );
 
-    if (mark === undefined || mark === "") {
-      alert("Please enter a mark.");
-      return;
-    }
+      const data = await response.json();
 
-    const response = await fetch(
-      `http://localhost:5000/api/internship-assignments/faculty/mark/${assignmentId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          facultyId,
-          mark,
-        }),
+      if (data.status === "success") {
+        setMessage("Mark saved successfully.");
+        fetchAssignedStudents();
+      } else {
+        setMessage(data.message);
       }
-    );
-
-    console.log("Response status:", response.status);
-
-    const data = await response.json();
-
-    console.log("Backend response:", data);
-
-    if (response.ok) {
-      alert(
-        `Mark saved successfully. Total hours: ${data.totalHours}`
-      );
-
-      fetchAssignedStudents();
-    } else {
-      alert(
-        data.message || "Failed to save mark"
-      );
+    } catch (error) {
+      console.error("Save mark error:", error);
+      setMessage("Unable to save mark.");
     }
-  } catch (error) {
-    console.error("Save Mark Error:", error);
-    alert("Unable to connect to backend");
-  }
-};
-
-  // ======================================================
-  // LOAD DATA
-  // ======================================================
+  };
 
   useEffect(() => {
-    fetchAssignedStudents();
-    fetchLogbooks();
+    if (faculty) {
+      fetchAssignedStudents();
+      fetchLogbooks();
+    }
   }, [faculty]);
 
-  // ======================================================
+  // =========================
   // UI
-  // ======================================================
+  // =========================
+
+  const getInitials = () => {
+    if (!faculty?.name) return "F";
+
+    return faculty.name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
+      .substring(0, 2)
+      .toUpperCase();
+  };
+
+  const handleProfileClick = () => {
+    setActiveSection("profile");
+  };
 
   return (
-    <div className="faculty-dashboard">
+    <div className="faculty-layout">
 
-      {/* HEADER */}
+      {/* ================= HEADER ================= */}
+      <header className="faculty-header">
+        <div className="faculty-brand">
+          <div className="faculty-logo">InterLink</div>
+          <span className="faculty-role">Faculty Portal</span>
+        </div>
 
-      <h1>Faculty Dashboard</h1>
+        <div className="faculty-header-right">
+          <div className="faculty-user">
+            <div className="faculty-avatar">
+              {getInitials()}
+            </div>
 
-      <p>
-        Welcome, <strong>{faculty?.name}</strong>
-      </p>
-
-      <p>
-        <strong>Department:</strong>{" "}
-        {faculty?.department || "N/A"}
-      </p>
-
-      <p>
-        <strong>Designation:</strong>{" "}
-        {faculty?.designation || "Faculty"}
-      </p>
-
-      <button onClick={onGoToProfile}>
-  👤 My Profile
-</button>
-
-<button onClick={onLogout}>
-  Logout
-</button>
-
-      <hr />
-
-      {/* MESSAGE */}
-
-      {message && (
-        <p>
-          <strong>{message}</strong>
-        </p>
-      )}
-
-      {/* ======================================================
-          ASSIGNED STUDENTS
-          ====================================================== */}
-
-      <h2>
-        Assigned Internship Students
-      </h2>
-
-      {applications.length === 0 ? (
-        <p>
-          No students have been assigned to you yet.
-        </p>
-      ) : (
-        applications.map((application) => (
-          <div
-            className="application-card"
-            key={application._id}
-          >
-
-            {/* STUDENT */}
-
-            <h3>
-              Student Information
-            </h3>
-
-            <p>
-              <strong>Name:</strong>{" "}
-              {application.student?.name || "N/A"}
-            </p>
-
-            <p>
-              <strong>Register Number:</strong>{" "}
-              {application.student?.registerNumber || "N/A"}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {application.student?.email || "N/A"}
-            </p>
-
-            <p>
-              <strong>Department:</strong>{" "}
-              {application.student?.department || "N/A"}
-            </p>
-
-            <p>
-              <strong>Semester:</strong>{" "}
-              {application.student?.semester || "N/A"}
-            </p>
-
-            <hr />
-
-            {/* COMPANY */}
-
-            <h3>
-              Company Information
-            </h3>
-
-            <p>
-              <strong>Company:</strong>{" "}
-              {application.company?.companyName || "N/A"}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {application.company?.email || "N/A"}
-            </p>
-
-            <p>
-              <strong>Location:</strong>{" "}
-              {application.company?.location || "N/A"}
-            </p>
-
-            <hr />
-
-            {/* INTERNSHIP */}
-
-            <h3>
-              Internship Information
-            </h3>
-
-            <p>
-              <strong>Internship:</strong>{" "}
-              {application.internship?.title || "N/A"}
-            </p>
-
-            <p>
-              <strong>Position:</strong>{" "}
-              {application.position || "N/A"}
-            </p>
-
-            <p>
-              <strong>Duration:</strong>{" "}
-              {application.internship?.duration || "N/A"}
-            </p>
-
-            <hr />
-
-            {/* APPLICATION STATUS */}
-
-            <p>
-              <strong>Application Status:</strong>{" "}
-              {application.status}
-            </p>
-         <hr />
-
-<h3>Internship Evaluation</h3>
-
-<p>
-  <strong>Mark:</strong>{" "}
-  {application.mark !== null &&
-  application.mark !== undefined
-    ? application.mark
-    : "Not given yet"}
-</p>
-
-{application.status === "Completed" ? (
-  <div>
-    <input
-      type="number"
-      min="0"
-      max="100"
-      placeholder="Enter mark"
-      value={markInputs[application._id] || ""}
-      onChange={(e) =>
-        setMarkInputs({
-          ...markInputs,
-          [application._id]: e.target.value,
-        })
-      }
-    />
-
-    <button
-      onClick={() => saveMark(application._id)}
-    >
-      Save Mark
-    </button>
-  </div>
-) : (
-  <p>
-    ⏳ Mark can be given only after internship completion.
-  </p>
-)}
+            <div className="faculty-user-info">
+              <strong>{faculty?.name || "Faculty"}</strong>
+              <span>{faculty?.designation || "Faculty"}</span>
+            </div>
           </div>
-        ))
-      )}
 
-      <hr />
-
-      {/* ======================================================
-          LOGBOOK REVIEW
-          ====================================================== */}
-
-      <h2>
-        📖 Logbook Review
-      </h2>
-
-      {logbooks.length === 0 ? (
-        <p>
-          No logbook entries available.
-        </p>
-      ) : (
-        logbooks.map((logbook) => (
-          <div
-            className="application-card"
-            key={logbook._id}
+          <button
+            className="faculty-logout-btn"
+            onClick={onLogout}
           >
+            Logout
+          </button>
+        </div>
+      </header>
 
-            <h3>
-              Student Logbook Entry
-            </h3>
+      {/* ================= MAIN AREA ================= */}
+      <div className="faculty-main">
 
-            <p>
-              <strong>Student:</strong>{" "}
-              {logbook.student?.name || "N/A"}
-            </p>
+        {/* ================= SIDEBAR ================= */}
+        <aside className="faculty-sidebar">
 
-            <p>
-              <strong>Register Number:</strong>{" "}
-              {logbook.student?.registerNumber || "N/A"}
-            </p>
+          <div className="faculty-sidebar-title">
+            Faculty Dashboard
+          </div>
 
-            <p>
-              <strong>Internship:</strong>{" "}
-              {logbook.internship?.title || "N/A"}
-            </p>
+          <nav className="faculty-nav">
 
-            <p>
-              <strong>Date:</strong>{" "}
-              {new Date(logbook.date).toLocaleDateString()}
-            </p>
+            <button
+              className={
+                activeSection === "dashboard"
+                  ? "faculty-nav-item active"
+                  : "faculty-nav-item"
+              }
+              onClick={() => setActiveSection("dashboard")}
+            >
+              <span>⌂</span>
+              Dashboard
+            </button>
 
-            <p>
-              <strong>Hours Worked:</strong>{" "}
-              {logbook.hoursWorked} hours
-            </p>
+            <button
+              className={
+                activeSection === "students"
+                  ? "faculty-nav-item active"
+                  : "faculty-nav-item"
+              }
+              onClick={() => setActiveSection("students")}
+            >
+              <span>👨‍🎓</span>
+              Assigned Students
+            </button>
 
-            <p>
-              <strong>Work Done:</strong>{" "}
-              {logbook.workDone}
-            </p>
+            <button
+              className={
+                activeSection === "logbooks"
+                  ? "faculty-nav-item active"
+                  : "faculty-nav-item"
+              }
+              onClick={() => setActiveSection("logbooks")}
+            >
+              <span>📖</span>
+              Logbook Review
+            </button>
 
-            <p>
-              <strong>What I Learned:</strong>{" "}
-              {logbook.learnings}
-            </p>
+            <button
+              className={
+                activeSection === "profile"
+                  ? "faculty-nav-item active"
+                  : "faculty-nav-item"
+              }
+              onClick={handleProfileClick}
+            >
+              <span>👤</span>
+              My Profile
+            </button>
 
-            {/* COMPANY GUIDE STATUS */}
+      <button
+  type="button"
+  className={
+    activeSection === "changePassword"
+      ? "faculty-nav-item active"
+      : "faculty-nav-item"
+  }
+  onClick={() => setActiveSection("changePassword")}
+>
+  <span>🔐</span>
+  <span>Change Password</span>
+</button>
 
-            <p>
-              <strong>Company Guide Status:</strong>{" "}
-              {logbook.companyGuideStatus || "Pending"}
-            </p>
+          </nav>
 
-            {/* FACULTY STATUS */}
+          <div className="faculty-sidebar-bottom">
+            <button
+              className="faculty-profile-mini"
+              onClick={handleProfileClick}
+            >
+              <div className="faculty-avatar small">
+                {getInitials()}
+              </div>
 
-            <p>
-              <strong>Faculty Status:</strong>{" "}
-              {logbook.facultyStatus || "Pending"}
-            </p>
+              <div>
+                <strong>{faculty?.name || "Faculty"}</strong>
+                <span>View Profile</span>
+              </div>
+            </button>
+          </div>
 
-            {/* WAITING FOR COMPANY GUIDE */}
+        </aside>
 
-            {logbook.companyGuideStatus === "Pending" && (
-              <p>
-                ⏳ Waiting for Company Guide approval
-              </p>
-            )}
+        {/* ================= CONTENT ================= */}
+        <main className="faculty-content">
 
-            {/* REJECTED BY COMPANY GUIDE */}
+          {/* ================= DASHBOARD ================= */}
+          {activeSection === "dashboard" && (
+            <section>
 
-            {logbook.companyGuideStatus === "Rejected" && (
-              <p>
-                ❌ Rejected by Company Guide
-              </p>
-            )}
-
-            {/* FACULTY APPROVAL/REJECTION */}
-
-            {logbook.companyGuideStatus === "Approved" &&
-              logbook.facultyStatus === "Pending" && (
+              <div className="faculty-page-heading">
                 <div>
+                  <p className="faculty-eyebrow">
+                    FACULTY PORTAL
+                  </p>
+
+                  <h1>
+                    Welcome, {faculty?.name || "Faculty"} 👋
+                  </h1>
+
+                  <p>
+                    Manage your assigned internship students and
+                    review their internship logbooks.
+                  </p>
+                </div>
+              </div>
+
+              {message && (
+                <div className="faculty-message">
+                  {message}
+                </div>
+              )}
+
+              <div className="faculty-info-grid">
+
+                <div className="faculty-info-card">
+                  <div className="info-card-icon">👨‍🎓</div>
+                  <div>
+                    <span>Assigned Students</span>
+                    <strong>{applications.length}</strong>
+                  </div>
+                </div>
+
+                <div className="faculty-info-card">
+                  <div className="info-card-icon">📖</div>
+                  <div>
+                    <span>Logbooks</span>
+                    <strong>{logbooks.length}</strong>
+                  </div>
+                </div>
+
+                <div className="faculty-info-card">
+                  <div className="info-card-icon">🏫</div>
+                  <div>
+                    <span>Department</span>
+                    <strong>
+                      {faculty?.department || "Not available"}
+                    </strong>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="faculty-welcome-card">
+
+                <div>
+                  <span className="welcome-label">
+                    YOUR RESPONSIBILITIES
+                  </span>
+
+                  <h2>
+                    Guide students through their internship journey.
+                  </h2>
+
+                  <p>
+                    Review assigned students, monitor internship
+                    progress, and approve completed logbooks after
+                    company guide verification.
+                  </p>
+                </div>
+
+                <div className="welcome-actions">
 
                   <button
-                    onClick={() =>
-                      approveLogbook(logbook._id)
-                    }
+                    onClick={() => setActiveSection("students")}
                   >
-                    ✅ Approve
+                    View Students →
                   </button>
 
                   <button
-                    onClick={() =>
-                      rejectLogbook(logbook._id)
-                    }
+                    className="secondary"
+                    onClick={() => setActiveSection("logbooks")}
                   >
-                    ❌ Reject
+                    Review Logbooks
                   </button>
+
+                </div>
+
+              </div>
+
+            </section>
+          )}
+
+        {/* ================= STUDENTS ================= */}
+{activeSection === "students" && (
+  <section className="faculty-students-page">
+
+    <div className="faculty-page-heading students-heading">
+      <div>
+        <p className="faculty-eyebrow">
+          INTERNSHIP MANAGEMENT
+        </p>
+
+        <h1>Assigned Students</h1>
+
+        <p>
+          Monitor students assigned to you and manage their internship evaluation.
+        </p>
+      </div>
+
+      {applications.length > 0 && (
+        <div className="students-count-card">
+          <span>Total Assigned</span>
+          <strong>{applications.length}</strong>
+        </div>
+      )}
+    </div>
+
+    {message && (
+      <div className="faculty-message">
+        {message}
+      </div>
+    )}
+
+    {applications.length === 0 ? (
+      <div className="faculty-empty students-empty">
+
+        <div className="empty-icon">
+          👨‍🎓
+        </div>
+
+        <h3>No Assigned Students</h3>
+
+        <p>
+          Students assigned to you will appear here.
+        </p>
+
+      </div>
+    ) : (
+      <>
+
+        {/* ================= SUMMARY ================= */}
+        <div className="student-summary-grid">
+
+          <div className="student-summary-card">
+            <div className="summary-icon">
+              👨‍🎓
+            </div>
+
+            <div>
+              <span>Assigned Students</span>
+              <strong>
+                {applications.length}
+              </strong>
+            </div>
+          </div>
+
+
+          <div className="student-summary-card">
+            <div className="summary-icon">
+              🏢
+            </div>
+
+            <div>
+              <span>Internship Companies</span>
+
+              <strong>
+                {
+                  new Set(
+                    applications
+                      .map((application) =>
+                        application.company?.name
+                      )
+                      .filter(Boolean)
+                  ).size
+                }
+              </strong>
+            </div>
+          </div>
+
+
+          <div className="student-summary-card">
+            <div className="summary-icon">
+              🎓
+            </div>
+
+            <div>
+              <span>Completed</span>
+
+              <strong>
+                {
+                  applications.filter(
+                    (application) =>
+                      application.status === "Completed"
+                  ).length
+                }
+              </strong>
+            </div>
+          </div>
+
+
+          <div className="student-summary-card">
+            <div className="summary-icon">
+              📝
+            </div>
+
+            <div>
+              <span>Marks Pending</span>
+
+              <strong>
+                {
+                  applications.filter(
+                    (application) =>
+                      application.status === "Completed" &&
+                      (
+                        application.mark === undefined ||
+                        application.mark === null
+                      )
+                  ).length
+                }
+              </strong>
+            </div>
+          </div>
+
+        </div>
+
+
+        {/* ================= STUDENT LIST ================= */}
+        <div className="assigned-students-section">
+
+          <div className="section-title-row">
+
+            <div>
+              <h2>Your Students</h2>
+
+              <p>
+                Students currently under your internship supervision.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div className="faculty-card-list">
+
+            {applications.map((application) => (
+
+              <div
+                className="faculty-student-card"
+                key={application._id}
+              >
+
+                {/* ================= STUDENT HEADER ================= */}
+                <div className="student-card-header">
+
+                  <div className="student-identity">
+
+                    <div className="student-avatar">
+                      {(application.student?.name || "S")
+                        .charAt(0)
+                        .toUpperCase()}
+                    </div>
+
+                    <div>
+
+                      <h2>
+                        {application.student?.name ||
+                          "Student"}
+                      </h2>
+
+                      <span>
+                        Register No:{" "}
+                        {application.student?.registerNumber ||
+                          "Not available"}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <span
+                    className={`status-pill ${
+                      application.status
+                        ? application.status
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")
+                        : ""
+                    }`}
+                  >
+                    {application.status}
+                  </span>
+
+                </div>
+
+
+                {/* ================= STUDENT DETAILS ================= */}
+                <div className="student-details-grid">
+
+                  <div className="student-detail-item">
+
+                    <span>
+                      Company
+                    </span>
+
+                    <strong>
+                      {application.company?.name ||
+                        "Not available"}
+                    </strong>
+
+                  </div>
+
+
+                  <div className="student-detail-item">
+
+                    <span>
+                      Internship Position
+                    </span>
+
+                    <strong>
+                      {application.internship?.position ||
+                        "Not available"}
+                    </strong>
+
+                  </div>
+
+
+                  <div className="student-detail-item">
+
+                    <span>
+                      Department
+                    </span>
+
+                    <strong>
+                      {application.student?.department ||
+                        "Not available"}
+                    </strong>
+
+                  </div>
+
+
+                  <div className="student-detail-item">
+
+                    <span>
+                      Credits
+                    </span>
+
+                    <strong>
+                      {application.credits || 2}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+
+                {/* ================= EVALUATION ================= */}
+                <div className="evaluation-box">
+
+                  <div className="evaluation-header">
+
+                    <div>
+
+                      <span className="evaluation-label">
+                        INTERNSHIP EVALUATION
+                      </span>
+
+                      <h3>
+                        Final Assessment
+                      </h3>
+
+                    </div>
+
+
+                    {application.mark !== undefined &&
+                    application.mark !== null ? (
+
+                      <div className="current-mark">
+
+                        <span>
+                          Current Mark
+                        </span>
+
+                        <strong>
+                          {application.mark}
+                        </strong>
+
+                      </div>
+
+                    ) : (
+
+                      <div className="mark-pending">
+                        Mark Pending
+                      </div>
+
+                    )}
+
+                  </div>
+
+
+                  {application.status === "Completed" ? (
+
+                    <div className="mark-entry">
+
+                      <div className="mark-input-wrapper">
+
+                        <label>
+                          Enter final mark
+                        </label>
+
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          placeholder="0 - 100"
+                          value={
+                            markInputs[application._id] || ""
+                          }
+                          onChange={(e) =>
+                            setMarkInputs({
+                              ...markInputs,
+                              [application._id]:
+                                e.target.value,
+                            })
+                          }
+                        />
+
+                      </div>
+
+
+                      <button
+                        className="save-mark-button"
+                        onClick={() =>
+                          saveMark(application._id)
+                        }
+                      >
+                        Save Mark
+                      </button>
+
+                    </div>
+
+                  ) : (
+
+                    <div className="waiting-text">
+
+                      <span>⏳</span>
+
+                      Waiting for internship completion
+                      before evaluation.
+
+                    </div>
+
+                  )}
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </>
+    )}
+
+  </section>
+)}
+
+          {/* ================= LOGBOOKS ================= */}
+          {activeSection === "logbooks" && (
+            <section>
+
+              <div className="faculty-page-heading">
+                <div>
+                  <p className="faculty-eyebrow">
+                    INTERNSHIP MONITORING
+                  </p>
+
+                  <h1>Logbook Review</h1>
+
+                  <p>
+                    Review student internship entries after company
+                    guide verification.
+                  </p>
+                </div>
+              </div>
+
+              {message && (
+                <div className="faculty-message">
+                  {message}
+                </div>
+              )}
+
+              {logbooks.length === 0 ? (
+                <div className="faculty-empty">
+                  <div>📖</div>
+                  <h3>No Logbooks Available</h3>
+                  <p>
+                    Student logbook entries will appear here.
+                  </p>
+                </div>
+              ) : (
+                <div className="faculty-card-list">
+
+                  {logbooks.map((logbook) => (
+                    <div
+                      className="faculty-logbook-card"
+                      key={logbook._id}
+                    >
+
+                      <div className="logbook-header">
+
+                        <div>
+                          <h2>
+                            {logbook.student?.name ||
+                              "Student"}
+                          </h2>
+
+                          <span>
+                            Register No:{" "}
+                            {logbook.student?.registerNumber ||
+                              "Not available"}
+                          </span>
+                        </div>
+
+                        <span className="date-pill">
+                          {logbook.date
+                            ? new Date(
+                                logbook.date
+                              ).toLocaleDateString()
+                            : "Date unavailable"}
+                        </span>
+
+                      </div>
+
+                      <div className="logbook-info">
+
+                        <div>
+                          <span>Internship</span>
+                          <strong>
+                            {logbook.internship?.position ||
+                              "Not available"}
+                          </strong>
+                        </div>
+
+                        <div>
+                          <span>Hours Worked</span>
+                          <strong>
+                            {logbook.hoursWorked || 0} hours
+                          </strong>
+                        </div>
+
+                      </div>
+
+                      <div className="logbook-section">
+
+                        <h3>Work Done</h3>
+
+                        <p>
+                          {logbook.workDone ||
+                            "No description provided."}
+                        </p>
+
+                      </div>
+
+                      <div className="logbook-section">
+
+                        <h3>Learnings</h3>
+
+                        <p>
+                          {logbook.learnings ||
+                            "No learning details provided."}
+                        </p>
+
+                      </div>
+
+                      <div className="approval-status">
+
+                        <div>
+                          <span>Company Guide Status</span>
+
+                          <strong>
+                            {logbook.companyGuideStatus ||
+                              "Pending"}
+                          </strong>
+                        </div>
+
+                        <div>
+                          <span>Faculty Status</span>
+
+                          <strong>
+                            {logbook.facultyStatus ||
+                              "Pending"}
+                          </strong>
+                        </div>
+
+                      </div>
+
+                      {logbook.companyGuideStatus ===
+                        "Approved" &&
+                      logbook.facultyStatus === "Pending" ? (
+                        <div className="logbook-actions">
+
+                          <button
+                            className="approve-btn"
+                            onClick={() =>
+                              approveLogbook(logbook._id)
+                            }
+                          >
+                            ✓ Approve
+                          </button>
+
+                          <button
+                            className="reject-btn"
+                            onClick={() =>
+                              rejectLogbook(logbook._id)
+                            }
+                          >
+                            ✕ Reject
+                          </button>
+
+                        </div>
+                      ) : logbook.facultyStatus ===
+                        "Approved" ? (
+                        <div className="approved-message">
+                          ✓ This logbook has been approved.
+                        </div>
+                      ) : logbook.facultyStatus ===
+                        "Rejected" ? (
+                        <div className="rejected-message">
+                          This logbook has been rejected.
+                        </div>
+                      ) : (
+                        <div className="waiting-message">
+                          Waiting for company guide approval.
+                        </div>
+                      )}
+
+                    </div>
+                  ))}
 
                 </div>
               )}
 
-          </div>
-        ))
-      )}
+            </section>
+          )}
+{/* ================= PROFILE ================= */}
+{activeSection === "profile" && (
+  <section className="faculty-profile-page">
 
+    <div className="faculty-page-heading">
+      <div>
+        <p className="faculty-eyebrow">
+          ACCOUNT
+        </p>
+
+        <h1>My Profile</h1>
+
+        <p>
+          View and manage your faculty account information.
+        </p>
+      </div>
+    </div>
+
+    <div className="faculty-profile-card">
+
+      {/* PROFILE HEADER */}
+      <div className="profile-header">
+
+        <div className="profile-avatar-large">
+          {getInitials()}
+        </div>
+
+        <div className="profile-header-info">
+          <h2>
+            {faculty?.name || "Faculty"}
+          </h2>
+
+          <p>
+            {faculty?.designation || "Faculty"}
+          </p>
+
+          <span className="profile-status">
+            Faculty Account
+          </span>
+        </div>
+
+      </div>
+
+      {/* PROFILE INFORMATION */}
+      <div className="profile-section-title">
+        <div>
+          <span>PERSONAL INFORMATION</span>
+          <h3>Account Details</h3>
+        </div>
+      </div>
+
+      <div className="profile-details">
+
+        <div className="profile-field">
+          <span>Name</span>
+          <strong>
+            {faculty?.name || "Not available"}
+          </strong>
+        </div>
+
+        <div className="profile-field">
+          <span>Email Address</span>
+          <strong>
+            {faculty?.email || "Not available"}
+          </strong>
+        </div>
+
+        <div className="profile-field">
+          <span>Department</span>
+          <strong>
+            {faculty?.department || "Not available"}
+          </strong>
+        </div>
+
+        <div className="profile-field">
+          <span>Phone Number</span>
+          <strong>
+            {faculty?.phone || "Not available"}
+          </strong>
+        </div>
+
+        <div className="profile-field">
+          <span>Designation</span>
+          <strong>
+            {faculty?.designation || "Faculty"}
+          </strong>
+        </div>
+
+      </div>
+
+      {/* ACTION */}
+      <div className="profile-actions">
+
+        <button
+          className="profile-edit-btn"
+          onClick={onGoToProfile}
+        >
+          ✏️ Edit Profile
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+)}
+       
+          {activeSection === "changePassword" && (
+  <section>
+    <div className="faculty-page-heading">
+      <div>
+        <p className="faculty-eyebrow">ACCOUNT SECURITY</p>
+        <h1>Change Password</h1>
+        <p>Update your faculty account password securely.</p>
+      </div>
+    </div>
+
+    <div className="faculty-password-card">
+      <ChangePassword
+        user={faculty}
+        role="faculty"
+        onBack={() => setActiveSection("dashboard")}
+      />
+    </div>
+  </section>
+)}
+
+        </main>
+      </div>
     </div>
   );
 }
 
 export default FacultyDashboard;
-

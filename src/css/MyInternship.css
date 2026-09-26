@@ -1,0 +1,961 @@
+/* =========================================================
+   MY INTERNSHIP PAGE
+   ========================================================= */
+
+.my-internship-page {
+  min-height: 100vh;
+  background: #fbfdfc;
+  color: #294139;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.internship-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 42px;
+
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid #e1ece6;
+
+  box-shadow: 0 3px 14px rgba(40, 118, 83, 0.05);
+}
+
+
+/* Existing InterLink branding area */
+
+.internship-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.internship-brand strong {
+  font-size: 24px;
+  font-weight: 800;
+  color: #287653;
+  letter-spacing: -0.5px;
+}
+
+.internship-brand span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #789087;
+}
+
+
+/* Back button */
+
+.internship-back-btn {
+  border: 1px solid #d6e8df;
+  background: #ffffff;
+  color: #287653;
+
+  padding: 11px 18px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.internship-back-btn:hover {
+  background: #e7f6ed;
+  border-color: #b9daca;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   IMPORTANT:
+   No height: 100vh
+   No overflow: hidden
+   This allows the whole page to scroll normally.
+   ========================================================= */
+
+.my-internship-content {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+
+  padding: 42px 0 70px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.internship-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+
+  margin-bottom: 28px;
+}
+
+.page-eyebrow {
+  margin: 0 0 7px;
+
+  color: #e98270;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.internship-page-header h1 {
+  margin: 0;
+
+  color: #243b33;
+
+  font-size: 36px;
+  line-height: 1.15;
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+.page-description {
+  margin: 9px 0 0;
+
+  color: #71827a;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* Status */
+
+.internship-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 14px;
+
+  background: #e7f6ed;
+  border: 1px solid #cfe8da;
+  border-radius: 30px;
+
+  color: #287653;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #4aaf78;
+}
+
+
+/* =========================================================
+   OVERVIEW
+   ========================================================= */
+
+.internship-overview {
+  background: #ffffff;
+
+  border: 1px solid #dfeae4;
+  border-radius: 18px;
+
+  padding: 26px;
+
+  box-shadow: 0 8px 26px rgba(43, 84, 68, 0.06);
+
+  margin-bottom: 24px;
+}
+
+.overview-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 26px;
+}
+
+.overview-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #d8f3e5;
+
+  font-size: 27px;
+}
+
+.section-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #789087;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.overview-heading h2 {
+  margin: 0;
+
+  color: #243b33;
+
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.overview-heading p {
+  margin: 4px 0 0;
+
+  color: #71827a;
+  font-size: 14px;
+}
+
+
+/* Overview details */
+
+.overview-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px;
+
+  background: #f8fbf9;
+  border: 1px solid #e6eee9;
+  border-radius: 13px;
+}
+
+.detail-item > span {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e7f6ed;
+  border-radius: 10px;
+
+  font-size: 17px;
+}
+
+.detail-item small {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #83938c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.detail-item strong {
+  display: block;
+
+  color: #30483e;
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+   ========================================================= */
+
+.information-section,
+.progress-section,
+.guides-section,
+.certificates-section {
+  margin-top: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #dfeae4;
+  border-radius: 18px;
+
+  padding: 26px;
+
+  box-shadow: 0 8px 26px rgba(43, 84, 68, 0.05);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-bottom: 22px;
+}
+
+.title-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f1edfb;
+
+  font-size: 19px;
+}
+
+.section-title h2 {
+  margin: 0;
+
+  color: #2c443a;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.section-title p {
+  margin: 4px 0 0;
+
+  color: #81918a;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   INFORMATION
+   ========================================================= */
+
+.information-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.info-card {
+  padding: 19px;
+
+  background: #fffaf7;
+
+  border: 1px solid #f2e4dd;
+  border-radius: 14px;
+}
+
+.info-label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #e98270;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.info-card p {
+  margin: 0;
+
+  color: #465a52;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress-section {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f7fcf9 100%
+  );
+}
+
+.progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.progress-header h2 {
+  margin: 0;
+
+  color: #2c443a;
+  font-size: 21px;
+}
+
+.hours-value {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.hours-value strong {
+  color: #287653;
+
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.hours-value span {
+  color: #82938b;
+  font-size: 14px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12px;
+
+  overflow: hidden;
+
+  background: #e4eee8;
+  border-radius: 30px;
+}
+
+.progress-fill {
+  height: 100%;
+
+  background: #287653;
+
+  border-radius: 30px;
+}
+
+.progress-footer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 10px;
+
+  color: #7c8e85;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   GUIDES
+   ========================================================= */
+
+.guides-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.guide-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 18px;
+
+  background: #f8fbf9;
+
+  border: 1px solid #e2ece7;
+  border-radius: 14px;
+}
+
+.guide-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  font-size: 21px;
+}
+
+.guide-icon.faculty {
+  background: #e4f4ea;
+}
+
+.guide-icon.company {
+  background: #fce5dd;
+}
+
+.guide-item span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #7d8d86;
+
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.guide-item strong {
+  display: block;
+
+  color: #30483e;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   CERTIFICATES
+   ========================================================= */
+
+.certificate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.certificate-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 18px;
+
+  background: #f9fcfa;
+
+  border: 1px solid #e1ebe5;
+  border-radius: 15px;
+}
+
+.certificate-symbol {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background: #e7f6ed;
+
+  font-size: 22px;
+}
+
+.interlink-symbol {
+  background: #f1edfb;
+}
+
+.certificate-information {
+  flex: 1;
+  min-width: 0;
+}
+
+.certificate-type {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #789087;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.certificate-information h3 {
+  margin: 0;
+
+  color: #2c443a;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.certificate-information p {
+  margin: 5px 0 0;
+
+  color: #7a8b83;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.certificate-action {
+  flex-shrink: 0;
+}
+
+.certificate-view-btn,
+.generate-certificate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+
+  padding: 9px 15px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.certificate-view-btn {
+  color: #287653;
+
+  background: #e7f6ed;
+  border: 1px solid #cce5d7;
+}
+
+.certificate-view-btn:hover {
+  background: #d8f3e5;
+}
+
+.generate-certificate {
+  color: #ffffff;
+
+  background: #287653;
+
+  border: 1px solid #287653;
+}
+
+.generate-certificate:hover {
+  background: #216548;
+}
+
+.certificate-pending {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 9px 13px;
+
+  border-radius: 9px;
+
+  background: #fff5ee;
+  color: #c46e5e;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RESULT CARDS
+   ========================================================= */
+
+.result-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  margin-top: 24px;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #dfeae4;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 24px rgba(43, 84, 68, 0.04);
+}
+
+.result-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f1edfb;
+
+  font-size: 19px;
+}
+
+.result-card small {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #82928b;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.result-card strong {
+  display: block;
+
+  color: #287653;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.internship-loading {
+  min-height: 55vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  text-align: center;
+}
+
+.loading-circle {
+  width: 42px;
+  height: 42px;
+
+  margin-bottom: 18px;
+
+  border: 4px solid #d8f3e5;
+  border-top-color: #287653;
+
+  border-radius: 50%;
+}
+
+.internship-loading h3 {
+  margin: 0 0 7px;
+
+  color: #2c443a;
+
+  font-size: 20px;
+}
+
+.internship-loading p {
+  margin: 0;
+
+  color: #7d8e86;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-internship {
+  min-height: 55vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 20px;
+
+  background: #e7f6ed;
+
+  font-size: 32px;
+}
+
+.empty-internship h2 {
+  margin: 0 0 8px;
+
+  color: #2c443a;
+
+  font-size: 24px;
+}
+
+.empty-internship p {
+  margin: 0 0 20px;
+
+  color: #7b8c84;
+
+  font-size: 14px;
+}
+
+.empty-back-btn {
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #287653;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .internship-topbar {
+    padding: 0 25px;
+  }
+
+  .my-internship-content {
+    width: min(100% - 32px, 760px);
+  }
+
+  .overview-details {
+    grid-template-columns: 1fr;
+  }
+
+  .information-layout,
+  .guides-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .internship-topbar {
+    min-height: 68px;
+    padding: 0 16px;
+  }
+
+  .internship-brand strong {
+    font-size: 20px;
+  }
+
+  .internship-brand span {
+    display: none;
+  }
+
+  .internship-back-btn {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .my-internship-content {
+    width: calc(100% - 24px);
+    padding: 28px 0 50px;
+  }
+
+  .internship-page-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .internship-page-header h1 {
+    font-size: 29px;
+  }
+
+  .internship-status {
+    align-self: flex-start;
+  }
+
+  .internship-overview,
+  .information-section,
+  .progress-section,
+  .guides-section,
+  .certificates-section {
+    padding: 19px;
+    border-radius: 15px;
+  }
+
+  .overview-heading h2 {
+    font-size: 20px;
+  }
+
+  .certificate-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .certificate-information {
+    width: calc(100% - 66px);
+  }
+
+  .certificate-action {
+    width: 100%;
+    margin-left: 66px;
+  }
+
+  .result-section {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-footer {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

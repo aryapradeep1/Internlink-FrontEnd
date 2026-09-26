@@ -47,7 +47,9 @@ import EditCollegeProfile from "./pages/EditCollegeProfile";
 
 // Common
 import ChangePassword from "./pages/ChangePassword";
-
+import Home from "./pages/Home";
+import "./App.css";
+import './index.css'
 
 // intershnip opeertunity
 import PostInternship from "./pages/PostInternship";
@@ -55,7 +57,12 @@ import PostInternship from "./pages/PostInternship";
 import InternshipCertificate from "./pages/InternshipCertificate";
 
 function App() {
-  const [page, setPage] = useState("login");
+  const [page, setPage] = useState("home");
+  const [companySection, setCompanySection] =
+  useState("dashboard");
+
+  const [facultySection, setFacultySection] =
+  useState("dashboard");
 
   const [student, setStudent] = useState(null);
   const [company, setCompany] = useState(null);
@@ -94,26 +101,42 @@ const [certificateHours, setCertificateHours] = useState(0);
   // =====================================================
   // COMPANY
   // =====================================================
+const handleCompanyLogin = (companyData) => {
+  setCompany(companyData);
+  setCompanySection("dashboard");
+  setPage("companyDashboard");
+};
 
-  const handleCompanyLogin = (companyData) => {
-    setCompany(companyData);
-    setPage("companyDashboard");
-  };
 const handleCompanyLogout = () => {
   setCompany(null);
   setPage("login");
 
-  // Clear old company dashboard data
-  window.location.reload();
+;
+};
+const goToCompanyProfile = () => {
+  setCompanySection("profile");
+  setPage("companyDashboard");
 };
 
-  const goToCompanyProfile = () => {
-    setPage("companyProfile");
-  };
+const goToEditCompanyProfile = () => {
+  setCompanySection("editProfile");
+  setPage("companyDashboard");
+};
 
-  const goToEditCompanyProfile = () => {
-    setPage("editCompanyProfile");
-  };
+const goToCompanyDashboard = () => {
+  setCompanySection("dashboard");
+  setPage("companyDashboard");
+};
+
+const goToCompanyPostInternship = () => {
+  setCompanySection("postInternship");
+  setPage("companyDashboard");
+};
+
+const goToCompanyChangePassword = () => {
+  setCompanySection("changePassword");
+  setPage("companyDashboard");
+};
 
   // =====================================================
   // ADMIN
@@ -136,25 +159,46 @@ const handleCompanyLogout = () => {
   // =====================================================
   // FACULTY
   // =====================================================
+const handleFacultyLogin = (facultyData) => {
+  setFaculty(facultyData);
+  setFacultySection("dashboard");
+  setPage("facultyDashboard");
+};
 
-  const handleFacultyLogin = (facultyData) => {
-    setFaculty(facultyData);
-    setPage("facultyDashboard");
-  };
+const handleFacultyLogout = () => {
+  setFaculty(null);
+  setPage("login");
+};
 
-  const handleFacultyLogout = () => {
-    setFaculty(null);
-    setPage("login");
-  };
+const goToFacultyProfile = () => {
+  setFacultySection("profile");
+  setPage("facultyDashboard");
+};
 
-  const goToFacultyProfile = () => {
-    setPage("facultyProfile");
-  };
+const goToEditFacultyProfile = () => {
+  setFacultySection("editProfile");
+  setPage("facultyDashboard");
+};
 
-  const goToEditFacultyProfile = () => {
-    setPage("editFacultyProfile");
-  };
+const goToFacultyDashboard = () => {
+  setFacultySection("dashboard");
+  setPage("facultyDashboard");
+};
 
+const goToFacultyStudents = () => {
+  setFacultySection("students");
+  setPage("facultyDashboard");
+};
+
+const goToFacultyLogbooks = () => {
+  setFacultySection("logbooks");
+  setPage("facultyDashboard");
+};
+
+const goToFacultyChangePassword = () => {
+  setFacultySection("changePassword");
+  setPage("facultyDashboard");
+};
   // =====================================================
   // COMPANY GUIDE
   // =====================================================
@@ -200,6 +244,19 @@ const handleCompanyLogout = () => {
   };
 
   // =====================================================
+// HOME PAGE
+// =====================================================
+
+if (page === "home") {
+  return (
+    <Home
+      onLogin={() => setPage("login")}
+      onSignup={() => setPage("register")}
+    />
+  );
+}
+
+  // =====================================================
   // MAIN LOGIN PAGE
   // =====================================================
 
@@ -221,6 +278,7 @@ const handleCompanyLogout = () => {
         onGoToCollegeRegister={() =>
           setPage("collegeRegister")
         }
+        onGoToHome={() => setPage("home")}
       />
     );
   }
@@ -229,14 +287,14 @@ const handleCompanyLogout = () => {
   // STUDENT REGISTER
   // =====================================================
 
-  if (page === "register") {
-    return (
-      <Register
-        onBack={() => setPage("login")}
-        onLogin={() => setPage("login")}
-      />
-    );
-  }
+if (page === "register") {
+  return (
+    <Register
+      onRegisterSuccess={() => setPage("login")}
+      onGoToLogin={() => setPage("login")}
+    />
+  );
+}
 
   // =====================================================
   // STUDENT DASHBOARD
@@ -331,11 +389,11 @@ const handleCompanyLogout = () => {
   // =====================================================
   // STUDENT MY INTERNSHIP
   // =====================================================
-
- if (page === "myInternship" && student) {
+if (page === "myInternship" && student) {
   return (
     <MyInternship
       student={student}
+      onBack={() => setPage("studentDashboard")}
       onGenerateCertificate={(assignment, totalHours) => {
         setCertificateAssignment(assignment);
         setCertificateHours(totalHours);
@@ -403,68 +461,191 @@ if (
   selectedInternship
 ) {
   return (
-    <div className="companies-container">
+<div className="internship-details-page">
 
-      <h1>Internship Details</h1>
+  {/* FIXED HEADER */}
+  <header className="internship-details-header">
+    <div className="internship-details-logo">
+      Intern<span>Link</span>
+    </div>
 
-      <h2>
-        {selectedInternship.title}
-      </h2>
+    <div className="internship-details-header-text">
+      Student Portal
+    </div>
+  </header>
 
-      <p>
-        <strong>Company:</strong>{" "}
-        {selectedCompany?.companyName || "Company"}
-      </p>
 
-      <p>
-        <strong>Description:</strong>{" "}
-        {selectedInternship.description}
-      </p>
+  {/* FIXED BACK BUTTON */}
+  <div className="internship-details-navigation">
+    <button
+      className="internship-back-button"
+      onClick={() => setPage("companies")}
+    >
+      ← Back to Internships
+    </button>
+  </div>
 
-      <p>
-        <strong>Location:</strong>{" "}
-        {selectedInternship.location}
-      </p>
 
-      <p>
-        <strong>Eligibility:</strong>{" "}
-        {selectedInternship.eligibility}
-      </p>
+  {/* ONLY THIS AREA SCROLLS */}
+  <main className="internship-details-content">
 
-      <p>
-        <strong>Skills Required:</strong>{" "}
-        {selectedInternship.skillsRequired}
-      </p>
+    {/* HERO */}
+    <section className="internship-hero">
 
-      <p>
-        <strong>Duration:</strong>{" "}
-        {selectedInternship.duration}
-      </p>
+      <div className="internship-hero-content">
 
-      <p>
-        <strong>Application Deadline:</strong>{" "}
-        {new Date(
-          selectedInternship.deadline
-        ).toLocaleDateString()}
-      </p>
+        <span className="internship-label">
+          INTERNSHIP OPPORTUNITY
+        </span>
 
-     
-       <button
-  onClick={() => setPage("applicationForm")}
->
-  Apply
-</button>
+        <h1>
+          {selectedInternship.title}
+        </h1>
 
-      <br />
-      <br />
+        <div className="internship-company-location">
+          <span>
+            {selectedCompany?.companyName || "Company"}
+          </span>
 
-      <button
-        onClick={() => setPage("companies")}
-      >
-        ← Back to Internships
-      </button>
+          <span className="dot-separator">
+            •
+          </span>
+
+          <span>
+            {selectedInternship.location || "Location not specified"}
+          </span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    {/* REST OF YOUR CONTENT */}
+    <div className="internship-main-layout">
+
+      {/* LEFT CARD */}
+      <section className="internship-main-card">
+
+        <div className="internship-section">
+          <h2>About this internship</h2>
+
+          <p>
+            {selectedInternship.description ||
+              "No description provided."}
+          </p>
+        </div>
+
+
+        <div className="internship-section">
+          <h2>Eligibility</h2>
+
+          <p>
+            {selectedInternship.eligibility ||
+              "No specific eligibility criteria provided."}
+          </p>
+        </div>
+
+
+        <div className="internship-section">
+          <h2>Skills Required</h2>
+
+          {selectedInternship.skillsRequired &&
+          selectedInternship.skillsRequired !== "None" ? (
+            <div className="skills-container">
+              <span className="skill-tag">
+                {selectedInternship.skillsRequired}
+              </span>
+            </div>
+          ) : (
+            <span className="no-skills">
+              No specific skills required
+            </span>
+          )}
+        </div>
+
+      </section>
+
+
+      {/* RIGHT APPLY CARD */}
+      <aside className="internship-apply-card">
+
+        <div className="apply-card-heading">
+
+          <div className="apply-icon">
+            ✓
+          </div>
+
+          <div>
+            <h2>Ready to apply?</h2>
+
+            <p>
+              Submit your application for this opportunity.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div className="apply-info">
+
+          <div className="apply-info-row">
+            <span className="apply-info-label">
+              Application Deadline
+            </span>
+
+            <strong>
+              {new Date(
+                selectedInternship.deadline
+              ).toLocaleDateString()}
+            </strong>
+          </div>
+
+
+          <div className="apply-info-row">
+            <span className="apply-info-label">
+              Duration
+            </span>
+
+            <strong>
+              {selectedInternship.duration}
+            </strong>
+          </div>
+
+
+          <div className="apply-info-row">
+            <span className="apply-info-label">
+              Company
+            </span>
+
+            <strong>
+              {selectedCompany?.companyName || "Company"}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <button
+          className="internship-apply-button"
+          onClick={() => setPage("applicationForm")}
+        >
+          Apply for Internship
+          <span>→</span>
+        </button>
+
+
+        <p className="apply-note">
+          Your application will be reviewed by the company.
+        </p>
+
+      </aside>
 
     </div>
+
+  </main>
+
+</div>
   );
 }
 
@@ -521,82 +702,68 @@ if (
   // COMPANY DASHBOARD
   // =====================================================
 
-  if (page === "companyDashboard" && company) {
+
+// =====================================================
+// COMPANY WORKSPACE
+// =====================================================
+
+if (page === "companyDashboard" && company) {
   return (
     <CompanyDashboard
       company={company}
       onLogout={handleCompanyLogout}
       onGoToProfile={goToCompanyProfile}
-      onPostInternship={() =>
-        setPage("postInternship")
-      }
-      onRegisterCompanyGuide={() =>
-        setPage("companyGuideRegister")
-      }
-    />
+      onPostInternship={goToCompanyPostInternship}
+      onGoToDashboard={goToCompanyDashboard}
+      onGoToApplications={() => {
+        setCompanySection("applications");
+      }}
+      onGoToCompanyGuides={() => {
+        setCompanySection("guides");
+      }}
+      onGoToAccountSettings={() => {
+        setCompanySection("settings");
+      }}
+      activeSection={companySection}
+    >
+      {companySection === "profile" && (
+        <CompanyProfile
+          company={company}
+          onBack={goToCompanyDashboard}
+          onEdit={goToEditCompanyProfile}
+          onChangePassword={goToCompanyChangePassword}
+        />
+      )}
+
+ {companySection === "editProfile" && ( 
+  <EditCompanyProfile 
+    company={company} 
+    onBack={goToCompanyProfile} 
+    onProfileUpdated={(updatedCompany) => { 
+      setCompany(updatedCompany); 
+      setCompanySection("profile"); 
+    }} 
+  /> 
+)}
+
+      {companySection === "postInternship" && (
+        <PostInternship
+          company={company}
+          onBack={goToCompanyDashboard}
+          onSuccess={goToCompanyDashboard}
+        />
+      )}
+
+      {companySection === "changePassword" && (
+        <ChangePassword
+          user={company}
+          role="company"
+          onBack={goToCompanyProfile}
+        />
+      )}
+    </CompanyDashboard>
   );
 }
-
-// POst inetrnship
-
-if (page === "postInternship" && company) {
-  return (
-    <PostInternship
-      company={company}
-      onBack={() => setPage("companyDashboard")}
-      onSuccess={() => setPage("companyDashboard")}
-    />
-  );
-}
-
-  // =====================================================
-  // COMPANY PROFILE
-  // =====================================================
-
-  if (page === "companyProfile" && company) {
-    return (
-      <CompanyProfile
-        company={company}
-        onBack={() => setPage("companyDashboard")}
-        onEdit={goToEditCompanyProfile}
-        onChangePassword={() =>
-          setPage("changeCompanyPassword")
-        }
-      />
-    );
-  }
-
-  // =====================================================
-  // EDIT COMPANY PROFILE
-  // =====================================================
-
-  if (page === "editCompanyProfile" && company) {
-    return (
-      <EditCompanyProfile
-        company={company}
-        onBack={() => setPage("companyProfile")}
-        onUpdated={(updatedCompany) => {
-          setCompany(updatedCompany);
-          setPage("companyProfile");
-        }}
-      />
-    );
-  }
-
-  // =====================================================
-  // COMPANY CHANGE PASSWORD
-  // =====================================================
-
-  if (page === "changeCompanyPassword" && company) {
-    return (
-      <ChangePassword
-        user={company}
-        role="company"
-        onBack={() => setPage("companyProfile")}
-      />
-    );
-  }
-
   // =====================================================
   // ADMIN LOGIN
   // =====================================================
@@ -655,15 +822,14 @@ if (page === "postInternship" && company) {
   // =====================================================
   // FACULTY REGISTER
   // =====================================================
-
-  if (page === "facultyRegister") {
-    return (
-      <FacultyRegister
-        onBack={() => setPage("facultyLogin")}
-        onLogin={() => setPage("facultyLogin")}
-      />
-    );
-  }
+if (page === "facultyRegister") {
+  return (
+    <FacultyRegister
+      onRegisterSuccess={() => setPage("facultyLogin")}
+      onBackToLogin={() => setPage("facultyLogin")}
+    />
+  );
+}
 
   // =====================================================
   // FACULTY DASHBOARD
@@ -675,57 +841,44 @@ if (page === "postInternship" && company) {
       faculty={faculty}
       onLogout={handleFacultyLogout}
       onGoToProfile={goToFacultyProfile}
-    />
+      onGoToDashboard={goToFacultyDashboard}
+      onGoToStudents={goToFacultyStudents}
+      onGoToLogbooks={goToFacultyLogbooks}
+      onGoToChangePassword={goToFacultyChangePassword}
+      activeSection={facultySection}
+    >
+      {facultySection === "profile" && (
+        <FacultyProfile
+          faculty={faculty}
+          onBack={goToFacultyDashboard}
+          onEdit={goToEditFacultyProfile}
+          onChangePassword={goToFacultyChangePassword}
+        />
+      )}
+
+      {facultySection === "editProfile" && (
+        <EditFacultyProfile
+          faculty={faculty}
+          onBack={goToFacultyProfile}
+          onUpdated={(updatedFaculty) => {
+            setFaculty(updatedFaculty);
+            setFacultySection("profile");
+          }}
+        />
+      )}
+
+      {facultySection === "changePassword" && (
+        <ChangePassword
+          user={faculty}
+          role="faculty"
+          onBack={goToFacultyProfile}
+        />
+      )}
+    </FacultyDashboard>
   );
 }
 
-  // =====================================================
-  // FACULTY PROFILE
-  // =====================================================
 
-  if (page === "facultyProfile" && faculty) {
-    return (
-      <FacultyProfile
-        faculty={faculty}
-        onBack={() => setPage("facultyDashboard")}
-        onEdit={goToEditFacultyProfile}
-        onChangePassword={() =>
-          setPage("changeFacultyPassword")
-        }
-      />
-    );
-  }
-
-  // =====================================================
-  // EDIT FACULTY PROFILE
-  // =====================================================
-
-  if (page === "editFacultyProfile" && faculty) {
-    return (
-      <EditFacultyProfile
-        faculty={faculty}
-        onBack={() => setPage("facultyProfile")}
-        onUpdated={(updatedFaculty) => {
-          setFaculty(updatedFaculty);
-          setPage("facultyProfile");
-        }}
-      />
-    );
-  }
-
-  // =====================================================
-  // FACULTY CHANGE PASSWORD
-  // =====================================================
-
-  if (page === "changeFacultyPassword" && faculty) {
-    return (
-      <ChangePassword
-        user={faculty}
-        role="faculty"
-        onBack={() => setPage("facultyProfile")}
-      />
-    );
-  }
 
   // =====================================================
   // COMPANY GUIDE LOGIN
@@ -806,7 +959,7 @@ if (page === "companyGuideRegister") {
         onBack={() =>
           setPage("companyGuideProfile")
         }
-        onUpdated={(updatedGuide) => {
+        onProfileUpdated={(updatedGuide) => {
           setCompanyGuide(updatedGuide);
           setPage("companyGuideProfile");
         }}
@@ -837,15 +990,15 @@ if (page === "companyGuideRegister") {
   // COLLEGE LOGIN
   // =====================================================
 
-  if (page === "collegeLogin") {
-    return (
-      <CollegeLogin
-        onLogin={handleCollegeLogin}
-        onRegister={() => setPage("collegeRegister")}
-        onBack={() => setPage("login")}
-      />
-    );
-  }
+if (page === "collegeLogin") {
+  return (
+    <CollegeLogin
+      onLogin={handleCollegeLogin}
+      onGoToRegister={() => setPage("collegeRegister")}
+      onBack={() => setPage("login")}
+    />
+  );
+}
 
   // =====================================================
   // COLLEGE REGISTER

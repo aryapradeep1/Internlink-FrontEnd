@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/EditStudentProfile.css";
 
 function EditStudentProfile({
   student,
@@ -63,130 +64,269 @@ function EditStudentProfile({
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="edit-profile-page">
+      <div className="edit-profile-container">
 
-      <h1>✏️ Edit Profile</h1>
+        {/* Header */}
+        <div className="edit-profile-header">
+          <div className="edit-profile-icon">✏️</div>
 
-      <form onSubmit={handleSubmit}>
+          <div>
+            <p className="edit-profile-eyebrow">
+              STUDENT ACCOUNT
+            </p>
 
-        <div className="student-info">
+            <h1>Edit Profile</h1>
 
-          <label>
-            Name
-          </label>
-
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-
-          <label>
-            Email
-          </label>
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <label>
-            Register Number
-          </label>
-
-          <input
-            type="text"
-            value={student.registerNumber}
-            disabled
-          />
-
-          <label>
-            Department
-          </label>
-
-          <input
-            type="text"
-            value={department}
-            onChange={(e) =>
-              setDepartment(e.target.value)
-            }
-            required
-          />
-
-          <label>
-            Semester
-          </label>
-
-          <input
-            type="number"
-            value={semester}
-            onChange={(e) =>
-              setSemester(e.target.value)
-            }
-            min="1"
-            max="8"
-            required
-          />
-
-          <label>
-            Phone
-          </label>
-
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) =>
-              setPhone(e.target.value)
-            }
-            required
-          />
-
-          <label>
-            College
-          </label>
-
-          <input
-            type="text"
-            value={
-              student.college?.collegeName || "Not available"
-            }
-            disabled
-          />
-
+            <p className="edit-profile-subtitle">
+              Update your personal and academic information.
+            </p>
+          </div>
         </div>
 
-        {message && (
-          <p style={{ color: "green" }}>
-            {message}
-          </p>
-        )}
+        {/* Form Card */}
+        <form
+          onSubmit={handleSubmit}
+          className="edit-profile-form"
+        >
+          <div className="form-section">
+            <div className="section-heading">
+              <span className="section-dot"></span>
 
-        {error && (
-          <p style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
+              <div>
+                <h2>Personal Information</h2>
+                <p>
+                  Keep your contact details up to date.
+                </p>
+              </div>
+            </div>
 
-        <div className="dashboard-menu">
+            <div className="form-grid">
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Updating..." : "💾 Save Changes"}
-          </button>
+              {/* Name */}
+              <div className="form-field">
+                <label htmlFor="student-name">
+                  Name
+                </label>
 
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Profile
-          </button>
+                <input
+                  id="student-name"
+                  type="text"
+                  value={name}
+                  onChange={(e) =>
+                    setName(e.target.value)
+                  }
+                  required
+                />
+              </div>
 
-        </div>
+              {/* Email */}
+              <div className="form-field">
+                <label htmlFor="student-email">
+                  Email
+                </label>
 
-      </form>
+                <input
+                  id="student-email"
+                  type="email"
+                  value={email}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                  required
+                />
+              </div>
 
+              {/* Phone */}
+              <div className="form-field">
+                <label htmlFor="student-phone">
+                  Phone
+                </label>
+
+                <input
+                  id="student-phone"
+                  type="text"
+                  value={phone}
+                  onChange={(e) =>
+                    setPhone(e.target.value)
+                  }
+                  required
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* Academic Information */}
+          <div className="form-section">
+            <div className="section-heading">
+              <span className="section-dot lavender-dot"></span>
+
+              <div>
+                <h2>Academic Information</h2>
+                <p>
+                  Update your current academic details.
+                </p>
+              </div>
+            </div>
+
+            <div className="form-grid">
+
+              {/* Register Number */}
+              <div className="form-field">
+                <label htmlFor="register-number">
+                  Register Number
+                </label>
+
+                <div className="disabled-input-wrapper">
+                  <input
+                    id="register-number"
+                    type="text"
+                    value={student.registerNumber}
+                    disabled
+                  />
+
+                  <span className="locked-icon">
+                    🔒
+                  </span>
+                </div>
+
+                <small>
+                  Register number cannot be changed.
+                </small>
+              </div>
+
+              {/* Department */}
+              <div className="form-field">
+                <label htmlFor="student-department">
+                  Department
+                </label>
+
+                <input
+                  id="student-department"
+                  type="text"
+                  value={department}
+                  onChange={(e) =>
+                    setDepartment(e.target.value)
+                  }
+                  required
+                />
+              </div>
+
+              {/* Semester */}
+              <div className="form-field">
+                <label htmlFor="student-semester">
+                  Semester
+                </label>
+
+                <input
+                  id="student-semester"
+                  type="number"
+                  value={semester}
+                  onChange={(e) =>
+                    setSemester(e.target.value)
+                  }
+                  min="1"
+                  max="8"
+                  required
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* College Information */}
+          <div className="form-section college-section">
+            <div className="section-heading">
+              <span className="section-dot peach-dot"></span>
+
+              <div>
+                <h2>College Information</h2>
+                <p>
+                  Your college information is managed by the
+                  system.
+                </p>
+              </div>
+            </div>
+
+            <div className="form-grid">
+              <div className="form-field full-width">
+                <label htmlFor="student-college">
+                  College
+                </label>
+
+                <div className="disabled-input-wrapper">
+                  <input
+                    id="student-college"
+                    type="text"
+                    value={
+                      student.college?.collegeName ||
+                      "Not available"
+                    }
+                    disabled
+                  />
+
+                  <span className="locked-icon">
+                    🔒
+                  </span>
+                </div>
+
+                <small>
+                  College information cannot be edited.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          {/* Messages */}
+          {message && (
+            <div className="profile-message success-message">
+              <span>✓</span>
+              <p>{message}</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="profile-message error-message">
+              <span>!</span>
+              <p>{error}</p>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="edit-profile-actions">
+
+            <button
+              type="button"
+              onClick={onBack}
+              className="back-profile-btn"
+            >
+              <span>←</span>
+              Back to Profile
+            </button>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="save-profile-btn"
+            >
+              {loading ? (
+                <>
+                  <span className="button-spinner"></span>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <span>💾</span>
+                  Save Changes
+                </>
+              )}
+            </button>
+
+          </div>
+        </form>
+
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../css/Companies.css";
 
 function Companies({ onBack, onViewDetails }) {
   const [internships, setInternships] = useState([]);
@@ -35,87 +36,331 @@ function Companies({ onBack, onViewDetails }) {
   }, []);
 
   return (
-    <div className="companies-container">
-      <h1>Available Internships</h1>
+    <div className="companies-page">
 
-      <p>
-        Explore internship opportunities available for your department.
-      </p>
+      {/* =====================================================
+          FIXED BACK TO DASHBOARD BUTTON
+          ===================================================== */}
+      <button
+        className="companies-back-btn"
+        onClick={onBack}
+      >
+        <span>←</span>
+        <span>Back to Dashboard</span>
+      </button>
 
-      {loading && <p>Loading internships...</p>}
 
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
+      <div className="companies-container">
 
-      {!loading && !error && internships.length === 0 && (
-        <p>No internship opportunities available.</p>
-      )}
+        {/* =====================================================
+            HEADER
+            ===================================================== */}
+        <div className="companies-header">
+          <div className="companies-header-content">
 
-      {!loading &&
-        !error &&
-        internships.map((internship) => (
-          <div
-            className="company-card"
-            key={internship._id}
-          >
+            <div className="companies-icon">
+              💼
+            </div>
+
+            <div>
+              <p className="companies-eyebrow">
+                INTERNSHIP OPPORTUNITIES
+              </p>
+
+              <h1>
+                Available Internships
+              </h1>
+
+              <p className="companies-subtitle">
+                Explore internship opportunities posted
+                by approved companies and find an
+                opportunity that matches your academic
+                journey.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* =====================================================
+            LOADING
+            ===================================================== */}
+        {loading && (
+          <div className="internships-loading">
+
+            <div className="internship-spinner"></div>
+
             <h2>
-              {internship.company?.companyName ||
-                "Company"}
+              Finding opportunities
             </h2>
 
             <p>
-              <strong>Position:</strong>{" "}
-              {internship.title}
+              Please wait while we load the latest
+              internships.
             </p>
 
-            <p>
-              <strong>Location:</strong>{" "}
-              {internship.location}
-            </p>
-
-            <p>
-              <strong>Eligibility:</strong>{" "}
-              {internship.eligibility}
-            </p>
-
-            <p>
-              <strong>Skills:</strong>{" "}
-              {internship.skillsRequired}
-            </p>
-
-            <p>
-              <strong>Duration:</strong>{" "}
-              {internship.duration}
-            </p>
-
-            <p>
-              <strong>Application Deadline:</strong>{" "}
-              {new Date(
-                internship.deadline
-              ).toLocaleDateString()}
-            </p>
-
-            <button
-              onClick={() => {
-                if (onViewDetails) {
-                  onViewDetails(
-                    internship.company,
-                    internship
-                  );
-                }
-              }}
-            >
-              View Details
-            </button>
           </div>
-        ))}
+        )}
 
-      <button onClick={onBack}>
-        ← Back to Dashboard
-      </button>
+
+        {/* =====================================================
+            ERROR
+            ===================================================== */}
+        {error && (
+          <div className="internships-error">
+
+            <div className="error-icon">
+              !
+            </div>
+
+            <div>
+              <h3>
+                Unable to load internships
+              </h3>
+
+              <p>
+                {error}
+              </p>
+            </div>
+
+          </div>
+        )}
+
+
+        {/* =====================================================
+            EMPTY STATE
+            ===================================================== */}
+        {!loading &&
+          !error &&
+          internships.length === 0 && (
+            <div className="no-internships">
+
+              <div className="no-internships-icon">
+                💼
+              </div>
+
+              <h2>
+                No Internship Opportunities
+              </h2>
+
+              <p>
+                There are currently no internship
+                opportunities available. Please check
+                again later for new postings.
+              </p>
+
+              <div className="empty-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+            </div>
+          )}
+
+
+        {/* =====================================================
+            INTERNSHIP CARDS
+            ===================================================== */}
+        {!loading &&
+          !error &&
+          internships.length > 0 && (
+            <div className="internships-grid">
+
+              {internships.map((internship) => (
+                <div
+                  className="internship-card"
+                  key={internship._id}
+                >
+
+                  <div className="internship-card-accent"></div>
+
+
+                  {/* COMPANY */}
+                  <div className="internship-company">
+
+                    <div className="company-logo">
+                      🏢
+                    </div>
+
+                    <div className="company-info">
+
+                      <span className="company-label">
+                        COMPANY
+                      </span>
+
+                      <h3>
+                        {internship.company?.companyName ||
+                          "Company"}
+                      </h3>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* INTERNSHIP TITLE */}
+                  <div className="internship-main">
+
+                    <h2>
+                      {internship.title}
+                    </h2>
+
+                    <p>
+                      Internship Opportunity
+                    </p>
+
+                  </div>
+
+
+                  {/* LOCATION + DURATION */}
+                  <div className="internship-details">
+
+                    <div className="internship-detail">
+
+                      <div className="detail-icon mint">
+                        📍
+                      </div>
+
+                      <div>
+
+                        <span>
+                          Location
+                        </span>
+
+                        <strong>
+                          {internship.location}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+
+                    <div className="internship-detail">
+
+                      <div className="detail-icon peach">
+                        ⏱️
+                      </div>
+
+                      <div>
+
+                        <span>
+                          Duration
+                        </span>
+
+                        <strong>
+                          {internship.duration}
+                        </strong>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* ELIGIBILITY */}
+                  <div className="eligibility-section">
+
+                    <div className="eligibility-heading">
+
+                      <span>
+                        🎓
+                      </span>
+
+                      <strong>
+                        Eligibility
+                      </strong>
+
+                    </div>
+
+                    <p>
+                      {internship.eligibility}
+                    </p>
+
+                  </div>
+
+
+                  {/* SKILLS */}
+                  <div className="skills-section">
+
+                    <div className="skills-heading">
+
+                      <span>
+                        ✨
+                      </span>
+
+                      <strong>
+                        Skills
+                      </strong>
+
+                    </div>
+
+                    <p>
+                      {internship.skillsRequired ||
+                        "Not specified"}
+                    </p>
+
+                  </div>
+
+
+                  {/* DEADLINE */}
+                  <div className="deadline-section">
+
+                    <div className="deadline-icon">
+                      📅
+                    </div>
+
+                    <div>
+
+                      <span>
+                        Application Deadline
+                      </span>
+
+                      <strong>
+                        {new Date(
+                          internship.deadline
+                        ).toLocaleDateString()}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* VIEW DETAILS */}
+                  <button
+                    className="view-details-btn"
+                    onClick={() => {
+                      if (onViewDetails) {
+                        onViewDetails(
+                          internship.company,
+                          internship
+                        );
+                      }
+                    }}
+                  >
+
+                    <span>
+                      View Details
+                    </span>
+
+                    <span className="view-details-arrow">
+                      →
+                    </span>
+
+                  </button>
+
+                </div>
+              ))}
+
+            </div>
+          )}
+
+      </div>
     </div>
   );
 }

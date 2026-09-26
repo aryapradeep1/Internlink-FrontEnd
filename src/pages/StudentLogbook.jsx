@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/StudentLogbook.css";
 
 function StudentLogbook({ student, onBack }) {
   const [assignment, setAssignment] = useState(null);
@@ -16,10 +17,6 @@ function StudentLogbook({ student, onBack }) {
 
   const REQUIRED_HOURS = 60;
 
-  // =====================================================
-  // FETCH STUDENT INTERNSHIP ASSIGNMENT
-  // =====================================================
-
   useEffect(() => {
     const fetchAssignment = async () => {
       try {
@@ -35,14 +32,8 @@ function StudentLogbook({ student, onBack }) {
           setError("No internship assigned yet.");
         }
       } catch (error) {
-        console.error(
-          "Error fetching internship:",
-          error
-        );
-
-        setError(
-          "Failed to load internship details."
-        );
+        console.error("Error fetching internship:", error);
+        setError("Failed to load internship details.");
       } finally {
         setLoading(false);
       }
@@ -52,10 +43,6 @@ function StudentLogbook({ student, onBack }) {
       fetchAssignment();
     }
   }, [student?.id]);
-
-  // =====================================================
-  // FETCH EXISTING LOGBOOK ENTRIES
-  // =====================================================
 
   useEffect(() => {
     const fetchLogbooks = async () => {
@@ -82,10 +69,6 @@ function StudentLogbook({ student, onBack }) {
     }
   }, [student?.id]);
 
-  // =====================================================
-  // CALCULATE TOTAL INTERNSHIP HOURS
-  // =====================================================
-
   const totalHours = logbooks.reduce(
     (total, entry) =>
       total + Number(entry.hoursWorked || 0),
@@ -97,12 +80,8 @@ function StudentLogbook({ student, onBack }) {
     0
   );
 
-
-const progressPercentage =
-  (totalHours / REQUIRED_HOURS) * 100;
-  // =====================================================
-  // SUBMIT LOGBOOK ENTRY
-  // =====================================================
+  const progressPercentage =
+    (totalHours / REQUIRED_HOURS) * 100;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -182,7 +161,6 @@ const progressPercentage =
       setWorkDone("");
       setLearnings("");
 
-      // Add newly created entry to the list
       setLogbooks((previousEntries) => [
         data.logbook,
         ...previousEntries,
@@ -201,341 +179,655 @@ const progressPercentage =
     }
   };
 
-  // =====================================================
-  // LOADING
-  // =====================================================
+  /* ======================================================
+     LOADING
+  ====================================================== */
 
   if (loading) {
     return (
-      <div className="dashboard-container">
-        <h2>Loading internship...</h2>
+      <div className="logbook-page">
+
+        <header className="logbook-topbar">
+
+          <div className="logbook-brand">
+            <div className="logbook-brand-mark">
+              I
+            </div>
+
+            <div>
+              <strong>InterLink</strong>
+              <span>Internship Logbook</span>
+            </div>
+          </div>
+
+          <button
+            className="logbook-back-btn"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
+        </header>
+
+        <div className="logbook-scroll">
+
+          <div className="logbook-loading">
+            <div className="loading-book-icon">
+              📖
+            </div>
+
+            <h2>Opening Logbook</h2>
+
+            <p>
+              Please wait while your logbook is loaded.
+            </p>
+          </div>
+
+        </div>
       </div>
     );
   }
 
-  // =====================================================
-  // NO INTERNSHIP
-  // =====================================================
+  /* ======================================================
+     NO ASSIGNMENT
+  ====================================================== */
 
   if (!assignment) {
     return (
-      <div className="dashboard-container">
-        <h1>📖 Internship Logbook</h1>
+      <div className="logbook-page">
 
-        <h3>
-          {error || "No internship assigned yet."}
-        </h3>
+        <header className="logbook-topbar">
 
-        <button onClick={onBack}>
-          ← Back to Dashboard
-        </button>
+          <div className="logbook-brand">
+            <div className="logbook-brand-mark">
+              I
+            </div>
+
+            <div>
+              <strong>InterLink</strong>
+              <span>Internship Logbook</span>
+            </div>
+          </div>
+
+          <button
+            className="logbook-back-btn"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
+        </header>
+
+        <div className="logbook-scroll">
+
+          <div className="logbook-empty-state">
+
+            <div className="empty-book-icon">
+              📖
+            </div>
+
+            <h2>Logbook Not Available</h2>
+
+            <p>
+              {error ||
+                "No internship assigned yet."}
+            </p>
+
+          </div>
+
+        </div>
       </div>
     );
   }
 
-  // =====================================================
-  // MAIN PAGE
-  // =====================================================
+  /* ======================================================
+     MAIN LOGBOOK
+  ====================================================== */
 
   return (
-    <div className="dashboard-container">
-      <h1>📖 Internship Logbook</h1>
+    <div className="logbook-page">
 
-      <h2>
-        Welcome, {student?.name}
-      </h2>
+      {/* ==================================================
+          FIXED TOP BAR
+          ================================================== */}
 
-      {/* =================================================
-          STUDENT DETAILS
-      ================================================= */}
+      <header className="logbook-topbar">
 
-      <div className="student-info">
-        <p>
-          <strong>Register Number:</strong>{" "}
-          {student?.registerNumber}
-        </p>
+        <div className="logbook-brand">
 
-        <p>
-          <strong>Department:</strong>{" "}
-          {student?.department}
-        </p>
-      </div>
+          <div className="logbook-brand-mark">
+            I
+          </div>
 
-      <hr />
+          <div className="logbook-brand-text">
+            <strong>InterLink</strong>
 
-      {/* =================================================
-          INTERNSHIP DETAILS
-      ================================================= */}
+            <span>
+              Internship Logbook
+            </span>
+          </div>
 
-      <h3>My Internship</h3>
-
-      <div className="student-info">
-        <p>
-          <strong>Internship:</strong>{" "}
-          {assignment.internship?.title}
-        </p>
-
-        <p>
-          <strong>Company:</strong>{" "}
-          {assignment.company?.companyName}
-        </p>
-
-        <p>
-          <strong>Status:</strong>{" "}
-          {assignment.status}
-        </p>
-
-        <p>
-          <strong>Faculty Guide:</strong>{" "}
-          {assignment.facultyGuide
-            ? assignment.facultyGuide.name
-            : "Not Assigned"}
-        </p>
-      </div>
-
-      <hr />
-
-      {/* =================================================
-          INTERNSHIP HOURS SUMMARY
-      ================================================= */}
-<h3>⏱️ Internship Hours</h3>
-
-<div className="student-info">
-  <p>
-    <strong>Minimum Required:</strong>{" "}
-    {REQUIRED_HOURS} hours
-  </p>
-
-  <p>
-    <strong>Completed Hours:</strong>{" "}
-    {totalHours} hours
-  </p>
-
-  {totalHours >= REQUIRED_HOURS ? (
-    <>
-      <p style={{ color: "green" }}>
-        <strong>Status:</strong>{" "}
-        ✅ Minimum Requirement Completed
-      </p>
-
-      <p>
-        <strong>Extra Hours:</strong>{" "}
-        {totalHours - REQUIRED_HOURS} hours
-      </p>
-    </>
-  ) : (
-    <p>
-      <strong>Remaining Hours:</strong>{" "}
-      {remainingHours} hours
-    </p>
-  )}
-
-  <p>
-    <strong>Progress:</strong>{" "}
-    {progressPercentage.toFixed(1)}%
-  </p>
-
-  <progress
-    value={progressPercentage}
-    max={progressPercentage > 100 ? progressPercentage : 100}
-    style={{
-      width: "100%",
-      height: "20px",
-    }}
-  />
-</div>
-     
-      <hr />
-
-      {/* =================================================
-          ADD DAILY LOGBOOK ENTRY
-      ================================================= */}
-
-      <h3>Add Daily Logbook Entry</h3>
-
-      {message && (
-        <p style={{ color: "green" }}>
-          {message}
-        </p>
-      )}
-
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        {/* DATE */}
-
-        <div>
-          <label>
-            <strong>Date</strong>
-          </label>
-
-          <br />
-
-          <input
-            type="date"
-            value={date}
-            onChange={(e) =>
-              setDate(e.target.value)
-            }
-            required
-          />
         </div>
-
-        <br />
-
-        {/* HOURS WORKED */}
-
-        <div>
-          <label>
-            <strong>Hours Worked</strong>
-          </label>
-
-          <br />
-
-          <input
-            type="number"
-            min="0.5"
-            max="24"
-            step="0.5"
-            placeholder="Example: 6"
-            value={hoursWorked}
-            onChange={(e) =>
-              setHoursWorked(e.target.value)
-            }
-            required
-          />
-
-          <p>
-            <small>
-              Enter the number of hours you worked today.
-            </small>
-          </p>
-        </div>
-
-        <br />
-
-        {/* WORK DONE */}
-
-        <div>
-          <label>
-            <strong>Work Done</strong>
-          </label>
-
-          <br />
-
-          <textarea
-            placeholder="Describe the work you completed today..."
-            value={workDone}
-            onChange={(e) =>
-              setWorkDone(e.target.value)
-            }
-            rows="5"
-            required
-          />
-        </div>
-
-        <br />
-
-        {/* WHAT I LEARNED */}
-
-        <div>
-          <label>
-            <strong>What I Learned</strong>
-          </label>
-
-          <br />
-
-          <textarea
-            placeholder="Describe what you learned today..."
-            value={learnings}
-            onChange={(e) =>
-              setLearnings(e.target.value)
-            }
-            rows="5"
-            required
-          />
-        </div>
-
-        <br />
 
         <button
-          type="submit"
-          disabled={submitting}
+          className="logbook-back-btn"
+          onClick={onBack}
         >
-          {submitting
-            ? "Submitting..."
-            : "➕ Add Logbook Entry"}
+          ← Back to Dashboard
         </button>
-      </form>
 
-      <hr />
+      </header>
 
-      {/* =================================================
-          PREVIOUS LOGBOOK ENTRIES
-      ================================================= */}
 
-      <h3>My Previous Entries</h3>
+      {/* ==================================================
+          ONLY LOGBOOK CONTENT SCROLLS
+          ================================================== */}
 
-      {logbooks.length === 0 ? (
-        <p>
-          No logbook entries yet.
-        </p>
-      ) : (
-        logbooks.map((entry) => (
-          <div
-            key={entry._id}
-            className="student-info"
-            style={{
-              marginBottom: "15px",
-            }}
-          >
-            <p>
-              <strong>Date:</strong>{" "}
-              {new Date(
-                entry.date
-              ).toLocaleDateString()}
+      <div className="logbook-scroll">
+
+        <main className="logbook-container">
+
+          {/* ==================================================
+              LOGBOOK COVER / TITLE
+              ================================================== */}
+
+          <section className="logbook-title">
+
+            <div className="title-line"></div>
+
+            <p className="logbook-label">
+              INTERNSHIP DAILY RECORD
             </p>
 
-            <p>
-              <strong>Hours Worked:</strong>{" "}
-              {entry.hoursWorked} hours
+            <h1>
+              My Logbook
+            </h1>
+
+            <p className="logbook-description">
+              Record your daily work, experience
+              and learning throughout your internship.
             </p>
 
-            <p>
-              <strong>Work Done:</strong>{" "}
-              {entry.workDone}
-            </p>
+            <div className="title-line"></div>
 
-            <p>
-              <strong>What I Learned:</strong>{" "}
-              {entry.learnings}
-            </p>
+          </section>
 
-            <p>
-              <strong>Faculty Status:</strong>{" "}
-              {entry.facultyStatus}
-            </p>
 
-            <p>
-              <strong>Company Guide Status:</strong>{" "}
-              {entry.companyGuideStatus}
-            </p>
-          </div>
-        ))
-      )}
+          {/* ==================================================
+              COMPACT HOURS SUMMARY
+              ================================================== */}
 
-      <br />
+          <section className="hours-summary">
 
-      <button onClick={onBack}>
-        ← Back to Dashboard
-      </button>
+            <div className="hours-summary-main">
+
+              <span className="hours-label">
+                TOTAL HOURS
+              </span>
+
+              <strong>
+                {totalHours}
+                <small>
+                  / {REQUIRED_HOURS}
+                </small>
+              </strong>
+
+            </div>
+
+
+            <div className="hours-progress">
+
+              <div className="hours-progress-track">
+
+                <div
+                  className="hours-progress-fill"
+                  style={{
+                    width: `${Math.min(
+                      progressPercentage,
+                      100
+                    )}%`,
+                  }}
+                ></div>
+
+              </div>
+
+              <span>
+                {progressPercentage.toFixed(1)}%
+              </span>
+
+            </div>
+
+
+            <div className="hours-status">
+
+              {totalHours >= REQUIRED_HOURS ? (
+                <>
+                  <strong>
+                    ✓ Requirement completed
+                  </strong>
+
+                  <span>
+                    {totalHours -
+                      REQUIRED_HOURS}{" "}
+                    extra hours
+                  </span>
+                </>
+              ) : (
+                <>
+                  <strong>
+                    {remainingHours} hours remaining
+                  </strong>
+
+                  <span>
+                    Minimum required:{" "}
+                    {REQUIRED_HOURS} hours
+                  </span>
+                </>
+              )}
+
+            </div>
+
+          </section>
+
+
+          {/* ==================================================
+              ADD NEW ENTRY
+              ================================================== */}
+
+          <section className="new-entry">
+
+            <div className="new-entry-heading">
+
+              <div className="new-entry-icon">
+                +
+              </div>
+
+              <div>
+                <span>
+                  DAILY ENTRY
+                </span>
+
+                <h2>
+                  Add Today's Record
+                </h2>
+              </div>
+
+            </div>
+
+
+            {message && (
+              <div className="logbook-message success">
+                ✓ {message}
+              </div>
+            )}
+
+
+            {error && (
+              <div className="logbook-message error">
+                {error}
+              </div>
+            )}
+
+
+            <form
+              className="logbook-form"
+              onSubmit={handleSubmit}
+            >
+
+              <div className="form-row">
+
+                <div className="form-field">
+
+                  <label>
+                    DATE
+                  </label>
+
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) =>
+                      setDate(e.target.value)
+                    }
+                    required
+                  />
+
+                </div>
+
+
+                <div className="form-field">
+
+                  <label>
+                    HOURS WORKED
+                  </label>
+
+                  <div className="hours-input">
+
+                    <input
+                      type="number"
+                      min="0.5"
+                      max="24"
+                      step="0.5"
+                      placeholder="6"
+                      value={hoursWorked}
+                      onChange={(e) =>
+                        setHoursWorked(
+                          e.target.value
+                        )
+                      }
+                      required
+                    />
+
+                    <span>
+                      hours
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div className="form-field">
+
+                <label>
+                  WORK DONE
+                </label>
+
+                <textarea
+                  placeholder="Write about the work you completed today..."
+                  value={workDone}
+                  onChange={(e) =>
+                    setWorkDone(e.target.value)
+                  }
+                  rows="4"
+                  required
+                />
+
+              </div>
+
+
+              <div className="form-field">
+
+                <label>
+                  WHAT I LEARNED
+                </label>
+
+                <textarea
+                  placeholder="Write about what you learned today..."
+                  value={learnings}
+                  onChange={(e) =>
+                    setLearnings(e.target.value)
+                  }
+                  rows="4"
+                  required
+                />
+
+              </div>
+
+
+              <div className="form-submit">
+
+                <span>
+                  Your entry will be added to
+                  the beginning of your logbook.
+                </span>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                >
+                  {submitting
+                    ? "Adding..."
+                    : "Add Entry"}
+                </button>
+
+              </div>
+
+            </form>
+
+          </section>
+
+
+          {/* ==================================================
+              PREVIOUS ENTRIES
+              ================================================== */}
+
+          <section className="previous-logbook">
+
+            <div className="entries-heading">
+
+              <div>
+                <span>
+                  YOUR RECORDS
+                </span>
+
+                <h2>
+                  Previous Entries
+                </h2>
+              </div>
+
+              <div className="entry-total">
+                {logbooks.length}
+                <small>
+                  {logbooks.length === 1
+                    ? " ENTRY"
+                    : " ENTRIES"}
+                </small>
+              </div>
+
+            </div>
+
+
+            {logbooks.length === 0 ? (
+
+              <div className="no-entries">
+
+                <div>
+                  📖
+                </div>
+
+                <h3>
+                  No entries yet
+                </h3>
+
+                <p>
+                  Add your first daily record above.
+                </p>
+
+              </div>
+
+            ) : (
+
+              <div className="book-pages">
+
+                {logbooks.map(
+                  (entry, index) => {
+
+                    const entryDate =
+                      new Date(entry.date);
+
+                    return (
+
+                      <article
+                        key={entry._id}
+                        className="diary-page"
+                      >
+
+                        {/* LEFT BOOK EDGE */}
+
+                        <div className="diary-edge"></div>
+
+
+                        {/* PAGE HEADER */}
+
+                        <div className="diary-header">
+
+                          <div className="diary-date">
+
+                            <span>
+                              {entryDate.toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                }
+                              ).toUpperCase()}
+                            </span>
+
+                            <strong>
+                              {String(
+                                entryDate.getDate()
+                              ).padStart(2, "0")}
+                            </strong>
+
+                            <small>
+                              {entryDate.getFullYear()}
+                            </small>
+
+                          </div>
+
+
+                          <div className="diary-title">
+
+                            <span>
+                              DAILY LOG
+                            </span>
+
+                            <h3>
+                              Internship Entry
+                            </h3>
+
+                          </div>
+
+
+                          <div className="diary-hours">
+
+                            <strong>
+                              {entry.hoursWorked}
+                            </strong>
+
+                            <span>
+                              HOURS
+                            </span>
+
+                          </div>
+
+                        </div>
+
+
+                        <div className="diary-divider"></div>
+
+
+                        {/* WORK DONE */}
+
+                        <section className="diary-section">
+
+                          <div className="diary-section-heading">
+
+                            <span className="diary-marker work">
+                              01
+                            </span>
+
+                            <h4>
+                              Work Done
+                            </h4>
+
+                          </div>
+
+                          <p>
+                            {entry.workDone}
+                          </p>
+
+                        </section>
+
+
+                        {/* LEARNING */}
+
+                        <section className="diary-section">
+
+                          <div className="diary-section-heading">
+
+                            <span className="diary-marker learning">
+                              02
+                            </span>
+
+                            <h4>
+                              What I Learned
+                            </h4>
+
+                          </div>
+
+                          <p>
+                            {entry.learnings}
+                          </p>
+
+                        </section>
+
+
+                        {/* PAGE FOOTER */}
+
+                        <div className="diary-footer">
+
+                          <div className="diary-review">
+
+                            <div>
+                              <span>
+                                FACULTY
+                              </span>
+
+                              <strong>
+                                {entry.facultyStatus}
+                              </strong>
+                            </div>
+
+
+                            <div>
+                              <span>
+                                COMPANY GUIDE
+                              </span>
+
+                              <strong>
+                                {
+                                  entry.companyGuideStatus
+                                }
+                              </strong>
+                            </div>
+
+                          </div>
+
+
+                          <div className="diary-page-number">
+                            {String(
+                              logbooks.length -
+                                index
+                            ).padStart(2, "0")}
+                          </div>
+
+                        </div>
+
+                      </article>
+
+                    );
+                  }
+                )}
+
+              </div>
+
+            )}
+
+          </section>
+
+
+          <footer className="logbook-footer">
+            InterLink · Internship Daily Logbook
+          </footer>
+
+        </main>
+
+      </div>
+
     </div>
   );
 }
 
 export default StudentLogbook;
-

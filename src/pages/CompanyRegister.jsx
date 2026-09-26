@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/Signup.css";
 
 function CompanyRegister({ onBack, onLogin }) {
   const [formData, setFormData] = useState({
@@ -58,67 +59,269 @@ function CompanyRegister({ onBack, onLogin }) {
   };
 
   return (
-    <div className="login-container">
-      <h1>Company Registration</h1>
+    <div className="signup-page company-signup-page">
 
-      <p>
-        Register your company. Your registration must be approved by the
-        admin before you can log in.
-      </p>
+      {/* LEFT SIDE */}
+      <div className="signup-visual company-signup-visual">
 
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          name="companyName"
-          placeholder="Company Name"
-          value={formData.companyName}
-          onChange={handleChange}
-          required
-        />
+        <button
+          type="button"
+          className="signup-back-button"
+          onClick={onBack}
+        >
+          ← Back to Company Login
+        </button>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Official Company Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <div className="signup-visual-content">
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+          <div className="signup-badge">
+            🏢 <span>COMPANY PARTNER</span>
+          </div>
 
-        <textarea
-          name="description"
-          placeholder="Company Description"
-          value={formData.description}
-          onChange={handleChange}
-          required
-        />
+          <h1>
+            Build the next
+            <br />
+            <span>generation of talent.</span>
+          </h1>
 
-        <input
-          type="text"
-          name="location"
-          placeholder="Company Location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
+          <p>
+            Connect your organization with talented FYUGP students
+            and create meaningful internship opportunities through
+            InterLink.
+          </p>
 
-        <button type="submit">Register Company</button>
-      </form>
+          {/* Company Illustration */}
+          <div className="company-illustration">
 
-      {message && <p>{message}</p>}
+            <div className="company-building">
+              <div className="building-top"></div>
 
-      <button onClick={onBack}>
-        ← Back to Company Login
-      </button>
+              <div className="building-body">
+                <div className="building-window"></div>
+                <div className="building-window"></div>
+                <div className="building-window"></div>
+                <div className="building-window"></div>
+
+                <div className="building-door"></div>
+              </div>
+
+              <div className="building-sign">
+                INTERLINK
+              </div>
+            </div>
+
+            <div className="company-person person-one">
+              <div className="person-head"></div>
+              <div className="person-body"></div>
+            </div>
+
+            <div className="company-person person-two">
+              <div className="person-head"></div>
+              <div className="person-body"></div>
+            </div>
+
+            <div className="floating-company-card card-opportunity">
+              <span>✨</span>
+              <div>
+                <strong>New Talent</strong>
+                <small>Internship opportunity</small>
+              </div>
+            </div>
+
+            <div className="floating-company-card card-student">
+              <span>🎓</span>
+              <div>
+                <strong>FYUGP Students</strong>
+                <small>Ready to learn</small>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="signup-benefits">
+
+            <div className="signup-benefit">
+              <span>01</span>
+              <div>
+                <strong>Create Opportunities</strong>
+                <small>Post internships for students</small>
+              </div>
+            </div>
+
+            <div className="signup-benefit">
+              <span>02</span>
+              <div>
+                <strong>Discover Talent</strong>
+                <small>Connect with suitable students</small>
+              </div>
+            </div>
+
+            <div className="signup-benefit">
+              <span>03</span>
+              <div>
+                <strong>Build Futures</strong>
+                <small>Support practical learning</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="signup-form-section">
+
+        <div className="signup-form-card">
+
+          <div className="signup-form-header">
+
+            <div className="signup-form-icon">
+              🏢
+            </div>
+
+            <div>
+              <span className="signup-form-label">
+                COMPANY REGISTRATION
+              </span>
+
+              <h2>Join InterLink</h2>
+
+              <p>
+                Register your organization to offer internship
+                opportunities to students.
+              </p>
+            </div>
+
+          </div>
+
+          <form onSubmit={handleRegister}>
+
+            <div className="signup-field">
+              <label>Company Name</label>
+
+              <div className="signup-input-wrapper">
+                <span>🏢</span>
+
+                <input
+                  type="text"
+                  name="companyName"
+                  placeholder="Enter your company name"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="signup-field">
+              <label>Official Company Email</label>
+
+              <div className="signup-input-wrapper">
+                <span>✉️</span>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="company@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="signup-field">
+              <label>Password</label>
+
+              <div className="signup-input-wrapper">
+                <span>🔒</span>
+
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Create a secure password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="signup-field">
+              <label>Company Description</label>
+
+              <div className="signup-input-wrapper signup-textarea-wrapper">
+                <span>📝</span>
+
+                <textarea
+                  name="description"
+                  placeholder="Tell students about your organization..."
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="signup-field">
+              <label>Company Location</label>
+
+              <div className="signup-input-wrapper">
+                <span>📍</span>
+
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="City, Kerala"
+                  value={formData.location}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="signup-submit-button"
+            >
+              <span>Register Company</span>
+              <span>→</span>
+            </button>
+
+          </form>
+
+          {message && (
+            <div className="signup-message">
+              {message}
+            </div>
+          )}
+
+          <div className="signup-login-footer">
+
+            <span>Already registered?</span>
+
+            <button
+              type="button"
+              onClick={onLogin}
+            >
+              Back to Company Login →
+            </button>
+
+          </div>
+
+          <div className="signup-approval-note">
+            <span>✓</span>
+            <p>
+              Your company account will be reviewed by an administrator
+              before you can log in.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }

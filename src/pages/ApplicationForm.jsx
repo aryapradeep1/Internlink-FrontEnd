@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/ApplicationForm.css";
 
 function ApplicationForm({
   student,
