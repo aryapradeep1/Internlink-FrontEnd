@@ -1,0 +1,422 @@
+/* =========================================================
+   EDIT COMPANY GUIDE PROFILE
+   InternLink Pastel Green Theme
+   ========================================================= */
+
+.cgp-edit-page {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 34px 42px 50px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.cgp-edit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.cgp-edit-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  color: #287653;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.cgp-edit-header h1 {
+  margin: 0;
+  color: #294139;
+  font-size: 30px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.cgp-edit-header p {
+  margin: 8px 0 0;
+  color: #708078;
+  font-size: 14px;
+}
+
+.cgp-edit-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d8f3e5;
+  font-size: 26px;
+  box-shadow: 0 8px 20px rgba(40, 118, 83, 0.08);
+}
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.cgp-edit-card {
+  background: #ffffff;
+  border: 1px solid #e2eee8;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(41, 65, 57, 0.06);
+}
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.cgp-card-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #edf3ef;
+}
+
+.cgp-card-icon {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #edf9f2;
+  font-size: 20px;
+}
+
+.cgp-card-title h2 {
+  margin: 0;
+  color: #294139;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.cgp-card-title p {
+  margin: 5px 0 0;
+  color: #7a8982;
+  font-size: 13px;
+}
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.cgp-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 23px 24px;
+}
+
+.cgp-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cgp-form-group label {
+  margin-bottom: 8px;
+  color: #294139;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.cgp-form-group input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  box-sizing: border-box;
+
+  border: 1px solid #d8e6df;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #294139;
+
+  font-size: 14px;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.cgp-form-group input::placeholder {
+  color: #a1aea8;
+}
+
+.cgp-form-group input:focus {
+  border-color: #287653;
+  box-shadow: 0 0 0 3px rgba(40, 118, 83, 0.09);
+}
+
+.cgp-form-group input:disabled {
+  background: #f4f8f6;
+  color: #74827c;
+  cursor: not-allowed;
+}
+
+.cgp-field-note {
+  margin-top: 6px;
+  color: #8a9892;
+  font-size: 11px;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.cgp-status-box {
+  min-height: 46px;
+  padding: 0 14px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  border: 1px solid #dcebe4;
+  border-radius: 10px;
+
+  background: #f1faf5;
+  color: #287653;
+
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.cgp-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #287653;
+  box-shadow: 0 0 0 4px rgba(40, 118, 83, 0.09);
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.cgp-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 25px;
+  padding: 12px 15px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+}
+
+.cgp-message span {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.cgp-message p {
+  margin: 0;
+}
+
+.cgp-message.success {
+  background: #eefaf3;
+  border: 1px solid #cfeadb;
+  color: #287653;
+}
+
+.cgp-message.success span {
+  background: #d8f3e5;
+}
+
+.cgp-message.error {
+  background: #fff4f1;
+  border: 1px solid #f5d4cd;
+  color: #c95e4e;
+}
+
+.cgp-message.error span {
+  background: #ffe0da;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.cgp-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: 30px;
+  padding-top: 24px;
+
+  border-top: 1px solid #edf3ef;
+}
+
+.cgp-back-button,
+.cgp-save-button {
+  min-height: 44px;
+  padding: 0 18px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.cgp-back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid #d7e5de;
+  background: #ffffff;
+  color: #52645c;
+}
+
+.cgp-back-button:hover {
+  background: #f5f9f7;
+  border-color: #bfd7ca;
+}
+
+.cgp-save-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid #287653;
+  background: #287653;
+  color: #ffffff;
+
+  box-shadow: 0 6px 15px rgba(40, 118, 83, 0.16);
+}
+
+.cgp-save-button:hover {
+  background: #216548;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(40, 118, 83, 0.2);
+}
+
+.cgp-save-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   INFORMATION NOTE
+   ========================================================= */
+
+.cgp-edit-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-top: 18px;
+  padding: 16px 18px;
+
+  background: #fffaf4;
+  border: 1px solid #f3e5d5;
+  border-radius: 13px;
+
+  color: #75695d;
+}
+
+.cgp-edit-note > span {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.cgp-edit-note strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #665b50;
+  font-size: 13px;
+}
+
+.cgp-edit-note p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .cgp-edit-page {
+    padding: 25px 22px 40px;
+  }
+
+  .cgp-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cgp-edit-header h1 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 560px) {
+  .cgp-edit-page {
+    padding: 22px 15px 35px;
+  }
+
+  .cgp-edit-header {
+    align-items: flex-start;
+  }
+
+  .cgp-edit-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 21px;
+  }
+
+  .cgp-edit-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .cgp-card-title {
+    align-items: flex-start;
+  }
+
+  .cgp-form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cgp-back-button,
+  .cgp-save-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

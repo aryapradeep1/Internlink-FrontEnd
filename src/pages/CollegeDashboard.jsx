@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
+import "../css/CollegeDashboard.css";
 
 function CollegeDashboard({
   college,
   onLogout,
   onGoToProfile,
+  onGoToDashboard,
+  onGoToStudents,
+  onGoToFaculty,
+  onGoToApplications,
+  onGoToWorkload,
+  onGoToEditProfile,
+  onGoToChangePassword,
+  activeSection,
+  children,
 }) {
   const [students, setStudents] = useState([]);
   const [faculty, setFaculty] = useState([]);
   const [applications, setApplications] = useState([]);
 
-  const [activeTab, setActiveTab] = useState("overview");
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 
@@ -36,8 +45,7 @@ function CollegeDashboard({
 
       const studentsData = await studentsRes.json();
       const facultyData = await facultyRes.json();
-      const applicationsData =
-        await applicationsRes.json();
+      const applicationsData = await applicationsRes.json();
 
       if (studentsData.status === "success") {
         setStudents(studentsData.students);
@@ -48,9 +56,7 @@ function CollegeDashboard({
       }
 
       if (applicationsData.status === "success") {
-        setApplications(
-          applicationsData.applications
-        );
+        setApplications(applicationsData.applications);
       }
     } catch (error) {
       console.error("College dashboard error:", error);
@@ -208,499 +214,521 @@ function CollegeDashboard({
     ).length;
   };
 
+  // ==========================================
+  // LOADING
+  // ==========================================
+
   if (loading) {
     return (
-      <div style={styles.loading}>
-        <h2>Loading College Dashboard...</h2>
+      <div className="college-loading">
+        <div className="college-loading-card">
+          <div className="college-loading-spinner"></div>
+          <h2>Loading College Dashboard...</h2>
+          <p>Please wait while your college data is loaded.</p>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div style={styles.container}>
+  // ==========================================
+  // DASHBOARD CONTENT
+  // ==========================================
 
-      {/* ======================================
-          HEADER
-      ====================================== */}
+  const renderDashboardContent = () => {
+    // ========================================
+    // OVERVIEW
+    // ========================================
 
-      <div style={styles.header}>
-        <div>
-          <h1 style={styles.title}>
-            {college.collegeName}
-          </h1>
+    if (activeSection === "dashboard") {
+      return (
+        <div className="college-page">
+          <div className="college-page-heading">
+            <div>
+              <span className="college-eyebrow">
+                COLLEGE PORTAL
+              </span>
 
-          <p style={styles.subtitle}>
-            College Dashboard
-          </p>
-        </div>
+              <h1>Dashboard Overview</h1>
 
-        <div style={styles.headerButtons}>
-
-          <button
-            onClick={onGoToProfile}
-            style={styles.profileButton}
-          >
-            👤 My Profile
-          </button>
-
-          <button
-            onClick={onLogout}
-            style={styles.logoutButton}
-          >
-            Logout
-          </button>
-
-        </div>
-      </div>
-
-      {/* ======================================
-          MESSAGE
-      ====================================== */}
-
-      {message && (
-        <div style={styles.message}>
-          {message}
-
-          <button
-            onClick={() => setMessage("")}
-            style={styles.closeMessage}
-          >
-            ×
-          </button>
-        </div>
-      )}
-
-      {/* ======================================
-          NAVIGATION
-      ====================================== */}
-
-      <div style={styles.nav}>
-        <button
-          onClick={() => setActiveTab("overview")}
-          style={
-            activeTab === "overview"
-              ? styles.activeTab
-              : styles.tab
-          }
-        >
-          Overview
-        </button>
-
-        <button
-          onClick={() => setActiveTab("students")}
-          style={
-            activeTab === "students"
-              ? styles.activeTab
-              : styles.tab
-          }
-        >
-          Students
-        </button>
-
-        <button
-          onClick={() => setActiveTab("faculty")}
-          style={
-            activeTab === "faculty"
-              ? styles.activeTab
-              : styles.tab
-          }
-        >
-          Faculty
-        </button>
-
-        <button
-          onClick={() => setActiveTab("applications")}
-          style={
-            activeTab === "applications"
-              ? styles.activeTab
-              : styles.tab
-          }
-        >
-          Internship Applications
-        </button>
-
-        <button
-          onClick={() => setActiveTab("workload")}
-          style={
-            activeTab === "workload"
-              ? styles.activeTab
-              : styles.tab
-          }
-        >
-          Faculty Workload
-        </button>
-      </div>
-
-      {/* ======================================
-          OVERVIEW
-      ====================================== */}
-
-      {activeTab === "overview" && (
-        <div>
-          <h2>Dashboard Overview</h2>
-
-          <div style={styles.cards}>
-            <div style={styles.card}>
-              <h3>Students</h3>
-              <p style={styles.number}>
-                {students.length}
+              <p>
+                Manage students, faculty, and internship
+                activities from one place.
               </p>
             </div>
+          </div>
 
-            <div style={styles.card}>
-              <h3>Faculty</h3>
-              <p style={styles.number}>
+          <div className="college-stat-grid">
+            <div className="college-stat-card">
+              <div className="college-stat-icon">🎓</div>
+
+              <div>
+                <span className="college-stat-label">
+                  Total Students
+                </span>
+
+                <strong>{students.length}</strong>
+              </div>
+            </div>
+
+            <div className="college-stat-card">
+              <div className="college-stat-icon">👨‍🏫</div>
+
+              <div>
+                <span className="college-stat-label">
+                  Approved Faculty
+                </span>
+
+                <strong>{approvedFaculty.length}</strong>
+
+                <small>
+                  {pendingFaculty.length} pending requests
+                </small>
+              </div>
+            </div>
+
+            <div className="college-stat-card">
+              <div className="college-stat-icon">📄</div>
+
+              <div>
+                <span className="college-stat-label">
+                  Applications
+                </span>
+
+                <strong>{applications.length}</strong>
+              </div>
+            </div>
+
+            <div className="college-stat-card">
+              <div className="college-stat-icon">✓</div>
+
+              <div>
+                <span className="college-stat-label">
+                  Approved Internships
+                </span>
+
+                <strong>
+                  {approvedApplications.length}
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="college-section-card">
+            <div className="college-section-header">
+              <div>
+                <span className="college-eyebrow">
+                  COLLEGE INFORMATION
+                </span>
+
+                <h2>College Details</h2>
+              </div>
+            </div>
+
+            <div className="college-details-grid">
+              <div className="college-detail-item">
+                <span>College Name</span>
+                <strong>{college.collegeName}</strong>
+              </div>
+
+              <div className="college-detail-item">
+                <span>College Code</span>
+                <strong>{college.collegeCode}</strong>
+              </div>
+
+              <div className="college-detail-item">
+                <span>Email</span>
+                <strong>{college.email}</strong>
+              </div>
+
+              <div className="college-detail-item">
+                <span>Phone</span>
+                <strong>
+                  {college.phone || "Not available"}
+                </strong>
+              </div>
+
+              <div className="college-detail-item">
+                <span>Location</span>
+                <strong>
+                  {college.location || "Not available"}
+                </strong>
+              </div>
+
+              <div className="college-detail-item">
+                <span>Status</span>
+
+                <span className="college-status-badge approved">
+                  {college.status}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ========================================
+    // STUDENTS
+    // ========================================
+
+    if (activeSection === "students") {
+      return (
+        <div className="college-page">
+          <div className="college-page-heading">
+            <div>
+              <span className="college-eyebrow">
+                STUDENT MANAGEMENT
+              </span>
+
+              <h1>College Students</h1>
+
+              <p>
+                View students registered under your college.
+              </p>
+            </div>
+          </div>
+
+          <div className="college-section-card">
+            {students.length === 0 ? (
+              <div className="college-empty-state">
+                <div>🎓</div>
+                <h3>No students registered yet</h3>
+                <p>
+                  Student records will appear here once
+                  students register under this college.
+                </p>
+              </div>
+            ) : (
+              <div className="college-table-wrapper">
+                <table className="college-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Register No.</th>
+                      <th>Department</th>
+                      <th>Semester</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {students.map((student) => (
+                      <tr key={student._id}>
+                        <td>
+                          <strong>{student.name}</strong>
+                        </td>
+
+                        <td>
+                          {student.registerNumber}
+                        </td>
+
+                        <td>{student.department}</td>
+
+                        <td>{student.semester}</td>
+
+                        <td>{student.email}</td>
+
+                        <td>
+                          {student.phone || "—"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ========================================
+    // FACULTY
+    // ========================================
+
+    if (activeSection === "faculty") {
+      return (
+        <div className="college-page">
+          <div className="college-page-heading">
+            <div>
+              <span className="college-eyebrow">
+                FACULTY MANAGEMENT
+              </span>
+
+              <h1>Faculty Management</h1>
+
+              <p>
+                Review faculty registration requests and
+                manage approved faculty members.
+              </p>
+            </div>
+          </div>
+
+          <div className="college-section-card">
+            <div className="college-section-header">
+              <div>
+                <h2>Pending Faculty Requests</h2>
+                <p>
+                  Faculty members waiting for approval.
+                </p>
+              </div>
+
+              <span className="college-count-badge">
+                {pendingFaculty.length}
+              </span>
+            </div>
+
+            {pendingFaculty.length === 0 ? (
+              <div className="college-small-empty">
+                No pending faculty requests.
+              </div>
+            ) : (
+              <div className="college-table-wrapper">
+                <table className="college-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Department</th>
+                      <th>Designation</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {pendingFaculty.map((f) => (
+                      <tr key={f._id}>
+                        <td>
+                          <strong>{f.name}</strong>
+                        </td>
+
+                        <td>{f.department}</td>
+
+                        <td>{f.designation}</td>
+
+                        <td>{f.email}</td>
+
+                        <td>
+                          <div className="college-action-group">
+                            <button
+                              onClick={() =>
+                                approveFaculty(f._id)
+                              }
+                              className="college-approve-button"
+                            >
+                              Approve
+                            </button>
+
+                            <button
+                              onClick={() =>
+                                rejectFaculty(f._id)
+                              }
+                              className="college-reject-button"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+
+          <div className="college-section-card">
+            <div className="college-section-header">
+              <div>
+                <h2>Approved Faculty</h2>
+                <p>
+                  Faculty members currently approved by
+                  the college.
+                </p>
+              </div>
+
+              <span className="college-count-badge">
                 {approvedFaculty.length}
-              </p>
-
-              <small>
-                {pendingFaculty.length} pending requests
-              </small>
+              </span>
             </div>
 
-            <div style={styles.card}>
-              <h3>Applications</h3>
-              <p style={styles.number}>
-                {applications.length}
-              </p>
-            </div>
+            {approvedFaculty.length === 0 ? (
+              <div className="college-small-empty">
+                No approved faculty.
+              </div>
+            ) : (
+              <div className="college-table-wrapper">
+                <table className="college-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Department</th>
+                      <th>Designation</th>
+                      <th>Email</th>
+                      <th>Assigned Students</th>
+                    </tr>
+                  </thead>
 
-            <div style={styles.card}>
-              <h3>Approved Internships</h3>
-              <p style={styles.number}>
-                {approvedApplications.length}
+                  <tbody>
+                    {approvedFaculty.map((f) => (
+                      <tr key={f._id}>
+                        <td>
+                          <strong>{f.name}</strong>
+                        </td>
+
+                        <td>{f.department}</td>
+
+                        <td>{f.designation}</td>
+
+                        <td>{f.email}</td>
+
+                        <td>
+                          <span className="college-number-pill">
+                            {getFacultyWorkload(f._id)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ========================================
+    // INTERNSHIP APPLICATIONS
+    // ========================================
+
+    if (activeSection === "applications") {
+      return (
+        <div className="college-page">
+          <div className="college-page-heading">
+            <div>
+              <span className="college-eyebrow">
+                INTERNSHIP MANAGEMENT
+              </span>
+
+              <h1>Internship Applications</h1>
+
+              <p>
+                Review applications approved by companies
+                and manage college approval.
               </p>
             </div>
           </div>
-
-          <div style={styles.details}>
-            <h2>College Details</h2>
-
-            <p>
-              <strong>College Name:</strong>{" "}
-              {college.collegeName}
-            </p>
-
-            <p>
-              <strong>College Code:</strong>{" "}
-              {college.collegeCode}
-            </p>
-
-            <p>
-              <strong>Email:</strong>{" "}
-              {college.email}
-            </p>
-
-            <p>
-              <strong>Phone:</strong>{" "}
-              {college.phone}
-            </p>
-
-            <p>
-              <strong>Location:</strong>{" "}
-              {college.location}
-            </p>
-
-            <p>
-              <strong>Status:</strong>{" "}
-              {college.status}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* ======================================
-          STUDENTS
-      ====================================== */}
-
-      {activeTab === "students" && (
-        <div>
-          <h2>College Students</h2>
-
-          {students.length === 0 ? (
-            <p>No students registered yet.</p>
-          ) : (
-            <div style={styles.tableContainer}>
-              <table style={styles.table}>
-                <thead>
-                  <tr>
-                    <th style={styles.th}>Name</th>
-                    <th style={styles.th}>
-                      Register No.
-                    </th>
-                    <th style={styles.th}>
-                      Department
-                    </th>
-                    <th style={styles.th}>
-                      Semester
-                    </th>
-                    <th style={styles.th}>Email</th>
-                    <th style={styles.th}>Phone</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {students.map((student) => (
-                    <tr key={student._id}>
-                      <td style={styles.td}>
-                        {student.name}
-                      </td>
-
-                      <td style={styles.td}>
-                        {student.registerNumber}
-                      </td>
-
-                      <td style={styles.td}>
-                        {student.department}
-                      </td>
-
-                      <td style={styles.td}>
-                        {student.semester}
-                      </td>
-
-                      <td style={styles.td}>
-                        {student.email}
-                      </td>
-
-                      <td style={styles.td}>
-                        {student.phone}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* ======================================
-          FACULTY
-      ====================================== */}
-
-      {activeTab === "faculty" && (
-        <div>
-          <h2>Faculty Management</h2>
-
-          <h3 style={styles.sectionTitle}>
-            Pending Faculty Requests
-          </h3>
-
-          {pendingFaculty.length === 0 ? (
-            <p>No pending faculty requests.</p>
-          ) : (
-            <div style={styles.tableContainer}>
-              <table style={styles.table}>
-                <thead>
-                  <tr>
-                    <th style={styles.th}>Name</th>
-                    <th style={styles.th}>
-                      Department
-                    </th>
-                    <th style={styles.th}>
-                      Designation
-                    </th>
-                    <th style={styles.th}>Email</th>
-                    <th style={styles.th}>Action</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {pendingFaculty.map((f) => (
-                    <tr key={f._id}>
-                      <td style={styles.td}>
-                        {f.name}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.department}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.designation}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.email}
-                      </td>
-
-                      <td style={styles.td}>
-                        <button
-                          onClick={() =>
-                            approveFaculty(f._id)
-                          }
-                          style={styles.approveButton}
-                        >
-                          Approve
-                        </button>
-
-                        <button
-                          onClick={() =>
-                            rejectFaculty(f._id)
-                          }
-                          style={styles.rejectButton}
-                        >
-                          Reject
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          <h3 style={styles.sectionTitle}>
-            Approved Faculty
-          </h3>
-
-          {approvedFaculty.length === 0 ? (
-            <p>No approved faculty.</p>
-          ) : (
-            <div style={styles.tableContainer}>
-              <table style={styles.table}>
-                <thead>
-                  <tr>
-                    <th style={styles.th}>Name</th>
-                    <th style={styles.th}>
-                      Department
-                    </th>
-                    <th style={styles.th}>
-                      Designation
-                    </th>
-                    <th style={styles.th}>Email</th>
-                    <th style={styles.th}>
-                      Assigned Students
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {approvedFaculty.map((f) => (
-                    <tr key={f._id}>
-                      <td style={styles.td}>
-                        {f.name}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.department}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.designation}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.email}
-                      </td>
-
-                      <td style={styles.td}>
-                        {getFacultyWorkload(f._id)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* ======================================
-          INTERNSHIP APPLICATIONS
-      ====================================== */}
-
-      {activeTab === "applications" && (
-        <div>
-          <h2>Internship Applications</h2>
 
           {applications.length === 0 ? (
-            <p>No internship applications.</p>
+            <div className="college-section-card">
+              <div className="college-empty-state">
+                <div>📄</div>
+                <h3>No internship applications</h3>
+                <p>
+                  Applications will appear here when
+                  students apply for internships.
+                </p>
+              </div>
+            </div>
           ) : (
-            <div style={styles.applicationList}>
+            <div className="college-application-list">
               {applications.map((app) => (
                 <div
                   key={app._id}
-                  style={styles.applicationCard}
+                  className="college-application-card"
                 >
-                  <h3>
-                    {app.student?.name}
-                  </h3>
+                  <div className="college-application-top">
+                    <div>
+                      <span className="college-application-label">
+                        INTERNSHIP APPLICATION
+                      </span>
 
-                  <p>
-                    <strong>
-                      Register Number:
-                    </strong>{" "}
-                    {app.student?.registerNumber}
-                  </p>
+                      <h2>
+                        {app.student?.name}
+                      </h2>
 
-                  <p>
-                    <strong>Department:</strong>{" "}
-                    {app.student?.department}
-                  </p>
+                      <p>
+                        {app.internship?.title ||
+                          "Internship"}
+                        {" · "}
+                        {app.company?.companyName ||
+                          "Company"}
+                      </p>
+                    </div>
 
-                  <p>
-                    <strong>Company:</strong>{" "}
-                    {app.company?.companyName}
-                  </p>
-
-                  <p>
-                    <strong>Internship:</strong>{" "}
-                    {app.internship?.title}
-                  </p>
-
-                  <p>
-                    <strong>Applied On:</strong>{" "}
-                    {new Date(
-                      app.createdAt
-                    ).toLocaleDateString()}
-                  </p>
-
-                  <p>
-                    <strong>Status:</strong>{" "}
                     <span
-                      style={getStatusStyle(
+                      className={`college-status-badge ${getStatusClass(
                         app.status
-                      )}
+                      )}`}
                     >
                       {app.status}
                     </span>
-                  </p>
+                  </div>
+
+                  <div className="college-application-details">
+                    <div>
+                      <span>Register Number</span>
+                      <strong>
+                        {app.student?.registerNumber ||
+                          "—"}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Department</span>
+                      <strong>
+                        {app.student?.department ||
+                          "—"}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Company</span>
+                      <strong>
+                        {app.company?.companyName ||
+                          "—"}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Applied On</span>
+                      <strong>
+                        {app.createdAt
+                          ? new Date(
+                              app.createdAt
+                            ).toLocaleDateString()
+                          : "—"}
+                      </strong>
+                    </div>
+                  </div>
 
                   {app.faculty && (
-                    <p>
+                    <div className="college-faculty-assignment">
+                      <span>Faculty Guide</span>
                       <strong>
-                        Faculty Guide:
-                      </strong>{" "}
-                      {app.faculty.name}
-                    </p>
+                        {app.faculty.name}
+                      </strong>
+                    </div>
                   )}
 
-                  {app.status ===
-                    "CompanyApproved" && (
-                    <div>
+                  {app.status === "CompanyApproved" && (
+                    <div className="college-application-actions">
                       <button
                         onClick={() =>
-                          approveApplication(
-                            app._id
-                          )
+                          approveApplication(app._id)
                         }
-                        style={
-                          styles.approveButton
-                        }
+                        className="college-approve-button"
                       >
                         Approve & Assign Faculty
                       </button>
 
                       <button
                         onClick={() =>
-                          rejectApplication(
-                            app._id
-                          )
+                          rejectApplication(app._id)
                         }
-                        style={
-                          styles.rejectButton
-                        }
+                        className="college-reject-button"
                       >
                         Reject
                       </button>
@@ -708,29 +736,26 @@ function CollegeDashboard({
                   )}
 
                   {app.status === "Pending" && (
-                    <p style={styles.waiting}>
+                    <p className="college-application-note waiting">
                       Waiting for company approval
                     </p>
                   )}
 
-                  {app.status ===
-                    "CompanyRejected" && (
-                    <p style={styles.rejected}>
+                  {app.status === "CompanyRejected" && (
+                    <p className="college-application-note rejected">
                       Rejected by company
                     </p>
                   )}
 
-                  {app.status ===
-                    "CollegeApproved" && (
-                    <p style={styles.approved}>
+                  {app.status === "CollegeApproved" && (
+                    <p className="college-application-note approved">
                       Internship approved and faculty
                       assigned
                     </p>
                   )}
 
-                  {app.status ===
-                    "CollegeRejected" && (
-                    <p style={styles.rejected}>
+                  {app.status === "CollegeRejected" && (
+                    <p className="college-application-note rejected">
                       Rejected by college
                     </p>
                   )}
@@ -739,300 +764,296 @@ function CollegeDashboard({
             </div>
           )}
         </div>
-      )}
+      );
+    }
+
+    // ========================================
+    // FACULTY WORKLOAD
+    // ========================================
+
+    if (activeSection === "workload") {
+      return (
+        <div className="college-page">
+          <div className="college-page-heading">
+            <div>
+              <span className="college-eyebrow">
+                FACULTY ASSIGNMENT
+              </span>
+
+              <h1>Faculty Workload</h1>
+
+              <p>
+                Faculty assignment is automatically based
+                on department and current student workload.
+              </p>
+            </div>
+          </div>
+
+          <div className="college-section-card">
+            {approvedFaculty.length === 0 ? (
+              <div className="college-empty-state">
+                <div>👨‍🏫</div>
+                <h3>No approved faculty available</h3>
+                <p>
+                  Approved faculty will appear here when
+                  they are available for assignments.
+                </p>
+              </div>
+            ) : (
+              <div className="college-table-wrapper">
+                <table className="college-table">
+                  <thead>
+                    <tr>
+                      <th>Faculty</th>
+                      <th>Department</th>
+                      <th>Assigned Students</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {approvedFaculty.map((f) => (
+                      <tr key={f._id}>
+                        <td>
+                          <strong>{f.name}</strong>
+                        </td>
+
+                        <td>{f.department}</td>
+
+                        <td>
+                          <span className="college-number-pill">
+                            {getFacultyWorkload(f._id)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ========================================
+    // PROFILE / EDIT / PASSWORD
+    // ========================================
+
+    if (
+      activeSection === "profile" ||
+      activeSection === "editProfile" ||
+      activeSection === "changePassword"
+    ) {
+      return children;
+    }
+
+    return null;
+  };
+
+  return (
+    <div className="college-dashboard">
 
       {/* ======================================
-          FACULTY WORKLOAD
+          SIDEBAR
       ====================================== */}
 
-      {activeTab === "workload" && (
-        <div>
-          <h2>Faculty Workload</h2>
+      <aside className="college-sidebar">
 
-          <p>
-            Faculty assignment is automatically based
-            on department and current student workload.
-          </p>
+        <div className="college-brand">
+          <div className="college-brand-logo">
+            IL
+          </div>
 
-          {approvedFaculty.length === 0 ? (
-            <p>No approved faculty available.</p>
-          ) : (
-            <div style={styles.tableContainer}>
-              <table style={styles.table}>
-                <thead>
-                  <tr>
-                    <th style={styles.th}>Faculty</th>
-                    <th style={styles.th}>
-                      Department
-                    </th>
-                    <th style={styles.th}>
-                      Assigned Students
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {approvedFaculty.map((f) => (
-                    <tr key={f._id}>
-                      <td style={styles.td}>
-                        {f.name}
-                      </td>
-
-                      <td style={styles.td}>
-                        {f.department}
-                      </td>
-
-                      <td style={styles.td}>
-                        {getFacultyWorkload(f._id)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <div>
+            <h2>Intern<span>Link</span></h2>
+            <p>College Portal</p>
+          </div>
         </div>
-      )}
+
+        <div className="college-sidebar-divider"></div>
+
+        <nav className="college-sidebar-nav">
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "dashboard"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToDashboard}
+          >
+            <span className="college-nav-icon">⌂</span>
+            <span>Dashboard</span>
+          </button>
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "students"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToStudents}
+          >
+            <span className="college-nav-icon">🎓</span>
+            <span>Students</span>
+          </button>
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "faculty"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToFaculty}
+          >
+            <span className="college-nav-icon">👨‍🏫</span>
+            <span>Faculty</span>
+          </button>
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "applications"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToApplications}
+          >
+            <span className="college-nav-icon">📄</span>
+            <span>Applications</span>
+          </button>
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "workload"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToWorkload}
+          >
+            <span className="college-nav-icon">◉</span>
+            <span>Faculty Workload</span>
+          </button>
+
+        </nav>
+
+        <div className="college-sidebar-bottom">
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "profile" ||
+              activeSection === "editProfile" ||
+              activeSection === "changePassword"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToProfile}
+          >
+            <span className="college-nav-icon">👤</span>
+            <span>My Profile</span>
+          </button>
+
+          <button
+            className="college-logout-button"
+            onClick={onLogout}
+          >
+            <span>↪</span>
+            <span>Logout</span>
+          </button>
+
+        </div>
+
+      </aside>
+
+      {/* ======================================
+          MAIN AREA
+      ====================================== */}
+
+      <div className="college-main">
+
+        <header className="college-header">
+
+          <div>
+            <span className="college-header-label">
+              COLLEGE PORTAL
+            </span>
+
+            <h1>{college.collegeName}</h1>
+          </div>
+
+          <div className="college-header-profile">
+
+            <div className="college-avatar">
+              {college.collegeName
+                ? college.collegeName
+                    .charAt(0)
+                    .toUpperCase()
+                : "C"}
+            </div>
+
+            <div>
+              <strong>
+                {college.collegeName}
+              </strong>
+
+              <span>College Administrator</span>
+            </div>
+
+          </div>
+
+        </header>
+
+        {message && (
+          <div className="college-message">
+            <div>
+              <strong>Notice</strong>
+              <span>{message}</span>
+            </div>
+
+            <button
+              onClick={() => setMessage("")}
+              className="college-message-close"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
+        {/* ======================================
+            CONTENT
+        ====================================== */}
+
+        <main className="college-content">
+          <div className="college-content-inner">
+            {renderDashboardContent()}
+          </div>
+        </main>
+
+      </div>
     </div>
   );
 }
 
-
 // ==========================================
-// STATUS STYLE
+// STATUS CLASS
 // ==========================================
 
-const getStatusStyle = (status) => {
+const getStatusClass = (status) => {
   if (status === "CollegeApproved") {
-    return {
-      color: "green",
-      fontWeight: "bold",
-    };
+    return "approved";
   }
 
   if (status === "CompanyApproved") {
-    return {
-      color: "orange",
-      fontWeight: "bold",
-    };
+    return "pending";
   }
 
   if (
     status === "CompanyRejected" ||
     status === "CollegeRejected"
   ) {
-    return {
-      color: "red",
-      fontWeight: "bold",
-    };
+    return "rejected";
   }
 
-  return {
-    color: "gray",
-    fontWeight: "bold",
-  };
-};
-
-
-// ==========================================
-// STYLES
-// ==========================================
-
-const styles = {
-  container: {
-    padding: "30px",
-    maxWidth: "1400px",
-    margin: "0 auto",
-    fontFamily: "Arial, sans-serif",
-  },
-
-  loading: {
-    textAlign: "center",
-    padding: "50px",
-  },
-
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "25px",
-    borderBottom: "1px solid #ddd",
-    paddingBottom: "20px",
-  },
-
-  headerButtons: {
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-  },
-
-  title: {
-    margin: 0,
-    fontSize: "28px",
-  },
-
-  subtitle: {
-    marginTop: "5px",
-    color: "#666",
-  },
-
-  profileButton: {
-    padding: "10px 20px",
-    background: "#0d6efd",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-
-  logoutButton: {
-    padding: "10px 20px",
-    background: "#dc3545",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-
-  message: {
-    padding: "12px",
-    marginBottom: "20px",
-    background: "#e8f5e9",
-    border: "1px solid #b7dfb9",
-    borderRadius: "5px",
-    display: "flex",
-    justifyContent: "space-between",
-  },
-
-  closeMessage: {
-    border: "none",
-    background: "transparent",
-    fontSize: "20px",
-    cursor: "pointer",
-  },
-
-  nav: {
-    display: "flex",
-    gap: "10px",
-    marginBottom: "30px",
-    flexWrap: "wrap",
-  },
-
-  tab: {
-    padding: "10px 16px",
-    border: "1px solid #ccc",
-    background: "#f5f5f5",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-
-  activeTab: {
-    padding: "10px 16px",
-    border: "1px solid #333",
-    background: "#333",
-    color: "white",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-
-  cards: {
-    display: "grid",
-    gridTemplateColumns:
-      "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "20px",
-    marginBottom: "30px",
-  },
-
-  card: {
-    padding: "20px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    background: "#fafafa",
-  },
-
-  number: {
-    fontSize: "32px",
-    fontWeight: "bold",
-    margin: "10px 0",
-  },
-
-  details: {
-    padding: "20px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-  },
-
-  sectionTitle: {
-    marginTop: "35px",
-  },
-
-  tableContainer: {
-    overflowX: "auto",
-    marginTop: "15px",
-    marginBottom: "30px",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-  },
-
-  th: {
-    border: "1px solid #ddd",
-    padding: "12px",
-    background: "#f5f5f5",
-    textAlign: "left",
-  },
-
-  td: {
-    border: "1px solid #ddd",
-    padding: "12px",
-  },
-
-  approveButton: {
-    padding: "8px 12px",
-    marginRight: "8px",
-    background: "#198754",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-
-  rejectButton: {
-    padding: "8px 12px",
-    background: "#dc3545",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-
-  applicationList: {
-    display: "grid",
-    gap: "20px",
-  },
-
-  applicationCard: {
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "20px",
-  },
-
-  waiting: {
-    color: "#777",
-    fontWeight: "bold",
-  },
-
-  approved: {
-    color: "green",
-    fontWeight: "bold",
-  },
-
-  rejected: {
-    color: "red",
-    fontWeight: "bold",
-  },
+  return "neutral";
 };
 
 export default CollegeDashboard;

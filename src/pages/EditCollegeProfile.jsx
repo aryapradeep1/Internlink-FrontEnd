@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/EditCollegeProfile.css";
 
 function EditCollegeProfile({
   college,
@@ -78,114 +79,380 @@ function EditCollegeProfile({
   };
 
   return (
-    <div className="dashboard-container">
-      <h1>✏️ Edit College Profile</h1>
+    <div className="edit-college-page">
 
-      {message && (
-        <p style={{ color: "green" }}>
-          {message}
-        </p>
-      )}
+      {/* ========================================
+          PAGE HEADER
+      ======================================== */}
 
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
+      <div className="edit-college-header">
 
-      <form onSubmit={handleSubmit}>
-        <div className="student-info">
+        <div className="edit-college-header-icon">
+          ✏️
+        </div>
 
-          <label>College Name</label>
+        <div>
+          <div className="edit-college-eyebrow">
+            COLLEGE ACCOUNT
+          </div>
 
-          <input
-            type="text"
-            value={collegeName}
-            onChange={(e) =>
-              setCollegeName(e.target.value)
-            }
-            required
-          />
+          <h1>Edit College Profile</h1>
 
+          <p>
+            Update your college information and contact details.
+          </p>
+        </div>
 
-          <label>College Code</label>
+      </div>
 
-          <input
-            type="text"
-            value={college?.collegeCode || ""}
-            disabled
-          />
+      {/* ========================================
+          MAIN WORKSPACE
+      ======================================== */}
 
+      <div className="edit-college-workspace">
 
-          <label>Email</label>
+        {/* ======================================
+            LEFT INFORMATION PANEL
+        ====================================== */}
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            required
-          />
+        <div className="edit-college-info-panel">
 
+          <div className="edit-college-info-badge">
+            🏫
+          </div>
 
-          <label>Phone</label>
+          <h2>
+            {college?.collegeName || "College"}
+          </h2>
 
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) =>
-              setPhone(e.target.value)
-            }
-            required
-          />
+          <p>
+            Keep your college profile information
+            accurate and up to date.
+          </p>
 
+          <div className="edit-college-info-list">
 
-          <label>Location</label>
+            {/* College Code */}
+            <div className="edit-college-info-item">
+              <span>🏷️</span>
 
-          <input
-            type="text"
-            value={location}
-            onChange={(e) =>
-              setLocation(e.target.value)
-            }
-            required
-          />
+              <div>
+                <strong>College Code</strong>
 
+                <small>
+                  {college?.collegeCode || "Not available"}
+                </small>
+              </div>
+            </div>
 
-          <label>Website</label>
+            {/* Email */}
+            <div className="edit-college-info-item">
+              <span>✉️</span>
 
-          <input
-            type="text"
-            value={website}
-            onChange={(e) =>
-              setWebsite(e.target.value)
-            }
-            placeholder="https://example.com"
-          />
+              <div>
+                <strong>Email</strong>
+
+                <small>
+                  {college?.email || "Not available"}
+                </small>
+              </div>
+            </div>
+
+            {/* Location */}
+            <div className="edit-college-info-item">
+              <span>📍</span>
+
+              <div>
+                <strong>Location</strong>
+
+                <small>
+                  {college?.location || "Not available"}
+                </small>
+              </div>
+            </div>
+
+            {/* Status */}
+            <div className="edit-college-info-item">
+              <span>✓</span>
+
+              <div>
+                <strong>Account Status</strong>
+
+                <small>
+                  {college?.status || "Not available"}
+                </small>
+              </div>
+            </div>
+
+          </div>
 
         </div>
 
-        <div className="dashboard-menu">
+        {/* ======================================
+            RIGHT FORM PANEL
+        ====================================== */}
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? "Saving..."
-              : "💾 Save Changes"}
-          </button>
+        <div className="edit-college-form-panel">
 
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Profile
-          </button>
+          <div className="edit-college-form-heading">
+
+            <div>
+              <span>PROFILE INFORMATION</span>
+
+              <h2>Update Details</h2>
+            </div>
+
+            <div className="edit-college-secure-icon">
+              🔐
+            </div>
+
+          </div>
+
+          {/* ====================================
+              SUCCESS MESSAGE
+          ==================================== */}
+
+          {message && (
+            <div className="edit-college-message edit-college-success">
+
+              <span>✓</span>
+
+              <div>
+                <strong>Profile Updated</strong>
+
+                <p>{message}</p>
+              </div>
+
+            </div>
+          )}
+
+          {/* ====================================
+              ERROR MESSAGE
+          ==================================== */}
+
+          {error && (
+            <div className="edit-college-message edit-college-error">
+
+              <span>!</span>
+
+              <div>
+                <strong>Update Failed</strong>
+
+                <p>{error}</p>
+              </div>
+
+            </div>
+          )}
+
+          {/* ====================================
+              FORM
+          ==================================== */}
+
+          <form onSubmit={handleSubmit}>
+
+            {/* College Name */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegeName">
+                College Name
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  🏫
+                </span>
+
+                <input
+                  id="collegeName"
+                  type="text"
+                  value={collegeName}
+                  onChange={(e) =>
+                    setCollegeName(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            {/* College Code */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegeCode">
+                College Code
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  #
+                </span>
+
+                <input
+                  id="collegeCode"
+                  type="text"
+                  value={college?.collegeCode || ""}
+                  disabled
+                />
+
+              </div>
+
+              <small className="edit-college-disabled-note">
+                College code cannot be changed.
+              </small>
+
+            </div>
+
+            {/* Email */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegeEmail">
+                Email Address
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  @
+                </span>
+
+                <input
+                  id="collegeEmail"
+                  type="email"
+                  value={email}
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            {/* Phone */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegePhone">
+                Phone Number
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  ☎
+                </span>
+
+                <input
+                  id="collegePhone"
+                  type="text"
+                  value={phone}
+                  onChange={(e) =>
+                    setPhone(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            {/* Location */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegeLocation">
+                Location
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  📍
+                </span>
+
+                <input
+                  id="collegeLocation"
+                  type="text"
+                  value={location}
+                  onChange={(e) =>
+                    setLocation(e.target.value)
+                  }
+                  required
+                />
+
+              </div>
+
+            </div>
+
+            {/* Website */}
+            <div className="edit-college-field">
+
+              <label htmlFor="collegeWebsite">
+                Website
+              </label>
+
+              <div className="edit-college-input-wrap">
+
+                <span className="edit-college-input-icon">
+                  🌐
+                </span>
+
+                <input
+                  id="collegeWebsite"
+                  type="text"
+                  value={website}
+                  onChange={(e) =>
+                    setWebsite(e.target.value)
+                  }
+                  placeholder="https://example.com"
+                />
+
+              </div>
+
+            </div>
+
+            {/* ==================================
+                ACTIONS
+            ================================== */}
+
+            <div className="edit-college-actions">
+
+              <button
+                type="button"
+                className="edit-college-cancel"
+                onClick={onBack}
+                disabled={loading}
+              >
+                ← Back to Profile
+              </button>
+
+              <button
+                type="submit"
+                className="edit-college-save"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="edit-college-spinner"></span>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    💾 Save Changes
+                  </>
+                )}
+              </button>
+
+            </div>
+
+          </form>
 
         </div>
-      </form>
+
+      </div>
+
     </div>
   );
 }

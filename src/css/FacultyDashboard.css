@@ -74,7 +74,84 @@ body {
 }
 
 /* Keep your existing InterLink logo exactly as it is */
+/* =========================================================
+   INTERLINK LOGO
+   ========================================================= */
 
+.faculty-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.faculty-logo {
+  display: flex;
+  align-items: center;
+
+  padding: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #287653;
+
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+
+  cursor: pointer;
+}
+
+.faculty-logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 11px;
+
+  background: #d8f3e5;
+
+  color: #287653;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.faculty-logo-text {
+  color: #287653;
+
+  font-size: 22px;
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+.faculty-logo:hover .faculty-logo-mark {
+  background: #c9ecda;
+}
+
+.faculty-logo:hover .faculty-logo-text {
+  color: #226848;
+}
+
+.faculty-role {
+  padding-left: 14px;
+
+  border-left: 1px solid #dfe9e4;
+
+  color: #81918a;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/*/////////////////*/
 .faculty-header-right {
   display: flex;
   align-items: center;

@@ -27,9 +27,11 @@ body,
   min-width: 0;
   max-width: none;
   min-height: 100vh;
+  height: 100vh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto;
 
   background: #fbfdfc;
 
@@ -904,6 +906,10 @@ body,
 .internship-card {
 
   width: 185px;
+
+  height: fit-content;
+
+  min-height: 0;
 
   left: -12px;
 

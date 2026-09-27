@@ -1,0 +1,315 @@
+/* =========================================================
+   INTERLINK - FACULTY EDIT PROFILE
+   ========================================================= */
+
+.edit-faculty-page {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  color: #294139;
+}
+
+/* ---------- Header ---------- */
+
+.edit-faculty-header {
+  margin-bottom: 24px;
+}
+
+.edit-faculty-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: #d8f3e5;
+  color: #287653;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.edit-faculty-header h1 {
+  margin: 0;
+  color: #294139;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.edit-faculty-header p {
+  margin: 8px 0 0;
+  color: #718078;
+  font-size: 14px;
+}
+
+
+/* ---------- Messages ---------- */
+
+.edit-profile-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.success-message {
+  border: 1px solid #c7ead7;
+  background: #edf9f2;
+  color: #287653;
+}
+
+.error-message {
+  border: 1px solid #f3c9c2;
+  background: #fff2f0;
+  color: #c65d4d;
+}
+
+.message-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.success-message .message-icon {
+  background: #d8f3e5;
+  color: #287653;
+}
+
+.error-message .message-icon {
+  background: #fbe0db;
+  color: #c65d4d;
+}
+
+
+/* ---------- Main Card ---------- */
+
+.edit-faculty-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30px;
+  border: 1px solid #e5eee9;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(41, 65, 57, 0.07);
+}
+
+
+/* ---------- Card Heading ---------- */
+
+.edit-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf2ef;
+}
+
+.edit-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #d8f3e5;
+  font-size: 20px;
+}
+
+.edit-card-heading h2 {
+  margin: 0 0 4px;
+  color: #294139;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.edit-card-heading p {
+  margin: 0;
+  color: #7a8881;
+  font-size: 13px;
+}
+
+
+/* ---------- Form ---------- */
+
+.edit-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 20px;
+}
+
+.edit-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-full-width {
+  grid-column: 1 / -1;
+}
+
+.edit-form-group label {
+  color: #40534b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.edit-form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid #dbe7e1;
+  border-radius: 10px;
+  outline: none;
+  background: #fbfdfc;
+  color: #294139;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.edit-form-group input::placeholder {
+  color: #a2ada8;
+}
+
+.edit-form-group input:hover {
+  border-color: #c8dcd2;
+}
+
+.edit-form-group input:focus {
+  border-color: #287653;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(40, 118, 83, 0.10);
+}
+
+
+/* ---------- Action Buttons ---------- */
+
+.edit-profile-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #edf2ef;
+}
+
+.edit-back-btn,
+.edit-save-btn {
+  min-height: 43px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.edit-back-btn {
+  border: 1px solid #d7e4de;
+  background: #ffffff;
+  color: #4d6259;
+}
+
+.edit-back-btn:hover {
+  background: #f5faf7;
+  border-color: #c4d9ce;
+  transform: translateY(-1px);
+}
+
+.edit-save-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  background: #287653;
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(40, 118, 83, 0.16);
+}
+
+.edit-save-btn:hover:not(:disabled) {
+  background: #226848;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 15px rgba(40, 118, 83, 0.20);
+}
+
+.edit-save-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+
+/* ---------- Loading Spinner ---------- */
+
+.save-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: edit-profile-spin 0.7s linear infinite;
+}
+
+@keyframes edit-profile-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+  .edit-faculty-page {
+    padding-bottom: 25px;
+  }
+
+  .edit-faculty-header h1 {
+    font-size: 25px;
+  }
+
+  .edit-faculty-card {
+    padding: 22px;
+    border-radius: 15px;
+  }
+
+  .edit-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .edit-full-width {
+    grid-column: auto;
+  }
+
+  .edit-profile-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .edit-back-btn,
+  .edit-save-btn {
+    width: 100%;
+  }
+}

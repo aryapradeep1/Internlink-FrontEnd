@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import "../css/EditFacultyProfile.css";
 
 function EditFacultyProfile({
-  faculty,
+ faculty,
   onBack,
-  onProfileUpdated,
+  onUpdated,
 }) {
   const [name, setName] = useState(faculty?.name || "");
   const [email, setEmail] = useState(faculty?.email || "");
@@ -51,7 +52,7 @@ function EditFacultyProfile({
       if (data.status === "success") {
         setMessage(data.message);
 
-        onProfileUpdated(data.faculty);
+       onUpdated(data.faculty);
       } else {
         setError(data.message);
       }
@@ -64,74 +65,172 @@ function EditFacultyProfile({
   };
 
   return (
-    <div className="dashboard-container">
-      <h1>✏️ Edit Faculty Profile</h1>
+    <div className="edit-faculty-page">
 
+      {/* Page Header */}
+      <div className="edit-faculty-header">
+        <div>
+          <span className="edit-faculty-label">
+            FACULTY PROFILE
+          </span>
+
+          <h1>Edit Profile</h1>
+
+          <p>
+            Update your personal and professional information
+          </p>
+        </div>
+      </div>
+
+      {/* Messages */}
       {message && (
-        <p style={{ color: "green" }}>
-          {message}
-        </p>
+        <div className="edit-profile-message success-message">
+          <span className="message-icon">✓</span>
+          <span>{message}</span>
+        </div>
       )}
 
       {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
+        <div className="edit-profile-message error-message">
+          <span className="message-icon">!</span>
+          <span>{error}</span>
+        </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <div className="student-info">
-          <label>Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+      {/* Form Card */}
+      <div className="edit-faculty-card">
 
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className="edit-card-heading">
+          <div className="edit-card-icon">
+            ✏️
+          </div>
 
-          <label>Department</label>
-          <input
-            type="text"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            required
-          />
-
-          <label>Phone</label>
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-
-          <label>Designation</label>
-          <input
-            type="text"
-            value={designation}
-            onChange={(e) => setDesignation(e.target.value)}
-            required
-          />
+          <div>
+            <h2>Personal Information</h2>
+            <p>
+              Make changes to your faculty profile below.
+            </p>
+          </div>
         </div>
 
-        <div className="dashboard-menu">
-          <button type="submit" disabled={loading}>
-            {loading ? "Saving..." : "💾 Save Changes"}
-          </button>
+        <form onSubmit={handleSubmit}>
 
-          <button type="button" onClick={onBack}>
-            ← Back to Profile
-          </button>
-        </div>
-      </form>
+          <div className="edit-form-grid">
+
+            {/* Name */}
+            <div className="edit-form-group">
+              <label htmlFor="faculty-name">
+                Full Name
+              </label>
+
+              <input
+                id="faculty-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder="Enter your full name"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="edit-form-group">
+              <label htmlFor="faculty-email">
+                Email Address
+              </label>
+
+              <input
+                id="faculty-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter your email address"
+              />
+            </div>
+
+            {/* Department */}
+            <div className="edit-form-group">
+              <label htmlFor="faculty-department">
+                Department
+              </label>
+
+              <input
+                id="faculty-department"
+                type="text"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                required
+                placeholder="Enter your department"
+              />
+            </div>
+
+            {/* Phone */}
+            <div className="edit-form-group">
+              <label htmlFor="faculty-phone">
+                Phone Number
+              </label>
+
+              <input
+                id="faculty-phone"
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+                placeholder="Enter your phone number"
+              />
+            </div>
+
+            {/* Designation */}
+            <div className="edit-form-group edit-full-width">
+              <label htmlFor="faculty-designation">
+                Designation
+              </label>
+
+              <input
+                id="faculty-designation"
+                type="text"
+                value={designation}
+                onChange={(e) => setDesignation(e.target.value)}
+                required
+                placeholder="Enter your designation"
+              />
+            </div>
+
+          </div>
+
+          {/* Buttons */}
+          <div className="edit-profile-actions">
+
+            <button
+              type="button"
+              className="edit-back-btn"
+              onClick={onBack}
+            >
+              ← Back to Profile
+            </button>
+
+            <button
+              type="submit"
+              className="edit-save-btn"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="save-spinner"></span>
+                  Saving...
+                </>
+              ) : (
+                <>
+                  ✓ Save Changes
+                </>
+              )}
+            </button>
+
+          </div>
+
+        </form>
+      </div>
     </div>
   );
 }

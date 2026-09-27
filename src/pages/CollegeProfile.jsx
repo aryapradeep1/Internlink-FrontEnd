@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/CollegeProfile.css";
 
 function CollegeProfile({
   college,
@@ -37,76 +38,202 @@ function CollegeProfile({
     fetchProfile();
   }, [college]);
 
+  /* ==========================================
+     LOADING
+  ========================================== */
+
   if (loading) {
     return (
-      <div className="dashboard-container">
-        <p>Loading college profile...</p>
+      <div className="college-profile-loading">
+        <div className="college-profile-loading-card">
+          <div className="college-profile-spinner"></div>
+
+          <h3>Loading Profile</h3>
+
+          <p>
+            Please wait while we load your college information.
+          </p>
+        </div>
       </div>
     );
   }
 
+  /* ==========================================
+     PROFILE
+  ========================================== */
+
   return (
-    <div className="dashboard-container">
-      <h1>👤 College Profile</h1>
+    <div className="college-profile-page">
+
+      {/* ========================================
+          PAGE HEADER
+      ======================================== */}
+
+      <div className="college-profile-heading">
+        <div>
+          <span className="college-profile-eyebrow">
+            COLLEGE ACCOUNT
+          </span>
+
+          <h1>College Profile</h1>
+
+          <p>
+            View and manage your college information.
+          </p>
+        </div>
+      </div>
+
+      {/* ========================================
+          ERROR MESSAGE
+      ======================================== */}
 
       {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
+        <div className="college-profile-error">
+          <span className="college-profile-error-icon">
+            !
+          </span>
 
-      {!error && (
-        <div className="student-info">
-          <p>
-            <strong>College Name:</strong>{" "}
-            {profile?.collegeName}
-          </p>
+          <div>
+            <strong>Unable to load profile</strong>
 
-          <p>
-            <strong>College Code:</strong>{" "}
-            {profile?.collegeCode}
-          </p>
-
-          <p>
-            <strong>Email:</strong>{" "}
-            {profile?.email}
-          </p>
-
-          <p>
-            <strong>Phone:</strong>{" "}
-            {profile?.phone || "Not available"}
-          </p>
-
-          <p>
-            <strong>Location:</strong>{" "}
-            {profile?.location || "Not available"}
-          </p>
-
-          <p>
-            <strong>Website:</strong>{" "}
-            {profile?.website || "Not available"}
-          </p>
-
-          <p>
-            <strong>Status:</strong>{" "}
-            {profile?.status}
-          </p>
+            <p>{error}</p>
+          </div>
         </div>
       )}
 
-      <div className="dashboard-menu">
-        <button onClick={onEdit}>
-          ✏️ Edit Profile
-        </button>
+      {!error && (
+        <>
+          {/* ======================================
+              PROFILE CARD
+          ====================================== */}
 
-        <button onClick={onChangePassword}>
-          🔐 Change Password
-        </button>
+          <div className="college-profile-card">
 
-        <button onClick={onBack}>
-          ← Back to Dashboard
-        </button>
-      </div>
+            <div className="college-profile-card-header">
+              <div className="college-profile-card-icon">
+                🏫
+              </div>
+
+              <div>
+                <span>COLLEGE INFORMATION</span>
+
+                <h2>
+                  {profile?.collegeName || "College"}
+                </h2>
+              </div>
+            </div>
+
+            {/* ====================================
+                PROFILE DETAILS
+            ==================================== */}
+
+            <div className="college-profile-details">
+
+              {/* College Name */}
+              <div className="college-profile-field">
+                <span>College Name</span>
+
+                <strong>
+                  {profile?.collegeName || "Not available"}
+                </strong>
+              </div>
+
+              {/* College Code */}
+              <div className="college-profile-field">
+                <span>College Code</span>
+
+                <strong>
+                  {profile?.collegeCode || "Not available"}
+                </strong>
+              </div>
+
+              {/* Email */}
+              <div className="college-profile-field">
+                <span>Email Address</span>
+
+                <strong>
+                  {profile?.email || "Not available"}
+                </strong>
+              </div>
+
+              {/* Phone */}
+              <div className="college-profile-field">
+                <span>Phone Number</span>
+
+                <strong>
+                  {profile?.phone || "Not available"}
+                </strong>
+              </div>
+
+              {/* Location */}
+              <div className="college-profile-field">
+                <span>Location</span>
+
+                <strong>
+                  {profile?.location || "Not available"}
+                </strong>
+              </div>
+
+              {/* Website */}
+              <div className="college-profile-field">
+                <span>Website</span>
+
+                <strong>
+                  {profile?.website || "Not available"}
+                </strong>
+              </div>
+
+              {/* Status */}
+              <div className="college-profile-field college-profile-status-field">
+                <span>Account Status</span>
+
+                <strong>
+                  <span
+                    className={`college-profile-status ${
+                      profile?.status?.toLowerCase() || "neutral"
+                    }`}
+                  >
+                    {profile?.status || "Not available"}
+                  </span>
+                </strong>
+              </div>
+
+            </div>
+          </div>
+
+          {/* ======================================
+              ACTIONS
+          ====================================== */}
+
+          <div className="college-profile-actions">
+
+            <button
+              className="college-profile-edit-button"
+              onClick={onEdit}
+            >
+              <span>✏️</span>
+              Edit Profile
+            </button>
+
+            <button
+              className="college-profile-password-button"
+              onClick={onChangePassword}
+            >
+              <span>🔐</span>
+              Change Password
+            </button>
+
+            <button
+              className="college-profile-back-button"
+              onClick={onBack}
+            >
+              <span>←</span>
+              Back to Dashboard
+            </button>
+
+          </div>
+        </>
+      )}
     </div>
   );
 }

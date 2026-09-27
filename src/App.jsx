@@ -61,7 +61,14 @@ function App() {
   const [companySection, setCompanySection] =
   useState("dashboard");
 
+
   const [facultySection, setFacultySection] =
+  useState("dashboard");
+
+  const [companyGuideSection, setCompanyGuideSection] =
+  useState("dashboard");
+
+const [collegeSection, setCollegeSection] =
   useState("dashboard");
 
   const [student, setStudent] = useState(null);
@@ -202,46 +209,100 @@ const goToFacultyChangePassword = () => {
   // =====================================================
   // COMPANY GUIDE
   // =====================================================
-
-  const handleCompanyGuideLogin = (guideData) => {
-    setCompanyGuide(guideData);
-    setPage("companyGuideDashboard");
-  };
+const handleCompanyGuideLogin = (guideData) => {
+  setCompanyGuide(guideData);
+  setCompanyGuideSection("dashboard");
+  setPage("companyGuideDashboard");
+};
 
   const handleCompanyGuideLogout = () => {
     setCompanyGuide(null);
     setPage("login");
   };
 
-  const goToCompanyGuideProfile = () => {
-    setPage("companyGuideProfile");
-  };
+const goToCompanyGuideProfile = () => {
+  setCompanyGuideSection("profile");
+  setPage("companyGuideDashboard");
+};
 
-  const goToEditCompanyGuideProfile = () => {
-    setPage("editCompanyGuideProfile");
-  };
+const goToEditCompanyGuideProfile = () => {
+  setCompanyGuideSection("editProfile");
+  setPage("companyGuideDashboard");
+};
+
+const goToCompanyGuideDashboard = () => {
+  setCompanyGuideSection("dashboard");
+  setPage("companyGuideDashboard");
+};
+
+const goToCompanyGuideAssignedStudents = () => {
+  setCompanyGuideSection("students");
+  setPage("companyGuideDashboard");
+};
+
+const goToCompanyGuideLogbooks = () => {
+  setCompanyGuideSection("logbooks");
+  setPage("companyGuideDashboard");
+};
+
+const goToCompanyGuideChangePassword = () => {
+  setCompanyGuideSection("changePassword");
+  setPage("companyGuideDashboard");
+};
 
   // =====================================================
   // COLLEGE
   // =====================================================
-
-  const handleCollegeLogin = (collegeData) => {
-    setCollege(collegeData);
-    setPage("collegeDashboard");
-  };
+const handleCollegeLogin = (collegeData) => {
+  setCollege(collegeData);
+  setCollegeSection("dashboard");
+  setPage("collegeDashboard");
+};
 
   const handleCollegeLogout = () => {
     setCollege(null);
     setPage("login");
   };
 
-  const goToCollegeProfile = () => {
-    setPage("collegeProfile");
-  };
+const goToCollegeProfile = () => {
+  setCollegeSection("profile");
+  setPage("collegeDashboard");
+};
 
-  const goToEditCollegeProfile = () => {
-    setPage("editCollegeProfile");
-  };
+const goToEditCollegeProfile = () => {
+  setCollegeSection("editProfile");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeDashboard = () => {
+  setCollegeSection("dashboard");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeStudents = () => {
+  setCollegeSection("students");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeFaculty = () => {
+  setCollegeSection("faculty");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeApplications = () => {
+  setCollegeSection("applications");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeWorkload = () => {
+  setCollegeSection("workload");
+  setPage("collegeDashboard");
+};
+
+const goToCollegeChangePassword = () => {
+  setCollegeSection("changePassword");
+  setPage("collegeDashboard");
+};
 
   // =====================================================
 // HOME PAGE
@@ -844,6 +905,7 @@ if (page === "facultyRegister") {
       onGoToDashboard={goToFacultyDashboard}
       onGoToStudents={goToFacultyStudents}
       onGoToLogbooks={goToFacultyLogbooks}
+      onGoToEditProfile={goToEditFacultyProfile}
       onGoToChangePassword={goToFacultyChangePassword}
       activeSection={facultySection}
     >
@@ -915,76 +977,51 @@ if (page === "companyGuideRegister") {
   // COMPANY GUIDE DASHBOARD
   // =====================================================
 
-  if (page === "companyGuideDashboard" && companyGuide) {
+ if (page === "companyGuideDashboard" && companyGuide) {
   return (
     <CompanyGuideDashboard
       guide={companyGuide}
       onLogout={handleCompanyGuideLogout}
       onGoToProfile={goToCompanyGuideProfile}
-    />
+      onGoToDashboard={goToCompanyGuideDashboard}
+      onGoToAssignedStudents={goToCompanyGuideAssignedStudents}
+      onGoToLogbooks={goToCompanyGuideLogbooks}
+      onGoToEditProfile={goToEditCompanyGuideProfile}
+      onGoToChangePassword={goToCompanyGuideChangePassword}
+      activeSection={companyGuideSection}
+    >
+      {companyGuideSection === "profile" && (
+        <CompanyGuideProfile
+          guide={companyGuide}
+          onBack={goToCompanyGuideDashboard}
+          onEdit={goToEditCompanyGuideProfile}
+          onChangePassword={goToCompanyGuideChangePassword}
+        />
+      )}
+
+      {companyGuideSection === "editProfile" && (
+        <EditCompanyGuideProfile
+          guide={companyGuide}
+          onBack={goToCompanyGuideProfile}
+          onProfileUpdated={(updatedGuide) => {
+            setCompanyGuide(updatedGuide);
+            setCompanyGuideSection("profile");
+          }}
+        />
+      )}
+
+      {companyGuideSection === "changePassword" && (
+        <ChangePassword
+          user={companyGuide}
+          role="companyGuide"
+          onBack={goToCompanyGuideProfile}
+        />
+      )}
+    </CompanyGuideDashboard>
   );
 }
 
 
-  // =====================================================
-  // COMPANY GUIDE PROFILE
-  // =====================================================
-
-  if (page === "companyGuideProfile" && companyGuide) {
-    return (
-      <CompanyGuideProfile
-        guide={companyGuide}
-        onBack={() =>
-          setPage("companyGuideDashboard")
-        }
-        onEdit={goToEditCompanyGuideProfile}
-        onChangePassword={() =>
-          setPage("changeCompanyGuidePassword")
-        }
-      />
-    );
-  }
-
-  // =====================================================
-  // EDIT COMPANY GUIDE PROFILE
-  // =====================================================
-
-  if (
-    page === "editCompanyGuideProfile" &&
-    companyGuide
-  ) {
-    return (
-      <EditCompanyGuideProfile
-        guide={companyGuide}
-        onBack={() =>
-          setPage("companyGuideProfile")
-        }
-        onProfileUpdated={(updatedGuide) => {
-          setCompanyGuide(updatedGuide);
-          setPage("companyGuideProfile");
-        }}
-      />
-    );
-  }
-
-  // =====================================================
-  // COMPANY GUIDE CHANGE PASSWORD
-  // =====================================================
-
-  if (
-    page === "changeCompanyGuidePassword" &&
-    companyGuide
-  ) {
-    return (
-      <ChangePassword
-        user={companyGuide}
-        role="companyGuide"
-        onBack={() =>
-          setPage("companyGuideProfile")
-        }
-      />
-    );
-  }
 
   // =====================================================
   // COLLEGE LOGIN
@@ -1017,63 +1054,54 @@ if (page === "collegeLogin") {
   // COLLEGE DASHBOARD
   // =====================================================
 
-  if (page === "collegeDashboard" && college) {
-    return (
-     <CollegeDashboard
-  college={college}
-  onLogout={handleCollegeLogout}
-  onGoToProfile={goToCollegeProfile}
-/>
-    );
-  }
+ if (page === "collegeDashboard" && college) {
+  return (
+    <CollegeDashboard
+      college={college}
+      onLogout={handleCollegeLogout}
+      onGoToProfile={goToCollegeProfile}
+      onGoToDashboard={goToCollegeDashboard}
+      onGoToStudents={goToCollegeStudents}
+      onGoToFaculty={goToCollegeFaculty}
+      onGoToApplications={goToCollegeApplications}
+      onGoToWorkload={goToCollegeWorkload}
+      onGoToEditProfile={goToEditCollegeProfile}
+      onGoToChangePassword={goToCollegeChangePassword}
+      activeSection={collegeSection}
+    >
+      {collegeSection === "profile" && (
+        <CollegeProfile
+          college={college}
+          onBack={goToCollegeDashboard}
+          onEdit={goToEditCollegeProfile}
+          onChangePassword={goToCollegeChangePassword}
+        />
+      )}
 
-  // =====================================================
-  // COLLEGE PROFILE
-  // =====================================================
+      {collegeSection === "editProfile" && (
+        <EditCollegeProfile
+          college={college}
+          onBack={goToCollegeProfile}
+            onProfileUpdated={(updatedCollege)  => {
+            setCollege(updatedCollege);
+            setCollegeSection("profile");
+          }}
+        />
+      )}
 
-  if (page === "collegeProfile" && college) {
-    return (
-      <CollegeProfile
-        college={college}
-        onBack={() => setPage("collegeDashboard")}
-        onEdit={goToEditCollegeProfile}
-        onChangePassword={() =>
-          setPage("changeCollegePassword")
-        }
-      />
-    );
-  }
+      {collegeSection === "changePassword" && (
+        <ChangePassword
+          user={college}
+          role="college"
+          onBack={goToCollegeProfile}
+        />
+      )}
+    </CollegeDashboard>
+  );
+}
 
-  // =====================================================
-  // EDIT COLLEGE PROFILE
-  // =====================================================
 
-  if (page === "editCollegeProfile" && college) {
-    return (
-      <EditCollegeProfile
-        college={college}
-        onBack={() => setPage("collegeProfile")}
-        onUpdated={(updatedCollege) => {
-          setCollege(updatedCollege);
-          setPage("collegeProfile");
-        }}
-      />
-    );
-  }
 
-  // =====================================================
-  // COLLEGE CHANGE PASSWORD
-  // =====================================================
-
-  if (page === "changeCollegePassword" && college) {
-    return (
-      <ChangePassword
-        user={college}
-        role="college"
-        onBack={() => setPage("collegeProfile")}
-      />
-    );
-  }
 
   // =====================================================
   // FALLBACK

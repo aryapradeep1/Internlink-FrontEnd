@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/EditCompanyGuideProfile.css";
 
 function EditCompanyGuideProfile({
   guide,
@@ -86,108 +87,204 @@ function EditCompanyGuideProfile({
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="cgp-edit-page">
 
-      <h1>✏️ Edit Company Guide Profile</h1>
+      {/* PAGE HEADER */}
+      <div className="cgp-edit-header">
+        <div>
+          <span className="cgp-edit-eyebrow">
+            ACCOUNT SETTINGS
+          </span>
 
-      <form onSubmit={handleSubmit}>
+          <h1>
+            Edit Company Guide Profile
+          </h1>
 
-        <div className="student-info">
-
-          <label>
-            Name
-          </label>
-
-          <input
-            type="text"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-            required
-          />
-
-          <label>
-            Email
-          </label>
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            required
-          />
-
-          <label>
-            Employee ID
-          </label>
-
-          <input
-            type="text"
-            value={employeeId}
-            onChange={(e) =>
-              setEmployeeId(e.target.value)
-            }
-            required
-          />
-
-          <label>
-            Company
-          </label>
-
-          <input
-            type="text"
-            value={
-              guide?.company?.companyName ||
-              guide?.companyName ||
-              "Not available"
-            }
-            disabled
-          />
-
-          <label>
-            Status
-          </label>
-
-         
-
+          <p>
+            Update your personal and employee information.
+          </p>
         </div>
 
-        {message && (
-          <p style={{ color: "green" }}>
-            {message}
-          </p>
-        )}
+        <div className="cgp-edit-icon">
+          ✏️
+        </div>
+      </div>
 
-        {error && (
-          <p style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
+      {/* FORM CARD */}
+      <div className="cgp-edit-card">
 
-        <div className="dashboard-menu">
+        <div className="cgp-card-title">
+          <div className="cgp-card-icon">
+            👤
+          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? "Updating..."
-              : "💾 Save Changes"}
-          </button>
-
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Profile
-          </button>
-
+          <div>
+            <h2>Profile Information</h2>
+            <p>
+              Update the information associated with your
+              Company Guide account.
+            </p>
+          </div>
         </div>
 
-      </form>
+        <form onSubmit={handleSubmit}>
+
+          <div className="cgp-form-grid">
+
+            {/* NAME */}
+            <div className="cgp-form-group">
+              <label htmlFor="guide-name">
+                Full Name
+              </label>
+
+              <input
+                id="guide-name"
+                type="text"
+                value={name}
+                onChange={(e) =>
+                  setName(e.target.value)
+                }
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            {/* EMAIL */}
+            <div className="cgp-form-group">
+              <label htmlFor="guide-email">
+                Email Address
+              </label>
+
+              <input
+                id="guide-email"
+                type="email"
+                value={email}
+                onChange={(e) =>
+                  setEmail(e.target.value)
+                }
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            {/* EMPLOYEE ID */}
+            <div className="cgp-form-group">
+              <label htmlFor="guide-employee-id">
+                Employee ID
+              </label>
+
+              <input
+                id="guide-employee-id"
+                type="text"
+                value={employeeId}
+                onChange={(e) =>
+                  setEmployeeId(e.target.value)
+                }
+                placeholder="Enter employee ID"
+                required
+              />
+            </div>
+
+            {/* COMPANY */}
+            <div className="cgp-form-group">
+              <label htmlFor="guide-company">
+                Company
+              </label>
+
+              <input
+                id="guide-company"
+                type="text"
+                value={
+                  guide?.company?.companyName ||
+                  guide?.companyName ||
+                  "Not available"
+                }
+                disabled
+              />
+
+              <span className="cgp-field-note">
+                Company information cannot be edited here.
+              </span>
+            </div>
+
+            {/* STATUS */}
+            <div className="cgp-form-group">
+              <label>
+                Account Status
+              </label>
+
+              <div className="cgp-status-box">
+                <span className="cgp-status-dot"></span>
+
+                <span>
+                  {guide?.status || "Approved"}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* SUCCESS MESSAGE */}
+          {message && (
+            <div className="cgp-message success">
+              <span>✓</span>
+              <p>{message}</p>
+            </div>
+          )}
+
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="cgp-message error">
+              <span>!</span>
+              <p>{error}</p>
+            </div>
+          )}
+
+          {/* ACTIONS */}
+          <div className="cgp-form-actions">
+
+            <button
+              type="button"
+              className="cgp-back-button"
+              onClick={onBack}
+            >
+              <span>←</span>
+              Back to Profile
+            </button>
+
+            <button
+              type="submit"
+              className="cgp-save-button"
+              disabled={loading}
+            >
+              <span>
+                {loading ? "⏳" : "✓"}
+              </span>
+
+              {loading
+                ? "Updating..."
+                : "Save Changes"}
+            </button>
+
+          </div>
+
+        </form>
+      </div>
+
+      {/* INFORMATION NOTE */}
+      <div className="cgp-edit-note">
+        <span>💡</span>
+
+        <div>
+          <strong>Profile information</strong>
+
+          <p>
+            Keep your name, email address and employee ID
+            up to date so students and the institution can
+            identify you correctly.
+          </p>
+        </div>
+      </div>
 
     </div>
   );
