@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/EditStudentProfile.css";
 
 function EditStudentProfile({
@@ -6,26 +6,60 @@ function EditStudentProfile({
   onBack,
   onProfileUpdated,
 }) {
-  const [name, setName] = useState(student.name || "");
-  const [email, setEmail] = useState(student.email || "");
-  const [department, setDepartment] = useState(
-    student.department || ""
-  );
-  const [semester, setSemester] = useState(
-    student.semester || ""
-  );
-  const [phone, setPhone] = useState(student.phone || "");
+  const [profile, setProfile] = useState(null);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [department, setDepartment] = useState("");
+  const [semester, setSemester] = useState("");
+  const [phone, setPhone] = useState("");
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
+  // Fetch latest student profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/students/profile/${student.id}`
+        );
+
+        const data = await response.json();
+
+        console.log("EDIT PROFILE DATA:", data);
+
+        if (data.status === "success") {
+          setProfile(data.student);
+
+          setName(data.student.name || "");
+          setEmail(data.student.email || "");
+          setDepartment(data.student.department || "");
+          setSemester(data.student.semester || "");
+          setPhone(data.student.phone || "");
+        } else {
+          setError(data.message || "Unable to load profile");
+        }
+      } catch (error) {
+        console.error("Edit profile fetch error:", error);
+        setError("Unable to load profile");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [student.id]);
+
+  // Update student profile
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMessage("");
     setError("");
-    setLoading(true);
+    setSaving(true);
 
     try {
       const response = await fetch(
@@ -47,21 +81,66 @@ function EditStudentProfile({
 
       const data = await response.json();
 
+      console.log("UPDATE PROFILE RESPONSE:", data);
+
       if (data.status === "success") {
         setMessage(data.message);
 
-        // Update student information in App.jsx
         onProfileUpdated(data.student);
       } else {
-        setError(data.message);
+        setError(data.message || "Unable to update profile");
       }
     } catch (error) {
       console.error("Update profile error:", error);
       setError("Unable to update profile");
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   };
+
+  // Loading
+  if (loading) {
+    return (
+      <div className="edit-profile-page">
+        <div className="edit-profile-container">
+          <div className="student-profile-loading">
+            <div className="profile-loader"></div>
+
+            <h2>Loading your profile</h2>
+
+            <p>
+              Please wait while we fetch your latest information.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error while loading
+  if (error && !profile) {
+    return (
+      <div className="edit-profile-page">
+        <div className="edit-profile-container">
+          <div className="student-profile-error">
+            <div className="profile-error-icon">!</div>
+
+            <h2>Unable to load profile</h2>
+
+            <p>{error}</p>
+
+            <button
+              type="button"
+              className="back-profile-btn"
+              onClick={onBack}
+            >
+              ← Back to Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="edit-profile-page">
@@ -84,17 +163,20 @@ function EditStudentProfile({
           </div>
         </div>
 
-        {/* Form Card */}
+        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="edit-profile-form"
         >
+
+          {/* Personal Information */}
           <div className="form-section">
             <div className="section-heading">
               <span className="section-dot"></span>
 
               <div>
                 <h2>Personal Information</h2>
+
                 <p>
                   Keep your contact details up to date.
                 </p>
@@ -113,9 +195,7 @@ function EditStudentProfile({
                   id="student-name"
                   type="text"
                   value={name}
-                  onChange={(e) =>
-                    setName(e.target.value)
-                  }
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -130,9 +210,7 @@ function EditStudentProfile({
                   id="student-email"
                   type="email"
                   value={email}
-                  onChange={(e) =>
-                    setEmail(e.target.value)
-                  }
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -147,9 +225,7 @@ function EditStudentProfile({
                   id="student-phone"
                   type="text"
                   value={phone}
-                  onChange={(e) =>
-                    setPhone(e.target.value)
-                  }
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>
@@ -164,6 +240,7 @@ function EditStudentProfile({
 
               <div>
                 <h2>Academic Information</h2>
+
                 <p>
                   Update your current academic details.
                 </p>
@@ -182,7 +259,7 @@ function EditStudentProfile({
                   <input
                     id="register-number"
                     type="text"
-                    value={student.registerNumber}
+                    value={profile?.registerNumber || ""}
                     disabled
                   />
 
@@ -242,6 +319,7 @@ function EditStudentProfile({
 
               <div>
                 <h2>College Information</h2>
+
                 <p>
                   Your college information is managed by the
                   system.
@@ -251,6 +329,7 @@ function EditStudentProfile({
 
             <div className="form-grid">
               <div className="form-field full-width">
+
                 <label htmlFor="student-college">
                   College
                 </label>
@@ -260,7 +339,7 @@ function EditStudentProfile({
                     id="student-college"
                     type="text"
                     value={
-                      student.college?.collegeName ||
+                      profile?.college?.collegeName ||
                       "Not available"
                     }
                     disabled
@@ -274,21 +353,25 @@ function EditStudentProfile({
                 <small>
                   College information cannot be edited.
                 </small>
+
               </div>
             </div>
           </div>
 
-          {/* Messages */}
+          {/* Success Message */}
           {message && (
             <div className="profile-message success-message">
               <span>✓</span>
+
               <p>{message}</p>
             </div>
           )}
 
+          {/* Error Message */}
           {error && (
             <div className="profile-message error-message">
               <span>!</span>
+
               <p>{error}</p>
             </div>
           )}
@@ -307,10 +390,10 @@ function EditStudentProfile({
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={saving}
               className="save-profile-btn"
             >
-              {loading ? (
+              {saving ? (
                 <>
                   <span className="button-spinner"></span>
                   Updating...
@@ -324,8 +407,8 @@ function EditStudentProfile({
             </button>
 
           </div>
-        </form>
 
+        </form>
       </div>
     </div>
   );

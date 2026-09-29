@@ -36,7 +36,8 @@ function MyApplications({ student, onBack }) {
   if (loading) {
     return (
       <div className="my-applications-page">
-        <div className="applications-container">
+        <div className="applications-content">
+
           <div className="applications-loading">
             <div className="loading-spinner"></div>
 
@@ -47,6 +48,7 @@ function MyApplications({ student, onBack }) {
               applications.
             </p>
           </div>
+
         </div>
       </div>
     );
@@ -54,48 +56,12 @@ function MyApplications({ student, onBack }) {
 
   return (
     <div className="my-applications-page">
-      <div className="applications-container">
-
-        {/* =========================
-            PAGE HEADER
-        ========================= */}
-        <div className="applications-header">
-
-          <div className="applications-title-area">
-            <div className="applications-icon">
-              📋
-            </div>
-
-            <div>
-              <p className="applications-eyebrow">
-                STUDENT PORTAL
-              </p>
-
-              <h1>My Applications</h1>
-
-              <p className="applications-subtitle">
-                Track the internships you have applied for
-                and view your application status.
-              </p>
-            </div>
-          </div>
-
-          {applications.length > 0 && (
-            <div className="application-count">
-              <span>{applications.length}</span>
-              <small>
-                {applications.length === 1
-                  ? "Application"
-                  : "Applications"}
-              </small>
-            </div>
-          )}
-
-        </div>
+      <div className="applications-content">
 
         {/* =========================
             ERROR
         ========================= */}
+
         {error && (
           <div className="applications-error">
             <div className="error-icon">!</div>
@@ -110,6 +76,7 @@ function MyApplications({ student, onBack }) {
         {/* =========================
             EMPTY STATE
         ========================= */}
+
         {!error && applications.length === 0 && (
           <div className="empty-applications">
 
@@ -137,6 +104,7 @@ function MyApplications({ student, onBack }) {
         {/* =========================
             APPLICATIONS
         ========================= */}
+
         {!error && applications.length > 0 && (
           <div className="applications-list">
 
@@ -146,7 +114,10 @@ function MyApplications({ student, onBack }) {
                 key={application._id}
               >
 
-                {/* Card top */}
+                {/* =========================
+                    COMPANY + STATUS
+                ========================= */}
+
                 <div className="application-card-top">
 
                   <div className="company-icon">
@@ -154,9 +125,9 @@ function MyApplications({ student, onBack }) {
                   </div>
 
                   <div className="company-info">
-                    <p className="company-label">
+                    <span className="company-label">
                       COMPANY
-                    </p>
+                    </span>
 
                     <h2>
                       {application.company?.companyName ||
@@ -174,15 +145,19 @@ function MyApplications({ student, onBack }) {
 
                 </div>
 
-                {/* Main information */}
+                {/* =========================
+                    APPLICATION DETAILS
+                ========================= */}
+
                 <div className="application-details">
 
                   <div className="detail-item">
-                    <span className="detail-icon">
-                      💼
-                    </span>
 
-                    <div>
+                    <div className="detail-icon">
+                      💼
+                    </div>
+
+                    <div className="detail-content">
                       <span className="detail-label">
                         Position
                       </span>
@@ -191,14 +166,16 @@ function MyApplications({ student, onBack }) {
                         {application.position}
                       </strong>
                     </div>
+
                   </div>
 
                   <div className="detail-item">
-                    <span className="detail-icon">
-                      📅
-                    </span>
 
-                    <div>
+                    <div className="detail-icon">
+                      📅
+                    </div>
+
+                    <div className="detail-content">
                       <span className="detail-label">
                         Applied On
                       </span>
@@ -209,15 +186,20 @@ function MyApplications({ student, onBack }) {
                         ).toLocaleDateString()}
                       </strong>
                     </div>
+
                   </div>
 
                 </div>
 
-                {/* Faculty Guide */}
+                {/* =========================
+                    FACULTY GUIDE
+                ========================= */}
+
                 {application.faculty && (
                   <div className="faculty-section">
 
                     <div className="faculty-header">
+
                       <div className="faculty-title-icon">
                         👨‍🏫
                       </div>
@@ -229,11 +211,13 @@ function MyApplications({ student, onBack }) {
                           Your assigned academic guide
                         </p>
                       </div>
+
                     </div>
 
                     <div className="faculty-content">
 
                       <div className="faculty-main">
+
                         <div className="faculty-avatar">
                           {application.faculty.name
                             ?.charAt(0)
@@ -250,6 +234,7 @@ function MyApplications({ student, onBack }) {
                               "Faculty Guide"}
                           </span>
                         </div>
+
                       </div>
 
                       <div className="faculty-details">
@@ -324,19 +309,6 @@ function MyApplications({ student, onBack }) {
 
           </div>
         )}
-
-        {/* =========================
-            BACK BUTTON
-        ========================= */}
-        <div className="applications-footer">
-          <button
-            className="back-button"
-            onClick={onBack}
-          >
-            <span>←</span>
-            Back to Dashboard
-          </button>
-        </div>
 
       </div>
     </div>

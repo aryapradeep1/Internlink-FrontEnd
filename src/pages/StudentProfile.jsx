@@ -62,7 +62,6 @@ function StudentProfile({
     return (
       <div className="student-profile-page">
         <div className="student-profile-error">
-
           <div className="profile-error-icon">
             !
           </div>
@@ -77,7 +76,6 @@ function StudentProfile({
           >
             ← Back to Dashboard
           </button>
-
         </div>
       </div>
     );
@@ -91,324 +89,220 @@ function StudentProfile({
     <div className="student-profile-page">
 
       {/* ==================================================
-          TOP BAR
-      ================================================== */}
+          PROFILE CARD
+          ================================================== */}
 
-      <div className="student-profile-topbar">
+      <div className="student-profile-card">
 
-        <div className="profile-brand">
+        {/* ==================================================
+            PERSONAL INFORMATION
+            ================================================== */}
 
-          <div className="profile-logo">
-            <span className="profile-logo-i">I</span>
-            <span className="profile-logo-link">↗</span>
+        <section className="profile-section">
+
+          <div className="profile-section-heading">
+
+            <div className="profile-section-icon mint-icon">
+              👤
+            </div>
+
+            <div>
+              <h2>Personal Information</h2>
+              <p>Your basic contact information</p>
+            </div>
+
           </div>
 
-          <div className="profile-brand-text">
-            <span className="profile-brand-name">
-              InterLink
-            </span>
+          <div className="profile-details-grid">
 
-            <span className="profile-brand-tagline">
-              FYUGP INTERNSHIP PLATFORM
-            </span>
+            <div className="profile-detail">
+              <span className="detail-label">
+                Full Name
+              </span>
+
+              <span className="detail-value">
+                {profile.name || "Not provided"}
+              </span>
+            </div>
+
+            <div className="profile-detail">
+              <span className="detail-label">
+                Email Address
+              </span>
+
+              <span className="detail-value">
+                {profile.email || "Not provided"}
+              </span>
+            </div>
+
+            <div className="profile-detail">
+              <span className="detail-label">
+                Phone Number
+              </span>
+
+              <span className="detail-value">
+                {profile.phone || "Not provided"}
+              </span>
+            </div>
+
           </div>
 
-        </div>
+        </section>
 
-        <button
-          className="top-back-btn"
-          onClick={onBack}
-        >
-          ← Dashboard
-        </button>
+
+        {/* ==================================================
+            DIVIDER
+            ================================================== */}
+
+        <div className="profile-divider"></div>
+
+
+        {/* ==================================================
+            ACADEMIC INFORMATION
+            ================================================== */}
+
+        <section className="profile-section">
+
+          <div className="profile-section-heading">
+
+            <div className="profile-section-icon peach-icon">
+              🎓
+            </div>
+
+            <div>
+              <h2>Academic Information</h2>
+              <p>Your FYUGP academic details</p>
+            </div>
+
+          </div>
+
+          <div className="profile-details-grid">
+
+            <div className="profile-detail">
+              <span className="detail-label">
+                Register Number
+              </span>
+
+              <span className="detail-value">
+                {profile.registerNumber || "Not provided"}
+              </span>
+            </div>
+
+            <div className="profile-detail">
+              <span className="detail-label">
+                Department
+              </span>
+
+              <span className="detail-value">
+                {profile.department || "Not provided"}
+              </span>
+            </div>
+
+            <div className="profile-detail">
+              <span className="detail-label">
+                Semester
+              </span>
+
+              <span className="detail-value">
+                {profile.semester || "Not provided"}
+              </span>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* ==================================================
+            DIVIDER
+            ================================================== */}
+
+        <div className="profile-divider"></div>
+
+
+        {/* ==================================================
+            COLLEGE INFORMATION
+            ================================================== */}
+
+        <section className="profile-section">
+
+          <div className="profile-section-heading">
+
+            <div className="profile-section-icon lavender-icon">
+              🏫
+            </div>
+
+            <div>
+              <h2>College Information</h2>
+              <p>Your registered institution</p>
+            </div>
+
+          </div>
+
+          {profile.college ? (
+
+            <div className="profile-details-grid">
+
+              <div className="profile-detail">
+                <span className="detail-label">
+                  College
+                </span>
+
+                <span className="detail-value">
+                  {profile.college.collegeName ||
+                    "Not provided"}
+                </span>
+              </div>
+
+              <div className="profile-detail">
+                <span className="detail-label">
+                  College Code
+                </span>
+
+                <span className="detail-value">
+                  {profile.college.collegeCode ||
+                    "Not provided"}
+                </span>
+              </div>
+
+            </div>
+
+          ) : (
+
+            <div className="college-unavailable">
+              College information not available
+            </div>
+
+          )}
+
+        </section>
 
       </div>
 
 
       {/* ==================================================
-          MAIN CONTENT
-      ================================================== */}
-
-      <main className="student-profile-content">
-
-        {/* HEADER */}
-
-        <div className="student-profile-heading">
-
-          <div>
-
-            <span className="profile-eyebrow">
-              STUDENT ACCOUNT
-            </span>
-
-            <h1>My Profile</h1>
-
-            <p>
-              View your personal, academic and college
-              information.
-            </p>
-
-          </div>
-
-          <div className="profile-avatar">
-            {profile.name
-              ? profile.name.charAt(0).toUpperCase()
-              : "S"}
-          </div>
-
-        </div>
-
-
-        {/* ==================================================
-            PROFILE CARD
-        ================================================== */}
-
-        <div className="student-profile-card">
-
-          {/* PERSONAL INFORMATION */}
-
-          <section className="profile-section">
-
-            <div className="profile-section-heading">
-
-              <div className="profile-section-icon mint-icon">
-                👤
-              </div>
-
-              <div>
-                <h2>Personal Information</h2>
-                <p>Your basic contact information</p>
-              </div>
-
-            </div>
-
-
-            <div className="profile-details-grid">
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Full Name
-                </span>
-
-                <span className="detail-value">
-                  {profile.name || "Not provided"}
-                </span>
-
-              </div>
-
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Email Address
-                </span>
-
-                <span className="detail-value">
-                  {profile.email || "Not provided"}
-                </span>
-
-              </div>
-
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Phone Number
-                </span>
-
-                <span className="detail-value">
-                  {profile.phone || "Not provided"}
-                </span>
-
-              </div>
-
-            </div>
-
-          </section>
-
-
-          {/* DIVIDER */}
-
-          <div className="profile-divider"></div>
-
-
-          {/* ACADEMIC INFORMATION */}
-
-          <section className="profile-section">
-
-            <div className="profile-section-heading">
-
-              <div className="profile-section-icon peach-icon">
-                🎓
-              </div>
-
-              <div>
-                <h2>Academic Information</h2>
-                <p>Your FYUGP academic details</p>
-              </div>
-
-            </div>
-
-
-            <div className="profile-details-grid">
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Register Number
-                </span>
-
-                <span className="detail-value">
-                  {profile.registerNumber ||
-                    "Not provided"}
-                </span>
-
-              </div>
-
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Department
-                </span>
-
-                <span className="detail-value">
-                  {profile.department ||
-                    "Not provided"}
-                </span>
-
-              </div>
-
-
-              <div className="profile-detail">
-
-                <span className="detail-label">
-                  Semester
-                </span>
-
-                <span className="detail-value">
-                  {profile.semester ||
-                    "Not provided"}
-                </span>
-
-              </div>
-
-            </div>
-
-          </section>
-
-
-          {/* DIVIDER */}
-
-          <div className="profile-divider"></div>
-
-
-          {/* COLLEGE INFORMATION */}
-
-          <section className="profile-section">
-
-            <div className="profile-section-heading">
-
-              <div className="profile-section-icon lavender-icon">
-                🏫
-              </div>
-
-              <div>
-                <h2>College Information</h2>
-                <p>Your registered institution</p>
-              </div>
-
-            </div>
-
-
-            {profile.college ? (
-
-              <div className="profile-details-grid">
-
-                <div className="profile-detail">
-
-                  <span className="detail-label">
-                    College
-                  </span>
-
-                  <span className="detail-value">
-                    {profile.college.collegeName ||
-                      "Not provided"}
-                  </span>
-
-                </div>
-
-
-                <div className="profile-detail">
-
-                  <span className="detail-label">
-                    College Code
-                  </span>
-
-                  <span className="detail-value">
-                    {profile.college.collegeCode ||
-                      "Not provided"}
-                  </span>
-
-                </div>
-
-              </div>
-
-            ) : (
-
-              <div className="college-unavailable">
-                College information not available
-              </div>
-
-            )}
-
-          </section>
-
-        </div>
-
-
-        {/* ==================================================
-            ACTIONS
-        ================================================== */}
-
-        <div className="student-profile-actions">
-
-          <button
-            className="profile-primary-action"
-            onClick={onEdit}
-          >
-            <span>✏️</span>
-            Edit Profile
-          </button>
-
-
-          <button
-            className="profile-secondary-action"
-            onClick={onChangePassword}
-          >
-            <span>🔐</span>
-            Change Password
-          </button>
-
-
-          <button
-            className="profile-back-action"
-            onClick={onBack}
-          >
-            ← Back to Dashboard
-          </button>
-
-        </div>
-
-
-        {/* FOOTER NOTE */}
-
-        <p className="profile-footer-note">
-          InterLink · FYUGP Internship Management Platform
-        </p>
-
-      </main>
+          ACTIONS
+          ================================================== */}
+
+      <div className="student-profile-actions">
+
+        <button
+          className="profile-primary-action"
+          onClick={onEdit}
+        >
+          <span>✏️</span>
+          Edit Profile
+        </button>
+
+        <button
+          className="profile-secondary-action"
+          onClick={onChangePassword}
+        >
+          <span>🔐</span>
+          Change Password
+        </button>
+
+      </div>
 
     </div>
   );

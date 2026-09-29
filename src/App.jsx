@@ -71,6 +71,9 @@ function App() {
 const [collegeSection, setCollegeSection] =
   useState("dashboard");
 
+const [studentSection, setStudentSection] =
+  useState("dashboard");
+
   const [student, setStudent] = useState(null);
   const [company, setCompany] = useState(null);
   const [admin, setAdmin] = useState(null);
@@ -86,24 +89,31 @@ const [certificateHours, setCertificateHours] = useState(0);
   // =====================================================
   // STUDENT
   // =====================================================
-
-  const handleStudentLogin = (studentData) => {
-    setStudent(studentData);
-    setPage("studentDashboard");
-  };
+const handleStudentLogin = (studentData) => {
+  setStudent(studentData);
+  setStudentSection("dashboard");
+  setPage("studentDashboard");
+};
 
   const handleStudentLogout = () => {
     setStudent(null);
     setPage("login");
   };
 
-  const goToStudentProfile = () => {
-    setPage("studentProfile");
-  };
+const goToStudentProfile = () => {
+  setStudentSection("profile");
+  setPage("studentDashboard");
+};
 
-  const goToEditStudentProfile = () => {
-    setPage("editStudentProfile");
-  };
+const goToEditStudentProfile = () => {
+  setStudentSection("editProfile");
+  setPage("studentDashboard");
+};
+
+const goToStudentDashboard = () => {
+  setStudentSection("dashboard");
+  setPage("studentDashboard");
+};
 
   // =====================================================
   // COMPANY
@@ -357,34 +367,403 @@ if (page === "register") {
   );
 }
 
-  // =====================================================
-  // STUDENT DASHBOARD
-  // =====================================================
+// =====================================================
+// STUDENT DASHBOARD
+// =====================================================
 
-  if (page === "studentDashboard" && student) {
-    return (
-      <StudentDashboard
-        student={student}
-        onLogout={handleStudentLogout}
-        onGoToProfile={goToStudentProfile}
-        onGoToChangePassword={() =>
-          setPage("changeStudentPassword")
-        }
-        onGoToInternships={() =>
-          setPage("companies")
-        }
-        onGoToMyApplications={() =>
-          setPage("myApplications")
-        }
-        onGoToMyInternship={() =>
-          setPage("myInternship")
-        }
-        onGoToLogbook={() =>
-          setPage("studentLogbook")
-        }
-      />
-    );
-  }
+if (page === "studentDashboard" && student) {
+  return (
+    <StudentDashboard
+      student={student}
+      onLogout={handleStudentLogout}
+      onGoToDashboard={goToStudentDashboard}
+      onGoToProfile={goToStudentProfile}
+      onGoToChangePassword={() => {
+        setStudentSection("changePassword");
+        setPage("studentDashboard");
+      }}
+      onGoToInternships={() => {
+        setStudentSection("internships");
+        setPage("studentDashboard");
+      }}
+      onGoToMyApplications={() => {
+        setStudentSection("applications");
+        setPage("studentDashboard");
+      }}
+      onGoToMyInternship={() => {
+        setStudentSection("myInternship");
+        setPage("studentDashboard");
+      }}
+      onGoToLogbook={() => {
+        setStudentSection("logbook");
+        setPage("studentDashboard");
+      }}
+      activeSection={studentSection}
+    >
+
+      {/* =====================================================
+          STUDENT PROFILE
+          ===================================================== */}
+
+      {studentSection === "profile" && (
+        <StudentProfile
+          student={student}
+          onBack={goToStudentDashboard}
+          onEdit={goToEditStudentProfile}
+          onChangePassword={() => {
+            setStudentSection("changePassword");
+            setPage("studentDashboard");
+          }}
+        />
+      )}
+
+
+      {/* =====================================================
+          EDIT STUDENT PROFILE
+          ===================================================== */}
+
+      {studentSection === "editProfile" && (
+        <EditStudentProfile
+          student={student}
+          onBack={goToStudentProfile}
+          onProfileUpdated={(updatedStudent) => {
+            setStudent(updatedStudent);
+            setStudentSection("profile");
+          }}
+        />
+      )}
+
+
+      {/* =====================================================
+          STUDENT CHANGE PASSWORD
+          ===================================================== */}
+
+      {studentSection === "changePassword" && (
+        <ChangePassword
+          user={student}
+          role="student"
+          onBack={goToStudentProfile}
+        />
+      )}
+
+
+      {/* =====================================================
+          STUDENT MY APPLICATIONS
+          ===================================================== */}
+
+      {studentSection === "applications" && (
+        <MyApplications
+          student={student}
+          onBack={goToStudentDashboard}
+        />
+      )}
+
+
+      {/* =====================================================
+          STUDENT MY INTERNSHIP
+          ===================================================== */}
+
+      {studentSection === "myInternship" && (
+        <MyInternship
+          student={student}
+          onBack={goToStudentDashboard}
+          onGenerateCertificate={(assignment, totalHours) => {
+            setCertificateAssignment(assignment);
+            setCertificateHours(totalHours);
+            setPage("internshipCertificate");
+          }}
+        />
+      )}
+
+
+      {/* =====================================================
+          STUDENT LOGBOOK
+          ===================================================== */}
+
+      {studentSection === "logbook" && (
+        <StudentLogbook
+          student={student}
+          onBack={goToStudentDashboard}
+        />
+      )}
+
+
+      {/* =====================================================
+          INTERNSHIPS
+          ===================================================== */}
+
+      {studentSection === "internships" && (
+  <Companies
+    student={student}
+    onBack={goToStudentDashboard}
+   onViewDetails={(companyData, internshipData) => {
+  setSelectedCompany(companyData);
+  setSelectedInternship(internshipData);
+  setStudentSection("internshipDetails");
+  setPage("studentDashboard");
+}}
+  />
+)}
+
+
+{/* =====================================================
+    INTERNSHIP DETAILS
+    ===================================================== */}
+
+{studentSection === "internshipDetails" &&
+  selectedInternship && (
+    <div className="internship-details-page">
+
+      {/* BACK BUTTON */}
+
+     
+
+
+      {/* DETAILS CONTENT */}
+
+      <main className="internship-details-content">
+
+        {/* HERO */}
+
+        <section className="internship-hero">
+
+          <div className="internship-hero-content">
+
+            <span className="internship-label">
+              INTERNSHIP OPPORTUNITY
+            </span>
+
+            <h1>
+              {selectedInternship.title}
+            </h1>
+
+            <div className="internship-company-location">
+
+              <span>
+                {selectedCompany?.companyName || "Company"}
+              </span>
+
+              <span className="dot-separator">
+                •
+              </span>
+
+              <span>
+                {selectedInternship.location ||
+                  "Location not specified"}
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* MAIN CONTENT */}
+
+        <div className="internship-main-layout">
+
+          {/* LEFT CARD */}
+
+          <section className="internship-main-card">
+
+            <div className="internship-section">
+
+              <h2>
+                About this internship
+              </h2>
+
+              <p>
+                {selectedInternship.description ||
+                  "No description provided."}
+              </p>
+
+            </div>
+
+
+            <div className="internship-section">
+
+              <h2>
+                Eligibility
+              </h2>
+
+              <p>
+                {selectedInternship.eligibility ||
+                  "No specific eligibility criteria provided."}
+              </p>
+
+            </div>
+
+
+            <div className="internship-section">
+
+              <h2>
+                Skills Required
+              </h2>
+
+              {selectedInternship.skillsRequired &&
+              selectedInternship.skillsRequired !== "None" ? (
+
+                <div className="skills-container">
+
+                  <span className="skill-tag">
+                    {selectedInternship.skillsRequired}
+                  </span>
+
+                </div>
+
+              ) : (
+
+                <span className="no-skills">
+                  No specific skills required
+                </span>
+
+              )}
+
+            </div>
+
+          </section>
+
+
+          {/* RIGHT APPLY CARD */}
+
+          <aside className="internship-apply-card">
+
+            <div className="apply-card-heading">
+
+              <div className="apply-icon">
+                ✓
+              </div>
+
+              <div>
+
+                <h2>
+                  Ready to apply?
+                </h2>
+
+                <p>
+                  Submit your application for this opportunity.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div className="apply-info">
+
+              <div className="apply-info-row">
+
+                <span className="apply-info-label">
+                  Application Deadline
+                </span>
+
+                <strong>
+                  {new Date(
+                    selectedInternship.deadline
+                  ).toLocaleDateString()}
+                </strong>
+
+              </div>
+
+
+              <div className="apply-info-row">
+
+                <span className="apply-info-label">
+                  Duration
+                </span>
+
+                <strong>
+                  {selectedInternship.duration}
+                </strong>
+
+              </div>
+
+
+              <div className="apply-info-row">
+
+                <span className="apply-info-label">
+                  Company
+                </span>
+
+                <strong>
+                  {selectedCompany?.companyName ||
+                    "Company"}
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <button
+  className="internship-apply-button"
+  onClick={() => {
+    setStudentSection("applicationForm");
+    setPage("studentDashboard");
+  }}
+>
+              Apply for Internship
+
+              <span>
+                →
+              </span>
+
+            </button>
+
+
+            <p className="apply-note">
+              Your application will be reviewed by the company.
+            </p>
+
+          </aside>
+
+        </div>
+
+      </main>
+
+    </div>
+)}
+
+
+{/* =====================================================
+    APPLICATION FORM
+    ===================================================== */}
+
+{studentSection === "applicationForm" &&
+  selectedCompany &&
+  selectedInternship && (
+    <ApplicationForm
+      student={student}
+      company={selectedCompany}
+      internship={selectedInternship}
+      onBack={() => {
+        setStudentSection("internshipDetails");
+        setPage("studentDashboard");
+      }}
+      onSuccess={() => {
+        setStudentSection("applications");
+        setPage("studentDashboard");
+      }}
+    />
+)}
+
+      {/* =====================================================
+          STUDENT DASHBOARD HOME
+          ===================================================== */}
+
+      {studentSection === "dashboard" && (
+        <div className="student-dashboard-home">
+
+          {/* Your existing Student Dashboard content
+              will be moved here in the next step. */}
+
+        </div>
+      )}
+
+    </StudentDashboard>
+  );
+}
 
   // =====================================================
   // STUDENT PROFILE
@@ -512,224 +891,7 @@ if (page === "companies" && student) {
   );
 }
 
-// =====================================================
-// INTERNSHIP DETAILS
-// =====================================================
 
-if (
-  page === "internshipDetails" &&
-  student &&
-  selectedInternship
-) {
-  return (
-<div className="internship-details-page">
-
-  {/* FIXED HEADER */}
-  <header className="internship-details-header">
-    <div className="internship-details-logo">
-      Intern<span>Link</span>
-    </div>
-
-    <div className="internship-details-header-text">
-      Student Portal
-    </div>
-  </header>
-
-
-  {/* FIXED BACK BUTTON */}
-  <div className="internship-details-navigation">
-    <button
-      className="internship-back-button"
-      onClick={() => setPage("companies")}
-    >
-      ← Back to Internships
-    </button>
-  </div>
-
-
-  {/* ONLY THIS AREA SCROLLS */}
-  <main className="internship-details-content">
-
-    {/* HERO */}
-    <section className="internship-hero">
-
-      <div className="internship-hero-content">
-
-        <span className="internship-label">
-          INTERNSHIP OPPORTUNITY
-        </span>
-
-        <h1>
-          {selectedInternship.title}
-        </h1>
-
-        <div className="internship-company-location">
-          <span>
-            {selectedCompany?.companyName || "Company"}
-          </span>
-
-          <span className="dot-separator">
-            •
-          </span>
-
-          <span>
-            {selectedInternship.location || "Location not specified"}
-          </span>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    {/* REST OF YOUR CONTENT */}
-    <div className="internship-main-layout">
-
-      {/* LEFT CARD */}
-      <section className="internship-main-card">
-
-        <div className="internship-section">
-          <h2>About this internship</h2>
-
-          <p>
-            {selectedInternship.description ||
-              "No description provided."}
-          </p>
-        </div>
-
-
-        <div className="internship-section">
-          <h2>Eligibility</h2>
-
-          <p>
-            {selectedInternship.eligibility ||
-              "No specific eligibility criteria provided."}
-          </p>
-        </div>
-
-
-        <div className="internship-section">
-          <h2>Skills Required</h2>
-
-          {selectedInternship.skillsRequired &&
-          selectedInternship.skillsRequired !== "None" ? (
-            <div className="skills-container">
-              <span className="skill-tag">
-                {selectedInternship.skillsRequired}
-              </span>
-            </div>
-          ) : (
-            <span className="no-skills">
-              No specific skills required
-            </span>
-          )}
-        </div>
-
-      </section>
-
-
-      {/* RIGHT APPLY CARD */}
-      <aside className="internship-apply-card">
-
-        <div className="apply-card-heading">
-
-          <div className="apply-icon">
-            ✓
-          </div>
-
-          <div>
-            <h2>Ready to apply?</h2>
-
-            <p>
-              Submit your application for this opportunity.
-            </p>
-          </div>
-
-        </div>
-
-
-        <div className="apply-info">
-
-          <div className="apply-info-row">
-            <span className="apply-info-label">
-              Application Deadline
-            </span>
-
-            <strong>
-              {new Date(
-                selectedInternship.deadline
-              ).toLocaleDateString()}
-            </strong>
-          </div>
-
-
-          <div className="apply-info-row">
-            <span className="apply-info-label">
-              Duration
-            </span>
-
-            <strong>
-              {selectedInternship.duration}
-            </strong>
-          </div>
-
-
-          <div className="apply-info-row">
-            <span className="apply-info-label">
-              Company
-            </span>
-
-            <strong>
-              {selectedCompany?.companyName || "Company"}
-            </strong>
-          </div>
-
-        </div>
-
-
-        <button
-          className="internship-apply-button"
-          onClick={() => setPage("applicationForm")}
-        >
-          Apply for Internship
-          <span>→</span>
-        </button>
-
-
-        <p className="apply-note">
-          Your application will be reviewed by the company.
-        </p>
-
-      </aside>
-
-    </div>
-
-  </main>
-
-</div>
-  );
-}
-
-// =====================================================
-// APPLICATION FORM
-// =====================================================
-
-if (
-  page === "applicationForm" &&
-  student &&
-  selectedCompany &&
-  selectedInternship
-) {
-  return (
-    <ApplicationForm
-      student={student}
-      company={selectedCompany}
-      internship={selectedInternship}
-      onBack={() => setPage("internshipDetails")}
-      onSuccess={() => setPage("myApplications")}
-    />
-  );
-}
 
 
   // =====================================================

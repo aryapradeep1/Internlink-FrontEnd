@@ -41,47 +41,11 @@ function Companies({ onBack, onViewDetails }) {
       {/* =====================================================
           FIXED BACK TO DASHBOARD BUTTON
           ===================================================== */}
-      <button
-        className="companies-back-btn"
-        onClick={onBack}
-      >
-        <span>←</span>
-        <span>Back to Dashboard</span>
-      </button>
+    
 
 
       <div className="companies-container">
 
-        {/* =====================================================
-            HEADER
-            ===================================================== */}
-        <div className="companies-header">
-          <div className="companies-header-content">
-
-            <div className="companies-icon">
-              💼
-            </div>
-
-            <div>
-              <p className="companies-eyebrow">
-                INTERNSHIP OPPORTUNITIES
-              </p>
-
-              <h1>
-                Available Internships
-              </h1>
-
-              <p className="companies-subtitle">
-                Explore internship opportunities posted
-                by approved companies and find an
-                opportunity that matches your academic
-                journey.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
 
 
         {/* =====================================================

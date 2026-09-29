@@ -4,12 +4,15 @@ import "../css/StudentDashboard.css";
 function StudentDashboard({
   student,
   onLogout,
+  onGoToDashboard,
   onGoToInternships,
   onGoToMyApplications,
   onGoToMyInternship,
   onGoToLogbook,
   onGoToProfile,
   onGoToChangePassword,
+  activeSection,
+  children,
 }) {
   return (
     <div className="student-dashboard">
@@ -56,8 +59,13 @@ function StudentDashboard({
 
         {/* DASHBOARD */}
 
-        <div className="student-nav-item active">
-
+        <button
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "dashboard" ? "active" : ""
+          }`}
+          onClick={onGoToDashboard}
+        >
           <span className="student-nav-icon">
             ◉
           </span>
@@ -65,17 +73,18 @@ function StudentDashboard({
           <span>
             Dashboard
           </span>
-
-        </div>
+        </button>
 
 
         {/* PROFILE */}
 
         <button
-          className="student-nav-item"
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "profile" ? "active" : ""
+          }`}
           onClick={onGoToProfile}
         >
-
           <span className="student-nav-icon">
             ◯
           </span>
@@ -83,17 +92,18 @@ function StudentDashboard({
           <span>
             My Profile
           </span>
-
         </button>
 
 
         {/* AVAILABLE INTERNSHIPS */}
 
         <button
-          className="student-nav-item"
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "internships" ? "active" : ""
+          }`}
           onClick={onGoToInternships}
         >
-
           <span className="student-nav-icon">
             ◇
           </span>
@@ -101,17 +111,18 @@ function StudentDashboard({
           <span>
             Internships
           </span>
-
         </button>
 
 
         {/* MY APPLICATIONS */}
 
         <button
-          className="student-nav-item"
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "applications" ? "active" : ""
+          }`}
           onClick={onGoToMyApplications}
         >
-
           <span className="student-nav-icon">
             ▤
           </span>
@@ -119,17 +130,18 @@ function StudentDashboard({
           <span>
             My Applications
           </span>
-
         </button>
 
 
         {/* MY INTERNSHIP */}
 
         <button
-          className="student-nav-item"
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "myInternship" ? "active" : ""
+          }`}
           onClick={onGoToMyInternship}
         >
-
           <span className="student-nav-icon">
             ◆
           </span>
@@ -137,17 +149,18 @@ function StudentDashboard({
           <span>
             My Internship
           </span>
-
         </button>
 
 
         {/* LOGBOOK */}
 
         <button
-          className="student-nav-item"
+          type="button"
+          className={`student-nav-item ${
+            activeSection === "logbook" ? "active" : ""
+          }`}
           onClick={onGoToLogbook}
         >
-
           <span className="student-nav-icon">
             ▥
           </span>
@@ -155,7 +168,6 @@ function StudentDashboard({
           <span>
             Logbook
           </span>
-
         </button>
 
 
@@ -193,32 +205,30 @@ function StudentDashboard({
           {/* CHANGE PASSWORD */}
 
           <button
+            type="button"
             className="student-bottom-button"
             onClick={onGoToChangePassword}
           >
-
             <span>
               🔐
             </span>
 
             Change Password
-
           </button>
 
 
           {/* LOGOUT */}
 
           <button
+            type="button"
             className="student-bottom-button logout"
             onClick={onLogout}
           >
-
             <span>
               ↪
             </span>
 
             Logout
-
           </button>
 
         </div>
@@ -232,7 +242,9 @@ function StudentDashboard({
 
       <main className="student-main">
 
-        {/* TOP BAR */}
+        {/* =====================================================
+            TOP BAR
+        ===================================================== */}
 
         <header className="student-topbar">
 
@@ -243,10 +255,29 @@ function StudentDashboard({
             </div>
 
             <h1>
-              Student Dashboard
+              {activeSection === "profile"
+    ? "My Profile"
+    : activeSection === "editProfile"
+    ? "Edit Profile"
+    : activeSection === "applications"
+    ? "My Applications"
+    : activeSection === "internships"
+    ? "Available Internships"
+    : activeSection === "internshipDetails"
+    ? "Internship Details"
+    : activeSection === "applicationForm"
+    ? "Application Form"
+    : activeSection === "myInternship"
+                ? "My Internship"
+                : activeSection === "logbook"
+                ? "Logbook"
+                : activeSection === "changePassword"
+                ? "Change Password"
+                : "Student Dashboard"}
             </h1>
 
           </div>
+
 
           <div className="student-topbar-avatar">
             {student?.name
@@ -258,355 +289,398 @@ function StudentDashboard({
 
 
         {/* =====================================================
-            WELCOME BANNER
+            PAGE CONTENT
         ===================================================== */}
 
-        <section className="student-welcome">
+        <div className="student-page-content">
 
-          <div className="student-welcome-content">
+          {/* =====================================================
+              DASHBOARD CONTENT
+              Only displayed when Dashboard is selected.
+          ===================================================== */}
 
-            <span className="student-welcome-badge">
-              FYUGP STUDENT
-            </span>
+          {activeSection === "dashboard" && (
+            <>
 
-            <h2>
-              Welcome back,{" "}
-              <span>
-                {student?.name || "Student"}
-              </span>{" "}
-              👋
-            </h2>
+              {/* =================================================
+                  WELCOME BANNER
+              ================================================= */}
 
-            <p>
-              Manage your internship journey,
-              applications and academic progress
-              from one place.
-            </p>
+              <section className="student-welcome">
 
-          </div>
+                <div className="student-welcome-content">
 
+                  <span className="student-welcome-badge">
+                    FYUGP STUDENT
+                  </span>
 
-          <div className="student-welcome-decoration">
+                  <h2>
+                    Welcome back,{" "}
+                    <span>
+                      {student?.name || "Student"}
+                    </span>{" "}
+                    👋
+                  </h2>
 
-            <div className="welcome-circle-one"></div>
+                  <p>
+                    Manage your internship journey,
+                    applications and academic progress
+                    from one place.
+                  </p>
 
-            <div className="welcome-circle-two"></div>
-
-            <div className="welcome-small-card">
-              <span>INTERNSHIP</span>
-              <strong>Journey</strong>
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* =====================================================
-            STUDENT INFORMATION
-        ===================================================== */}
-
-        <section className="student-information">
-
-          <div className="student-section-heading">
-
-            <div>
-
-              <span className="student-section-label">
-                YOUR INFORMATION
-              </span>
-
-              <h2>
-                Student Overview
-              </h2>
-
-            </div>
-
-            <button
-              className="student-profile-button"
-              onClick={onGoToProfile}
-            >
-              View Profile
-              <span>→</span>
-            </button>
-
-          </div>
-
-
-          <div className="student-info-grid">
-
-            {/* NAME */}
-
-            <div className="student-info-card">
-
-              <div className="student-info-icon green">
-                A
-              </div>
-
-              <div>
-
-                <span>
-                  STUDENT NAME
-                </span>
-
-                <strong>
-                  {student?.name || "Not available"}
-                </strong>
-
-              </div>
-
-            </div>
-
-
-            {/* REGISTER NUMBER */}
-
-            <div className="student-info-card">
-
-              <div className="student-info-icon peach">
-                #
-              </div>
-
-              <div>
-
-                <span>
-                  REGISTER NUMBER
-                </span>
-
-                <strong>
-                  {student?.registerNumber || "Not available"}
-                </strong>
-
-              </div>
-
-            </div>
-
-
-            {/* DEPARTMENT */}
-
-            <div className="student-info-card">
-
-              <div className="student-info-icon lavender">
-                ◇
-              </div>
-
-              <div>
-
-                <span>
-                  DEPARTMENT
-                </span>
-
-                <strong>
-                  {student?.department || "Not available"}
-                </strong>
-
-              </div>
-
-            </div>
-
-
-            {/* SEMESTER */}
-
-            <div className="student-info-card">
-
-              <div className="student-info-icon cream">
-                S
-              </div>
-
-              <div>
-
-                <span>
-                  SEMESTER
-                </span>
-
-                <strong>
-                  {student?.semester || "Not available"}
-                </strong>
-
-              </div>
-
-            </div>
-
-
-            {/* EMAIL */}
-
-            <div className="student-info-card email-card">
-
-              <div className="student-info-icon mint">
-                @
-              </div>
-
-              <div>
-
-                <span>
-                  EMAIL
-                </span>
-
-                <strong>
-                  {student?.email || "Not available"}
-                </strong>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* =====================================================
-            INTERNSHIP WORKSPACE
-        ===================================================== */}
-
-        <section className="student-workspace">
-
-          <div className="student-section-heading">
-
-            <div>
-
-              <span className="student-section-label">
-                INTERNSHIP JOURNEY
-              </span>
-
-              <h2>
-                Manage Your Internship
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div className="student-action-grid">
-
-
-            {/* AVAILABLE INTERNSHIPS */}
-
-            <button
-              className="student-action-card internship-action"
-              onClick={onGoToInternships}
-            >
-
-              <div className="student-action-top">
-
-                <div className="student-action-icon">
-                  💼
                 </div>
 
-                <span className="student-action-arrow">
-                  →
-                </span>
 
-              </div>
+                <div className="student-welcome-decoration">
 
-              <h3>
-                Available Internships
-              </h3>
+                  <div className="welcome-circle-one"></div>
 
-              <p>
-                Explore internship opportunities
-                posted by approved companies.
-              </p>
+                  <div className="welcome-circle-two"></div>
 
-            </button>
+                  <div className="welcome-small-card">
+                    <span>
+                      INTERNSHIP
+                    </span>
 
+                    <strong>
+                      Journey
+                    </strong>
+                  </div>
 
-            {/* MY APPLICATIONS */}
-
-            <button
-              className="student-action-card applications-action"
-              onClick={onGoToMyApplications}
-            >
-
-              <div className="student-action-top">
-
-                <div className="student-action-icon">
-                  📋
                 </div>
 
-                <span className="student-action-arrow">
-                  →
-                </span>
-
-              </div>
-
-              <h3>
-                My Applications
-              </h3>
-
-              <p>
-                View the internships you have
-                applied for and their status.
-              </p>
-
-            </button>
+              </section>
 
 
-            {/* MY INTERNSHIP */}
+              {/* =================================================
+                  STUDENT INFORMATION
+              ================================================= */}
 
-            <button
-              className="student-action-card internship-progress-action"
-              onClick={onGoToMyInternship}
-            >
+              <section className="student-information">
 
-              <div className="student-action-top">
+                <div className="student-section-heading">
 
-                <div className="student-action-icon">
-                  🎓
+                  <div>
+
+                    <span className="student-section-label">
+                      YOUR INFORMATION
+                    </span>
+
+                    <h2>
+                      Student Overview
+                    </h2>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    className="student-profile-button"
+                    onClick={onGoToProfile}
+                  >
+                    View Profile
+
+                    <span>
+                      →
+                    </span>
+                  </button>
+
                 </div>
 
-                <span className="student-action-arrow">
-                  →
-                </span>
 
-              </div>
+                <div className="student-info-grid">
 
-              <h3>
-                My Internship
-              </h3>
+                  {/* NAME */}
 
-              <p>
-                Access your approved internship
-                and internship information.
-              </p>
+                  <div className="student-info-card">
 
-            </button>
+                    <div className="student-info-icon green">
+                      A
+                    </div>
+
+                    <div>
+
+                      <span>
+                        STUDENT NAME
+                      </span>
+
+                      <strong>
+                        {student?.name || "Not available"}
+                      </strong>
+
+                    </div>
+
+                  </div>
 
 
-            {/* LOGBOOK */}
+                  {/* REGISTER NUMBER */}
 
-            <button
-              className="student-action-card logbook-action"
-              onClick={onGoToLogbook}
-            >
+                  <div className="student-info-card">
 
-              <div className="student-action-top">
+                    <div className="student-info-icon peach">
+                      #
+                    </div>
 
-                <div className="student-action-icon">
-                  📖
+                    <div>
+
+                      <span>
+                        REGISTER NUMBER
+                      </span>
+
+                      <strong>
+                        {student?.registerNumber || "Not available"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* DEPARTMENT */}
+
+                  <div className="student-info-card">
+
+                    <div className="student-info-icon lavender">
+                      ◇
+                    </div>
+
+                    <div>
+
+                      <span>
+                        DEPARTMENT
+                      </span>
+
+                      <strong>
+                        {student?.department || "Not available"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* SEMESTER */}
+
+                  <div className="student-info-card">
+
+                    <div className="student-info-icon cream">
+                      S
+                    </div>
+
+                    <div>
+
+                      <span>
+                        SEMESTER
+                      </span>
+
+                      <strong>
+                        {student?.semester || "Not available"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* EMAIL */}
+
+                  <div className="student-info-card email-card">
+
+                    <div className="student-info-icon mint">
+                      @
+                    </div>
+
+                    <div>
+
+                      <span>
+                        EMAIL
+                      </span>
+
+                      <strong>
+                        {student?.email || "Not available"}
+                      </strong>
+
+                    </div>
+
+                  </div>
+
                 </div>
 
-                <span className="student-action-arrow">
-                  →
-                </span>
-
-              </div>
-
-              <h3>
-                Logbook
-              </h3>
-
-              <p>
-                Record and manage your internship
-                activities and hours.
-              </p>
-
-            </button>
+              </section>
 
 
-          </div>
+              {/* =================================================
+                  INTERNSHIP WORKSPACE
+              ================================================= */}
 
-        </section>
+              <section className="student-workspace">
+
+                <div className="student-section-heading">
+
+                  <div>
+
+                    <span className="student-section-label">
+                      INTERNSHIP JOURNEY
+                    </span>
+
+                    <h2>
+                      Manage Your Internship
+                    </h2>
+
+                  </div>
+
+                </div>
+
+
+                <div className="student-action-grid">
+
+                  {/* AVAILABLE INTERNSHIPS */}
+
+                  <button
+                    type="button"
+                    className="student-action-card internship-action"
+                    onClick={onGoToInternships}
+                  >
+
+                    <div className="student-action-top">
+
+                      <div className="student-action-icon">
+                        💼
+                      </div>
+
+                      <span className="student-action-arrow">
+                        →
+                      </span>
+
+                    </div>
+
+                    <h3>
+                      Available Internships
+                    </h3>
+
+                    <p>
+                      Explore internship opportunities
+                      posted by approved companies.
+                    </p>
+
+                  </button>
+
+
+                  {/* MY APPLICATIONS */}
+
+                  <button
+                    type="button"
+                    className="student-action-card applications-action"
+                    onClick={onGoToMyApplications}
+                  >
+
+                    <div className="student-action-top">
+
+                      <div className="student-action-icon">
+                        📋
+                      </div>
+
+                      <span className="student-action-arrow">
+                        →
+                      </span>
+
+                    </div>
+
+                    <h3>
+                      My Applications
+                    </h3>
+
+                    <p>
+                      View the internships you have
+                      applied for and their status.
+                    </p>
+
+                  </button>
+
+
+                  {/* MY INTERNSHIP */}
+
+                  <button
+                    type="button"
+                    className="student-action-card internship-progress-action"
+                    onClick={onGoToMyInternship}
+                  >
+
+                    <div className="student-action-top">
+
+                      <div className="student-action-icon">
+                        🎓
+                      </div>
+
+                      <span className="student-action-arrow">
+                        →
+                      </span>
+
+                    </div>
+
+                    <h3>
+                      My Internship
+                    </h3>
+
+                    <p>
+                      Access your approved internship
+                      and internship information.
+                    </p>
+
+                  </button>
+
+
+                  {/* LOGBOOK */}
+
+                  <button
+                    type="button"
+                    className="student-action-card logbook-action"
+                    onClick={onGoToLogbook}
+                  >
+
+                    <div className="student-action-top">
+
+                      <div className="student-action-icon">
+                        📖
+                      </div>
+
+                      <span className="student-action-arrow">
+                        →
+                      </span>
+
+                    </div>
+
+                    <h3>
+                      Logbook
+                    </h3>
+
+                    <p>
+                      Record and manage your internship
+                      activities and hours.
+                    </p>
+
+                  </button>
+
+                </div>
+
+              </section>
+
+            </>
+          )}
+
+
+          {/* =====================================================
+              OTHER STUDENT SECTIONS
+              Rendered INSIDE the SAME dashboard shell.
+          ===================================================== */}
+
+          {activeSection !== "dashboard" && (
+            <div className="student-section-wrapper">
+              {children}
+            </div>
+          )}
+
+        </div>
 
 
         {/* =====================================================
@@ -616,7 +690,7 @@ function StudentDashboard({
         <footer className="student-footer">
 
           <span>
-            © InterLink
+            © InternLink
           </span>
 
           <span>

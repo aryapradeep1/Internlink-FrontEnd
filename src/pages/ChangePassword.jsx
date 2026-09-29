@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../css/ChangePassword.css";
 
 function ChangePassword({
   user,
@@ -113,90 +114,151 @@ function ChangePassword({
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="change-password-page">
 
-      <h1>🔐 Change Password</h1>
+      <div className="change-password-card">
 
-      <form onSubmit={handleSubmit}>
+        {/* HEADER */}
+        <div className="change-password-header">
 
-        <div className="student-info">
+          <div className="change-password-icon">
+            🔐
+          </div>
 
-          <label>
-            Current Password
-          </label>
+          <div>
+            <span className="change-password-label">
+              ACCOUNT SECURITY
+            </span>
 
-          <input
-            type="password"
-            value={currentPassword}
-            onChange={(e) =>
-              setCurrentPassword(e.target.value)
-            }
-            required
-          />
+            <h2>
+              Change Password
+            </h2>
 
-          <label>
-            New Password
-          </label>
-
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) =>
-              setNewPassword(e.target.value)
-            }
-            minLength="6"
-            required
-          />
-
-          <label>
-            Confirm New Password
-          </label>
-
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-            minLength="6"
-            required
-          />
+            <p>
+              Update your password to keep your
+              account secure.
+            </p>
+          </div>
 
         </div>
 
-        {message && (
-          <p style={{ color: "green" }}>
-            {message}
-          </p>
-        )}
 
-        {error && (
-          <p style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
+        {/* FORM */}
+        <form
+          className="change-password-form"
+          onSubmit={handleSubmit}
+        >
 
-        <div className="dashboard-menu">
+          {/* CURRENT PASSWORD */}
+          <div className="password-field">
 
-          <button
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? "Changing..."
-              : "🔐 Change Password"}
-          </button>
+            <label>
+              Current Password
+            </label>
 
-          <button
-            type="button"
-            onClick={onBack}
-          >
-            ← Back to Profile
-          </button>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={(e) =>
+                setCurrentPassword(e.target.value)
+              }
+              placeholder="Enter your current password"
+              required
+            />
 
-        </div>
+          </div>
 
-      </form>
+
+          {/* NEW PASSWORD */}
+          <div className="password-field">
+
+            <label>
+              New Password
+            </label>
+
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) =>
+                setNewPassword(e.target.value)
+              }
+              placeholder="Enter your new password"
+              minLength="6"
+              required
+            />
+
+            <small>
+              Password must be at least 6 characters.
+            </small>
+
+          </div>
+
+
+          {/* CONFIRM PASSWORD */}
+          <div className="password-field">
+
+            <label>
+              Confirm New Password
+            </label>
+
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
+              placeholder="Re-enter your new password"
+              minLength="6"
+              required
+            />
+
+          </div>
+
+
+          {/* SUCCESS MESSAGE */}
+          {message && (
+            <div className="change-password-message success">
+              <span>✓</span>
+              <p>{message}</p>
+            </div>
+          )}
+
+
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="change-password-message error">
+              <span>!</span>
+              <p>{error}</p>
+            </div>
+          )}
+
+
+          {/* ACTIONS */}
+          <div className="change-password-actions">
+
+            <button
+              type="submit"
+              className="change-password-submit"
+              disabled={loading}
+            >
+              {loading
+                ? "Changing..."
+                : "🔐 Change Password"}
+            </button>
+
+            <button
+              type="button"
+              className="change-password-back"
+              onClick={onBack}
+            >
+              ← Back to Profile
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
 
     </div>
   );
