@@ -150,8 +150,10 @@ body {
   font-weight: 600;
 }
 
+/* =========================================================
+   HEADER RIGHT
+   ========================================================= */
 
-/*/////////////////*/
 .faculty-header-right {
   display: flex;
   align-items: center;
@@ -236,9 +238,9 @@ body {
    ========================================================= */
 
 .faculty-main {
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
-  height: calc(100vh - 78px);
+  height: auto;
 
   display: flex;
 
@@ -439,11 +441,10 @@ body {
    ========================================================= */
 
 .faculty-content {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
   min-height: 0;
-
-  height: 100%;
+  height: auto;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -452,13 +453,15 @@ body {
 
   background:
     radial-gradient(
-      circle at 95% 0%,
-      rgba(216, 243, 229, 0.38),
-      transparent 280px
+      circle at top right,
+      rgba(216, 243, 229, 0.55),
+      transparent 35%
     ),
     #f6f9f7;
 
   position: relative;
+
+  box-sizing: border-box;
 }
 
 /* =========================================================
@@ -1941,7 +1944,6 @@ body {
 
 }
 
-
 /* =========================================================
    FACULTY PROFILE - FULL PROFILE FITS IN VIEW
    ========================================================= */
@@ -2157,7 +2159,6 @@ body {
   box-shadow: 0 6px 15px rgba(40, 118, 83, 0.16);
 }
 
-
 /* =========================================================
    MEDIUM SCREENS
    ========================================================= */
@@ -2195,7 +2196,6 @@ body {
     padding-top: 12px;
   }
 }
-
 
 /* =========================================================
    MOBILE

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Student
 import Register from "./pages/Register";
@@ -58,6 +58,7 @@ import InternshipCertificate from "./pages/InternshipCertificate";
 
 function App() {
   const [page, setPage] = useState("home");
+  const [checkingSession, setCheckingSession] = useState(true);
   const [companySection, setCompanySection] =
   useState("dashboard");
 
@@ -87,6 +88,78 @@ const [studentSection, setStudentSection] =
 const [certificateHours, setCertificateHours] = useState(0);
 
   // =====================================================
+  // RESTORE LOGIN SESSION
+  // =====================================================
+
+  useEffect(() => {
+    const restoreSession = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/auth/me",
+          {
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          setCheckingSession(false);
+          return;
+        }
+
+        const data = await response.json();
+
+        if (data.status !== "success") {
+          setCheckingSession(false);
+          return;
+        }
+
+        const { role, user } = data;
+
+        if (role === "student") {
+          setStudent(user);
+          setStudentSection("dashboard");
+          setPage("studentDashboard");
+        }
+
+        if (role === "company") {
+          setCompany(user);
+          setCompanySection("dashboard");
+          setPage("companyDashboard");
+        }
+
+        if (role === "admin") {
+          setAdmin(user);
+          setPage("adminDashboard");
+        }
+
+        if (role === "faculty") {
+          setFaculty(user);
+          setFacultySection("dashboard");
+          setPage("facultyDashboard");
+        }
+
+        if (role === "companyGuide") {
+          setCompanyGuide(user);
+          setCompanyGuideSection("dashboard");
+          setPage("companyGuideDashboard");
+        }
+
+        if (role === "collegeAdmin") {
+          setCollege(user);
+          setCollegeSection("dashboard");
+          setPage("collegeDashboard");
+        }
+      } catch (error) {
+        console.error("Session restore failed:", error);
+      } finally {
+        setCheckingSession(false);
+      }
+    };
+
+    restoreSession();
+  }, []);
+
+  // =====================================================
   // STUDENT
   // =====================================================
 const handleStudentLogin = (studentData) => {
@@ -95,10 +168,22 @@ const handleStudentLogin = (studentData) => {
   setPage("studentDashboard");
 };
 
-  const handleStudentLogout = () => {
-    setStudent(null);
-    setPage("login");
-  };
+ const handleStudentLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  setStudent(null);
+  setPage("login");
+};
 
 const goToStudentProfile = () => {
   setStudentSection("profile");
@@ -124,11 +209,21 @@ const handleCompanyLogin = (companyData) => {
   setPage("companyDashboard");
 };
 
-const handleCompanyLogout = () => {
+const handleCompanyLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
   setCompany(null);
   setPage("login");
-
-;
 };
 const goToCompanyProfile = () => {
   setCompanySection("profile");
@@ -164,10 +259,22 @@ const goToCompanyChangePassword = () => {
     setPage("adminDashboard");
   };
 
-  const handleAdminLogout = () => {
-    setAdmin(null);
-    setPage("login");
-  };
+ const handleAdminLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  setAdmin(null);
+  setPage("login");
+};
 
   const goToAdminChangePassword = () => {
     setPage("changeAdminPassword");
@@ -182,7 +289,19 @@ const handleFacultyLogin = (facultyData) => {
   setPage("facultyDashboard");
 };
 
-const handleFacultyLogout = () => {
+const handleFacultyLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
   setFaculty(null);
   setPage("login");
 };
@@ -225,10 +344,22 @@ const handleCompanyGuideLogin = (guideData) => {
   setPage("companyGuideDashboard");
 };
 
-  const handleCompanyGuideLogout = () => {
-    setCompanyGuide(null);
-    setPage("login");
-  };
+const handleCompanyGuideLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  setCompanyGuide(null);
+  setPage("login");
+};
 
 const goToCompanyGuideProfile = () => {
   setCompanyGuideSection("profile");
@@ -269,10 +400,22 @@ const handleCollegeLogin = (collegeData) => {
   setPage("collegeDashboard");
 };
 
-  const handleCollegeLogout = () => {
-    setCollege(null);
-    setPage("login");
-  };
+  const handleCollegeLogout = async () => {
+  try {
+    await fetch(
+      "http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+
+  setCollege(null);
+  setPage("login");
+};
 
 const goToCollegeProfile = () => {
   setCollegeSection("profile");
@@ -314,6 +457,17 @@ const goToCollegeChangePassword = () => {
   setPage("collegeDashboard");
 };
 
+  // =====================================================
+  // CHECKING SESSION
+  // =====================================================
+
+  if (checkingSession) {
+    return (
+      <div className="session-loading">
+        Checking session...
+      </div>
+    );
+  }
   // =====================================================
 // HOME PAGE
 // =====================================================

@@ -415,17 +415,25 @@ body,
    MAIN CONTENT
    ========================================================= */
 
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
 .admin-main {
   width: calc(100% - 268px);
 
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
 
   margin-left: 268px;
 
-  padding:
-    48px 48px 0;
-}
+  padding: 48px 48px 0;
 
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  box-sizing: border-box;
+}
 
 /* =========================================================
    OVERVIEW
@@ -598,8 +606,9 @@ body,
     0 auto 22px;
 }
 
+
 .management-details {
-  overflow: hidden;
+  overflow: visible;
 
   border:
     1px solid #e3ece7;
@@ -613,7 +622,6 @@ body,
     0 10px 32px
     rgba(49, 71, 62, 0.045);
 }
-
 
 /* =========================================================
    COLLAPSIBLE HEADER
@@ -1552,14 +1560,19 @@ body,
     display: block;
   }
 
-  .admin-main {
-    width: 100%;
+.admin-main {
+  width: 100%;
 
-    margin-left: 0;
+  height: auto;
+  min-height: 0;
 
-    padding:
-      28px 16px 0;
-  }
+  margin-left: 0;
+
+  padding: 28px 16px 0;
+
+  overflow-y: visible;
+  overflow-x: hidden;
+}
 
   .admin-brand {
     min-height: 88px;

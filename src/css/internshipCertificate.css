@@ -1,704 +1,828 @@
 /* =========================================================
-   INTERNLINK - INTERNSHIP CERTIFICATE
-   FULL SCREEN / NO SCROLL VERSION
+   INTERNLINK
+   INTERNSHIP COMPLETION CERTIFICATE
+   Compact Elegant Certificate
 ========================================================= */
 
-
-/* =========================================================
-   STOP PAGE SCROLL WHILE CERTIFICATE IS OPEN
-========================================================= */
-
-html:has(.certificate-page),
-body:has(.certificate-page) {
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
+* {
+  box-sizing: border-box;
 }
 
-
 /* =========================================================
-   CERTIFICATE PAGE
-   FIXED TO ENTIRE BROWSER SCREEN
+   PAGE
 ========================================================= */
 
-.certificate-page {
-  position: fixed !important;
-
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-
-  margin: 0 !important;
-  padding: 10px 20px !important;
-
-  box-sizing: border-box !important;
-
-  background: #f4f8f6;
-
-  overflow: hidden !important;
-
-  z-index: 99999;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.il-certificate-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f1f7f4;
+  padding: 28px 20px 40px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #214c3d;
 }
-
 
 /* =========================================================
    ACTION BUTTONS
 ========================================================= */
 
-.certificate-actions {
-  width: 100%;
-  height: 42px;
-
-  flex-shrink: 0;
-
+.il-certificate-actions {
+  width: 900px;
+  max-width: 100%;
+  margin: 0 auto 18px;
   display: flex;
+  gap: 12px;
   align-items: center;
-
-  gap: 10px;
-
-  margin: 0 0 6px 0;
 }
 
-.certificate-actions button {
-  height: 36px;
-
-  padding: 0 16px;
-
-  border: 1px solid #c9ddd4;
-  border-radius: 7px;
-
-  background: #ffffff;
-
-  color: #285544;
-
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 650;
-
+.il-certificate-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: 0.2s ease;
 }
 
-.certificate-actions button:hover {
-  background: #d8f3e5;
-  border-color: #a9cdbc;
-
-  transform: translateY(-1px);
+.il-cert-print-btn {
+  background: #287653;
+  color: white;
+  box-shadow: 0 4px 12px rgba(40, 118, 83, 0.18);
 }
 
+.il-cert-print-btn:hover {
+  background: #216347;
+}
+
+.il-cert-back-btn {
+  background: white;
+  color: #287653;
+  border: 1px solid #c9ddd4 !important;
+}
+
+.il-cert-back-btn:hover {
+  background: #edf7f2;
+}
 
 /* =========================================================
    CERTIFICATE WRAPPER
 ========================================================= */
 
-.certificate {
-  width: 100%;
-  height: calc(100% - 48px);
+.il-certificate-wrapper {
+  width: 900px;
+  max-width: 100%;
+  margin: 0 auto;
+}
 
-  min-height: 0;
+/* =========================================================
+   CERTIFICATE PAPER
+========================================================= */
+
+.il-certificate-paper {
+  position: relative;
+
+  width: 900px;
+  max-width: 100%;
+  height: 620px;
+
+  margin: 0 auto;
+
+  background: #fffdf8;
+
+  border: 1px solid #d5b86a;
+
+  box-shadow:
+    0 12px 30px rgba(34, 73, 59, 0.12);
+
+  padding: 38px 55px 28px;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   OUTER + INNER BORDER
+========================================================= */
+
+.il-cert-outer-border {
+  position: absolute;
+  inset: 10px;
+
+  border: 2px solid #287653;
+
+  pointer-events: none;
+}
+
+.il-cert-inner-border {
+  position: absolute;
+  inset: 16px;
+
+  border: 1px solid #d5b86a;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   CORNER DECORATIONS
+========================================================= */
+
+.il-cert-corner {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  z-index: 2;
+}
+
+.il-cert-corner::before,
+.il-cert-corner::after {
+  content: "";
+  position: absolute;
+  background: #287653;
+}
+
+/* Horizontal */
+.il-cert-corner::before {
+  width: 34px;
+  height: 2px;
+}
+
+/* Vertical */
+.il-cert-corner::after {
+  width: 2px;
+  height: 34px;
+}
+
+.il-cert-corner-tl {
+  top: 22px;
+  left: 22px;
+}
+
+.il-cert-corner-tr {
+  top: 22px;
+  right: 22px;
+  transform: rotate(90deg);
+}
+
+.il-cert-corner-bl {
+  bottom: 22px;
+  left: 22px;
+  transform: rotate(-90deg);
+}
+
+.il-cert-corner-br {
+  bottom: 22px;
+  right: 22px;
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.il-cert-brand {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 2px;
+}
+
+.il-cert-logo {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: #287653;
+  color: white;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  position: relative;
+
+  box-shadow: 0 4px 10px rgba(40, 118, 83, 0.2);
 }
 
-
-/* =========================================================
-   ACTUAL CERTIFICATE
-
-   900 x 620 ratio
-
-   Width is automatically reduced according to:
-   1. browser width
-   2. browser height
-
-   NO TRANSFORM
-========================================================= */
-
-.certificate-border {
-  width: min(
-    900px,
-    calc(100vw - 40px),
-    calc((100dvh - 75px) * 1.4516129)
-  );
-
-  aspect-ratio: 900 / 620;
-
-  height: auto;
-
-  flex-shrink: 0;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 3px solid #1d493b;
-
-  outline: 1px solid #1d493b;
-  outline-offset: -9px;
-
-  padding: 30px 50px 22px;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-
-  box-shadow:
-    0 10px 30px rgba(35, 70, 58, 0.12);
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.certificate-header {
-  width: 100%;
-
-  flex-shrink: 0;
-
-  text-align: center;
-}
-
-.certificate-header h1 {
-  margin: 0;
-
-  color: #173f35;
-
-  font-size: 32px;
-  line-height: 1;
-
+.il-cert-logo span {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
   font-weight: 800;
-
-  letter-spacing: 6px;
+  line-height: 1;
 }
 
-.certificate-header p {
-  margin: 7px 0 0;
-
-  color: #58736a;
+.il-cert-logo b {
+  position: absolute;
+  top: 8px;
+  right: 7px;
 
   font-size: 10px;
-
-  letter-spacing: 2.5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+.il-cert-brand-text {
+  text-align: left;
+}
+
+.il-cert-brand-text h1 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 28px;
+  line-height: 1;
+
+  color: #214c3d;
+  letter-spacing: 0.3px;
+}
+
+.il-cert-brand-text p {
+  margin: 5px 0 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+  letter-spacing: 1.5px;
+
+  color: #6a8379;
+}
 
 /* =========================================================
    TITLE
 ========================================================= */
 
-.certificate-title {
-  width: 100%;
-
-  flex-shrink: 0;
+.il-cert-title {
+  position: relative;
+  z-index: 3;
 
   text-align: center;
 
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
-.certificate-title h2 {
+.il-cert-title-line {
+  display: inline-block;
+
+  width: 105px;
+  height: 1px;
+
+  background: #d5b86a;
+
+  vertical-align: middle;
+
+  margin: 0 10px;
+}
+
+.il-cert-title-small {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+
+  color: #9b7c32;
+
+  vertical-align: middle;
+}
+
+.il-cert-title h2 {
+  margin: 8px 0 2px;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 28px;
+
+  letter-spacing: 2px;
+
+  color: #214c3d;
+}
+
+.il-cert-title p {
   margin: 0;
 
-  color: #173f35;
-
-  font-size: 21px;
-  line-height: 1.15;
-
-  font-weight: 800;
-
-  letter-spacing: 1.2px;
-}
-
-.certificate-title p {
-  margin: 5px 0 0;
-
-  color: #687d76;
-
-  font-size: 10px;
+  font-size: 13px;
 
   font-style: italic;
+
+  color: #70847c;
 }
 
-
 /* =========================================================
-   BODY
+   MAIN CONTENT
 ========================================================= */
 
-.certificate-body {
-  width: 100%;
-
-  flex: 1;
-
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
+.il-cert-main {
+  position: relative;
+  z-index: 3;
 
   text-align: center;
 
-  overflow: hidden;
-
-  padding: 5px 0;
+  margin-top: 20px;
 }
 
-.certificate-body > p {
-  margin: 3px 0;
+.il-cert-intro {
+  margin: 0;
 
-  color: #294139;
+  font-size: 14px;
 
-  font-size: 11px;
-
-  line-height: 1.25;
+  color: #45685b;
 }
 
+.il-cert-student-name {
+  margin: 6px 0 3px;
 
-/* INTRO */
+  font-family: Georgia, "Times New Roman", serif;
 
-.certificate-intro {
-  margin-bottom: 3px !important;
+  font-size: 29px;
 
-  font-size: 12px !important;
-}
-
-
-/* STUDENT NAME */
-
-.student-name {
-  margin: 0 0 4px;
-
-  color: #173f35;
-
-  font-size: 21px;
-
-  line-height: 1.1;
-
-  font-weight: 800;
-
-  text-transform: uppercase;
-
-  letter-spacing: 1px;
-}
-
-
-/* COMPANY NAME */
-
-.certificate-body > h3:not(.student-name) {
-  margin: 3px 0;
-
-  color: #173f35;
-
-  font-size: 17px;
-
-  line-height: 1.1;
-
-  font-weight: 800;
-}
-
-
-/* MAIN DESCRIPTION */
-
-.certificate-text {
-  margin-top: 5px !important;
-}
-
-
-/* STRONG TEXT */
-
-.certificate-body strong {
-  color: #173f35;
-
-  font-weight: 750;
-}
-
-
-/* =========================================================
-   DETAILS
-========================================================= */
-
-.certificate-details {
-  width: 100%;
-
-  margin-top: 7px;
-
-  padding: 7px 0;
-
-  border-top: 1px solid #d5e2dc;
-  border-bottom: 1px solid #d5e2dc;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 8px;
-
-  flex-shrink: 0;
-}
-
-.certificate-details > div {
-  text-align: center;
-}
-
-.certificate-details strong {
-  display: block;
-
-  margin-bottom: 2px;
+  letter-spacing: 1.5px;
 
   color: #287653;
 
-  font-size: 8px;
-
-  letter-spacing: 0.7px;
-
   text-transform: uppercase;
 }
 
-.certificate-details p {
+.il-cert-name-line {
+  width: 320px;
+  max-width: 80%;
+
+  height: 1px;
+
+  margin: 0 auto 6px;
+
+  background: #d5b86a;
+}
+
+.il-cert-register {
   margin: 0;
 
-  color: #203f35;
+  font-family: Arial, Helvetica, sans-serif;
 
-  font-size: 10px;
+  font-size: 11px;
+
+  color: #71877e;
+}
+
+.il-cert-register strong {
+  color: #214c3d;
+}
+
+.il-cert-completion-text {
+  margin: 12px 0 4px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: #45685b;
+}
+
+.il-cert-company {
+  margin: 2px 0 10px;
+
+  font-size: 22px;
+
+  color: #214c3d;
+}
+
+/* =========================================================
+   POSITION
+========================================================= */
+
+.il-cert-position {
+  width: 360px;
+  max-width: 80%;
+
+  margin: 0 auto;
+
+  padding: 8px 15px;
+
+  background: #f1f7f4;
+
+  border: 1px solid #d7e7df;
+
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.il-cert-position span {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
 
   font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #648075;
 }
 
+.il-cert-position strong {
+  font-family: Arial, Helvetica, sans-serif;
 
-/* =========================================================
-   FOOTER TEXT
-========================================================= */
+  font-size: 11px;
 
-.certificate-footer-text {
-  margin: 5px 0 0 !important;
-
-  color: #72827d !important;
-
-  font-size: 8px !important;
+  color: #1f352d;
 }
 
-
 /* =========================================================
-   BOTTOM SECTION
+   DURATION
 ========================================================= */
 
-.certificate-bottom {
-  width: 100%;
+.il-cert-duration {
+  width: 500px;
+  max-width: 80%;
 
-  height: 55px;
+  margin: 12px auto 0;
 
-  flex-shrink: 0;
+  display: flex;
 
-  margin-top: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.il-cert-duration-item {
+  flex: 1;
+
+  text-align: center;
+}
+
+.il-cert-duration-item span {
+  display: block;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  color: #82958d;
+
+  margin-bottom: 3px;
+}
+
+.il-cert-duration-item strong {
+  display: block;
+
+  font-size: 14px;
+
+  color: #214c3d;
+}
+
+.il-cert-duration-divider {
+  width: 1px;
+  height: 30px;
+
+  background: #d5b86a;
+}
+
+/* =========================================================
+   INFORMATION
+========================================================= */
+
+.il-cert-info {
+  position: relative;
+  z-index: 3;
+
+  width: 650px;
+  max-width: 90%;
+
+  margin: 15px auto 0;
+
+  padding: 9px 15px;
+
+  border-top: 1px solid #dfe9e4;
+  border-bottom: 1px solid #dfe9e4;
 
   display: grid;
 
-  grid-template-columns:
-    1fr
-    65px
-    1fr;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.il-cert-info-item {
+  text-align: center;
+}
+
+.il-cert-info-item span {
+  display: block;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 7px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #7c9188;
+
+  margin-bottom: 3px;
+}
+
+.il-cert-info-item strong {
+  display: block;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 11px;
+
+  color: #214c3d;
+}
+
+/* =========================================================
+   SIGNATURE AREA
+========================================================= */
+
+.il-cert-bottom {
+  position: relative;
+  z-index: 3;
+
+  width: 650px;
+  max-width: 90%;
+
+  margin: 15px auto 0;
+
+  display: grid;
+
+  grid-template-columns: 1fr 90px 1fr;
 
   align-items: end;
 
   gap: 20px;
 }
 
-
-/* =========================================================
-   SIGNATURE
-========================================================= */
-
-.signature {
+.il-cert-signature {
   text-align: center;
 }
 
-.signature-line {
-  width: 110px;
+.il-cert-sign-line {
+  width: 145px;
+  max-width: 100%;
 
   height: 1px;
 
-  margin: 0 auto 4px;
+  background: #657b72;
 
-  background: #58736a;
+  margin: 0 auto 5px;
 }
 
-.signature p {
-  margin: 0;
+.il-cert-signature strong {
+  display: block;
 
-  color: #40584f;
+  font-family: Arial, Helvetica, sans-serif;
 
-  font-size: 9px;
+  font-size: 10px;
 
-  font-weight: 650;
+  color: #214c3d;
 }
 
+.il-cert-signature span {
+  display: block;
+
+  margin-top: 2px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 7px;
+
+  color: #8a9a94;
+}
 
 /* =========================================================
    SEAL
 ========================================================= */
 
-.certificate-seal {
-  width: 52px;
-  height: 52px;
+.il-cert-seal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  margin: 0 auto;
-
-  border: 2px solid #287653;
+.il-cert-seal-ring {
+  width: 70px;
+  height: 70px;
 
   border-radius: 50%;
 
+  border: 2px solid #d5b86a;
+
+  padding: 4px;
+
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.il-cert-seal-inner {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 50%;
+
+  border: 1px solid #287653;
+
+  display: flex;
+  flex-direction: column;
 
   align-items: center;
   justify-content: center;
 
+  color: #287653;
+}
+
+.il-cert-seal-inner strong {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 17px;
+
+  line-height: 1;
+}
+
+.il-cert-seal-inner span {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 5px;
+
+  letter-spacing: 1px;
+
+  margin-top: 3px;
+}
+
+.il-cert-seal-inner small {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 5px;
+
+  letter-spacing: 1px;
+
+  color: #9b7c32;
+
+  margin-top: 2px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.il-cert-footer {
+  position: absolute;
+
+  left: 55px;
+  right: 55px;
+  bottom: 21px;
+
   text-align: center;
 
-  color: #287653;
+  font-family: Arial, Helvetica, sans-serif;
 
   font-size: 7px;
 
-  font-weight: 800;
+  letter-spacing: 1px;
 
-  letter-spacing: 0.8px;
-
-  background: #f7fcf9;
+  color: #82948c;
 }
 
+.il-cert-footer span:nth-child(1) {
+  color: #287653;
+  font-weight: 700;
+}
+
+.il-cert-footer b {
+  margin: 0 7px;
+
+  color: #d5b86a;
+}
 
 /* =========================================================
-   SMALL HEIGHT SCREENS
+   RESPONSIVE
 ========================================================= */
 
-@media (max-height: 750px) {
-
-  .certificate-page {
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
+@media (max-width: 950px) {
+  .il-certificate-page {
+    padding: 20px 12px 30px;
   }
 
-  .certificate-actions {
-    height: 36px;
-    margin-bottom: 3px;
+  .il-certificate-paper {
+    height: auto;
+    min-height: 620px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
-  .certificate-actions button {
-    height: 32px;
-    font-size: 11px;
-    padding: 0 13px;
+  .il-cert-info {
+    width: 100%;
   }
 
-  .certificate {
-    height: calc(100% - 39px);
-  }
-
-  .certificate-border {
-    padding: 24px 42px 18px;
-  }
-
-  .certificate-header h1 {
-    font-size: 28px;
-  }
-
-  .certificate-title {
-    margin-top: 12px;
-  }
-
-  .certificate-title h2 {
-    font-size: 18px;
-  }
-
-  .certificate-details {
-    padding: 5px 0;
-    margin-top: 5px;
-  }
-
-  .certificate-bottom {
-    height: 48px;
-  }
-
-  .certificate-seal {
-    width: 45px;
-    height: 45px;
+  .il-cert-bottom {
+    width: 100%;
   }
 }
 
-
-/* =========================================================
-   VERY SMALL HEIGHT
-========================================================= */
-
-@media (max-height: 650px) {
-
-  .certificate-page {
-    padding: 4px 15px !important;
+@media (max-width: 700px) {
+  .il-certificate-actions {
+    flex-wrap: wrap;
   }
 
-  .certificate-actions {
-    height: 32px;
+  .il-certificate-paper {
+    padding: 35px 25px 30px;
   }
 
-  .certificate-actions button {
-    height: 29px;
-    font-size: 10px;
-    padding: 0 11px;
+  .il-cert-brand-text h1 {
+    font-size: 23px;
   }
 
-  .certificate {
-    height: calc(100% - 35px);
+  .il-cert-title h2 {
+    font-size: 22px;
   }
 
-  .certificate-border {
-    padding: 18px 35px 14px;
+  .il-cert-title-line {
+    width: 55px;
   }
 
-  .certificate-header h1 {
-    font-size: 24px;
-    letter-spacing: 4px;
+  .il-cert-student-name {
+    font-size: 25px;
   }
 
-  .certificate-header p {
-    margin-top: 4px;
-    font-size: 8px;
+  .il-cert-info {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .certificate-title {
-    margin-top: 8px;
+  .il-cert-bottom {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
-  .certificate-title h2 {
-    font-size: 16px;
+  .il-cert-seal {
+    order: -1;
   }
 
-  .certificate-title p {
-    font-size: 8px;
-  }
-
-  .certificate-body > p {
-    font-size: 9px;
-    margin: 2px 0;
-  }
-
-  .student-name {
-    font-size: 17px;
-  }
-
-  .certificate-body > h3:not(.student-name) {
-    font-size: 14px;
-  }
-
-  .certificate-details strong {
-    font-size: 7px;
-  }
-
-  .certificate-details p {
-    font-size: 8px;
-  }
-
-  .certificate-footer-text {
-    font-size: 7px !important;
-  }
-
-  .certificate-bottom {
-    height: 40px;
-    margin-top: 2px;
-  }
-
-  .signature-line {
-    width: 90px;
-  }
-
-  .signature p {
-    font-size: 7px;
-  }
-
-  .certificate-seal {
-    width: 38px;
-    height: 38px;
-    font-size: 6px;
+  .il-cert-footer {
+    position: static;
+    margin-top: 20px;
   }
 }
-
 
 /* =========================================================
    PRINT
 ========================================================= */
 
 @media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
 
   html,
   body {
-    width: 100% !important;
-    height: 100% !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+    background: white;
   }
 
-  .certificate-page {
-    position: fixed !important;
-
-    top: 0 !important;
-    left: 0 !important;
-
-    width: 100vw !important;
-    height: 100vh !important;
-
-    padding: 0 !important;
-
-    background: #ffffff !important;
-
-    overflow: hidden !important;
-  }
-
-  .certificate-actions {
+  .no-print {
     display: none !important;
   }
 
-  .certificate {
-    width: 100% !important;
-    height: 100% !important;
+  .il-certificate-page {
+    width: 100%;
+    min-height: auto;
 
-    display: flex;
+    padding: 0;
 
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden !important;
+    background: white;
   }
 
-  .certificate-border {
-    width: 900px !important;
-    height: 620px !important;
+  .il-certificate-wrapper {
+    width: 100%;
+    max-width: none;
+  }
 
-    aspect-ratio: auto;
+  .il-certificate-paper {
+    width: 100%;
+    max-width: none;
 
-    padding: 30px 50px 22px;
+    height: 190mm;
 
-    box-shadow: none !important;
+    margin: 0;
 
-    transform: none !important;
+    box-shadow: none;
+
+    border: 1px solid #d5b86a;
   }
 }

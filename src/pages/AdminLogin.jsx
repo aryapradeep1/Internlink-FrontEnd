@@ -15,9 +15,10 @@ function AdminLogin({ onLogin, onBack }) {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+  "Content-Type": "application/json",
+},
+credentials: "include",
+body: JSON.stringify({
             email,
             password,
           }),
