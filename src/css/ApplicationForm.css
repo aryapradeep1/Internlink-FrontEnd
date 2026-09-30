@@ -1,81 +1,71 @@
 /* =========================================================
-   INTERNLINK - APPLICATION WORKSPACE
+   INTERNLINK - APPLICATION FORM
+   Final UI Polish
+   JSX / functionality unchanged
+   ========================================================= */
+
+
+/* =========================================================
+   APPLICATION PAGE CONTAINER
    ========================================================= */
 
 .application-form-container {
   position: relative;
 
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   box-sizing: border-box;
 
   overflow: hidden;
 
-  padding: 78px 55px 35px;
-
   background:
     radial-gradient(
       circle at 8% 15%,
-      rgba(61, 143, 105, 0.18),
+      rgba(61, 143, 105, 0.14),
       transparent 25%
     ),
     radial-gradient(
       circle at 92% 85%,
-      rgba(53, 104, 180, 0.13),
+      rgba(53, 104, 180, 0.08),
       transparent 28%
     ),
     #f3f6f5;
+
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
 }
 
 
 /* =========================================================
-   BACK BUTTON
-   ========================================================= */
-
-.application-back-button {
-  position: absolute;
-
-  top: 25px;
-  left: 35px;
-
-  z-index: 10;
-
-  border: none;
-
-  background: transparent;
-
-  color: #315c4b;
-
-  font-size: 14px;
-  font-weight: 650;
-
-  cursor: pointer;
-
-  padding: 8px 0;
-
-  transition: 0.2s ease;
-}
-
-.application-back-button:hover {
-  color: #1e4535;
-
-  transform: translateX(-3px);
-}
-
-
-/* =========================================================
-   MAIN APPLICATION AREA
+   MAIN APPLICATION CARD
    ========================================================= */
 
 .application-form-card {
-  position: relative;
+  position: absolute;
 
-  width: min(1080px, 100%);
+  /*
+    The dashboard content starts below the header.
+    Keep the card near the upper-middle part of the
+    available content area so the complete card is visible.
+  */
 
-  height: calc(100vh - 115px);
+  top: 55px;
 
-  margin: 0 auto;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 660px;
+
+  height: 510px;
+
+  box-sizing: border-box;
 
   display: grid;
 
@@ -83,19 +73,21 @@
 
   overflow: hidden;
 
-  border-radius: 26px;
+  border-radius: 20px;
 
   background: #ffffff;
 
-  box-shadow:
-    0 25px 70px rgba(30, 55, 45, 0.13);
+  border: 1px solid #e3ebe7;
 
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 18px 50px rgba(30, 55, 45, 0.12);
+
+  isolation: isolate;
 }
 
 
 /* =========================================================
-   LEFT INFORMATION PANEL
+   LEFT GREEN PANEL
    ========================================================= */
 
 .application-form-card::before {
@@ -109,17 +101,19 @@
 
   width: 38%;
 
+  z-index: 0;
+
   background:
     radial-gradient(
-      circle at 20% 20%,
-      rgba(255,255,255,0.14),
-      transparent 25%
+      circle at 20% 18%,
+      rgba(255, 255, 255, 0.14),
+      transparent 27%
     ),
     linear-gradient(
       145deg,
-      #214f3c,
-      #2d6950 55%,
-      #376f8a
+      #205640 0%,
+      #28694e 52%,
+      #34768c 100%
     );
 
   pointer-events: none;
@@ -127,7 +121,7 @@
 
 
 /* =========================================================
-   HEADING AREA
+   APPLICATION HEADING
    ========================================================= */
 
 .application-form-card h1 {
@@ -135,39 +129,47 @@
 
   z-index: 3;
 
-  left: 42px;
-  top: 48px;
+  left: 38px;
+
+  top: 38px;
 
   width: 31%;
 
   margin: 0;
 
-  color: #ffffff;
+  color: #ffffff !important;
 
-  font-size: 30px;
+  font-size: 28px;
 
   line-height: 1.15;
 
-  font-weight: 750;
+  font-weight: 800;
 
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 
-/* Small accent */
+/* =========================================================
+   HEADING ACCENT
+   ========================================================= */
+
 .application-form-card h1::after {
   content: "";
 
   display: block;
 
   width: 42px;
+
   height: 4px;
 
-  margin-top: 18px;
+  margin-top: 15px;
 
   border-radius: 10px;
 
-  background: #b7e2ca;
+  background: #c5ecd6;
 }
 
 
@@ -180,18 +182,24 @@
 
   z-index: 3;
 
-  left: 42px;
-  top: 145px;
+  left: 38px;
 
-  width: 30%;
+  top: 125px;
+
+  width: 31%;
 
   margin: 0;
 
-  color: rgba(255,255,255,0.78);
+  color: #e9fff3 !important;
 
   font-size: 15px;
 
-  font-weight: 550;
+  line-height: 1.4;
+
+  font-weight: 650;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 
@@ -204,57 +212,66 @@
 
   z-index: 3;
 
-  left: 42px;
-  bottom: 45px;
+  left: 38px;
 
-  width: calc(38% - 84px);
+  bottom: 28px;
+
+  width: calc(38% - 76px);
 
   box-sizing: border-box;
 
   margin: 0;
 
-  padding: 20px 0;
+  padding: 14px 0 0;
 
-  border-top: 1px solid rgba(255,255,255,0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 
-.internship-summary p {
-  margin: 9px 0;
+/* =========================================================
+   SUMMARY TEXT
+   ========================================================= */
 
-  color: rgba(255,255,255,0.75);
+.internship-summary p {
+  margin: 8px 0;
+
+  color: #eafff3 !important;
 
   font-size: 13px;
 
-  line-height: 1.5;
+  line-height: 1.4;
+
+  font-weight: 550;
+
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
+
+/* =========================================================
+   SUMMARY LABELS
+   ========================================================= */
 
 .internship-summary strong {
   display: block;
 
   margin-bottom: 2px;
 
-  color: #ffffff;
+  color: #ffffff !important;
 
-  font-size: 11px;
+  font-size: 10px;
 
-  font-weight: 650;
+  font-weight: 750;
 
   text-transform: uppercase;
 
-  letter-spacing: 0.8px;
+  letter-spacing: 0.9px;
 }
 
 
 /* =========================================================
-   FORM AREA
+   RIGHT FORM AREA
    ========================================================= */
-
-/*
-   Since the left side is generated by the background,
-   the form content occupies the right side.
-*/
 
 .application-form-card form {
   position: absolute;
@@ -262,14 +279,16 @@
   z-index: 5;
 
   top: 0;
+
   right: 0;
 
   width: 62%;
+
   height: 100%;
 
   box-sizing: border-box;
 
-  padding: 48px 55px;
+  padding: 30px 40px;
 
   display: flex;
 
@@ -277,26 +296,26 @@
 
   justify-content: center;
 
-  gap: 18px;
+  gap: 12px;
 
   background: #ffffff;
 }
 
 
 /* =========================================================
-   FORM GROUPS
+   FORM GROUP
    ========================================================= */
 
 .form-group {
   position: relative;
 
-  padding: 17px 18px;
+  padding: 13px 16px;
 
-  border: 1px solid #e2e9e5;
+  border: 1px solid #dfe8e3;
 
-  border-radius: 14px;
+  border-radius: 13px;
 
-  background: #fbfcfc;
+  background: #fbfdfc;
 
   transition:
     border-color 0.2s ease,
@@ -306,17 +325,17 @@
 
 
 .form-group:hover {
-  border-color: #c5dacf;
+  border-color: #bfd5c9;
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 8px 20px rgba(43, 85, 67, 0.06);
+    0 7px 18px rgba(43, 85, 67, 0.06);
 }
 
 
 .form-group:focus-within {
-  border-color: #78aa90;
+  border-color: #70a78a;
 
   box-shadow:
     0 0 0 3px rgba(63, 139, 100, 0.08);
@@ -330,13 +349,15 @@
 .form-group label {
   display: block;
 
-  margin-bottom: 9px;
+  margin-bottom: 7px;
 
-  color: #294d3e;
+  color: #244d3c;
 
-  font-size: 14px;
+  font-size: 13px;
 
-  font-weight: 700;
+  line-height: 1.35;
+
+  font-weight: 750;
 }
 
 
@@ -354,44 +375,59 @@
 
   box-sizing: border-box;
 
-  padding: 10px;
+  padding: 8px;
 
-  border: 1px dashed #b9cec3;
+  border: 1px dashed #b7cec1;
 
   border-radius: 9px;
 
   background: #ffffff;
 
-  color: #6b7772;
+  color: #53665e;
 
   font-family: inherit;
 
   font-size: 12px;
+
+  font-weight: 500;
 
   cursor: pointer;
 }
 
 
-.form-group input[type="file"]::file-selector-button {
-  margin-right: 10px;
+/* =========================================================
+   FILE SELECT BUTTON
+   ========================================================= */
 
-  padding: 7px 12px;
+.form-group input[type="file"]::file-selector-button {
+  margin-right: 9px;
+
+  padding: 6px 11px;
 
   border: none;
 
   border-radius: 7px;
 
-  background: #e2f0e8;
+  background: #e0f0e7;
 
-  color: #316b51;
+  color: #285f48;
 
   font-family: inherit;
 
-  font-size: 12px;
+  font-size: 11.5px;
 
-  font-weight: 650;
+  font-weight: 700;
 
   cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.form-group input[type="file"]::file-selector-button:hover {
+  background: #d1e8dc;
+
+  color: #1f513c;
 }
 
 
@@ -402,26 +438,28 @@
 .form-group small {
   display: block;
 
-  margin-top: 7px;
+  margin-top: 5px;
 
-  color: #8a9490;
+  color: #687872;
 
   font-size: 11px;
 
   line-height: 1.4;
+
+  font-weight: 450;
 }
 
 
 /* =========================================================
-   ERROR
+   ERROR MESSAGE
    ========================================================= */
 
 .error-message {
   margin: 0;
 
-  padding: 10px 13px;
+  padding: 8px 11px;
 
-  border-radius: 9px;
+  border-radius: 8px;
 
   background: #fff2f2;
 
@@ -429,7 +467,11 @@
 
   color: #b53d3d;
 
-  font-size: 12px;
+  font-size: 11px;
+
+  line-height: 1.35;
+
+  font-weight: 600;
 }
 
 
@@ -442,32 +484,43 @@
 
   justify-content: flex-end;
 
-  gap: 10px;
+  gap: 9px;
 
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 
-.application-buttons button {
-  min-height: 43px;
+/* =========================================================
+   BUTTONS
+   ========================================================= */
 
-  padding: 10px 20px;
+.application-buttons button {
+  min-height: 42px;
+
+  padding: 9px 18px;
 
   border-radius: 9px;
 
   font-family: inherit;
 
-  font-size: 13px;
+  font-size: 12px;
 
-  font-weight: 650;
+  font-weight: 700;
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 
-/* Submit */
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
 .application-buttons button[type="submit"] {
   border: none;
 
@@ -476,7 +529,7 @@
   color: #ffffff;
 
   box-shadow:
-    0 7px 17px rgba(40, 95, 72, 0.20);
+    0 6px 15px rgba(40, 95, 72, 0.18);
 }
 
 
@@ -486,134 +539,214 @@
   transform: translateY(-1px);
 
   box-shadow:
-    0 10px 22px rgba(40, 95, 72, 0.25);
+    0 9px 20px rgba(40, 95, 72, 0.23);
 }
 
 
-/* Old Back button if it still exists */
+.application-buttons button[type="submit"]:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
 .application-buttons button[type="button"] {
   border: 1px solid #d1ddd7;
 
   background: #ffffff;
 
-  color: #50675c;
+  color: #466257;
+}
+
+
+.application-buttons button[type="button"]:hover {
+  border-color: #b9cec3;
+
+  background: #f6faf8;
+
+  color: #285f48;
+
+  transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
    ========================================================= */
 
 @media (max-width: 850px) {
 
   .application-form-container {
-    padding: 75px 20px 20px;
+    height: 100%;
+
+    overflow-y: auto;
+
+    padding: 20px;
   }
+
 
   .application-form-card {
-    height: calc(100vh - 100px);
+    position: relative;
+
+    top: auto;
+
+    left: auto;
+
+    transform: none;
+
+    width: 100%;
+
+    height: auto;
+
+    min-height: 600px;
 
     grid-template-columns: 1fr;
+
+    margin: 0 auto;
   }
+
 
   .application-form-card::before {
     display: none;
   }
 
+
   .application-form-card h1 {
     position: relative;
 
     left: auto;
+
     top: auto;
 
     width: auto;
 
-    padding: 30px 30px 0;
+    padding: 28px 28px 0;
 
-    color: #285544;
+    color: #285544 !important;
+
+    text-shadow: none;
   }
+
 
   .application-form-card h2 {
     position: relative;
 
     left: auto;
+
     top: auto;
 
     width: auto;
 
-    padding: 0 30px;
+    padding: 0 28px;
 
-    color: #6b7b74;
+    color: #536d62 !important;
+
+    text-shadow: none;
   }
+
 
   .internship-summary {
     position: relative;
 
     left: auto;
+
     bottom: auto;
 
     width: auto;
 
-    margin: 0 30px 10px;
+    margin: 0 28px 8px;
 
     padding: 12px 0;
 
     border-top: 1px solid #e2e9e5;
   }
 
+
   .internship-summary p {
-    color: #64746d;
+    color: #526d61 !important;
+
+    text-shadow: none;
   }
 
+
   .internship-summary strong {
-    color: #315a49;
+    color: #315a49 !important;
   }
+
 
   .application-form-card form {
     position: relative;
 
     width: 100%;
+
     height: auto;
 
-    padding: 15px 30px 30px;
+    padding: 15px 28px 28px;
 
     justify-content: flex-start;
   }
 }
 
 
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
 @media (max-width: 550px) {
 
   .application-form-container {
-    padding: 70px 12px 12px;
+    padding: 15px 12px;
   }
+
 
   .application-form-card {
-    border-radius: 20px;
+    border-radius: 18px;
+
+    min-height: 580px;
   }
 
+
   .application-form-card h1 {
-    padding: 25px 20px 0;
+    padding: 23px 20px 0;
 
     font-size: 25px;
   }
 
+
   .application-form-card h2 {
     padding: 0 20px;
+
+    font-size: 15px;
   }
+
 
   .internship-summary {
     margin-left: 20px;
+
     margin-right: 20px;
   }
+
+
+  .internship-summary p {
+    font-size: 13px;
+  }
+
 
   .application-form-card form {
     padding: 12px 20px 25px;
   }
 
+
   .application-buttons {
     flex-direction: column;
   }
+
 
   .application-buttons button {
     width: 100%;

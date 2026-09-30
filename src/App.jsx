@@ -856,7 +856,10 @@ if (
     <InternshipCertificate
       assignment={certificateAssignment}
       totalHours={certificateHours}
-      onBack={() => setPage("myInternship")}
+      onBack={() => {
+  setStudentSection("dashboard");
+  setPage("studentDashboard");
+}}
     />
   );
 }
