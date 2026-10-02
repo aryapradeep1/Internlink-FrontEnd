@@ -80,6 +80,9 @@ function ChangePassword({
           "Content-Type": "application/json",
         },
 
+        // Send HttpOnly authentication cookie
+        credentials: "include",
+
         body: JSON.stringify({
           currentPassword,
           newPassword,

@@ -3605,3 +3605,103 @@
   }
 }
 
+/* =========================================================
+   STUDENT SIGNUP - SCROLL FIX
+   Allows the registration form to scroll after verification
+   ========================================================= */
+
+.student-signup-page {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.student-signup-page .signup-main {
+  min-height: calc(100vh - 76px);
+  height: auto;
+  overflow: visible;
+}
+
+.student-signup-page .signup-form-area {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  justify-content: flex-start;
+  padding-bottom: 35px;
+}
+
+.student-signup-page .signup-card {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+
+/* Keep the form itself fully accessible */
+.student-signup-page .student-signup-form {
+  overflow: visible;
+}
+
+/* Message and footer must remain visible after the form */
+.student-signup-page .signup-message,
+.student-signup-page .signup-login-footer,
+.student-signup-page .signup-footer-note {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .student-signup-page {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .student-signup-page .signup-main {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .student-signup-page .signup-form-area {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    padding-bottom: 35px;
+  }
+
+  .student-signup-page .signup-card {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* =========================================================
+   FACULTY REGISTER - ALLOW FULL FORM SCROLLING
+========================================================= */
+
+.faculty-signup-page {
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.faculty-signup-page .signup-form-section {
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.faculty-signup-page .signup-form-card {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}

@@ -761,3 +761,222 @@
   }
 
 }
+
+
+
+/* =========================================================
+   COMPANY CONFIRMATION LETTER
+========================================================= */
+
+.confirmation-letter {
+  margin-top: 24px;
+  padding: 20px;
+  background: #f4fbf7;
+  border: 1px solid #cfe8da;
+  border-radius: 16px;
+}
+
+.confirmation-letter-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.confirmation-letter-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #d8f3e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.confirmation-letter-header h3 {
+  margin: 0 0 4px;
+  color: #294139;
+  font-size: 18px;
+}
+
+.confirmation-letter-header p {
+  margin: 0;
+  color: #668078;
+  font-size: 13px;
+}
+
+.confirmation-letter-paper {
+  background: #ffffff;
+  border: 1px solid #e1ebe5;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(40, 118, 83, 0.06);
+}
+
+.letter-subject {
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e8eee9;
+  color: #287653;
+  font-size: 16px;
+}
+
+.letter-message {
+  color: #294139;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.letter-message p {
+  margin: 0 0 8px;
+}
+
+.letter-date {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e8eee9;
+  color: #7b8d85;
+  font-size: 12px;
+}
+
+.forward-letter-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fff8f5;
+  border: 1px solid #f2d8cf;
+  border-radius: 10px;
+}
+
+.forward-letter-info span {
+  font-size: 18px;
+}
+
+.forward-letter-info p {
+  margin: 0;
+  color: #6b5149;
+  font-size: 13px;
+}
+
+/* =========================================================
+   FORWARD CONFIRMATION LETTER TO COLLEGE
+========================================================= */
+
+.forward-college-button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #287653;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.forward-college-button:hover:not(:disabled) {
+  background: #216447;
+  transform: translateY(-1px);
+}
+
+.forward-college-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   FORWARDED STATUS
+========================================================= */
+
+.forwarded-to-college-badge {
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 11px 13px;
+
+  background: #eaf8f0;
+  border: 1px solid #c9e8d6;
+  border-radius: 10px;
+
+  color: #287653;
+}
+
+.forwarded-to-college-badge > span {
+  width: 26px;
+  height: 26px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.forwarded-to-college-badge strong {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.forwarded-to-college-badge small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #668078;
+  font-size: 11px;
+}
+
+/* =========================================================
+   FORWARD INFORMATION
+========================================================= */
+
+.forward-letter-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 10px;
+  padding: 9px 12px;
+
+  background: #fff8f5;
+
+  border: 1px solid #f2d8cf;
+  border-radius: 8px;
+}
+
+.forward-letter-info span {
+  font-size: 16px;
+}
+
+.forward-letter-info p {
+  margin: 0;
+
+  color: #6b5149;
+
+  font-size: 12px;
+  line-height: 1.4;
+}

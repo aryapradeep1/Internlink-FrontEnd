@@ -10,7 +10,7 @@ import EditStudentProfile from "./pages/EditStudentProfile";
 import MyApplications from "./pages/MyApplications";
 import MyInternship from "./pages/MyInternship";
 import StudentLogbook from "./pages/StudentLogbook";
-
+import StudentAttendance from "./pages/StudentAttendance";
 // Company
 import CompanyLogin from "./components/CompanyLogin";
 import CompanyRegister from "./pages/CompanyRegister";
@@ -199,6 +199,10 @@ const goToStudentDashboard = () => {
   setStudentSection("dashboard");
   setPage("studentDashboard");
 };
+const goToStudentAttendance = () => {
+  setStudentSection("attendance");
+  setPage("studentDashboard");
+};
 
   // =====================================================
   // COMPANY
@@ -323,6 +327,11 @@ const goToFacultyDashboard = () => {
 
 const goToFacultyStudents = () => {
   setFacultySection("students");
+  setPage("facultyDashboard");
+};
+
+const goToFacultyAttendance = () => {
+  setFacultySection("attendance");
   setPage("facultyDashboard");
 };
 
@@ -552,6 +561,7 @@ if (page === "studentDashboard" && student) {
         setStudentSection("logbook");
         setPage("studentDashboard");
       }}
+      onGoToAttendance={goToStudentAttendance}
       activeSection={studentSection}
     >
 
@@ -659,6 +669,12 @@ if (page === "studentDashboard" && student) {
   />
 )}
 
+{studentSection === "attendance" && (
+  <StudentAttendance
+    student={student}
+    onBack={goToStudentDashboard}
+  />
+)}
 
 {/* =====================================================
     INTERNSHIP DETAILS
@@ -1226,6 +1242,7 @@ if (page === "facultyRegister") {
       onGoToLogbooks={goToFacultyLogbooks}
       onGoToEditProfile={goToEditFacultyProfile}
       onGoToChangePassword={goToFacultyChangePassword}
+      onGoToAttendance={goToFacultyAttendance}
       activeSection={facultySection}
     >
       {facultySection === "profile" && (

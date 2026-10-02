@@ -15,7 +15,10 @@ function StudentProfile({
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/students/profile/${student.id}`
+          `http://localhost:5000/api/students/profile/${student.id}`,
+          {
+            credentials: "include",
+          }
         );
 
         const data = await response.json();

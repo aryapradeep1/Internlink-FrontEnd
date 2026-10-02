@@ -1,13 +1,15 @@
 /* =========================================================
-   INTERLINK - STUDENT PROFILE
+   INTERNLINK - STUDENT PROFILE
+
    Dashboard Integrated Profile
-   Pastel Green / White / Soft Peach Theme
-   ========================================================= */
+   Mint Green + Mint Pink Theme
+   Larger / More Readable Typography
+========================================================= */
 
 
 /* =========================================================
    PAGE
-   ========================================================= */
+========================================================= */
 
 .student-profile-page {
 
@@ -26,7 +28,6 @@
     sans-serif;
 
   box-sizing: border-box;
-
 }
 
 .student-profile-page *,
@@ -34,45 +35,53 @@
 .student-profile-page *::after {
 
   box-sizing: border-box;
-
 }
 
 
 /* =========================================================
    MAIN PROFILE CARD
-   ========================================================= */
+========================================================= */
 
 .student-profile-card {
 
   width: 100%;
 
-  background: #ffffff;
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #f5fbf7 58%,
+      #fff3f5 100%
+    );
 
   border:
-    1px solid #e7efeb;
+    1px solid #d9eae1;
 
-  border-radius: 20px;
+  border-radius: 22px;
 
   box-shadow:
-    0 12px 32px rgba(47, 72, 61, 0.06);
+    0 14px 35px rgba(47, 72, 61, 0.08);
 
   overflow: hidden;
 
   animation:
     profileCardReveal 0.45s ease-out both;
-
 }
 
 
 /* =========================================================
    PROFILE SECTION
-   ========================================================= */
+========================================================= */
 
 .profile-section {
 
-  padding: 28px 30px;
-
+  padding: 32px 34px;
 }
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
 
 .profile-section-heading {
 
@@ -80,76 +89,114 @@
 
   align-items: center;
 
-  gap: 13px;
+  gap: 15px;
 
-  margin-bottom: 22px;
-
+  margin-bottom: 25px;
 }
+
+
+/* =========================================================
+   SECTION ICON
+========================================================= */
 
 .profile-section-icon {
 
-  width: 43px;
-
-  height: 43px;
+  width: 49px;
+  height: 49px;
 
   flex-shrink: 0;
 
-  border-radius: 13px;
+  border-radius: 14px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  font-size: 17px;
+  font-size: 21px;
 
+  box-shadow:
+    0 6px 15px rgba(40, 118, 83, 0.07);
 }
+
+
+/* MINT */
 
 .mint-icon {
 
-  background: #e1f4e9;
+  background:
+    linear-gradient(
+      135deg,
+      #ccefdc,
+      #e4f7ec
+    );
 
+  color: #287653;
 }
+
+
+/* PINK */
 
 .peach-icon {
 
-  background: #fce5dd;
+  background:
+    linear-gradient(
+      135deg,
+      #f8dfe5,
+      #fdecef
+    );
 
+  color: #d87584;
 }
+
+
+/* LAVENDER */
 
 .lavender-icon {
 
-  background: #eee8f9;
+  background:
+    linear-gradient(
+      135deg,
+      #e7edf8,
+      #f1f4fb
+    );
 
+  color: #657b9b;
 }
+
+
+/* =========================================================
+   SECTION HEADING TEXT
+========================================================= */
 
 .profile-section-heading h2 {
 
   margin: 0;
 
-  color: #30483e;
+  color: #294139;
 
-  font-size: 16px;
+  font-size: 22px;
 
   font-weight: 800;
 
+  letter-spacing: -0.3px;
 }
 
 .profile-section-heading p {
 
-  margin: 4px 0 0;
+  margin: 6px 0 0;
 
-  color: #8a9993;
+  color: #71877e;
 
-  font-size: 10px;
+  font-size: 13px;
 
+  line-height: 1.5;
 }
 
 
 /* =========================================================
    DETAILS GRID
-   ========================================================= */
+========================================================= */
 
 .profile-details-grid {
 
@@ -158,116 +205,190 @@
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 14px;
-
+  gap: 17px;
 }
+
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
 
 .profile-detail {
 
   min-width: 0;
 
-  padding: 16px 17px;
+  min-height: 105px;
+
+  padding: 20px 20px;
 
   border:
-    1px solid #edf2ef;
+    1px solid #dfece5;
 
-  border-radius: 13px;
+  border-radius: 15px;
 
-  background: #fbfdfc;
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f5fbf7
+    );
 
   transition:
     transform 0.25s ease,
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 
+  position: relative;
+
+  overflow: hidden;
 }
+
+
+/* alternating pink cards */
+
+.profile-detail:nth-child(even) {
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #fff2f4
+    );
+}
+
+
+/* small decorative top edge */
+
+.profile-detail::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8bcbaa,
+      #e98292
+    );
+
+  opacity: 0.55;
+}
+
+
+/* HOVER */
 
 .profile-detail:hover {
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-3px);
 
-  border-color: #d7eade;
+  border-color: #c9e2d4;
 
   box-shadow:
-    0 8px 20px rgba(47, 72, 61, 0.06);
-
+    0 10px 24px rgba(47, 72, 61, 0.08);
 }
+
+
+/* =========================================================
+   DETAIL LABEL
+========================================================= */
 
 .detail-label {
 
   display: block;
 
-  margin-bottom: 7px;
+  margin-bottom: 9px;
 
-  color: #899891;
+  color: #718a7e;
 
-  font-size: 9px;
+  font-size: 12px;
 
-  font-weight: 700;
+  font-weight: 800;
 
-  letter-spacing: 0.7px;
+  letter-spacing: 0.9px;
 
   text-transform: uppercase;
-
 }
+
+
+/* =========================================================
+   DETAIL VALUE
+========================================================= */
 
 .detail-value {
 
   display: block;
 
-  color: #344c42;
+  color: #294139;
 
-  font-size: 13px;
+  font-size: 17px;
 
   font-weight: 700;
 
-  line-height: 1.45;
+  line-height: 1.5;
 
   overflow-wrap: anywhere;
-
 }
 
 
 /* =========================================================
    DIVIDER
-   ========================================================= */
+========================================================= */
 
 .profile-divider {
 
   height: 1px;
 
-  margin: 0 30px;
+  margin: 0 34px;
 
-  background: #edf2ef;
-
+  background:
+    linear-gradient(
+      90deg,
+      #dcebe4,
+      #f1dfe3,
+      #dcebe4
+    );
 }
 
 
 /* =========================================================
    COLLEGE UNAVAILABLE
-   ========================================================= */
+========================================================= */
 
 .college-unavailable {
 
-  padding: 17px;
+  padding: 19px;
 
   border:
-    1px dashed #dce8e2;
+    1px dashed #cbded4;
 
-  border-radius: 13px;
+  border-radius: 14px;
 
-  background: #fbfdfc;
+  background:
+    linear-gradient(
+      135deg,
+      #f2faf5,
+      #fff1f4
+    );
 
-  color: #84948d;
+  color: #71877e;
 
-  font-size: 12px;
+  font-size: 14px;
 
+  line-height: 1.6;
 }
 
 
 /* =========================================================
    ACTIONS
-   ========================================================= */
+========================================================= */
 
 .student-profile-actions {
 
@@ -279,26 +400,30 @@
 
   flex-wrap: wrap;
 
-  gap: 10px;
+  gap: 12px;
 
-  margin-top: 16px;
-
+  margin-top: 20px;
 }
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
 
 .profile-primary-action,
 .profile-secondary-action {
 
-  min-height: 42px;
+  min-height: 48px;
 
-  padding: 0 17px;
+  padding: 0 22px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
   cursor: pointer;
 
   font-family: inherit;
 
-  font-size: 11px;
+  font-size: 14px;
 
   font-weight: 750;
 
@@ -307,68 +432,91 @@
     box-shadow 0.25s ease,
     background 0.25s ease,
     border-color 0.25s ease;
-
 }
+
+
+/* PRIMARY */
 
 .profile-primary-action {
 
   border:
     1px solid #287653;
 
-  background: #287653;
+  background:
+    linear-gradient(
+      135deg,
+      #287653,
+      #3c906b
+    );
 
   color: white;
 
   box-shadow:
-    0 7px 18px rgba(40, 118, 83, 0.14);
-
+    0 8px 20px rgba(40, 118, 83, 0.17);
 }
 
 .profile-primary-action:hover {
 
-  background: #216546;
+  background:
+    linear-gradient(
+      135deg,
+      #216546,
+      #287653
+    );
 
   border-color: #216546;
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 
   box-shadow:
-    0 11px 23px rgba(40, 118, 83, 0.20);
-
+    0 12px 25px rgba(40, 118, 83, 0.22);
 }
+
+
+/* SECONDARY */
 
 .profile-secondary-action {
 
   border:
-    1px solid #e9b6a8;
+    1px solid #e4b2bd;
 
-  background: #fce5dd;
+  background:
+    linear-gradient(
+      135deg,
+      #fbe3e8,
+      #fceef0
+    );
 
-  color: #a95f4d;
-
+  color: #a75d6c;
 }
 
 .profile-secondary-action:hover {
 
-  background: #f7d6cb;
+  background:
+    linear-gradient(
+      135deg,
+      #f6d5dc,
+      #fbe3e8
+    );
 
-  border-color: #dfa596;
+  border-color: #d99ba8;
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 
   box-shadow:
-    0 8px 20px rgba(169, 95, 77, 0.11);
-
+    0 9px 21px rgba(169, 95, 109, 0.12);
 }
 
 
 /* =========================================================
    LOADING
-   ========================================================= */
+========================================================= */
 
 .student-profile-loading {
 
-  min-height: 300px;
+  min-height: 350px;
 
   display: flex;
 
@@ -380,61 +528,69 @@
 
   text-align: center;
 
-  padding: 30px;
-
+  padding: 35px;
 }
+
+
+/* LOADER */
 
 .profile-loader {
 
-  width: 38px;
+  width: 44px;
+  height: 44px;
 
-  height: 38px;
-
-  margin-bottom: 17px;
+  margin-bottom: 20px;
 
   border:
-    3px solid #dcefe4;
+    4px solid #dcefe4;
 
   border-top-color: #287653;
+
+  border-right-color: #e98292;
 
   border-radius: 50%;
 
   animation:
     profileSpin 0.8s linear infinite;
-
 }
+
+
+/* LOADING TITLE */
 
 .student-profile-loading h2 {
 
   margin: 0;
 
-  color: #30483e;
+  color: #294139;
 
-  font-size: 19px;
+  font-size: 23px;
 
+  font-weight: 750;
 }
+
+
+/* LOADING TEXT */
 
 .student-profile-loading p {
 
-  margin: 7px 0 0;
+  margin: 9px 0 0;
 
-  color: #83928c;
+  color: #71877e;
 
-  font-size: 12px;
-
+  font-size: 14px;
 }
 
 
 /* =========================================================
    ERROR
-   ========================================================= */
+========================================================= */
 
 .student-profile-error {
 
   width:
-    min(500px, calc(100% - 40px));
+    min(550px, calc(100% - 40px));
 
-  min-height: 300px;
+  min-height: 350px;
 
   margin: 0 auto;
 
@@ -447,80 +603,117 @@
   justify-content: center;
 
   text-align: center;
-
 }
+
+
+/* ERROR ICON */
 
 .profile-error-icon {
 
-  width: 52px;
+  width: 62px;
+  height: 62px;
 
-  height: 52px;
+  margin-bottom: 20px;
 
-  margin-bottom: 18px;
-
-  border-radius: 16px;
+  border-radius: 18px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  background: #fce5dd;
+  background:
+    linear-gradient(
+      135deg,
+      #fbe0e5,
+      #fff0f2
+    );
 
-  color: #d87663;
+  color: #d87686;
 
-  font-size: 22px;
+  font-size: 26px;
 
   font-weight: 800;
 
+  box-shadow:
+    0 7px 18px rgba(169, 95, 109, 0.08);
 }
+
+
+/* ERROR TITLE */
 
 .student-profile-error h2 {
 
   margin: 0;
 
-  color: #30483e;
+  color: #294139;
 
-  font-size: 21px;
+  font-size: 25px;
 
+  font-weight: 750;
 }
+
+
+/* ERROR TEXT */
 
 .student-profile-error p {
 
-  margin: 9px 0 20px;
+  max-width: 500px;
 
-  color: #7d8d86;
+  margin: 10px 0 22px;
 
-  font-size: 12px;
+  color: #71877e;
 
+  font-size: 14px;
+
+  line-height: 1.6;
 }
+
+
+/* BACK BUTTON */
 
 .profile-back-btn {
 
   border:
-    1px solid #d7e5df;
+    1px solid #cfe1d8;
 
-  background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #f1faf5,
+      #fff2f4
+    );
 
-  color: #40564d;
+  color: #405e51;
 
-  padding: 10px 16px;
+  padding: 12px 20px;
 
-  border-radius: 10px;
+  border-radius: 11px;
 
   cursor: pointer;
 
-  font-size: 11px;
+  font-size: 14px;
 
   font-weight: 700;
 
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.profile-back-btn:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 18px rgba(47, 72, 61, 0.08);
 }
 
 
 /* =========================================================
    ANIMATIONS
-   ========================================================= */
+========================================================= */
 
 @keyframes profileCardReveal {
 
@@ -530,7 +723,6 @@
 
     transform:
       translateY(10px);
-
   }
 
   to {
@@ -539,10 +731,9 @@
 
     transform:
       translateY(0);
-
   }
-
 }
+
 
 @keyframes profileSpin {
 
@@ -550,15 +741,13 @@
 
     transform:
       rotate(360deg);
-
   }
-
 }
 
 
 /* =========================================================
    TABLET
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 850px) {
 
@@ -566,48 +755,107 @@
 
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
-
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 650px) {
-
-  .student-profile-card {
-
-    border-radius: 16px;
-
   }
 
   .profile-section {
 
     padding:
-      23px 20px;
+      28px 26px;
+  }
 
+  .profile-divider {
+
+    margin:
+      0 26px;
+  }
+
+  .profile-detail {
+
+    min-height: 100px;
+  }
+
+  .detail-value {
+
+    font-size: 16px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .student-profile-card {
+
+    border-radius: 17px;
+  }
+
+  .profile-section {
+
+    padding:
+      24px 20px;
   }
 
   .profile-divider {
 
     margin:
       0 20px;
+  }
 
+  .profile-section-heading {
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+  }
+
+  .profile-section-icon {
+
+    width: 44px;
+    height: 44px;
+
+    font-size: 19px;
+  }
+
+  .profile-section-heading h2 {
+
+    font-size: 19px;
+  }
+
+  .profile-section-heading p {
+
+    font-size: 12px;
   }
 
   .profile-details-grid {
 
     grid-template-columns: 1fr;
 
+    gap: 13px;
+  }
+
+  .profile-detail {
+
+    min-height: 95px;
+
+    padding: 18px;
+  }
+
+  .detail-label {
+
+    font-size: 11px;
+  }
+
+  .detail-value {
+
+    font-size: 16px;
   }
 
   .student-profile-actions {
 
     justify-content: stretch;
-
   }
 
   .profile-primary-action,
@@ -617,36 +865,43 @@
 
     min-width: 145px;
 
+    font-size: 13px;
   }
-
 }
 
 
 /* =========================================================
    SMALL MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 430px) {
 
   .student-profile-actions {
 
     flex-direction: column;
-
   }
 
   .profile-primary-action,
   .profile-secondary-action {
 
     width: 100%;
-
   }
 
+  .profile-section-heading h2 {
+
+    font-size: 18px;
+  }
+
+  .detail-value {
+
+    font-size: 15px;
+  }
 }
 
 
 /* =========================================================
    REDUCED MOTION
-   ========================================================= */
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -654,15 +909,13 @@
   .profile-loader {
 
     animation: none !important;
-
   }
 
   .profile-detail,
   .profile-primary-action,
-  .profile-secondary-action {
+  .profile-secondary-action,
+  .profile-back-btn {
 
     transition: none !important;
-
   }
-
 }

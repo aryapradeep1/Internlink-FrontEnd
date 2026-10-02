@@ -6,10 +6,8 @@
 .college-dashboard {
   min-height: 100vh;
   display: flex;
-
   background: #f5f8f6;
   color: #12352f;
-
   font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 
@@ -21,18 +19,13 @@
   width: 250px;
   min-width: 250px;
   height: 100vh;
-
   position: sticky;
   top: 0;
-
   display: flex;
   flex-direction: column;
-
   background: #16483d;
   border-right: 1px solid #16483d;
-
   padding: 24px 16px;
-
   box-sizing: border-box;
 }
 
@@ -44,32 +37,25 @@
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 4px 8px 18px;
 }
 
 .college-brand-logo {
   width: 42px;
   height: 42px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 12px;
-
   background: #0f3b32;
   color: #ffffff;
-
   font-size: 18px;
   font-weight: 800;
 }
 
 .college-brand h2 {
   margin: 0;
-
   color: #ffffff;
-
   font-size: 20px;
   font-weight: 800;
 }
@@ -80,9 +66,7 @@
 
 .college-brand p {
   margin: 3px 0 0;
-
   color: #a9c9be;
-
   font-size: 11px;
   font-weight: 600;
 }
@@ -93,9 +77,7 @@
 
 .college-sidebar-divider {
   height: 1px;
-
   background: rgba(255, 255, 255, 0.13);
-
   margin: 0 8px 18px;
 }
 
@@ -111,25 +93,18 @@
 
 .college-nav-item {
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 12px 13px;
-
   border: none;
   border-radius: 10px;
-
   background: transparent;
   color: #b8d5cb;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
   text-align: left;
-
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -137,7 +112,7 @@
 }
 
 .college-nav-item:hover {
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
 }
 
@@ -148,9 +123,7 @@
 .college-nav-item.active {
   background: #ffffff;
   color: #12352f;
-
   font-weight: 700;
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -165,13 +138,10 @@
 .college-nav-icon {
   width: 22px;
   min-width: 22px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: #b9d8cd;
-
   font-size: 16px;
 }
 
@@ -185,7 +155,6 @@
 
 .college-sidebar-bottom {
   margin-top: auto;
-
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -197,24 +166,17 @@
 
 .college-logout-button {
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 12px 13px;
-
   border: 1px solid rgba(239, 128, 110, 0.25);
   border-radius: 10px;
-
   background: rgba(239, 128, 110, 0.08);
   color: #f3a294;
-
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: 0.2s ease;
 }
 
@@ -230,12 +192,9 @@
 .college-main {
   min-width: 0;
   flex: 1;
-
   display: flex;
   flex-direction: column;
-
   height: 100vh;
-
   background: #f5f8f6;
 }
 
@@ -245,37 +204,27 @@
 
 .college-header {
   min-height: 78px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 16px 34px;
-
   background: #ffffff;
   border-bottom: 1px solid #e3ebe7;
-
   box-sizing: border-box;
 }
 
 .college-header-label {
   display: block;
-
   margin-bottom: 3px;
-
   color: #087f68;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.4px;
 }
 
 .college-header h1 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 21px;
   font-weight: 750;
 }
@@ -289,41 +238,30 @@
 .college-avatar {
   width: 40px;
   height: 40px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-
   background: #e1f3eb;
   color: #087f68;
-
   font-size: 16px;
   font-weight: 800;
 }
 
 .college-header-profile strong {
   display: block;
-
   max-width: 220px;
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
   color: #12352f;
-
   font-size: 13px;
 }
 
 .college-header-profile span {
   display: block;
-
   margin-top: 2px;
-
   color: #80918a;
-
   font-size: 11px;
 }
 
@@ -334,15 +272,12 @@
 .college-message {
   margin: 18px 32px 0;
   padding: 12px 15px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-
   border: 1px solid #c9e7da;
   border-radius: 10px;
-
   background: #e8f6f0;
   color: #087f68;
 }
@@ -364,9 +299,7 @@
 .college-message-close {
   border: none;
   background: transparent;
-
   color: #087f68;
-
   font-size: 21px;
   cursor: pointer;
 }
@@ -378,17 +311,14 @@
 .college-content {
   flex: 1;
   min-height: 0;
-
   overflow-y: auto;
   overflow-x: hidden;
-
   background: #f5f8f6;
 }
 
 .college-content-inner {
   max-width: 1400px;
   margin: 0 auto;
-
   padding: 30px 34px 45px;
 }
 
@@ -398,7 +328,6 @@
 
 .college-page-heading {
   margin-bottom: 26px;
-
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -406,33 +335,24 @@
 
 .college-eyebrow {
   display: inline-block;
-
   margin-bottom: 7px;
-
   color: #087f68;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.5px;
 }
 
 .college-page-heading h1 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 28px;
   font-weight: 750;
-
   letter-spacing: -0.5px;
 }
 
 .college-page-heading p {
   margin: 7px 0 0;
-
   color: #7b8b84;
-
   font-size: 13px;
 }
 
@@ -443,74 +363,54 @@
 .college-stat-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-
   gap: 17px;
-
   margin-bottom: 22px;
 }
 
 .college-stat-card {
   min-height: 120px;
-
   display: flex;
   align-items: center;
   gap: 15px;
-
   padding: 20px;
-
   border: 1px solid #dfe9e4;
   border-radius: 15px;
-
   background: #ffffff;
-
   box-shadow: 0 5px 18px rgba(22, 72, 61, 0.055);
 }
 
 .college-stat-icon {
   width: 46px;
   height: 46px;
-
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 13px;
-
   background: #e1f3eb;
   color: #087f68;
-
   font-size: 19px;
 }
 
 .college-stat-label {
   display: block;
-
   color: #7c8c85;
-
   font-size: 11px;
   font-weight: 650;
 }
 
 .college-stat-card strong {
   display: block;
-
   margin-top: 4px;
-
   color: #12352f;
-
   font-size: 28px;
   line-height: 1;
 }
 
 .college-stat-card small {
   display: block;
-
   margin-top: 6px;
-
   color: #e98270;
-
   font-size: 10px;
   font-weight: 650;
 }
@@ -521,14 +421,10 @@
 
 .college-section-card {
   margin-bottom: 22px;
-
   padding: 23px;
-
   border: 1px solid #dfe9e4;
   border-radius: 15px;
-
   background: #ffffff;
-
   box-shadow: 0 5px 18px rgba(22, 72, 61, 0.045);
 }
 
@@ -536,23 +432,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 18px;
 }
 
 .college-section-header h2 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 18px;
 }
 
 .college-section-header p {
   margin: 5px 0 0;
-
   color: #84928c;
-
   font-size: 12px;
 }
 
@@ -563,41 +454,31 @@
 .college-details-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-
   gap: 14px;
 }
 
 .college-detail-item {
   padding: 15px;
-
   border: 1px solid #e6eee9;
   border-radius: 11px;
-
   background: #f8faf9;
 }
 
 .college-detail-item span:first-child {
   display: block;
-
   margin-bottom: 6px;
-
   color: #8a9992;
-
   font-size: 10px;
   font-weight: 700;
-
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .college-detail-item strong {
   display: block;
-
   color: #12352f;
-
   font-size: 13px;
   font-weight: 650;
-
   word-break: break-word;
 }
 
@@ -607,34 +488,25 @@
 
 .college-table-wrapper {
   width: 100%;
-
   overflow-x: auto;
 }
 
 .college-table {
   width: 100%;
-
   border-collapse: separate;
   border-spacing: 0;
-
   font-size: 13px;
 }
 
 .college-table th {
   padding: 13px 14px;
-
   background: #eef6f2;
-
   color: #527067;
-
   border-top: 1px solid #e0eae5;
   border-bottom: 1px solid #e0eae5;
-
   text-align: left;
-
   font-size: 11px;
   font-weight: 750;
-
   white-space: nowrap;
 }
 
@@ -650,11 +522,8 @@
 
 .college-table td {
   padding: 14px;
-
   border-bottom: 1px solid #e8efeb;
-
   color: #65766e;
-
   vertical-align: middle;
 }
 
@@ -664,7 +533,6 @@
 
 .college-table td strong {
   color: #12352f;
-
   font-weight: 650;
 }
 
@@ -675,18 +543,13 @@
 .college-count-badge {
   min-width: 28px;
   height: 28px;
-
   padding: 0 8px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 20px;
-
   background: #e1f3eb;
   color: #087f68;
-
   font-size: 12px;
   font-weight: 750;
 }
@@ -695,17 +558,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 30px;
   height: 27px;
-
   padding: 0 9px;
-
   border-radius: 20px;
-
   background: #e8f5ef;
   color: #087f68;
-
   font-size: 12px;
   font-weight: 750;
 }
@@ -718,27 +576,21 @@
   display: flex;
   align-items: center;
   gap: 7px;
-
   flex-wrap: wrap;
 }
 
 .college-approve-button,
 .college-reject-button {
   padding: 8px 12px;
-
   border-radius: 8px;
-
   font-size: 11px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: 0.2s ease;
 }
 
 .college-approve-button {
   border: 1px solid #087f68;
-
   background: #087f68;
   color: #ffffff;
 }
@@ -749,7 +601,6 @@
 
 .college-reject-button {
   border: 1px solid #f0c7c0;
-
   background: #fff7f5;
   color: #d66f60;
 }
@@ -765,11 +616,8 @@
 .college-status-badge {
   display: inline-flex;
   align-items: center;
-
   padding: 6px 10px;
-
   border-radius: 20px;
-
   font-size: 10px;
   font-weight: 750;
 }
@@ -795,6 +643,46 @@
 }
 
 /* ==========================================
+   APPLICATION SECTION
+========================================== */
+
+.college-application-section {
+  margin-bottom: 26px;
+  padding: 22px;
+  border: 1px solid #dfe9e4;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(22, 72, 61, 0.045);
+}
+
+.college-application-section.approved-internships-section {
+  background: #fbfdfc;
+  border-color: #cfe8da;
+}
+
+.college-application-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e6eee9;
+}
+
+.college-application-section-header h2 {
+  margin: 0;
+  color: #12352f;
+  font-size: 19px;
+}
+
+.college-application-section-header p {
+  margin: 5px 0 0;
+  color: #84928c;
+  font-size: 12px;
+}
+
+/* ==========================================
    APPLICATION CARDS
 ========================================== */
 
@@ -805,12 +693,9 @@
 
 .college-application-card {
   padding: 21px;
-
   border: 1px solid #dfe9e4;
   border-radius: 15px;
-
   background: #ffffff;
-
   box-shadow: 0 5px 18px rgba(22, 72, 61, 0.045);
 }
 
@@ -818,68 +703,50 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
   gap: 20px;
-
   padding-bottom: 17px;
-
   border-bottom: 1px solid #e7efeb;
 }
 
 .college-application-label {
   display: block;
-
   margin-bottom: 5px;
-
   color: #087f68;
-
   font-size: 9px;
   font-weight: 800;
-
   letter-spacing: 1px;
 }
 
 .college-application-top h2 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 17px;
 }
 
 .college-application-top p {
   margin: 5px 0 0;
-
   color: #7b8b84;
-
   font-size: 12px;
 }
 
 .college-application-details {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-
   gap: 12px;
-
   padding: 17px 0;
 }
 
 .college-application-details div {
   padding: 11px 12px;
-
   border-radius: 9px;
-
   background: #f7faf8;
 }
 
 .college-application-details span,
 .college-faculty-assignment span {
   display: block;
-
   margin-bottom: 5px;
-
   color: #8b9993;
-
   font-size: 10px;
   font-weight: 650;
 }
@@ -887,35 +754,19 @@
 .college-application-details strong,
 .college-faculty-assignment strong {
   color: #12352f;
-
   font-size: 12px;
   font-weight: 650;
-}
-
-.college-faculty-assignment {
-  display: inline-flex;
-  flex-direction: column;
-
-  margin-bottom: 15px;
-  padding: 10px 13px;
-
-  border-radius: 9px;
-
-  background: #eaf6f1;
 }
 
 .college-application-actions {
   display: flex;
   gap: 8px;
-
   padding-top: 15px;
-
   border-top: 1px solid #e7efeb;
 }
 
 .college-application-note {
   margin: 13px 0 0;
-
   font-size: 11px;
   font-weight: 650;
 }
@@ -933,67 +784,492 @@
 }
 
 /* ==========================================
+   COMPANY CONFIRMATION LETTER
+========================================== */
+
+.college-confirmation-letter {
+  margin-top: 18px;
+  padding: 16px;
+  background: #f4fbf7;
+  border: 1px solid #cfe8da;
+  border-radius: 14px;
+}
+
+.college-confirmation-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.college-confirmation-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #d8f3e5;
+  font-size: 18px;
+}
+
+.college-confirmation-header h3 {
+  margin: 0 0 2px;
+  color: #294139;
+  font-size: 16px;
+}
+
+.college-confirmation-header p {
+  margin: 0;
+  color: #668078;
+  font-size: 12px;
+}
+
+/* ==========================================
+   LETTER PAPER
+========================================== */
+
+.college-confirmation-paper {
+  background: #ffffff;
+  border: 1px solid #e1ebe5;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 3px 10px rgba(40, 118, 83, 0.05);
+}
+
+.college-letter-subject {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e8eee9;
+  color: #287653;
+  font-size: 14px;
+}
+
+.college-letter-message {
+  color: #294139;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.college-letter-message p {
+  margin: 0 0 5px;
+}
+
+.college-letter-date {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e8eee9;
+  color: #7b8d85;
+  font-size: 11px;
+}
+
+/* ==========================================
+   FORWARDED STATUS
+========================================== */
+
+.college-forwarded-letter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #eaf8f0;
+  border: 1px solid #c9e8d6;
+  border-radius: 10px;
+}
+
+.college-forwarded-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d8f3e5;
+  color: #287653;
+  font-weight: 800;
+}
+
+.college-forwarded-letter strong {
+  display: block;
+  color: #287653;
+  font-size: 13px;
+}
+
+.college-forwarded-letter span {
+  display: block;
+  margin-top: 3px;
+  color: #527066;
+  font-size: 12px;
+}
+
+.college-forwarded-letter small {
+  display: block;
+  margin-top: 4px;
+  color: #7b8d85;
+  font-size: 11px;
+}
+
+/* ==========================================
+   WAITING FORWARD
+========================================== */
+
+.college-waiting-forward {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #fff8f5;
+  border: 1px solid #f2d8cf;
+  border-radius: 10px;
+}
+
+.college-waiting-forward > span {
+  font-size: 20px;
+}
+
+.college-waiting-forward strong {
+  display: block;
+  color: #6b5149;
+  font-size: 13px;
+}
+
+.college-waiting-forward p {
+  margin: 4px 0 0;
+  color: #806c65;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ==========================================
+   APPROVED INTERNSHIP CARDS
+========================================== */
+
+.college-approved-list {
+  display: grid;
+  gap: 15px;
+}
+
+.college-approved-card {
+  padding: 20px;
+  border: 1px solid #d3e9dd;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(22, 72, 61, 0.04);
+}
+
+.college-approved-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid #e5eee9;
+}
+
+.college-approved-student {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.college-approved-avatar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #dff3e8;
+  color: #087f68;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.college-approved-student span {
+  display: block;
+  margin-bottom: 3px;
+  color: #087f68;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.college-approved-student h3 {
+  margin: 0;
+  color: #12352f;
+  font-size: 17px;
+}
+
+.college-approved-student p {
+  margin: 4px 0 0;
+  color: #7b8b84;
+  font-size: 11px;
+}
+
+.college-approved-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: #e1f3eb;
+  color: #087f68;
+  font-size: 11px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.college-approved-status span {
+  font-weight: 900;
+}
+
+/* ==========================================
+   APPROVED DETAILS
+========================================== */
+
+.college-approved-details {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 11px;
+  padding: 17px 0;
+}
+
+.college-approved-detail {
+  padding: 11px 12px;
+  border-radius: 9px;
+  background: #f7faf8;
+}
+
+.college-approved-detail span {
+  display: block;
+  margin-bottom: 5px;
+  color: #8b9993;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.college-approved-detail strong {
+  display: block;
+  color: #12352f;
+  font-size: 12px;
+  font-weight: 650;
+  word-break: break-word;
+}
+
+/* ==========================================
+   APPROVED FOOTER
+========================================== */
+
+.college-approved-footer {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding-top: 15px;
+  border-top: 1px solid #e7efeb;
+}
+
+.college-approved-faculty,
+.college-approved-internship {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #eef8f3;
+}
+
+.college-approved-faculty span,
+.college-approved-internship span {
+  display: block;
+  margin-bottom: 5px;
+  color: #7c9087;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.7px;
+}
+
+.college-approved-faculty strong,
+.college-approved-internship strong {
+  display: block;
+  color: #287653;
+  font-size: 13px;
+}
+
+.college-approved-faculty small {
+  display: block;
+  margin-top: 3px;
+  color: #72877e;
+  font-size: 10px;
+}
+
+/* ==========================================
+   APPROVED NOTE
+========================================== */
+
+.college-approved-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 11px 13px;
+  border: 1px solid #cfe8da;
+  border-radius: 10px;
+  background: #f1faf5;
+}
+
+.college-approved-note > span {
+  width: 27px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #d8f3e5;
+  color: #087f68;
+  font-weight: 800;
+}
+
+.college-approved-note strong {
+  display: block;
+  color: #287653;
+  font-size: 12px;
+}
+
+.college-approved-note p {
+  margin: 2px 0 0;
+  color: #70847a;
+  font-size: 11px;
+}
+
+/* ==========================================
+   APPROVED EMPTY STATE
+========================================== */
+
+.college-approved-empty {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.college-approved-empty-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 11px;
+  border-radius: 14px;
+  background: #e1f3eb;
+  color: #087f68;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.college-approved-empty h3 {
+  margin: 0;
+  color: #12352f;
+  font-size: 15px;
+}
+
+.college-approved-empty p {
+  max-width: 440px;
+  margin: 6px 0 0;
+  color: #89968f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   OTHER APPLICATIONS
+========================================== */
+
+.college-other-applications {
+  background: #ffffff;
+}
+
+.college-other-status-list {
+  display: grid;
+  gap: 8px;
+}
+
+.college-other-status-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 15px;
+  border: 1px solid #e3ebe7;
+  border-radius: 10px;
+  background: #f9fbfa;
+}
+
+.college-other-status-card strong {
+  display: block;
+  color: #12352f;
+  font-size: 12px;
+}
+
+.college-other-status-card span:not(.college-status-badge) {
+  display: block;
+  margin-top: 3px;
+  color: #7d8c85;
+  font-size: 11px;
+}
+
+/* ==========================================
    EMPTY STATES
 ========================================== */
 
 .college-empty-state {
   min-height: 230px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   text-align: center;
 }
 
 .college-empty-state > div {
   width: 52px;
   height: 52px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-bottom: 12px;
-
   border-radius: 14px;
-
   background: #e1f3eb;
-
   color: #087f68;
-
   font-size: 22px;
 }
 
 .college-empty-state h3 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 16px;
 }
 
 .college-empty-state p {
   max-width: 420px;
-
   margin: 7px 0 0;
-
   color: #89968f;
-
   font-size: 12px;
   line-height: 1.6;
 }
 
 .college-small-empty {
   padding: 18px;
-
   border-radius: 10px;
-
   background: #f7faf8;
-
   color: #89968f;
-
   font-size: 12px;
   text-align: center;
 }
@@ -1004,56 +1280,41 @@
 
 .college-loading {
   min-height: 100vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #f5f8f6;
 }
 
 .college-loading-card {
   width: min(90%, 390px);
-
   padding: 35px;
-
   border: 1px solid #dfe9e4;
   border-radius: 18px;
-
   background: #ffffff;
-
   text-align: center;
-
   box-shadow: 0 8px 25px rgba(22, 72, 61, 0.06);
 }
 
 .college-loading-spinner {
   width: 34px;
   height: 34px;
-
   margin: 0 auto 17px;
-
   border: 3px solid #e1f3eb;
   border-top-color: #087f68;
-
   border-radius: 50%;
-
   animation: college-spin 0.8s linear infinite;
 }
 
 .college-loading-card h2 {
   margin: 0;
-
   color: #12352f;
-
   font-size: 17px;
 }
 
 .college-loading-card p {
   margin: 7px 0 0;
-
   color: #89968f;
-
   font-size: 12px;
 }
 
@@ -1076,7 +1337,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .college-application-details {
+  .college-application-details,
+  .college-approved-details {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1098,6 +1360,11 @@
   .college-header-profile {
     display: none;
   }
+
+  .college-approved-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 650px) {
@@ -1109,9 +1376,7 @@
     width: 100%;
     min-width: 100%;
     height: auto;
-
     position: relative;
-
     padding: 12px;
   }
 
@@ -1140,11 +1405,9 @@
     grid-template-columns: 1fr;
   }
 
-  .college-details-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .college-application-details {
+  .college-details-grid,
+  .college-application-details,
+  .college-approved-details {
     grid-template-columns: 1fr;
   }
 
@@ -1158,5 +1421,18 @@
 
   .college-page-heading h1 {
     font-size: 23px;
+  }
+
+  .college-application-section-header {
+    align-items: flex-start;
+  }
+
+  .college-approved-footer {
+    flex-direction: column;
+  }
+
+  .college-other-status-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

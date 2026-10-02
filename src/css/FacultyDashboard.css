@@ -150,10 +150,8 @@ body {
   font-weight: 600;
 }
 
-/* =========================================================
-   HEADER RIGHT
-   ========================================================= */
 
+/*/////////////////*/
 .faculty-header-right {
   display: flex;
   align-items: center;
@@ -241,10 +239,9 @@ body {
   flex: 1 1 0;
   min-height: 0;
   height: auto;
-
   display: flex;
-
   overflow: hidden;
+
 
   background: #f6f9f7;
 }
@@ -445,7 +442,6 @@ body {
   min-width: 0;
   min-height: 0;
   height: auto;
-
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -463,7 +459,6 @@ body {
 
   box-sizing: border-box;
 }
-
 /* =========================================================
    CONTENT SCROLLBAR
    ========================================================= */
@@ -1944,6 +1939,7 @@ body {
 
 }
 
+
 /* =========================================================
    FACULTY PROFILE - FULL PROFILE FITS IN VIEW
    ========================================================= */
@@ -2159,6 +2155,7 @@ body {
   box-shadow: 0 6px 15px rgba(40, 118, 83, 0.16);
 }
 
+
 /* =========================================================
    MEDIUM SCREENS
    ========================================================= */
@@ -2197,6 +2194,7 @@ body {
   }
 }
 
+
 /* =========================================================
    MOBILE
    ========================================================= */
@@ -2222,4 +2220,474 @@ body {
   .profile-edit-btn {
     width: 100%;
   }
+}
+/* =========================================================
+   FACULTY STUDENTS - SCROLL FIX
+========================================================= */
+
+.faculty-students-page {
+  width: 100%;
+  display: block;
+  padding-bottom: 40px;
+}
+
+.assigned-students-section {
+  width: 100%;
+  display: block;
+}
+
+.faculty-card-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 40px;
+}
+/* =========================================================
+   FINAL FIX - FACULTY CONTENT + STUDENT/LOGBOOK SCROLLING
+   ========================================================= */
+
+.faculty-layout {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.faculty-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.faculty-sidebar {
+  flex: 0 0 264px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.faculty-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 34px 38px 50px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* Keep the Assigned Students list inside its own scroll area. */
+.assigned-students-section {
+  width: 100%;
+}
+
+.assigned-students-section .faculty-card-list {
+  width: 100%;
+  max-height: 520px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 4px 10px 18px 2px;
+  box-sizing: border-box;
+}
+
+/* Keep every internship card visible inside the scroll container. */
+.assigned-students-section .faculty-student-card {
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Logbook list gets its own scroll area too, so all entries are accessible. */
+.faculty-content > section > .faculty-card-list {
+  width: 100%;
+  max-height: 650px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 4px 10px 22px 2px;
+  box-sizing: border-box;
+}
+
+.faculty-content > section > .faculty-card-list .faculty-logbook-card {
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Scrollbar styling */
+.assigned-students-section .faculty-card-list::-webkit-scrollbar,
+.faculty-content > section > .faculty-card-list::-webkit-scrollbar,
+.faculty-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.assigned-students-section .faculty-card-list::-webkit-scrollbar-track,
+.faculty-content > section > .faculty-card-list::-webkit-scrollbar-track,
+.faculty-content::-webkit-scrollbar-track {
+  background: #eef5f1;
+  border-radius: 10px;
+}
+
+.assigned-students-section .faculty-card-list::-webkit-scrollbar-thumb,
+.faculty-content > section > .faculty-card-list::-webkit-scrollbar-thumb,
+.faculty-content::-webkit-scrollbar-thumb {
+  background: #b8d4c7;
+  border-radius: 10px;
+}
+
+.assigned-students-section .faculty-card-list::-webkit-scrollbar-thumb:hover,
+.faculty-content > section > .faculty-card-list::-webkit-scrollbar-thumb:hover,
+.faculty-content::-webkit-scrollbar-thumb:hover {
+  background: #8fbba7;
+}
+
+/* Firefox */
+.assigned-students-section .faculty-card-list,
+.faculty-content > section > .faculty-card-list,
+.faculty-content {
+  scrollbar-width: thin;
+  scrollbar-color: #b8d4c7 #eef5f1;
+}
+
+/* Logbook card should never collapse its contents. */
+.faculty-logbook-card {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+.logbook-header,
+.logbook-info,
+.approval-status {
+  min-width: 0;
+}
+
+.logbook-section p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Student cards should also keep all content inside the card. */
+.faculty-student-card {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+.student-details-grid,
+.student-summary-grid,
+.evaluation-box {
+  min-width: 0;
+}
+
+/* Student profile modal can scroll when its content is taller than the screen. */
+.student-details-overlay {
+  overflow-y: auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.student-details-modal {
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.student-details-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.student-details-modal-grid > div {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #e5eee9;
+  border-radius: 12px;
+  background: #f8fbf9;
+}
+
+.student-details-modal-grid span {
+  display: block;
+  margin-bottom: 6px;
+  color: #82938c;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.student-details-modal-grid strong {
+  display: block;
+  color: #294139;
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .faculty-content {
+    padding: 28px 24px 40px;
+  }
+
+  .assigned-students-section .faculty-card-list {
+    max-height: 500px;
+  }
+
+  .faculty-content > section > .faculty-card-list {
+    max-height: 600px;
+  }
+}
+
+@media (max-width: 700px) {
+  .faculty-main {
+    min-height: 0;
+  }
+
+  .faculty-content {
+    padding: 22px 16px 35px;
+  }
+
+  .assigned-students-section .faculty-card-list,
+  .faculty-content > section > .faculty-card-list {
+    max-height: 480px;
+    padding-right: 6px;
+  }
+
+  .student-details-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-details-overlay {
+    padding: 14px;
+  }
+
+  .student-details-modal {
+    max-height: calc(100vh - 28px);
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD - FINAL SCROLL / ATTENDANCE FIXES
+   ========================================================= */
+.faculty-main {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+}
+
+.faculty-content {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-bottom: 40px !important;
+  scrollbar-width: thin;
+}
+
+.faculty-card-list,
+.faculty-attendance-list,
+.faculty-attendance-records {
+  width: 100%;
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 10px 24px 2px;
+  box-sizing: border-box;
+}
+
+.faculty-card-list::-webkit-scrollbar,
+.faculty-attendance-list::-webkit-scrollbar,
+.faculty-attendance-records::-webkit-scrollbar,
+.faculty-content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.faculty-card-list::-webkit-scrollbar-track,
+.faculty-attendance-list::-webkit-scrollbar-track,
+.faculty-attendance-records::-webkit-scrollbar-track,
+.faculty-content::-webkit-scrollbar-track {
+  background: #eef5f1;
+  border-radius: 10px;
+}
+
+.faculty-card-list::-webkit-scrollbar-thumb,
+.faculty-attendance-list::-webkit-scrollbar-thumb,
+.faculty-attendance-records::-webkit-scrollbar-thumb,
+.faculty-content::-webkit-scrollbar-thumb {
+  background: #b8d4c7;
+  border-radius: 10px;
+}
+
+.faculty-attendance-list,
+.faculty-attendance-records {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.attendance-card-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.attendance-card-action button {
+  min-width: 180px;
+}
+
+.attendance-back-button {
+  border: 0;
+  background: transparent;
+  color: #287653;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+
+.attendance-back-button:hover {
+  text-decoration: underline;
+}
+
+.attendance-profile-card {
+  margin-bottom: 20px;
+}
+
+.attendance-record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.attendance-record-header h3 {
+  margin: 0 0 5px;
+  color: #294139;
+  font-size: 17px;
+}
+
+.attendance-record-header span:not(.attendance-verification-status) {
+  color: #788a82;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.attendance-verification-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #fff4d9;
+  color: #9b7118;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.attendance-verification-status.approved {
+  background: #e5f5ec;
+  color: #287653;
+}
+
+.attendance-verification-status.rejected {
+  background: #fff0ed;
+  color: #c96555;
+}
+
+.attendance-verification-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.attendance-reviewed-message {
+  margin-top: 18px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #f7faf8;
+  color: #287653;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .faculty-card-list,
+  .faculty-attendance-list,
+  .faculty-attendance-records {
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .attendance-verification-actions {
+    flex-direction: column;
+  }
+
+  .attendance-verification-actions button,
+  .attendance-card-action button {
+    width: 100%;
+  }
+}
+/* =========================================================
+   FACULTY LOGBOOK SCROLL
+========================================================= */
+
+.faculty-logbook-list {
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 5px 10px 20px 2px;
+  box-sizing: border-box;
+}
+
+.faculty-logbook-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.faculty-logbook-list::-webkit-scrollbar-track {
+  background: #eef5f1;
+  border-radius: 10px;
+}
+
+.faculty-logbook-list::-webkit-scrollbar-thumb {
+  background: #b8d4c7;
+  border-radius: 10px;
+}
+
+.faculty-logbook-list::-webkit-scrollbar-thumb:hover {
+  background: #8fbba7;
+}
+
+.faculty-logbook-card {
+  width: 100%;
+  flex: 0 0 auto;
+  background: #ffffff;
+  border: 1px solid #d8e9e0;
+  border-radius: 16px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 14px rgba(40, 118, 83, 0.08);
 }

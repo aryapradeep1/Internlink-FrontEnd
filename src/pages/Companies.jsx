@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import "../css/Companies.css";
 
@@ -5,6 +6,7 @@ function Companies({ onBack, onViewDetails }) {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [expandedInternship, setExpandedInternship] = useState(null);
 
   useEffect(() => {
     const fetchInternships = async () => {
@@ -15,15 +17,21 @@ function Companies({ onBack, onViewDetails }) {
 
         const data = await response.json();
 
+        console.log("AVAILABLE INTERNSHIPS:", data);
+
         if (!response.ok) {
           throw new Error(
             data.message || "Failed to fetch internships"
           );
         }
 
-        console.log("AVAILABLE INTERNSHIPS:", data);
-
-        setInternships(data.internships || []);
+        if (Array.isArray(data)) {
+          setInternships(data);
+        } else if (Array.isArray(data.internships)) {
+          setInternships(data.internships);
+        } else {
+          setInternships([]);
+        }
       } catch (error) {
         console.error("Fetch Internships Error:", error);
         setError("Unable to load internships");
@@ -35,25 +43,51 @@ function Companies({ onBack, onViewDetails }) {
     fetchInternships();
   }, []);
 
+  const handleExpand = (internshipId) => {
+    setExpandedInternship((current) =>
+      current === internshipId ? null : internshipId
+    );
+  };
+
+  const handleApply = (internship) => {
+    if (onViewDetails) {
+      onViewDetails(
+        internship.company,
+        internship
+      );
+    }
+  };
+
   return (
     <div className="companies-page">
-
-      {/* =====================================================
-          FIXED BACK TO DASHBOARD BUTTON
-          ===================================================== */}
-    
-
-
       <div className="companies-container">
 
+        {/* PAGE INTRO */}
+        <div className="companies-header">
+          <div className="companies-header-icon">
+            ◇
+          </div>
+
+          <div>
+            <span className="companies-eyebrow">
+              INTERNSHIP OPPORTUNITIES
+            </span>
+
+            <h2>
+              Explore Internships
+            </h2>
+
+            <p>
+              Choose an opportunity that matches
+              your interests and career goals.
+            </p>
+          </div>
+        </div>
 
 
-        {/* =====================================================
-            LOADING
-            ===================================================== */}
+        {/* LOADING */}
         {loading && (
           <div className="internships-loading">
-
             <div className="internship-spinner"></div>
 
             <h2>
@@ -64,17 +98,13 @@ function Companies({ onBack, onViewDetails }) {
               Please wait while we load the latest
               internships.
             </p>
-
           </div>
         )}
 
 
-        {/* =====================================================
-            ERROR
-            ===================================================== */}
+        {/* ERROR */}
         {error && (
           <div className="internships-error">
-
             <div className="error-icon">
               !
             </div>
@@ -88,19 +118,15 @@ function Companies({ onBack, onViewDetails }) {
                 {error}
               </p>
             </div>
-
           </div>
         )}
 
 
-        {/* =====================================================
-            EMPTY STATE
-            ===================================================== */}
+        {/* EMPTY STATE */}
         {!loading &&
           !error &&
           internships.length === 0 && (
             <div className="no-internships">
-
               <div className="no-internships-icon">
                 💼
               </div>
@@ -120,206 +146,233 @@ function Companies({ onBack, onViewDetails }) {
                 <span></span>
                 <span></span>
               </div>
-
             </div>
           )}
 
 
-        {/* =====================================================
-            INTERNSHIP CARDS
-            ===================================================== */}
+        {/* INTERNSHIP LIST */}
         {!loading &&
           !error &&
           internships.length > 0 && (
-            <div className="internships-grid">
+            <div className="internships-list">
 
-              {internships.map((internship) => (
-                <div
-                  className="internship-card"
-                  key={internship._id}
-                >
+              {internships.map((internship) => {
+                const isExpanded =
+                  expandedInternship === internship._id;
 
-                  <div className="internship-card-accent"></div>
-
-
-                  {/* COMPANY */}
-                  <div className="internship-company">
-
-                    <div className="company-logo">
-                      🏢
-                    </div>
-
-                    <div className="company-info">
-
-                      <span className="company-label">
-                        COMPANY
-                      </span>
-
-                      <h3>
-                        {internship.company?.companyName ||
-                          "Company"}
-                      </h3>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* INTERNSHIP TITLE */}
-                  <div className="internship-main">
-
-                    <h2>
-                      {internship.title}
-                    </h2>
-
-                    <p>
-                      Internship Opportunity
-                    </p>
-
-                  </div>
-
-
-                  {/* LOCATION + DURATION */}
-                  <div className="internship-details">
-
-                    <div className="internship-detail">
-
-                      <div className="detail-icon mint">
-                        📍
-                      </div>
-
-                      <div>
-
-                        <span>
-                          Location
-                        </span>
-
-                        <strong>
-                          {internship.location}
-                        </strong>
-
-                      </div>
-
-                    </div>
-
-
-                    <div className="internship-detail">
-
-                      <div className="detail-icon peach">
-                        ⏱️
-                      </div>
-
-                      <div>
-
-                        <span>
-                          Duration
-                        </span>
-
-                        <strong>
-                          {internship.duration}
-                        </strong>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* ELIGIBILITY */}
-                  <div className="eligibility-section">
-
-                    <div className="eligibility-heading">
-
-                      <span>
-                        🎓
-                      </span>
-
-                      <strong>
-                        Eligibility
-                      </strong>
-
-                    </div>
-
-                    <p>
-                      {internship.eligibility}
-                    </p>
-
-                  </div>
-
-
-                  {/* SKILLS */}
-                  <div className="skills-section">
-
-                    <div className="skills-heading">
-
-                      <span>
-                        ✨
-                      </span>
-
-                      <strong>
-                        Skills
-                      </strong>
-
-                    </div>
-
-                    <p>
-                      {internship.skillsRequired ||
-                        "Not specified"}
-                    </p>
-
-                  </div>
-
-
-                  {/* DEADLINE */}
-                  <div className="deadline-section">
-
-                    <div className="deadline-icon">
-                      📅
-                    </div>
-
-                    <div>
-
-                      <span>
-                        Application Deadline
-                      </span>
-
-                      <strong>
-                        {new Date(
-                          internship.deadline
-                        ).toLocaleDateString()}
-                      </strong>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* VIEW DETAILS */}
-                  <button
-                    className="view-details-btn"
-                    onClick={() => {
-                      if (onViewDetails) {
-                        onViewDetails(
-                          internship.company,
-                          internship
-                        );
-                      }
-                    }}
+                return (
+                  <div
+                    key={internship._id}
+                    className={`internship-item ${
+                      isExpanded ? "expanded" : ""
+                    }`}
                   >
 
-                    <span>
-                      View Details
-                    </span>
+                    {/* SUMMARY ROW */}
+                    <button
+                      type="button"
+                      className="internship-summary"
+                      onClick={() =>
+                        handleExpand(internship._id)
+                      }
+                    >
 
-                    <span className="view-details-arrow">
-                      →
-                    </span>
+                      <div className="internship-summary-left">
 
-                  </button>
+                        <div className="internship-summary-icon">
+                          ◇
+                        </div>
 
-                </div>
-              ))}
+                        <div className="internship-summary-text">
+
+                          <h2>
+                            {internship.title}
+                          </h2>
+
+                          <div className="internship-company-name">
+
+                            <span className="company-small-icon">
+                              🏢
+                            </span>
+
+                            <span>
+                              {internship.company?.companyName ||
+                                "Company"}
+                            </span>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+
+                      <div className="internship-expand-icon">
+                        {isExpanded ? "−" : "+"}
+                      </div>
+
+                    </button>
+
+
+                    {/* EXPANDED DETAILS */}
+                    {isExpanded && (
+                      <div className="internship-expanded">
+
+                        <div className="expanded-divider"></div>
+
+
+                        {/* LOCATION + DURATION */}
+                        <div className="expanded-detail-grid">
+
+                          <div className="expanded-detail-card mint">
+
+                            <div className="expanded-detail-icon">
+                              📍
+                            </div>
+
+                            <div>
+                              <span>
+                                Location
+                              </span>
+
+                              <strong>
+                                {internship.location ||
+                                  "Not specified"}
+                              </strong>
+                            </div>
+
+                          </div>
+
+
+                          <div className="expanded-detail-card peach">
+
+                            <div className="expanded-detail-icon">
+                              ⏱️
+                            </div>
+
+                            <div>
+                              <span>
+                                Duration
+                              </span>
+
+                              <strong>
+                                {internship.duration ||
+                                  "Not specified"}
+                              </strong>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+
+                        {/* ELIGIBILITY */}
+                        <div className="expanded-info-card eligibility">
+
+                          <div className="expanded-info-title">
+
+                            <span>
+                              🎓
+                            </span>
+
+                            <strong>
+                              Eligibility
+                            </strong>
+
+                          </div>
+
+                          <p>
+                            {internship.eligibility ||
+                              "No specific eligibility criteria provided."}
+                          </p>
+
+                        </div>
+
+
+                        {/* SKILLS */}
+                        <div className="expanded-info-card skills">
+
+                          <div className="expanded-info-title">
+
+                            <span>
+                              ✨
+                            </span>
+
+                            <strong>
+                              Skills Required
+                            </strong>
+
+                          </div>
+
+                          <p>
+                            {internship.skillsRequired &&
+                            internship.skillsRequired !== "None"
+                              ? internship.skillsRequired
+                              : "No specific skills required"}
+                          </p>
+
+                        </div>
+
+
+                        {/* DEADLINE */}
+                        <div className="expanded-deadline">
+
+                          <div className="deadline-left">
+
+                            <div className="deadline-icon">
+                              📅
+                            </div>
+
+                            <div>
+
+                              <span>
+                                Application Deadline
+                              </span>
+
+                              <strong>
+                                {internship.deadline
+                                  ? new Date(
+                                      internship.deadline
+                                    ).toLocaleDateString()
+                                  : "Not specified"}
+                              </strong>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+
+                        {/* APPLY */}
+                        <div className="expanded-actions">
+
+                          <button
+                            type="button"
+                            className="apply-internship-btn"
+                            onClick={() =>
+                              handleApply(internship)
+                            }
+                          >
+
+                            <span>
+                              Apply Internship
+                            </span>
+
+                            <span className="apply-arrow">
+                              →
+                            </span>
+
+                          </button>
+
+                        </div>
+
+                      </div>
+                    )}
+
+                  </div>
+                );
+              })}
 
             </div>
           )}

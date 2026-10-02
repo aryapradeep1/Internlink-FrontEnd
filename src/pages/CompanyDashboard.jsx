@@ -99,12 +99,18 @@ function CompanyDashboard({
       }
 
       console.log("COMPANY ID REQUESTED:", companyId);
-      console.log("GUIDES RECEIVED FROM BACKEND:", data.guides);
+      console.log(
+        "GUIDES RECEIVED FROM BACKEND:",
+        data.guides
+      );
 
       setGuides(data.guides || []);
       setGuideError("");
     } catch (error) {
-      console.error("Company Guide fetch error:", error);
+      console.error(
+        "Company Guide fetch error:",
+        error
+      );
 
       setGuideError(
         "Unable to load Company Guides"
@@ -409,6 +415,39 @@ function CompanyDashboard({
     );
 
   // =====================================================
+  // APPLICATION GROUPS
+  // =====================================================
+
+  const waitingCompanyApproval =
+    applications.filter(
+      (application) =>
+        application.status === "Pending"
+    );
+
+  const waitingCollegeApproval =
+    applications.filter(
+      (application) =>
+        application.status ===
+        "CompanyApproved"
+    );
+
+  const approvedInternships =
+    applications.filter(
+      (application) =>
+        application.status ===
+        "CollegeApproved"
+    );
+
+  const rejectedApplications =
+    applications.filter(
+      (application) =>
+        application.status ===
+          "CompanyRejected" ||
+        application.status ===
+          "CollegeRejected"
+    );
+
+  // =====================================================
   // APPLICATION COUNTS
   // =====================================================
 
@@ -416,19 +455,10 @@ function CompanyDashboard({
     applications.length;
 
   const pendingApplications =
-    applications.filter(
-      (application) =>
-        application.status === "Pending"
-    ).length;
+    waitingCompanyApproval.length;
 
   const approvedApplications =
-    applications.filter(
-      (application) =>
-        application.status ===
-          "CompanyApproved" ||
-        application.status ===
-          "CollegeApproved"
-    ).length;
+    approvedInternships.length;
 
   // =====================================================
   // STATUS CLASS
@@ -446,12 +476,593 @@ function CompanyDashboard({
         return "status-college-approved";
 
       case "CompanyRejected":
+      case "CollegeRejected":
         return "status-rejected";
 
       default:
         return "status-default";
     }
   };
+
+  // =====================================================
+  // APPLICATION CARD
+  // =====================================================
+
+  const renderApplicationCard = (
+    application
+  ) => (
+    <div
+      className="company-application-card"
+      key={application._id}
+    >
+      {/* APPLICATION HEADER */}
+
+      <div className="company-application-header">
+        <div className="company-student-main">
+          <div className="company-large-avatar">
+            {(
+              application.student?.name ||
+              "S"
+            )
+              .charAt(0)
+              .toUpperCase()}
+          </div>
+
+          <div>
+            <h2>
+              {
+                application.student
+                  ?.name
+              }
+            </h2>
+
+            <p>
+              Register No:{" "}
+              {
+                application.student
+                  ?.registerNumber
+              }
+            </p>
+          </div>
+        </div>
+
+        <span
+          className={`company-status-badge ${getStatusClass(
+            application.status
+          )}`}
+        >
+          {application.status}
+        </span>
+      </div>
+
+      {/* STUDENT INFORMATION */}
+
+      <div className="company-info-section">
+        <div className="company-info-section-title">
+          Student Information
+        </div>
+
+        <div className="company-info-grid">
+          <div>
+            <span>Email</span>
+            <strong>
+              {
+                application.student
+                  ?.email
+              }
+            </strong>
+          </div>
+
+          <div>
+            <span>Phone</span>
+            <strong>
+              {
+                application.student
+                  ?.phone
+              }
+            </strong>
+          </div>
+
+          <div>
+            <span>Department</span>
+            <strong>
+              {
+                application.student
+                  ?.department
+              }
+            </strong>
+          </div>
+
+          <div>
+            <span>Semester</span>
+            <strong>
+              {
+                application.student
+                  ?.semester
+              }
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      {/* INTERNSHIP INFORMATION */}
+
+      <div className="company-info-section">
+        <div className="company-info-section-title">
+          Internship Information
+        </div>
+
+        <div className="company-info-grid">
+          <div>
+            <span>Position</span>
+            <strong>
+              {application.position}
+            </strong>
+          </div>
+
+          <div>
+            <span>Internship</span>
+            <strong>
+              {
+                application.internship
+                  ?.title
+              }
+            </strong>
+          </div>
+
+          <div>
+            <span>Location</span>
+            <strong>
+              {
+                application.internship
+                  ?.location
+              }
+            </strong>
+          </div>
+
+          <div>
+            <span>Duration</span>
+            <strong>
+              {
+                application.internship
+                  ?.duration
+              }
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      {/* DOCUMENTS */}
+
+      <div className="company-info-section">
+        <div className="company-info-section-title">
+          Application Documents
+        </div>
+
+        <div className="company-document-grid">
+          {application.resume && (
+            <a
+              className="company-document-card"
+              href={`http://localhost:5000/${application.resume}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="company-document-icon">
+                PDF
+              </span>
+
+              <span>
+                <strong>
+                  CV / Resume
+                </strong>
+
+                <small>
+                  Open document
+                </small>
+              </span>
+
+              <b>↗</b>
+            </a>
+          )}
+
+          {application.markList && (
+            <a
+              className="company-document-card"
+              href={`http://localhost:5000/${application.markList}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="company-document-icon">
+                PDF
+              </span>
+
+              <span>
+                <strong>
+                  Mark List
+                </strong>
+
+                <small>
+                  Open document
+                </small>
+              </span>
+
+              <b>↗</b>
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* =================================================
+          WAITING FOR COMPANY APPROVAL
+      ================================================= */}
+
+      {application.status ===
+        "Pending" && (
+        <div className="company-action-panel">
+          <div>
+            <strong>
+              Review Application
+            </strong>
+
+            <p>
+              Approve the application
+              to send it for college
+              verification.
+            </p>
+          </div>
+
+          <div className="company-action-buttons">
+            <button
+              className="company-approve-button"
+              onClick={() =>
+                updateStatus(
+                  application._id,
+                  "CompanyApproved"
+                )
+              }
+            >
+              ✓ Approve
+            </button>
+
+            <button
+              className="company-reject-button"
+              onClick={() =>
+                updateStatus(
+                  application._id,
+                  "CompanyRejected"
+                )
+              }
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* =================================================
+          WAITING FOR COLLEGE APPROVAL
+      ================================================= */}
+
+      {application.status ===
+        "CompanyApproved" && (
+        <div className="company-info-message company-college-waiting-message">
+          <span>✓</span>
+
+          <div>
+            <strong>
+              Company approved
+            </strong>
+
+            <p>
+              Confirmation letter has
+              been sent to the student.
+              Waiting for college approval.
+            </p>
+
+            <small>
+              Faculty assignment will be
+              available after college approval.
+            </small>
+          </div>
+        </div>
+      )}
+
+      {/* =================================================
+          COLLEGE APPROVED / INTERNSHIP ACTIVE
+      ================================================= */}
+
+      {application.status ===
+        "CollegeApproved" && (
+        <div className="company-approved-internship-area">
+
+          <div className="company-college-approved-banner">
+            <span>✓</span>
+
+            <div>
+              <strong>
+                College Approved
+              </strong>
+
+              <p>
+                This internship has been
+                approved by the college and
+                can proceed.
+              </p>
+            </div>
+          </div>
+
+          {/* COMPANY GUIDE ASSIGNMENT */}
+
+          <div className="company-guide-assignment">
+            <div className="company-info-section-title">
+              Company Guide Assignment
+            </div>
+
+            {application.companyGuide ? (
+              <div className="assigned-guide-card">
+                <div className="company-large-avatar">
+                  {(
+                    application
+                      .companyGuide
+                      ?.name ||
+                    "G"
+                  )
+                    .charAt(0)
+                    .toUpperCase()}
+                </div>
+
+                <div>
+                  <strong>
+                    {
+                      application
+                        .companyGuide
+                        ?.name
+                    }
+                  </strong>
+
+                  <span>
+                    {
+                      application
+                        .companyGuide
+                        ?.email
+                    }
+                  </span>
+
+                  <small>
+                    Employee ID:{" "}
+                    {
+                      application
+                        .companyGuide
+                        ?.employeeId
+                    }
+                  </small>
+                </div>
+
+                <span className="assigned-label">
+                  Assigned
+                </span>
+              </div>
+            ) : (
+              <div className="guide-select-area">
+                <div>
+                  <strong>
+                    Assign a Company
+                    Guide
+                  </strong>
+
+                  <p>
+                    Select an approved
+                    Company Guide for
+                    this internship.
+                  </p>
+                </div>
+
+                {approvedGuides.length >
+                0 ? (
+                  <select
+                    defaultValue=""
+                    onChange={(
+                      event
+                    ) =>
+                      assignCompanyGuide(
+                        application.assignmentId,
+                        event.target
+                          .value
+                      )
+                    }
+                  >
+                    <option value="">
+                      Select Company Guide
+                    </option>
+
+                    {approvedGuides.map(
+                      (guide) => (
+                        <option
+                          key={
+                            guide._id
+                          }
+                          value={
+                            guide._id
+                          }
+                        >
+                          {
+                            guide.name
+                          }{" "}
+                          -{" "}
+                          {
+                            guide.employeeId
+                          }
+                        </option>
+                      )
+                    )}
+                  </select>
+                ) : (
+                  <div className="company-warning-box">
+                    No approved Company
+                    Guides available.
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* CERTIFICATE */}
+
+            {application.assignmentStatus ===
+              "Completed" && (
+              <div className="certificate-area">
+                <div className="company-info-section-title">
+                  Internship Certificate
+                </div>
+
+                {application.certificate ? (
+                  <div className="certificate-success">
+                    <span>✓</span>
+
+                    <div>
+                      <strong>
+                        Certificate
+                        uploaded
+                      </strong>
+
+                      <p>
+                        The official
+                        internship
+                        completion
+                        certificate
+                        has already
+                        been uploaded.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="certificate-upload-box">
+                    <p>
+                      Upload the official
+                      internship completion
+                      certificate.
+                    </p>
+
+                    <div className="certificate-upload-row">
+                      <input
+                        type="file"
+                        accept=".pdf,application/pdf"
+                        onChange={(
+                          event
+                        ) =>
+                          setCertificateFiles(
+                            (
+                              previousFiles
+                            ) => ({
+                              ...previousFiles,
+                              [application.assignmentId]:
+                                event.target
+                                  .files[0],
+                            })
+                          )
+                        }
+                      />
+
+                      <button
+                        className="company-primary-button"
+                        onClick={() =>
+                          uploadCertificate(
+                            application.assignmentId
+                          )
+                        }
+                      >
+                        Upload Certificate
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* =================================================
+          REJECTED
+      ================================================= */}
+
+      {(application.status ===
+        "CompanyRejected" ||
+        application.status ===
+          "CollegeRejected") && (
+        <div className="company-rejected-message">
+          <span>!</span>
+
+          <div>
+            <strong>
+              Application rejected
+            </strong>
+
+            <p>
+              {application.status ===
+              "CollegeRejected"
+                ? "This internship application was rejected by the college."
+                : "This application was rejected by the company."}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  // =====================================================
+  // APPLICATION SECTION
+  // =====================================================
+
+  const renderApplicationSection = (
+    eyebrow,
+    title,
+    description,
+    applicationList,
+    sectionClass
+  ) => (
+    <section
+      className={`company-application-section ${sectionClass}`}
+    >
+      <div className="company-application-section-heading">
+        <div>
+          <span className="company-section-eyebrow">
+            {eyebrow}
+          </span>
+
+          <h2>{title}</h2>
+
+          <p>{description}</p>
+        </div>
+
+        <div className="company-application-section-count">
+          {applicationList.length}
+        </div>
+      </div>
+
+      {applicationList.length > 0 ? (
+        <div className="company-applications-list">
+          {applicationList.map(
+            renderApplicationCard
+          )}
+        </div>
+      ) : (
+        <div className="company-section-empty">
+          <span>✓</span>
+
+          <div>
+            <strong>
+              No applications here
+            </strong>
+
+            <p>
+              There are currently no
+              applications in this section.
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 
   // =====================================================
   // DASHBOARD CONTENT
@@ -469,7 +1080,8 @@ function CompanyDashboard({
 
           <h1>
             Welcome,{" "}
-            {company?.companyName || "Company"}
+            {company?.companyName ||
+              "Company"}
           </h1>
 
           <p>
@@ -504,6 +1116,7 @@ function CompanyDashboard({
             <strong>
               {totalApplications}
             </strong>
+
             <span>Applications</span>
           </div>
         </div>
@@ -715,6 +1328,7 @@ function CompanyDashboard({
         {loading ? (
           <div className="company-empty-card">
             <div className="company-loader" />
+
             <p>
               Loading applications...
             </p>
@@ -825,6 +1439,7 @@ function CompanyDashboard({
       {loading ? (
         <div className="company-empty-card">
           <div className="company-loader" />
+
           <p>
             Loading applications...
           </p>
@@ -849,491 +1464,117 @@ function CompanyDashboard({
           </p>
         </div>
       ) : (
-        <div className="company-applications-list">
-          {applications.map(
-            (application) => (
-              <div
-                className="company-application-card"
-                key={application._id}
-              >
-                {/* APPLICATION HEADER */}
+        <>
+          {/* STATUS SUMMARY */}
 
-                <div className="company-application-header">
-                  <div className="company-student-main">
-                    <div className="company-large-avatar">
-                      {(
-                        application.student
-                          ?.name || "S"
-                      )
-                        .charAt(0)
-                        .toUpperCase()}
-                    </div>
+          <div className="company-application-summary">
+            <div className="company-application-summary-card waiting-company">
+              <span>◷</span>
 
-                    <div>
-                      <h2>
-                        {
-                          application.student
-                            ?.name
-                        }
-                      </h2>
+              <div>
+                <strong>
+                  {waitingCompanyApproval.length}
+                </strong>
 
-                      <p>
-                        Register No:{" "}
-                        {
-                          application.student
-                            ?.registerNumber
-                        }
-                      </p>
-                    </div>
-                  </div>
-
-                  <span
-                    className={`company-status-badge ${getStatusClass(
-                      application.status
-                    )}`}
-                  >
-                    {application.status}
-                  </span>
-                </div>
-
-                {/* STUDENT INFORMATION */}
-
-                <div className="company-info-section">
-                  <div className="company-info-section-title">
-                    Student Information
-                  </div>
-
-                  <div className="company-info-grid">
-                    <div>
-                      <span>Email</span>
-                      <strong>
-                        {
-                          application.student
-                            ?.email
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Phone</span>
-                      <strong>
-                        {
-                          application.student
-                            ?.phone
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Department</span>
-                      <strong>
-                        {
-                          application.student
-                            ?.department
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Semester</span>
-                      <strong>
-                        {
-                          application.student
-                            ?.semester
-                        }
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-
-                {/* INTERNSHIP INFORMATION */}
-
-                <div className="company-info-section">
-                  <div className="company-info-section-title">
-                    Internship Information
-                  </div>
-
-                  <div className="company-info-grid">
-                    <div>
-                      <span>Position</span>
-                      <strong>
-                        {
-                          application.position
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Internship</span>
-                      <strong>
-                        {
-                          application.internship
-                            ?.title
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Location</span>
-                      <strong>
-                        {
-                          application.internship
-                            ?.location
-                        }
-                      </strong>
-                    </div>
-
-                    <div>
-                      <span>Duration</span>
-                      <strong>
-                        {
-                          application.internship
-                            ?.duration
-                        }
-                      </strong>
-                    </div>
-                  </div>
-                </div>
-
-                {/* DOCUMENTS */}
-
-                <div className="company-info-section">
-                  <div className="company-info-section-title">
-                    Application Documents
-                  </div>
-
-                  <div className="company-document-grid">
-                    {application.resume && (
-                      <a
-                        className="company-document-card"
-                        href={`http://localhost:5000/${application.resume}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span className="company-document-icon">
-                          PDF
-                        </span>
-
-                        <span>
-                          <strong>
-                            CV / Resume
-                          </strong>
-
-                          <small>
-                            Open document
-                          </small>
-                        </span>
-
-                        <b>↗</b>
-                      </a>
-                    )}
-
-                    {application.markList && (
-                      <a
-                        className="company-document-card"
-                        href={`http://localhost:5000/${application.markList}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span className="company-document-icon">
-                          PDF
-                        </span>
-
-                        <span>
-                          <strong>
-                            Mark List
-                          </strong>
-
-                          <small>
-                            Open document
-                          </small>
-                        </span>
-
-                        <b>↗</b>
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* PENDING */}
-
-                {application.status ===
-                  "Pending" && (
-                  <div className="company-action-panel">
-                    <div>
-                      <strong>
-                        Review Application
-                      </strong>
-
-                      <p>
-                        Approve the application
-                        to send it for college
-                        verification.
-                      </p>
-                    </div>
-
-                    <div className="company-action-buttons">
-                      <button
-                        className="company-approve-button"
-                        onClick={() =>
-                          updateStatus(
-                            application._id,
-                            "CompanyApproved"
-                          )
-                        }
-                      >
-                        ✓ Approve
-                      </button>
-
-                      <button
-                        className="company-reject-button"
-                        onClick={() =>
-                          updateStatus(
-                            application._id,
-                            "CompanyRejected"
-                          )
-                        }
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* COMPANY APPROVED */}
-
-                {application.status ===
-                  "CompanyApproved" && (
-                  <div className="company-info-message">
-                    <span>✓</span>
-
-                    <div>
-                      <strong>
-                        Application approved
-                      </strong>
-
-                      <p>
-                        Waiting for college
-                        verification.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {/* COLLEGE APPROVED */}
-
-                {application.status ===
-                  "CollegeApproved" && (
-                  <div className="company-guide-assignment">
-                    <div className="company-info-section-title">
-                      Company Guide Assignment
-                    </div>
-
-                    {application.companyGuide ? (
-                      <div className="assigned-guide-card">
-                        <div className="company-large-avatar">
-                          {(
-                            application
-                              .companyGuide
-                              ?.name ||
-                            "G"
-                          )
-                            .charAt(0)
-                            .toUpperCase()}
-                        </div>
-
-                        <div>
-                          <strong>
-                            {
-                              application
-                                .companyGuide
-                                ?.name
-                            }
-                          </strong>
-
-                          <span>
-                            {
-                              application
-                                .companyGuide
-                                ?.email
-                            }
-                          </span>
-
-                          <small>
-                            Employee ID:{" "}
-                            {
-                              application
-                                .companyGuide
-                                ?.employeeId
-                            }
-                          </small>
-                        </div>
-
-                        <span className="assigned-label">
-                          Assigned
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="guide-select-area">
-                        <div>
-                          <strong>
-                            Assign a Company
-                            Guide
-                          </strong>
-
-                          <p>
-                            Select an approved
-                            Company Guide for
-                            this internship.
-                          </p>
-                        </div>
-
-                        {approvedGuides.length >
-                        0 ? (
-                          <select
-                            defaultValue=""
-                            onChange={(
-                              event
-                            ) =>
-                              assignCompanyGuide(
-                                application.assignmentId,
-                                event.target
-                                  .value
-                              )
-                            }
-                          >
-                            <option value="">
-                              Select Company Guide
-                            </option>
-
-                            {approvedGuides.map(
-                              (guide) => (
-                                <option
-                                  key={
-                                    guide._id
-                                  }
-                                  value={
-                                    guide._id
-                                  }
-                                >
-                                  {
-                                    guide.name
-                                  }{" "}
-                                  -{" "}
-                                  {
-                                    guide.employeeId
-                                  }
-                                </option>
-                              )
-                            )}
-                          </select>
-                        ) : (
-                          <div className="company-warning-box">
-                            No approved Company
-                            Guides available.
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* CERTIFICATE */}
-
-                    {application.assignmentStatus ===
-                      "Completed" && (
-                      <div className="certificate-area">
-                        <div className="company-info-section-title">
-                          Internship Certificate
-                        </div>
-
-                        {application.certificate ? (
-                          <div className="certificate-success">
-                            <span>✓</span>
-
-                            <div>
-                              <strong>
-                                Certificate
-                                uploaded
-                              </strong>
-
-                              <p>
-                                The official
-                                internship
-                                completion
-                                certificate
-                                has already
-                                been uploaded.
-                              </p>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="certificate-upload-box">
-                            <p>
-                              Upload the official
-                              internship completion
-                              certificate.
-                            </p>
-
-                            <div className="certificate-upload-row">
-                              <input
-                                type="file"
-                                accept=".pdf,application/pdf"
-                                onChange={(
-                                  event
-                                ) =>
-                                  setCertificateFiles(
-                                    (
-                                      previousFiles
-                                    ) => ({
-                                      ...previousFiles,
-                                      [application.assignmentId]:
-                                        event.target
-                                          .files[0],
-                                    })
-                                  )
-                                }
-                              />
-
-                              <button
-                                className="company-primary-button"
-                                onClick={() =>
-                                  uploadCertificate(
-                                    application.assignmentId
-                                  )
-                                }
-                              >
-                                Upload Certificate
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* COMPANY REJECTED */}
-
-                {application.status ===
-                  "CompanyRejected" && (
-                  <div className="company-rejected-message">
-                    <span>!</span>
-
-                    <div>
-                      <strong>
-                        Application rejected
-                      </strong>
-
-                      <p>
-                        This application was
-                        rejected by the company.
-                      </p>
-                    </div>
-                  </div>
-                )}
+                <small>
+                  Waiting for Company
+                  Approval
+                </small>
               </div>
-            )
+            </div>
+
+            <div className="company-application-summary-card waiting-college">
+              <span>⌛</span>
+
+              <div>
+                <strong>
+                  {waitingCollegeApproval.length}
+                </strong>
+
+                <small>
+                  Waiting for College
+                  Approval
+                </small>
+              </div>
+            </div>
+
+            <div className="company-application-summary-card fully-approved">
+              <span>✓</span>
+
+              <div>
+                <strong>
+                  {approvedInternships.length}
+                </strong>
+
+                <small>
+                  Approved Internships
+                </small>
+              </div>
+            </div>
+
+            <div className="company-application-summary-card rejected">
+              <span>!</span>
+
+              <div>
+                <strong>
+                  {rejectedApplications.length}
+                </strong>
+
+                <small>
+                  Rejected Applications
+                </small>
+              </div>
+            </div>
+          </div>
+
+          {/* =================================================
+              1. WAITING FOR COMPANY APPROVAL
+          ================================================= */}
+
+          {renderApplicationSection(
+            "ACTION REQUIRED",
+            "Waiting for Company Approval",
+            "Review these student applications and decide whether to approve or reject them.",
+            waitingCompanyApproval,
+            "company-section-waiting-company"
           )}
-        </div>
+
+          {/* =================================================
+              2. WAITING FOR COLLEGE APPROVAL
+          ================================================= */}
+
+          {renderApplicationSection(
+            "COLLEGE VERIFICATION",
+            "Waiting for College Approval",
+            "These applications have been approved by the company. The student must forward the confirmation letter to the college.",
+            waitingCollegeApproval,
+            "company-section-waiting-college"
+          )}
+
+          {/* =================================================
+              3. APPROVED INTERNSHIPS
+          ================================================= */}
+
+          {renderApplicationSection(
+            "ACTIVE INTERNSHIPS",
+            "Approved Internships",
+            "These applications have received college approval. Company Guide assignment and certificate management are available here.",
+            approvedInternships,
+            "company-section-approved"
+          )}
+
+          {/* =================================================
+              4. REJECTED APPLICATIONS
+          ================================================= */}
+
+          {renderApplicationSection(
+            "APPLICATION HISTORY",
+            "Rejected Applications",
+            "Applications that were rejected by either the company or the college.",
+            rejectedApplications,
+            "company-section-rejected"
+          )}
+        </>
       )}
     </div>
   );
@@ -1761,9 +2002,7 @@ function CompanyDashboard({
   return (
     <div className="company-dashboard-container">
 
-      {/* =================================================
-          TOP HEADER
-      ================================================= */}
+      {/* TOP HEADER */}
 
       <header className="company-topbar">
         <div className="company-brand">
@@ -1806,9 +2045,7 @@ function CompanyDashboard({
         </div>
       </header>
 
-      {/* =================================================
-          MAIN WORKSPACE
-      ================================================= */}
+      {/* MAIN WORKSPACE */}
 
       <div className="company-workspace">
 

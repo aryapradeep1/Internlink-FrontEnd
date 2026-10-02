@@ -1,19 +1,30 @@
+/* =========================================================
+   INTERNLINK - EDIT STUDENT PROFILE
+
+   Mint Green + Mint Pink Theme
+   Clean Alignment
+   Small Section Headings
+========================================================= */
+
 .edit-profile-page {
   min-height: 100vh;
-  padding: 42px 24px 60px;
+  padding: 32px 24px 50px;
+
   background:
     radial-gradient(
       circle at 8% 8%,
-      rgba(216, 243, 229, 0.65),
+      rgba(216, 243, 229, 0.7),
       transparent 28%
     ),
     radial-gradient(
       circle at 92% 18%,
-      rgba(248, 214, 203, 0.45),
-      transparent 24%
+      rgba(248, 214, 203, 0.5),
+      transparent 25%
     ),
     #fbfdfc;
+
   color: #294139;
+
   font-family:
     Inter,
     system-ui,
@@ -21,83 +32,134 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+
+  box-sizing: border-box;
+}
+
+.edit-profile-page *,
+.edit-profile-page *::before,
+.edit-profile-page *::after {
+  box-sizing: border-box;
 }
 
 .edit-profile-container {
-  width: min(920px, 100%);
+  width: min(900px, 100%);
   margin: 0 auto;
 }
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 .edit-profile-header {
   display: flex;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 28px;
+  gap: 15px;
+  margin-bottom: 22px;
 }
 
 .edit-profile-icon {
-  width: 58px;
-  height: 58px;
+  width: 50px;
+  height: 50px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex-shrink: 0;
-  border-radius: 18px;
-  background: #d8f3e5;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #d8f3e5,
+      #edf9f2
+    );
+
   border: 1px solid #c8e8d7;
-  font-size: 25px;
-  box-shadow: 0 8px 24px rgba(40, 118, 83, 0.08);
+
+  color: #287653;
+
+  font-size: 21px;
+
+  box-shadow:
+    0 7px 18px rgba(40, 118, 83, 0.08);
 }
 
 .edit-profile-eyebrow {
-  margin: 0 0 5px;
+  margin: 0 0 4px;
+
   color: #33745a;
-  font-size: 12px;
+
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1.2px;
+
+  letter-spacing: 1px;
 }
 
 .edit-profile-header h1 {
   margin: 0;
-  color: #243b33;
-  font-size: clamp(28px, 4vw, 38px);
-  line-height: 1.15;
+
+  color: #294139;
+
+  /* Main heading - moderate */
+  font-size: 23px;
+
+  line-height: 1.25;
+
   font-weight: 750;
+
+  letter-spacing: -0.15px;
 }
 
 .edit-profile-subtitle {
-  margin: 8px 0 0;
+  margin: 5px 0 0;
+
   color: #718078;
-  font-size: 14px;
-  line-height: 1.6;
+
+  font-size: 12px;
+
+  line-height: 1.5;
 }
 
-/* =========================
-   FORM
-========================= */
+/* =========================================================
+   FORM CARD
+========================================================= */
 
 .edit-profile-form {
-  padding: 28px;
-  background: #ffffff;
-  border: 1px solid #e1ebe6;
-  border-radius: 24px;
+  width: 100%;
+
+  padding: 25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #f9fcfa 65%,
+      #fff7f8 100%
+    );
+
+  border: 1px solid #dfeae4;
+
+  border-radius: 20px;
+
   box-shadow:
-    0 16px 45px rgba(43, 74, 61, 0.07),
+    0 14px 38px rgba(43, 74, 61, 0.07),
     0 3px 10px rgba(43, 74, 61, 0.03);
 }
 
-/* =========================
-   SECTIONS
-========================= */
+/* =========================================================
+   FORM SECTIONS
+========================================================= */
 
 .form-section {
-  padding: 4px 0 28px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid #e8efeb;
+  padding: 2px 0 24px;
+
+  margin-bottom: 24px;
+
+  border-bottom:
+    1px solid #e6eeea;
 }
 
 .form-section:last-of-type {
@@ -105,89 +167,149 @@
   border-bottom: none;
 }
 
+/* =========================================================
+   SECTION HEADING
+
+   Personal Information
+   Academic Information
+   Contact Information
+   etc.
+========================================================= */
+
 .section-heading {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 22px;
+
+  gap: 10px;
+
+  margin-bottom: 16px;
 }
 
+/* Small decorative dot */
+
 .section-dot {
-  width: 10px;
-  height: 10px;
-  margin-top: 7px;
+  width: 8px;
+  height: 8px;
+
+  margin-top: 5px;
+
   flex-shrink: 0;
+
   border-radius: 50%;
+
   background: #287653;
-  box-shadow: 0 0 0 6px #e7f6ed;
+
+  box-shadow:
+    0 0 0 4px #e7f6ed;
 }
 
 .lavender-dot {
   background: #806baa;
-  box-shadow: 0 0 0 6px #f1edfb;
+
+  box-shadow:
+    0 0 0 4px #f1edfb;
 }
 
 .peach-dot {
   background: #d87663;
-  box-shadow: 0 0 0 6px #fce5dd;
+
+  box-shadow:
+    0 0 0 4px #fce5dd;
 }
+
+/* SMALL SECTION TITLE */
 
 .section-heading h2 {
   margin: 0;
-  color: #2c443a;
-  font-size: 19px;
+
+  color: #40564d;
+
+  /* Much smaller */
+  font-size: 15px;
+
   font-weight: 700;
+
+  line-height: 1.3;
+
+  letter-spacing: 0;
 }
+
+/* Small description below heading */
 
 .section-heading p {
-  margin: 5px 0 0;
-  color: #7a8982;
-  font-size: 13px;
-  line-height: 1.5;
+  margin: 3px 0 0;
+
+  color: #89968f;
+
+  font-size: 11px;
+
+  line-height: 1.45;
 }
 
-/* =========================
-   GRID
-========================= */
+/* =========================================================
+   FORM GRID
+========================================================= */
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px 20px;
+
+  align-items: start;
 }
 
 .full-width {
   grid-column: 1 / -1;
 }
 
-/* =========================
-   INPUTS
-========================= */
+/* =========================================================
+   FORM FIELD
+========================================================= */
 
 .form-field {
   display: flex;
   flex-direction: column;
+
+  min-width: 0;
 }
 
 .form-field label {
-  margin-bottom: 8px;
-  color: #40564d;
-  font-size: 13px;
-  font-weight: 650;
+  margin-bottom: 6px;
+
+  color: #52675e;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.4;
 }
 
 .form-field input {
   width: 100%;
-  min-height: 48px;
-  box-sizing: border-box;
-  padding: 0 14px;
-  border: 1px solid #d9e5df;
-  border-radius: 12px;
+
+  min-height: 45px;
+
+  padding: 0 13px;
+
+  border:
+    1px solid #d9e5df;
+
+  border-radius: 10px;
+
   outline: none;
+
   background: #ffffff;
+
   color: #294139;
+
   font-family: inherit;
+
   font-size: 14px;
+
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease,
@@ -200,77 +322,113 @@
 
 .form-field input:focus {
   border-color: #79b89a;
-  box-shadow: 0 0 0 4px rgba(216, 243, 229, 0.7);
+
+  background: #fcfffd;
+
+  box-shadow:
+    0 0 0 3px rgba(216, 243, 229, 0.75);
 }
 
 .form-field input:disabled {
   cursor: not-allowed;
+
   color: #718078;
-  background: #f4f7f5;
+
+  background: #f3f7f5;
+
   border-color: #e1e9e5;
 }
+
+/* =========================================================
+   LOCKED INPUT
+========================================================= */
 
 .disabled-input-wrapper {
   position: relative;
 }
 
 .disabled-input-wrapper input {
-  padding-right: 42px;
+  padding-right: 40px;
 }
 
 .locked-icon {
   position: absolute;
+
   top: 50%;
-  right: 13px;
+  right: 12px;
+
   transform: translateY(-50%);
-  font-size: 13px;
+
+  font-size: 12px;
+
   opacity: 0.65;
 }
 
 .form-field small {
-  margin-top: 7px;
+  margin-top: 5px;
+
   color: #89968f;
-  font-size: 11px;
+
+  font-size: 10px;
+
   line-height: 1.4;
 }
 
-/* =========================
+/* =========================================================
    COLLEGE SECTION
-========================= */
+========================================================= */
 
 .college-section {
-  padding: 20px;
-  border: 1px solid #f0e7e1;
-  border-radius: 18px;
-  background: #fffaf6;
+  padding: 17px;
+
+  border:
+    1px solid #f0e3df;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffaf6,
+      #fff5f6
+    );
 }
 
 .college-section .section-heading {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
-/* =========================
+/* =========================================================
    MESSAGES
-========================= */
+========================================================= */
 
 .profile-message {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 22px;
-  padding: 13px 15px;
-  border-radius: 12px;
-  font-size: 13px;
+
+  gap: 9px;
+
+  margin-top: 19px;
+
+  padding: 11px 13px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
 }
 
 .profile-message span {
+  width: 22px;
+  height: 22px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+
   flex-shrink: 0;
+
   border-radius: 50%;
+
   font-weight: 800;
 }
 
@@ -280,139 +438,232 @@
 
 .success-message {
   color: #276b4e;
+
   background: #e9f8f0;
-  border: 1px solid #cfead9;
+
+  border:
+    1px solid #cfead9;
 }
 
 .success-message span {
   color: #ffffff;
+
   background: #3d956c;
 }
 
 .error-message {
   color: #a65445;
+
   background: #fff0eb;
-  border: 1px solid #f2d4cb;
+
+  border:
+    1px solid #f2d4cb;
 }
 
 .error-message span {
   color: #ffffff;
+
   background: #d87663;
 }
 
-/* =========================
+/* =========================================================
    ACTIONS
-========================= */
+========================================================= */
 
 .edit-profile-actions {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
+
   gap: 14px;
-  margin-top: 28px;
-  padding-top: 24px;
-  border-top: 1px solid #e8efeb;
+
+  margin-top: 23px;
+
+  padding-top: 20px;
+
+  border-top:
+    1px solid #e6eeea;
 }
 
 .edit-profile-actions button {
-  min-height: 46px;
-  padding: 0 20px;
-  border-radius: 12px;
+  min-height: 43px;
+
+  padding: 0 18px;
+
+  border-radius: 10px;
+
   border: none;
+
   font-family: inherit;
-  font-size: 13px;
+
+  font-size: 12px;
+
   font-weight: 700;
+
   cursor: pointer;
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
     background 0.2s ease;
 }
 
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
 .back-profile-btn {
   color: #496057;
-  background: #f1f5f3;
-  border: 1px solid #dce7e2 !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1f7f4,
+      #f7faf8
+    );
+
+  border:
+    1px solid #dce7e2 !important;
 }
 
 .back-profile-btn:hover {
   background: #e8f1ec;
-  transform: translateY(-1px);
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 5px 12px rgba(47, 72, 61, 0.06);
 }
 
 .back-profile-btn span {
   margin-right: 7px;
 }
 
+/* =========================================================
+   SAVE BUTTON
+========================================================= */
+
 .save-profile-btn {
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   gap: 8px;
-  min-width: 155px;
+
+  min-width: 140px;
+
   color: #ffffff;
-  background: #e98270;
-  box-shadow: 0 8px 18px rgba(233, 130, 112, 0.2);
+
+  background:
+    linear-gradient(
+      135deg,
+      #e98270,
+      #e77c70
+    );
+
+  box-shadow:
+    0 7px 17px rgba(233, 130, 112, 0.18);
 }
 
 .save-profile-btn:hover:not(:disabled) {
-  background: #dd7664;
-  transform: translateY(-1px);
-  box-shadow: 0 11px 22px rgba(233, 130, 112, 0.25);
+  background:
+    linear-gradient(
+      135deg,
+      #dd7664,
+      #d96f66
+    );
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 10px 20px rgba(233, 130, 112, 0.23);
 }
 
 .save-profile-btn:disabled {
   cursor: not-allowed;
+
   opacity: 0.7;
+
   transform: none;
 }
 
-/* =========================
-   LOADING SPINNER
-========================= */
+/* =========================================================
+   BUTTON SPINNER
+========================================================= */
 
 .button-spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  border-top-color: #ffffff;
+  width: 13px;
+  height: 13px;
+
+  border:
+    2px solid rgba(255, 255, 255, 0.45);
+
+  border-top-color:
+    #ffffff;
+
   border-radius: 50%;
-  animation: profile-spin 0.7s linear infinite;
+
+  animation:
+    profile-spin 0.7s linear infinite;
 }
 
 @keyframes profile-spin {
   to {
-    transform: rotate(360deg);
+    transform:
+      rotate(360deg);
   }
 }
 
-/* =========================
+/* =========================================================
    RESPONSIVE
-========================= */
+========================================================= */
 
 @media (max-width: 700px) {
+
   .edit-profile-page {
-    padding: 28px 16px 45px;
+    padding:
+      24px 16px 40px;
   }
 
   .edit-profile-header {
     align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 19px;
   }
 
   .edit-profile-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
+    width: 44px;
+    height: 44px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+  }
+
+  .edit-profile-header h1 {
     font-size: 21px;
   }
 
+  .edit-profile-subtitle {
+    font-size: 11px;
+  }
+
   .edit-profile-form {
-    padding: 20px;
-    border-radius: 20px;
+    padding: 19px;
+
+    border-radius: 17px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+
+    gap: 14px;
   }
 
   .full-width {
@@ -420,11 +671,12 @@
   }
 
   .college-section {
-    padding: 16px;
+    padding: 14px;
   }
 
   .edit-profile-actions {
     flex-direction: column-reverse;
+
     align-items: stretch;
   }
 
@@ -433,25 +685,49 @@
   }
 }
 
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
 @media (max-width: 450px) {
+
   .edit-profile-header h1 {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .edit-profile-subtitle {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .section-heading h2 {
-    font-size: 17px;
+    font-size: 14px;
+  }
+
+  .section-heading p {
+    font-size: 10px;
   }
 
   .edit-profile-form {
-    padding: 16px;
+    padding: 15px;
+  }
+
+  .form-field input {
+    min-height: 44px;
+
+    font-size: 13px;
+  }
+
+  .form-field label {
+    font-size: 11px;
   }
 }
 
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
+
   .form-field input,
   .edit-profile-actions button {
     transition: none;
