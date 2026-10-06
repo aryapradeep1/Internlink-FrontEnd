@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/CompanyDashboard.css";
+import "../css/CompanyDashboardHome.css";
 
 function CompanyDashboard({
   company,
@@ -16,6 +17,7 @@ function CompanyDashboard({
   const [applications, setApplications] = useState([]);
   const [guides, setGuides] = useState([]);
   const [certificateFiles, setCertificateFiles] = useState({});
+  const [applicationView, setApplicationView] = useState("pending");
 
   const [loading, setLoading] = useState(true);
   const [guidesLoading, setGuidesLoading] = useState(true);
@@ -445,6 +447,40 @@ function CompanyDashboard({
           "CompanyRejected" ||
         application.status ===
           "CollegeRejected"
+    );
+
+  // =====================================================
+  // APPLICATION VIEW GROUPS
+  // Rejected applications are intentionally hidden
+  // =====================================================
+
+  const pendingApplicationsList =
+    applications.filter(
+      (application) =>
+        application.status === "Pending"
+    );
+
+  const collegeApprovalApplicationsList =
+    applications.filter(
+      (application) =>
+        application.status ===
+        "CompanyApproved"
+    );
+
+  const approvedApplicationsList =
+    applications.filter(
+      (application) =>
+        application.status ===
+          "CollegeApproved" &&
+        application.assignmentStatus !==
+          "Completed"
+    );
+
+  const completedInternshipsList =
+    applications.filter(
+      (application) =>
+        application.assignmentStatus ===
+        "Completed"
     );
 
   // =====================================================
@@ -1069,343 +1105,167 @@ function CompanyDashboard({
   // =====================================================
 
   const renderDashboard = () => (
-    <>
-      {/* HERO */}
+    <div className="company-home-dashboard">
 
-      <section className="company-welcome-card">
-        <div className="company-welcome-content">
-          <div className="company-welcome-badge">
-            Company Workspace
-          </div>
+      <section className="company-home-hero">
+        <div className="company-home-copy">
+          <span className="company-home-kicker">COMPANY WORKSPACE</span>
 
           <h1>
-            Welcome,{" "}
-            {company?.companyName ||
-              "Company"}
+            Welcome to <strong>{company?.companyName || "InternLink"}</strong>
           </h1>
 
           <p>
-            Manage internship opportunities,
-            applications, and Company Guides
-            from one place.
+            Your space to create meaningful internship opportunities,
+            connect with talented FYUGP students, and support the next
+            generation of professionals.
           </p>
 
-          <div className="company-hero-actions">
-            <button
-              className="company-primary-button"
-              onClick={onPostInternship}
-            >
-              + Post Internship
-            </button>
-
-            <button
-              className="company-secondary-button"
-              onClick={onGoToApplications}
-            >
-              View Applications
-            </button>
+          <div className="company-home-line">
+            <span></span>
+            <small>BUILD • CONNECT • GROW</small>
           </div>
         </div>
 
-        <div className="company-welcome-visual">
-          <div className="company-visual-circle">
-            <span>IL</span>
-          </div>
+        <div className="company-home-visual" aria-hidden="true">
+          <div className="company-orbit company-orbit-one"></div>
+          <div className="company-orbit company-orbit-two"></div>
 
-          <div className="company-visual-small-card">
-            <strong>
-              {totalApplications}
-            </strong>
+          <div className="company-illustration-card">
+            <div className="illustration-window">
+              <div className="illustration-window-top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
 
-            <span>Applications</span>
-          </div>
-        </div>
-      </section>
+              <div className="illustration-content">
+                <div className="illustration-person">
+                  <div className="person-head"></div>
+                  <div className="person-body"></div>
+                </div>
 
-      {/* STATISTICS */}
-
-      <section className="company-stat-grid">
-        <div className="company-stat-card">
-          <div className="company-stat-icon">
-            ◫
-          </div>
-
-          <div>
-            <span className="company-stat-label">
-              Applications
-            </span>
-
-            <strong>
-              {totalApplications}
-            </strong>
-          </div>
-        </div>
-
-        <div className="company-stat-card">
-          <div className="company-stat-icon">
-            ◷
-          </div>
-
-          <div>
-            <span className="company-stat-label">
-              Pending
-            </span>
-
-            <strong>
-              {pendingApplications}
-            </strong>
-          </div>
-        </div>
-
-        <div className="company-stat-card">
-          <div className="company-stat-icon">
-            ✓
-          </div>
-
-          <div>
-            <span className="company-stat-label">
-              Approved
-            </span>
-
-            <strong>
-              {approvedApplications}
-            </strong>
-          </div>
-        </div>
-
-        <div className="company-stat-card">
-          <div className="company-stat-icon">
-            ◌
-          </div>
-
-          <div>
-            <span className="company-stat-label">
-              Company Guides
-            </span>
-
-            <strong>
-              {approvedGuides.length}
-            </strong>
-          </div>
-        </div>
-      </section>
-
-      {/* QUICK ACTIONS */}
-
-      <section className="company-section">
-        <div className="company-section-heading">
-          <div>
-            <span className="company-section-eyebrow">
-              QUICK ACCESS
-            </span>
-
-            <h2>
-              Manage your workspace
-            </h2>
-
-            <p>
-              Access the most important company
-              activities quickly.
-            </p>
-          </div>
-        </div>
-
-        <div className="company-quick-grid">
-          <button
-            className="company-quick-card"
-            onClick={onPostInternship}
-          >
-            <span className="company-quick-icon">
-              +
-            </span>
-
-            <span>
-              <strong>
-                Post Internship
-              </strong>
-
-              <small>
-                Create a new internship
-                opportunity
-              </small>
-            </span>
-
-            <b>→</b>
-          </button>
-
-          <button
-            className="company-quick-card"
-            onClick={onGoToApplications}
-          >
-            <span className="company-quick-icon">
-              ▣
-            </span>
-
-            <span>
-              <strong>
-                Applications
-              </strong>
-
-              <small>
-                Review student applications
-              </small>
-            </span>
-
-            <b>→</b>
-          </button>
-
-          <button
-            className="company-quick-card"
-            onClick={onGoToCompanyGuides}
-          >
-            <span className="company-quick-icon">
-              ◌
-            </span>
-
-            <span>
-              <strong>
-                Company Guides
-              </strong>
-
-              <small>
-                Manage your internship guides
-              </small>
-            </span>
-
-            <b>→</b>
-          </button>
-
-          <button
-            className="company-quick-card"
-            onClick={onGoToProfile}
-          >
-            <span className="company-quick-icon">
-              ◉
-            </span>
-
-            <span>
-              <strong>
-                My Profile
-              </strong>
-
-              <small>
-                View company information
-              </small>
-            </span>
-
-            <b>→</b>
-          </button>
-        </div>
-      </section>
-
-      {/* RECENT APPLICATIONS */}
-
-      <section className="company-section">
-        <div className="company-section-heading company-heading-with-action">
-          <div>
-            <span className="company-section-eyebrow">
-              RECENT ACTIVITY
-            </span>
-
-            <h2>
-              Recent Applications
-            </h2>
-
-            <p>
-              Latest internship applications
-              received by your company.
-            </p>
-          </div>
-
-          <button
-            className="company-outline-button"
-            onClick={onGoToApplications}
-          >
-            View All
-          </button>
-        </div>
-
-        {loading ? (
-          <div className="company-empty-card">
-            <div className="company-loader" />
-
-            <p>
-              Loading applications...
-            </p>
-          </div>
-        ) : error ? (
-          <div className="company-error-card">
-            {error}
-          </div>
-        ) : applications.length === 0 ? (
-          <div className="company-empty-card">
-            <div className="company-empty-icon">
-              ▣
+                <div className="illustration-document">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
             </div>
 
-            <h3>
-              No applications yet
-            </h3>
+            <div className="floating-chip chip-one">
+              <span>✓</span> Internship
+            </div>
 
+            <div className="floating-chip chip-two">
+              <span>✦</span> Students
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="company-home-intro">
+        <div className="company-home-intro-icon">✦</div>
+        <div>
+          <span className="company-home-section-label">WELCOME TO YOUR COMPANY SPACE</span>
+          <h2>Make internships more meaningful.</h2>
+          <p>
+            InternLink brings companies and FYUGP students together in one
+            simple workspace. Offer real-world learning opportunities, guide
+            students during their internship, and help them take their first
+            steps into the professional world.
+          </p>
+        </div>
+      </section>
+
+      <section className="company-home-feature-grid">
+        <article className="company-home-feature feature-green">
+          <div className="company-feature-icon">↗</div>
+          <div>
+            <span>OPPORTUNITIES</span>
+            <h3>Create real learning experiences</h3>
             <p>
-              Student applications will
-              appear here when they apply
-              to your internships.
+              Share internship opportunities that allow students to learn,
+              practice their skills, and experience a professional environment.
             </p>
           </div>
-        ) : (
-          <div className="company-recent-list">
-            {applications
-              .slice(0, 5)
-              .map((application) => (
-                <div
-                  className="company-recent-item"
-                  key={application._id}
-                >
-                  <div className="company-student-avatar">
-                    {(
-                      application.student?.name ||
-                      "S"
-                    )
-                      .charAt(0)
-                      .toUpperCase()}
-                  </div>
+        </article>
 
-                  <div className="company-recent-info">
-                    <strong>
-                      {
-                        application.student
-                          ?.name
-                      }
-                    </strong>
-
-                    <span>
-                      {
-                        application.internship
-                          ?.title
-                      }
-                    </span>
-                  </div>
-
-                  <span
-                    className={`company-status-badge ${getStatusClass(
-                      application.status
-                    )}`}
-                  >
-                    {application.status}
-                  </span>
-                </div>
-              ))}
+        <article className="company-home-feature feature-pink">
+          <div className="company-feature-icon">♡</div>
+          <div>
+            <span>STUDENT CONNECTION</span>
+            <h3>Meet the next generation</h3>
+            <p>
+              Discover motivated FYUGP students and give them an opportunity
+              to turn their academic knowledge into practical experience.
+            </p>
           </div>
-        )}
+        </article>
+
+        <article className="company-home-feature feature-mint">
+          <div className="company-feature-icon">✓</div>
+          <div>
+            <span>MENTORSHIP</span>
+            <h3>Support students along the way</h3>
+            <p>
+              Company Guides can help interns stay connected, learn from real
+              projects, and complete their internship journey successfully.
+            </p>
+          </div>
+        </article>
       </section>
-    </>
+
+      <section className="company-home-how">
+        <div className="company-how-heading">
+          <span className="company-home-section-label">YOUR JOURNEY WITH INTERNLINK</span>
+          <h2>A simple way to work with students.</h2>
+          <p>
+            Everything is organized through the workspace, so your team can
+            focus on creating a valuable internship experience.
+          </p>
+        </div>
+
+        <div className="company-home-steps">
+          <div className="company-home-step">
+            <span>01</span>
+            <div>
+              <strong>Share</strong>
+              <p>Publish an internship opportunity for eligible students.</p>
+            </div>
+          </div>
+
+          <div className="company-home-step">
+            <span>02</span>
+            <div>
+              <strong>Connect</strong>
+              <p>Review applications and select students for your opportunity.</p>
+            </div>
+          </div>
+
+          <div className="company-home-step">
+            <span>03</span>
+            <div>
+              <strong>Guide</strong>
+              <p>Support the intern through their practical learning journey.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="company-home-bottom-message">
+        <div>
+          <span>READY WHEN YOU ARE</span>
+          <h2>Your next internship opportunity can start here.</h2>
+        </div>
+        <div className="company-home-bottom-mark">IL</div>
+      </section>
+
+    </div>
   );
 
   // =====================================================
-  // APPLICATIONS PAGE
-  // =====================================================
-
   const renderApplications = () => (
     <div className="company-inner-page">
       <div className="company-page-header">
@@ -1419,19 +1279,21 @@ function CompanyDashboard({
           </h1>
 
           <p>
-            Review student applications,
-            documents, approval status and
-            internship assignments.
+            Review student applications and manage
+            each internship stage from one place.
           </p>
         </div>
 
         <div className="company-page-count">
           <strong>
-            {totalApplications}
+            {pendingApplicationsList.length +
+              collegeApprovalApplicationsList.length +
+              approvedApplicationsList.length +
+              completedInternshipsList.length}
           </strong>
 
           <span>
-            Total Applications
+            Active Applications
           </span>
         </div>
       </div>
@@ -1448,132 +1310,195 @@ function CompanyDashboard({
         <div className="company-error-card">
           {error}
         </div>
-      ) : applications.length === 0 ? (
-        <div className="company-empty-card">
-          <div className="company-empty-icon">
-            ▣
-          </div>
-
-          <h3>
-            No applications received
-          </h3>
-
-          <p>
-            Applications from students will
-            appear here.
-          </p>
-        </div>
       ) : (
         <>
-          {/* STATUS SUMMARY */}
+          {/* =================================================
+              APPLICATION STATUS BOXES
+          ================================================= */}
 
-          <div className="company-application-summary">
-            <div className="company-application-summary-card waiting-company">
-              <span>◷</span>
+          <div className="company-application-status-grid">
 
-              <div>
-                <strong>
-                  {waitingCompanyApproval.length}
-                </strong>
+            {/* PENDING */}
 
-                <small>
-                  Waiting for Company
-                  Approval
-                </small>
+            <button
+              type="button"
+              className={`company-application-status-box ${
+                applicationView === "pending"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setApplicationView("pending")
+              }
+            >
+              <div className="company-status-box-icon">
+                ◷
               </div>
-            </div>
 
-            <div className="company-application-summary-card waiting-college">
-              <span>⌛</span>
-
-              <div>
-                <strong>
-                  {waitingCollegeApproval.length}
-                </strong>
-
-                <small>
-                  Waiting for College
-                  Approval
-                </small>
+              <div className="company-status-box-number">
+                {pendingApplicationsList.length}
               </div>
-            </div>
 
-            <div className="company-application-summary-card fully-approved">
-              <span>✓</span>
+              <h3>
+                Pending Applications
+              </h3>
 
-              <div>
-                <strong>
-                  {approvedInternships.length}
-                </strong>
+              <p>
+                Waiting for company approval
+              </p>
 
-                <small>
-                  Approved Internships
-                </small>
+              <span className="company-status-box-arrow">
+                →
+              </span>
+            </button>
+
+
+            {/* COLLEGE APPROVAL */}
+
+            <button
+              type="button"
+              className={`company-application-status-box ${
+                applicationView === "college"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setApplicationView("college")
+              }
+            >
+              <div className="company-status-box-icon college">
+                ✓
               </div>
-            </div>
 
-            <div className="company-application-summary-card rejected">
-              <span>!</span>
-
-              <div>
-                <strong>
-                  {rejectedApplications.length}
-                </strong>
-
-                <small>
-                  Rejected Applications
-                </small>
+              <div className="company-status-box-number">
+                {collegeApprovalApplicationsList.length}
               </div>
-            </div>
+
+              <h3>
+                College Approval
+              </h3>
+
+              <p>
+                Waiting for college verification
+              </p>
+
+              <span className="company-status-box-arrow">
+                →
+              </span>
+            </button>
+
+
+            {/* APPROVED */}
+
+            <button
+              type="button"
+              className={`company-application-status-box ${
+                applicationView === "approved"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setApplicationView("approved")
+              }
+            >
+              <div className="company-status-box-icon approved">
+                ◆
+              </div>
+
+              <div className="company-status-box-number">
+                {approvedApplicationsList.length}
+              </div>
+
+              <h3>
+                Approved Applications
+              </h3>
+
+              <p>
+                Currently active internships
+              </p>
+
+              <span className="company-status-box-arrow">
+                →
+              </span>
+            </button>
+
+
+            {/* COMPLETED */}
+
+            <button
+              type="button"
+              className={`company-application-status-box ${
+                applicationView === "completed"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setApplicationView("completed")
+              }
+            >
+              <div className="company-status-box-icon completed">
+                ★
+              </div>
+
+              <div className="company-status-box-number">
+                {completedInternshipsList.length}
+              </div>
+
+              <h3>
+                Completed Internships
+              </h3>
+
+              <p>
+                Successfully completed
+              </p>
+
+              <span className="company-status-box-arrow">
+                →
+              </span>
+            </button>
+
           </div>
 
-          {/* =================================================
-              1. WAITING FOR COMPANY APPROVAL
-          ================================================= */}
-
-          {renderApplicationSection(
-            "ACTION REQUIRED",
-            "Waiting for Company Approval",
-            "Review these student applications and decide whether to approve or reject them.",
-            waitingCompanyApproval,
-            "company-section-waiting-company"
-          )}
 
           {/* =================================================
-              2. WAITING FOR COLLEGE APPROVAL
+              SELECTED APPLICATION SECTION
           ================================================= */}
 
-          {renderApplicationSection(
-            "COLLEGE VERIFICATION",
-            "Waiting for College Approval",
-            "These applications have been approved by the company. The student must forward the confirmation letter to the college.",
-            waitingCollegeApproval,
-            "company-section-waiting-college"
-          )}
+          {applicationView === "pending" &&
+            renderApplicationSection(
+              "PENDING APPLICATIONS",
+              "Pending Applications",
+              "Applications waiting for your approval.",
+              pendingApplicationsList,
+              "company-section-waiting-company"
+            )}
 
-          {/* =================================================
-              3. APPROVED INTERNSHIPS
-          ================================================= */}
+          {applicationView === "college" &&
+            renderApplicationSection(
+              "COLLEGE VERIFICATION",
+              "Waiting for College Approval",
+              "Applications approved by your company and waiting for college verification.",
+              collegeApprovalApplicationsList,
+              "company-section-waiting-college"
+            )}
 
-          {renderApplicationSection(
-            "ACTIVE INTERNSHIPS",
-            "Approved Internships",
-            "These applications have received college approval. Company Guide assignment and certificate management are available here.",
-            approvedInternships,
-            "company-section-approved"
-          )}
+          {applicationView === "approved" &&
+            renderApplicationSection(
+              "ACTIVE INTERNSHIPS",
+              "Approved Applications",
+              "Internships that have received college approval and are currently active.",
+              approvedApplicationsList,
+              "company-section-approved"
+            )}
 
-          {/* =================================================
-              4. REJECTED APPLICATIONS
-          ================================================= */}
-
-          {renderApplicationSection(
-            "APPLICATION HISTORY",
-            "Rejected Applications",
-            "Applications that were rejected by either the company or the college.",
-            rejectedApplications,
-            "company-section-rejected"
-          )}
+          {applicationView === "completed" &&
+            renderApplicationSection(
+              "COMPLETED INTERNSHIPS",
+              "Completed Internships",
+              "Internships successfully completed by students.",
+              completedInternshipsList,
+              "company-section-completed"
+            )}
         </>
       )}
     </div>
@@ -1996,6 +1921,7 @@ function CompanyDashboard({
   );
 
   // =====================================================
+
   // RENDER
   // =====================================================
 

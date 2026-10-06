@@ -297,13 +297,7 @@ function StudentProfile({
           Edit Profile
         </button>
 
-        <button
-          className="profile-secondary-action"
-          onClick={onChangePassword}
-        >
-          <span>🔐</span>
-          Change Password
-        </button>
+        
 
       </div>
 

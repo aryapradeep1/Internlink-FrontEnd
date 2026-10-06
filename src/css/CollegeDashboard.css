@@ -1436,3 +1436,1677 @@
     flex-direction: column;
   }
 }
+
+/* =========================================================
+   COLLEGE DASHBOARD
+   WELCOME HOME PAGE
+   UI ONLY
+========================================================= */
+
+.college-home-page {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   WELCOME CARD
+========================================================= */
+
+.college-welcome-card {
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 42px 48px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f5fcf8 0%,
+      #e8f7ef 55%,
+      #d8f3e5 100%
+    );
+
+  border: 1px solid #d7ebe1;
+
+  box-shadow:
+    0 18px 45px rgba(40, 118, 83, 0.08);
+
+  overflow: hidden;
+
+  animation: collegeWelcomeAppear 0.6s ease both;
+}
+
+
+/* soft background decoration */
+
+.college-welcome-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.42);
+
+  right: 180px;
+  top: -120px;
+
+  pointer-events: none;
+}
+
+
+.college-welcome-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  background: rgba(216, 243, 229, 0.65);
+
+  left: -70px;
+  bottom: -80px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   WELCOME TEXT
+========================================================= */
+
+.college-welcome-content {
+  position: relative;
+  z-index: 3;
+
+  max-width: 650px;
+}
+
+
+.college-welcome-eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 13px;
+
+  border-radius: 30px;
+
+  background: rgba(40, 118, 83, 0.09);
+
+  color: #287653;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+}
+
+
+.college-welcome-content h1 {
+  margin: 18px 0 14px;
+
+  color: #183e32;
+
+  font-size: 38px;
+  line-height: 1.12;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+
+.college-welcome-content h1 span {
+  color: #287653;
+}
+
+
+.college-welcome-description {
+  max-width: 600px;
+
+  margin: 0 0 24px;
+
+  color: #5d7068;
+
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   ROLE EXPLANATION
+========================================================= */
+
+.college-welcome-role {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+
+  max-width: 600px;
+
+  padding: 16px 18px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(40, 118, 83, 0.1);
+
+  box-shadow:
+    0 8px 24px rgba(40, 118, 83, 0.05);
+}
+
+
+.college-welcome-role-icon {
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #287653;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+
+.college-welcome-role strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #294139;
+
+  font-size: 14px;
+}
+
+
+.college-welcome-role p {
+  margin: 0;
+
+  color: #71847d;
+
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   WELCOME VISUAL
+========================================================= */
+
+.college-welcome-visual {
+  position: relative;
+
+  width: 360px;
+  height: 290px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2;
+}
+
+
+.college-visual-circle {
+  position: absolute;
+
+  border-radius: 50%;
+}
+
+
+.college-visual-circle.circle-one {
+  width: 250px;
+  height: 250px;
+
+  background: rgba(216, 243, 229, 0.75);
+
+  animation: collegeCircleFloat 5s ease-in-out infinite;
+}
+
+
+.college-visual-circle.circle-two {
+  width: 190px;
+  height: 190px;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  animation: collegeCircleFloat 4s ease-in-out infinite reverse;
+}
+
+
+/* =========================================================
+   DASHBOARD ILLUSTRATION
+========================================================= */
+
+.college-visual-card {
+  position: relative;
+  z-index: 3;
+
+  width: 225px;
+  height: 165px;
+
+  padding: 9px;
+
+  border-radius: 16px;
+
+  background: white;
+
+  box-shadow:
+    0 18px 35px rgba(24, 62, 50, 0.16);
+
+  transform: rotate(-3deg);
+
+  animation: collegeCardFloat 4s ease-in-out infinite;
+}
+
+
+.college-visual-card-top {
+  height: 16px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  padding-left: 5px;
+}
+
+
+.college-visual-card-top span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #d8f3e5;
+}
+
+
+.college-visual-screen {
+  position: relative;
+
+  height: 130px;
+
+  padding: 13px;
+
+  border-radius: 10px;
+
+  background: #f6faf8;
+}
+
+
+.college-screen-header {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
+
+
+.college-screen-avatar {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #287653;
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+
+.college-screen-header div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.college-screen-header div:last-child span:first-child {
+  width: 65px;
+  height: 6px;
+
+  border-radius: 10px;
+
+  background: #294139;
+}
+
+
+.college-screen-header div:last-child span:last-child {
+  width: 42px;
+  height: 4px;
+
+  border-radius: 10px;
+
+  background: #d8f3e5;
+}
+
+
+.college-screen-row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 8px;
+}
+
+
+.college-screen-row span:first-child {
+  width: 75px;
+  height: 6px;
+
+  border-radius: 10px;
+
+  background: #dce9e3;
+}
+
+
+.college-screen-row span:last-child {
+  width: 32px;
+  height: 6px;
+
+  border-radius: 10px;
+
+  background: #bfe5d0;
+}
+
+
+.college-screen-check {
+  position: absolute;
+
+  right: 13px;
+  bottom: 11px;
+
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #287653;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  animation: collegeCheckPulse 2.2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   FLOATING ICONS
+========================================================= */
+
+.college-floating-icon {
+  position: absolute;
+
+  z-index: 5;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: white;
+
+  box-shadow:
+    0 12px 25px rgba(24, 62, 50, 0.12);
+
+  font-size: 18px;
+}
+
+
+.college-floating-student {
+  top: 28px;
+  left: 38px;
+
+  animation: collegeFloatOne 3.5s ease-in-out infinite;
+}
+
+
+.college-floating-check {
+  right: 28px;
+  top: 62px;
+
+  color: #287653;
+
+  font-weight: 800;
+
+  animation: collegeFloatTwo 3.2s ease-in-out infinite;
+}
+
+
+.college-floating-link {
+  bottom: 30px;
+  left: 65px;
+
+  color: #ef806e;
+
+  font-weight: 800;
+
+  animation: collegeFloatOne 4s ease-in-out infinite reverse;
+}
+
+
+/* =========================================================
+   ROLE SECTION
+========================================================= */
+
+.college-role-section {
+  margin-top: 28px;
+
+  padding: 30px;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1eee8;
+
+  box-shadow:
+    0 10px 30px rgba(40, 118, 83, 0.05);
+}
+
+
+.college-role-heading {
+  margin-bottom: 22px;
+}
+
+
+.college-role-heading h2 {
+  margin: 7px 0 6px;
+
+  color: #294139;
+
+  font-size: 23px;
+  font-weight: 750;
+}
+
+
+.college-role-heading p {
+  margin: 0;
+
+  color: #71847d;
+
+  font-size: 13px;
+}
+
+
+.college-role-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+.college-role-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  padding: 19px;
+
+  border-radius: 16px;
+
+  background: #f8fcfa;
+
+  border: 1px solid #e1eee8;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+.college-role-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #c9e5d5;
+
+  box-shadow:
+    0 10px 25px rgba(40, 118, 83, 0.08);
+}
+
+
+.college-role-icon {
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #d8f3e5;
+
+  font-size: 18px;
+}
+
+
+.college-role-card h3 {
+  margin: 1px 0 5px;
+
+  color: #294139;
+
+  font-size: 15px;
+}
+
+
+.college-role-card p {
+  margin: 0;
+
+  color: #71847d;
+
+  font-size: 12.5px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   HOME FOOTER
+========================================================= */
+
+.college-home-footer {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  margin-top: 18px;
+
+  padding: 17px 20px;
+
+  border-radius: 16px;
+
+  background: #f5fcf8;
+
+  border: 1px solid #e1eee8;
+}
+
+
+.college-home-footer-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #d8f3e5;
+
+  color: #287653;
+
+  font-size: 16px;
+}
+
+
+.college-home-footer strong {
+  display: block;
+
+  color: #294139;
+
+  font-size: 13px;
+}
+
+
+.college-home-footer span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #71847d;
+
+  font-size: 11.5px;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes collegeWelcomeAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes collegeCardFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+}
+
+
+@keyframes collegeCircleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+@keyframes collegeFloatOne {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+
+@keyframes collegeFloatTwo {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(5deg);
+  }
+}
+
+
+@keyframes collegeCheckPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .college-welcome-card {
+    padding: 34px;
+  }
+
+  .college-welcome-content {
+    max-width: 55%;
+  }
+
+  .college-welcome-content h1 {
+    font-size: 32px;
+  }
+
+  .college-welcome-visual {
+    width: 310px;
+  }
+}
+
+
+@media (max-width: 800px) {
+
+  .college-welcome-card {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 25px;
+  }
+
+  .college-welcome-content {
+    max-width: 100%;
+  }
+
+  .college-welcome-visual {
+    width: 100%;
+    height: 250px;
+  }
+
+  .college-role-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 550px) {
+
+  .college-welcome-card {
+    padding: 25px 20px;
+  }
+
+  .college-welcome-content h1 {
+    font-size: 27px;
+  }
+
+  .college-welcome-description {
+    font-size: 13px;
+  }
+
+  .college-role-section {
+    padding: 20px;
+  }
+
+  .college-welcome-visual {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+}
+
+
+/* =========================================================
+   UPLOADED EXCEL DOCUMENT
+   InternLink - College Student Management
+========================================================= */
+
+.college-uploaded-excel-card {
+  width: 100%;
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding: 18px 20px;
+
+  background: #f5fbf8;
+  border: 1px solid #d8ebe2;
+  border-radius: 14px;
+
+  box-sizing: border-box;
+}
+
+
+/* Excel icon */
+
+.college-uploaded-excel-icon {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+  border-radius: 12px;
+
+  font-size: 25px;
+}
+
+
+/* File information */
+
+.college-uploaded-excel-info {
+  flex: 1;
+  min-width: 0;
+}
+
+
+.college-uploaded-excel-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #287653;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+
+.college-uploaded-excel-info h3 {
+  margin: 0;
+
+  color: #294139;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.college-uploaded-excel-info p {
+  margin: 5px 0 0;
+
+  color: #71847d;
+
+  font-size: 13px;
+}
+
+
+/* Successful upload status */
+
+.college-uploaded-excel-status {
+  flex-shrink: 0;
+
+  padding: 8px 13px;
+
+  background: #dff4e7;
+  color: #287653;
+
+  border: 1px solid #c7e8d5;
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   REGISTERED STUDENTS SECTION
+========================================================= */
+
+.college-registered-students-card {
+  margin-top: 22px;
+}
+
+
+/* Make the student count more visible */
+
+.college-registered-students-card .college-count-badge {
+  min-width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .college-uploaded-excel-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .college-uploaded-excel-info {
+    width: calc(100% - 70px);
+  }
+
+  .college-uploaded-excel-status {
+    margin-left: 70px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .college-uploaded-excel-card {
+    padding: 15px;
+  }
+
+  .college-uploaded-excel-icon {
+    width: 46px;
+    height: 46px;
+
+    font-size: 22px;
+  }
+
+  .college-uploaded-excel-info h3 {
+    font-size: 14px;
+  }
+
+  .college-uploaded-excel-status {
+    margin-left: 0;
+  }
+
+}
+
+/* =========================================================
+   STUDENT MANAGEMENT
+   UPLOADED EXCEL DOCUMENT
+   InternLink College Dashboard
+========================================================= */
+
+
+/* =========================================================
+   UPLOADED EXCEL CARD
+========================================================= */
+
+.college-uploaded-excel-card {
+  width: 100%;
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 16px 18px;
+
+  box-sizing: border-box;
+
+  background: #f7fbf9;
+
+  border: 1px solid #dcebe4;
+
+  border-radius: 12px;
+}
+
+
+/* Excel icon */
+
+.college-uploaded-excel-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e3f4ea;
+
+  border-radius: 10px;
+
+  font-size: 23px;
+}
+
+
+/* File information */
+
+.college-uploaded-excel-info {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.college-uploaded-excel-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #287653;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+
+.college-uploaded-excel-info h3 {
+  margin: 0;
+
+  color: #294139;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.college-uploaded-excel-info p {
+  margin: 4px 0 0;
+
+  color: #71847d;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+}
+
+
+/* Successful upload badge */
+
+.college-uploaded-excel-status {
+  flex-shrink: 0;
+
+  padding: 7px 12px;
+
+  background: #e1f4e8;
+
+  color: #287653;
+
+  border: 1px solid #cce7d7;
+
+  border-radius: 18px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   REGISTERED STUDENTS SECTION
+========================================================= */
+
+.college-registered-students-card {
+  margin-top: 22px;
+}
+
+
+/* Registered student count */
+
+.college-registered-students-card
+.college-count-badge {
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0 10px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  background: #d8f3e5;
+
+  color: #287653;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .college-uploaded-excel-card {
+    flex-wrap: wrap;
+
+    align-items: flex-start;
+  }
+
+
+  .college-uploaded-excel-info {
+    flex: 1;
+
+    width: calc(100% - 64px);
+  }
+
+
+  .college-uploaded-excel-status {
+    margin-left: 64px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .college-uploaded-excel-card {
+    padding: 14px;
+  }
+
+
+  .college-uploaded-excel-icon {
+    width: 44px;
+    height: 44px;
+
+    font-size: 21px;
+  }
+
+
+  .college-uploaded-excel-info h3 {
+    font-size: 14px;
+  }
+
+
+  .college-uploaded-excel-status {
+    margin-left: 0;
+
+    font-size: 10px;
+
+    padding: 6px 10px;
+  }
+
+}
+
+/* =========================================================
+   STUDENT EXCEL UPLOAD - FINAL
+========================================================= */
+
+.college-excel-format-box {
+  width: 100% !important;
+  margin-top: 20px !important;
+  padding: 13px 16px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+
+  box-sizing: border-box !important;
+
+  background: #f5faf7 !important;
+  border: 1px solid #dcebe4 !important;
+  border-radius: 10px !important;
+
+  color: #71847d !important;
+  font-size: 13px !important;
+}
+
+.college-excel-format-box strong {
+  color: #294139 !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+}
+
+.college-excel-format-box span {
+  color: #71847d !important;
+}
+
+
+/* =========================================================
+   UPLOAD AREA
+========================================================= */
+
+.college-excel-upload-area {
+  width: 100% !important;
+
+  margin-top: 16px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 12px !important;
+}
+
+
+/* =========================================================
+   FILE SELECTOR
+========================================================= */
+
+.college-file-input-wrapper {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+
+/* IMPORTANT:
+   Hide browser's ugly default file input
+*/
+
+.college-file-input-wrapper input[type="file"] {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
+/* Custom file button */
+
+.college-file-input-wrapper label {
+  width: 100% !important;
+  height: 44px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  box-sizing: border-box !important;
+
+  padding: 0 15px !important;
+
+  background: #ffffff !important;
+
+  border: 1px solid #d5e5de !important;
+
+  border-radius: 9px !important;
+
+  color: #667a72 !important;
+
+  font-size: 13px !important;
+  font-weight: 600 !important;
+
+  cursor: pointer !important;
+
+  transition: all 0.2s ease !important;
+}
+
+.college-file-input-wrapper label:hover {
+  background: #f7fbf9 !important;
+
+  border-color: #287653 !important;
+
+  color: #287653 !important;
+}
+
+
+/* =========================================================
+   UPLOAD BUTTON
+========================================================= */
+
+.college-excel-upload-button {
+  height: 44px !important;
+
+  padding: 0 20px !important;
+
+  border: none !important;
+
+  border-radius: 9px !important;
+
+  background: #287653 !important;
+
+  color: #ffffff !important;
+
+  font-size: 13px !important;
+
+  font-weight: 700 !important;
+
+  cursor: pointer !important;
+
+  white-space: nowrap !important;
+
+  transition: all 0.2s ease !important;
+}
+
+.college-excel-upload-button:hover:not(:disabled) {
+  background: #216246 !important;
+
+  transform: translateY(-1px) !important;
+}
+
+.college-excel-upload-button:disabled {
+  opacity: 0.6 !important;
+
+  cursor: not-allowed !important;
+
+  transform: none !important;
+}
+
+
+/* =========================================================
+   SELECTED FILE
+========================================================= */
+
+.college-selected-file {
+  width: 100% !important;
+
+  margin-top: 12px !important;
+
+  padding: 11px 13px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 11px !important;
+
+  box-sizing: border-box !important;
+
+  background: #f7fbf9 !important;
+
+  border: 1px solid #dcebe4 !important;
+
+  border-radius: 9px !important;
+}
+
+.college-selected-file > span {
+  width: 34px !important;
+  height: 34px !important;
+
+  flex-shrink: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: #d8f3e5 !important;
+
+  border-radius: 8px !important;
+
+  font-size: 17px !important;
+}
+
+.college-selected-file div {
+  min-width: 0 !important;
+
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 2px !important;
+}
+
+.college-selected-file strong {
+  color: #294139 !important;
+
+  font-size: 13px !important;
+
+  white-space: nowrap !important;
+
+  overflow: hidden !important;
+
+  text-overflow: ellipsis !important;
+}
+
+.college-selected-file small {
+  color: #71847d !important;
+
+  font-size: 11px !important;
+}
+
+
+/* =========================================================
+   UPLOADED EXCEL DOCUMENT
+========================================================= */
+
+.college-uploaded-excel-card {
+  width: 100% !important;
+
+  margin-top: 16px !important;
+
+  padding: 15px 17px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 15px !important;
+
+  box-sizing: border-box !important;
+
+  background: #f5fbf8 !important;
+
+  border: 1px solid #d8ebe2 !important;
+
+  border-radius: 11px !important;
+}
+
+.college-uploaded-excel-icon {
+  width: 46px !important;
+  height: 46px !important;
+
+  flex-shrink: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: #d8f3e5 !important;
+
+  border-radius: 9px !important;
+
+  font-size: 22px !important;
+}
+
+.college-uploaded-excel-info {
+  flex: 1 !important;
+
+  min-width: 0 !important;
+}
+
+.college-uploaded-excel-label {
+  display: block !important;
+
+  margin-bottom: 3px !important;
+
+  color: #287653 !important;
+
+  font-size: 10px !important;
+
+  font-weight: 700 !important;
+
+  letter-spacing: 0.08em !important;
+}
+
+.college-uploaded-excel-info h3 {
+  margin: 0 !important;
+
+  color: #294139 !important;
+
+  font-size: 15px !important;
+
+  font-weight: 700 !important;
+
+  white-space: nowrap !important;
+
+  overflow: hidden !important;
+
+  text-overflow: ellipsis !important;
+}
+
+.college-uploaded-excel-info p {
+  margin: 3px 0 0 !important;
+
+  color: #71847d !important;
+
+  font-size: 12px !important;
+}
+
+.college-uploaded-excel-status {
+  flex-shrink: 0 !important;
+
+  padding: 7px 11px !important;
+
+  background: #e1f4e8 !important;
+
+  color: #287653 !important;
+
+  border: 1px solid #cce7d7 !important;
+
+  border-radius: 18px !important;
+
+  font-size: 11px !important;
+
+  font-weight: 700 !important;
+
+  white-space: nowrap !important;
+}
+
+
+/* =========================================================
+   UPLOAD SUMMARY
+========================================================= */
+
+.college-excel-result {
+  width: 100% !important;
+
+  margin-top: 16px !important;
+
+  padding: 16px !important;
+
+  box-sizing: border-box !important;
+
+  background: #f8fbf9 !important;
+
+  border: 1px solid #dcebe4 !important;
+
+  border-radius: 11px !important;
+}
+
+.college-excel-result h3 {
+  margin: 0 0 12px !important;
+
+  color: #294139 !important;
+
+  font-size: 15px !important;
+}
+
+.college-excel-summary-grid {
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(4, 1fr) !important;
+
+  gap: 9px !important;
+}
+
+.college-excel-summary-grid > div {
+  padding: 11px !important;
+
+  background: #ffffff !important;
+
+  border: 1px solid #e2eee8 !important;
+
+  border-radius: 8px !important;
+}
+
+.college-excel-summary-grid span {
+  display: block !important;
+
+  margin-bottom: 3px !important;
+
+  color: #71847d !important;
+
+  font-size: 11px !important;
+}
+
+.college-excel-summary-grid strong {
+  color: #287653 !important;
+
+  font-size: 17px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .college-excel-format-box {
+    flex-direction: column !important;
+
+    align-items: flex-start !important;
+  }
+
+  .college-excel-upload-area {
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+  }
+
+  .college-excel-upload-button {
+    width: 100% !important;
+  }
+
+  .college-excel-summary-grid {
+    grid-template-columns:
+      repeat(2, 1fr) !important;
+  }
+
+  .college-uploaded-excel-card {
+    flex-wrap: wrap !important;
+
+    align-items: flex-start !important;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .college-excel-summary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}

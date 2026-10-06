@@ -1,6 +1,6 @@
 /* =========================================================
    MY APPLICATIONS
-   Compact Dashboard Design
+   Larger & More Readable Dashboard Design
 ========================================================= */
 
 .my-applications-page {
@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
 
-  gap: 12px;
+  gap: 14px;
 
   box-sizing: border-box;
 }
@@ -46,7 +46,7 @@
 
   display: block !important;
 
-  padding: 13px 16px !important;
+  padding: 18px 20px !important;
 
   margin: 0 !important;
 
@@ -55,9 +55,9 @@
   background: #ffffff;
 
   border: 1px solid #dfeae5;
-  border-radius: 12px;
+  border-radius: 14px;
 
-  box-shadow: 0 3px 12px rgba(43, 74, 61, 0.04);
+  box-shadow: 0 3px 12px rgba(43, 74, 61, 0.05);
 
   overflow: hidden;
 }
@@ -76,7 +76,7 @@
   left: 0;
   right: 0;
 
-  height: 3px;
+  height: 4px;
 
   background: linear-gradient(
     90deg,
@@ -97,9 +97,9 @@
   display: flex !important;
   align-items: center;
 
-  gap: 11px;
+  gap: 14px;
 
-  padding: 2px 0 10px !important;
+  padding: 4px 0 13px !important;
 
   margin: 0 !important;
 
@@ -109,24 +109,32 @@
 }
 
 
-.company-icon {
-  width: 38px;
-  height: 38px;
+/* =========================================================
+   COMPANY ICON
+========================================================= */
 
-  flex: 0 0 38px;
+.company-icon {
+  width: 46px;
+  height: 46px;
+
+  flex: 0 0 46px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 9px;
+  border-radius: 11px;
 
   background: #e7f6ed;
   border: 1px solid #d4ecdf;
 
-  font-size: 17px;
+  font-size: 21px;
 }
 
+
+/* =========================================================
+   COMPANY INFO
+========================================================= */
 
 .company-info {
   flex: 1 1 auto;
@@ -140,11 +148,11 @@
 .company-label {
   display: block;
 
-  margin: 0 0 2px;
+  margin: 0 0 4px;
 
   color: #8ca096;
 
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 800;
 
   letter-spacing: 1px;
@@ -156,8 +164,8 @@
 
   color: #294139;
 
-  font-size: 15px;
-  line-height: 1.2;
+  font-size: 19px;
+  line-height: 1.25;
 
   font-weight: 750;
 }
@@ -171,24 +179,24 @@
   display: inline-flex !important;
   align-items: center;
 
-  gap: 6px;
+  gap: 7px;
 
   flex-shrink: 0;
 
-  padding: 5px 9px;
+  padding: 7px 12px;
 
   margin: 0 !important;
 
-  border-radius: 18px;
+  border-radius: 20px;
 
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 750;
 }
 
 
 .status-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   flex-shrink: 0;
 
@@ -196,7 +204,9 @@
 }
 
 
-/* STATUS COLORS */
+/* =========================================================
+   STATUS COLORS
+========================================================= */
 
 .status-badge.pending {
   color: #99732f;
@@ -242,9 +252,9 @@
 
   grid-template-columns: 1fr 1fr;
 
-  gap: 10px;
+  gap: 12px;
 
-  padding: 10px 0 !important;
+  padding: 14px 0 !important;
 
   margin: 0 !important;
 
@@ -261,9 +271,9 @@
   display: flex;
   align-items: center;
 
-  gap: 8px;
+  gap: 10px;
 
-  padding: 7px 9px;
+  padding: 10px 12px;
 
   box-sizing: border-box;
 
@@ -271,25 +281,29 @@
 
   border: 1px solid #e6efea;
 
-  border-radius: 8px;
+  border-radius: 9px;
 }
 
 
-.detail-icon {
-  width: 28px;
-  height: 28px;
+/* =========================================================
+   DETAIL ICON
+========================================================= */
 
-  flex: 0 0 28px;
+.detail-icon {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 7px;
+  border-radius: 8px;
 
   background: #ffffff;
 
-  font-size: 12px;
+  font-size: 15px;
 }
 
 
@@ -303,12 +317,14 @@
 
   color: #8a9a92;
 
-  font-size: 7px;
+  font-size: 9px;
   font-weight: 750;
 
-  letter-spacing: 0.6px;
+  letter-spacing: 0.7px;
 
   text-transform: uppercase;
+
+  margin-bottom: 2px;
 }
 
 
@@ -317,7 +333,7 @@
 
   color: #40564d;
 
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
 
   overflow: hidden;
@@ -328,7 +344,6 @@
 
 /* =========================================================
    FACULTY GUIDE
-   IMPORTANT: FORCE COMPACT NORMAL FLOW
 ========================================================= */
 
 .faculty-section {
@@ -346,7 +361,7 @@
 
   margin: 0 !important;
 
-  padding: 10px !important;
+  padding: 14px !important;
 
   box-sizing: border-box;
 
@@ -358,7 +373,7 @@
 
   border: 1px solid #e5e2ed;
 
-  border-radius: 10px;
+  border-radius: 11px;
 }
 
 
@@ -372,9 +387,9 @@
   display: flex !important;
   align-items: center;
 
-  gap: 8px;
+  gap: 10px;
 
-  padding: 0 0 8px !important;
+  padding: 0 0 10px !important;
 
   margin: 0 !important;
 
@@ -385,20 +400,20 @@
 
 
 .faculty-title-icon {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
 
-  flex: 0 0 30px;
+  flex: 0 0 36px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 8px;
+  border-radius: 9px;
 
   background: #eee8f9;
 
-  font-size: 13px;
+  font-size: 16px;
 }
 
 
@@ -407,16 +422,16 @@
 
   color: #514965;
 
-  font-size: 11px;
+  font-size: 15px;
 }
 
 
 .faculty-header p {
-  margin: 2px 0 0;
+  margin: 3px 0 0;
 
   color: #8b8499;
 
-  font-size: 8px;
+  font-size: 11px;
 }
 
 
@@ -432,7 +447,7 @@
   height: auto !important;
   min-height: 0 !important;
 
-  padding: 8px 0 0 !important;
+  padding: 11px 0 0 !important;
 
   margin: 0 !important;
 
@@ -440,26 +455,30 @@
 }
 
 
+/* =========================================================
+   FACULTY MAIN
+========================================================= */
+
 .faculty-main {
   width: 100%;
 
   display: flex !important;
   align-items: center;
 
-  gap: 8px;
+  gap: 10px;
 
   height: auto !important;
   min-height: 0 !important;
 
-  margin: 0 0 8px !important;
+  margin: 0 0 10px !important;
 }
 
 
 .faculty-avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 
-  flex: 0 0 32px;
+  flex: 0 0 40px;
 
   display: flex;
   align-items: center;
@@ -471,7 +490,7 @@
 
   color: #67548d;
 
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 800;
 }
 
@@ -481,18 +500,18 @@
 
   color: #463e59;
 
-  font-size: 11px;
+  font-size: 14px;
 }
 
 
 .faculty-main span {
   display: block;
 
-  margin-top: 2px;
+  margin-top: 3px;
 
   color: #8b829e;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 
@@ -508,7 +527,7 @@
   grid-template-columns:
     repeat(4, minmax(0, 1fr));
 
-  gap: 6px;
+  gap: 8px;
 
   height: auto !important;
   min-height: 0 !important;
@@ -529,9 +548,9 @@
   display: flex !important;
   align-items: center;
 
-  gap: 5px;
+  gap: 7px;
 
-  padding: 6px;
+  padding: 8px;
 
   box-sizing: border-box;
 
@@ -539,15 +558,15 @@
 
   border: 1px solid #e9e5ef;
 
-  border-radius: 7px;
+  border-radius: 8px;
 }
 
 
 .faculty-detail > span {
-  width: 22px;
-  height: 22px;
+  width: 27px;
+  height: 27px;
 
-  flex: 0 0 22px;
+  flex: 0 0 27px;
 
   display: flex;
   align-items: center;
@@ -557,7 +576,7 @@
 
   background: #ffffff;
 
-  font-size: 9px;
+  font-size: 11px;
 }
 
 
@@ -567,14 +586,14 @@
   display: flex;
   flex-direction: column;
 
-  gap: 1px;
+  gap: 2px;
 }
 
 
 .faculty-detail small {
   color: #958ca1;
 
-  font-size: 6px;
+  font-size: 8px;
   font-weight: 700;
 
   letter-spacing: 0.4px;
@@ -586,7 +605,7 @@
 .faculty-detail strong {
   color: #514865;
 
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 650;
 
   overflow: hidden;
@@ -597,13 +616,13 @@
 
 
 /* =========================================================
-   EMPTY
+   EMPTY APPLICATIONS
 ========================================================= */
 
 .empty-applications {
   width: 100%;
 
-  padding: 35px 20px;
+  padding: 45px 25px;
 
   display: flex;
   flex-direction: column;
@@ -617,25 +636,25 @@
 
   border: 1px solid #dfeae5;
 
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 
 .empty-icon {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 
-  border-radius: 13px;
+  border-radius: 15px;
 
   background: #e7f6ed;
 
-  font-size: 22px;
+  font-size: 27px;
 }
 
 
@@ -644,18 +663,18 @@
 
   color: #294139;
 
-  font-size: 17px;
+  font-size: 21px;
 }
 
 
 .empty-applications p {
-  max-width: 420px;
+  max-width: 500px;
 
-  margin: 7px 0 0;
+  margin: 8px 0 0;
 
   color: #7b8982;
 
-  font-size: 10px;
+  font-size: 13px;
 
   line-height: 1.6;
 }
@@ -671,11 +690,11 @@
   display: flex;
   align-items: center;
 
-  gap: 10px;
+  gap: 11px;
 
-  padding: 11px 13px;
+  padding: 13px 15px;
 
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 
   box-sizing: border-box;
 
@@ -684,6 +703,8 @@
   border: 1px solid #f1d5cd;
 
   border-radius: 10px;
+
+  font-size: 13px;
 }
 
 
@@ -694,7 +715,7 @@
 .applications-loading {
   width: 100%;
 
-  min-height: 180px;
+  min-height: 200px;
 
   display: flex;
   flex-direction: column;
@@ -709,7 +730,9 @@
 
   border: 1px solid #dfeae5;
 
-  border-radius: 12px;
+  border-radius: 14px;
+
+  font-size: 14px;
 }
 
 
@@ -725,13 +748,280 @@
 
 
 /* =========================================================
+   COMPANY CONFIRMATION LETTER
+========================================================= */
+
+.confirmation-letter {
+  margin-top: 24px;
+
+  padding: 22px;
+
+  background: #f4fbf7;
+
+  border: 1px solid #cfe8da;
+
+  border-radius: 16px;
+}
+
+
+.confirmation-letter-header {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+
+.confirmation-letter-icon {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 12px;
+
+  background: #d8f3e5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  flex-shrink: 0;
+}
+
+
+.confirmation-letter-header h3 {
+  margin: 0 0 5px;
+
+  color: #294139;
+
+  font-size: 20px;
+}
+
+
+.confirmation-letter-header p {
+  margin: 0;
+
+  color: #668078;
+
+  font-size: 14px;
+}
+
+
+.confirmation-letter-paper {
+  background: #ffffff;
+
+  border: 1px solid #e1ebe5;
+
+  border-radius: 12px;
+
+  padding: 26px;
+
+  box-shadow:
+    0 4px 14px rgba(40, 118, 83, 0.06);
+}
+
+
+.letter-subject {
+  padding-bottom: 15px;
+
+  margin-bottom: 17px;
+
+  border-bottom: 1px solid #e8eee9;
+
+  color: #287653;
+
+  font-size: 18px;
+
+  font-weight: 700;
+}
+
+
+.letter-message {
+  color: #294139;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+}
+
+
+.letter-message p {
+  margin: 0 0 9px;
+}
+
+
+.letter-date {
+  margin-top: 19px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #e8eee9;
+
+  color: #7b8d85;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FORWARD INFORMATION
+========================================================= */
+
+.forward-letter-info {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 12px;
+
+  padding: 11px 14px;
+
+  background: #fff8f5;
+
+  border: 1px solid #f2d8cf;
+
+  border-radius: 9px;
+}
+
+
+.forward-letter-info span {
+  font-size: 19px;
+}
+
+
+.forward-letter-info p {
+  margin: 0;
+
+  color: #6b5149;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   FORWARD CONFIRMATION LETTER TO COLLEGE
+========================================================= */
+
+.forward-college-button {
+  width: 100%;
+
+  margin-top: 13px;
+
+  padding: 13px 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #287653;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.forward-college-button:hover:not(:disabled) {
+  background: #216447;
+
+  transform: translateY(-1px);
+}
+
+
+.forward-college-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   FORWARDED STATUS
+========================================================= */
+
+.forwarded-to-college-badge {
+  margin-top: 13px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px 14px;
+
+  background: #eaf8f0;
+
+  border: 1px solid #c9e8d6;
+
+  border-radius: 10px;
+
+  color: #287653;
+}
+
+
+.forwarded-to-college-badge > span {
+  width: 29px;
+  height: 29px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+
+.forwarded-to-college-badge strong {
+  display: block;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+
+.forwarded-to-college-badge small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #668078;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
 @media (max-width: 1000px) {
 
   .faculty-details {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
 }
@@ -749,234 +1039,23 @@
 @media (max-width: 560px) {
 
   .application-card {
-    padding: 12px !important;
+    padding: 15px !important;
   }
 
   .application-card-top {
     flex-wrap: wrap;
   }
 
+  .company-info h2 {
+    font-size: 17px;
+  }
+
+  .status-badge {
+    font-size: 11px;
+  }
+
   .faculty-details {
     grid-template-columns: 1fr;
   }
 
-}
-
-
-
-/* =========================================================
-   COMPANY CONFIRMATION LETTER
-========================================================= */
-
-.confirmation-letter {
-  margin-top: 24px;
-  padding: 20px;
-  background: #f4fbf7;
-  border: 1px solid #cfe8da;
-  border-radius: 16px;
-}
-
-.confirmation-letter-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 18px;
-}
-
-.confirmation-letter-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: #d8f3e5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
-
-.confirmation-letter-header h3 {
-  margin: 0 0 4px;
-  color: #294139;
-  font-size: 18px;
-}
-
-.confirmation-letter-header p {
-  margin: 0;
-  color: #668078;
-  font-size: 13px;
-}
-
-.confirmation-letter-paper {
-  background: #ffffff;
-  border: 1px solid #e1ebe5;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 14px rgba(40, 118, 83, 0.06);
-}
-
-.letter-subject {
-  padding-bottom: 14px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid #e8eee9;
-  color: #287653;
-  font-size: 16px;
-}
-
-.letter-message {
-  color: #294139;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.letter-message p {
-  margin: 0 0 8px;
-}
-
-.letter-date {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid #e8eee9;
-  color: #7b8d85;
-  font-size: 12px;
-}
-
-.forward-letter-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 12px 14px;
-  background: #fff8f5;
-  border: 1px solid #f2d8cf;
-  border-radius: 10px;
-}
-
-.forward-letter-info span {
-  font-size: 18px;
-}
-
-.forward-letter-info p {
-  margin: 0;
-  color: #6b5149;
-  font-size: 13px;
-}
-
-/* =========================================================
-   FORWARD CONFIRMATION LETTER TO COLLEGE
-========================================================= */
-
-.forward-college-button {
-  width: 100%;
-  margin-top: 12px;
-  padding: 11px 16px;
-
-  border: none;
-  border-radius: 10px;
-
-  background: #287653;
-  color: #ffffff;
-
-  font-size: 13px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.forward-college-button:hover:not(:disabled) {
-  background: #216447;
-  transform: translateY(-1px);
-}
-
-.forward-college-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* =========================================================
-   FORWARDED STATUS
-========================================================= */
-
-.forwarded-to-college-badge {
-  margin-top: 12px;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  padding: 11px 13px;
-
-  background: #eaf8f0;
-  border: 1px solid #c9e8d6;
-  border-radius: 10px;
-
-  color: #287653;
-}
-
-.forwarded-to-college-badge > span {
-  width: 26px;
-  height: 26px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #d8f3e5;
-
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.forwarded-to-college-badge strong {
-  display: block;
-
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.forwarded-to-college-badge small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: #668078;
-  font-size: 11px;
-}
-
-/* =========================================================
-   FORWARD INFORMATION
-========================================================= */
-
-.forward-letter-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  margin-top: 10px;
-  padding: 9px 12px;
-
-  background: #fff8f5;
-
-  border: 1px solid #f2d8cf;
-  border-radius: 8px;
-}
-
-.forward-letter-info span {
-  font-size: 16px;
-}
-
-.forward-letter-info p {
-  margin: 0;
-
-  color: #6b5149;
-
-  font-size: 12px;
-  line-height: 1.4;
 }

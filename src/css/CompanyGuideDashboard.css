@@ -158,6 +158,7 @@
 /* =========================================
    MAIN LAYOUT
    ========================================= */
+
 .cg-main {
   display: flex;
   min-height: calc(100vh - 82px);
@@ -380,518 +381,380 @@
 
 
 /* =========================================
-   HERO
+   DASHBOARD HOME
+   InternLink Company Guide
    ========================================= */
 
-.cg-hero {
+.cg-dashboard-home {
+  width: 100%;
+  color: #294139;
+}
+
+
+/* =========================================
+   WELCOME CARD
+   ========================================= */
+
+.cg-welcome-card {
   min-height: 275px;
+
   background: linear-gradient(
     120deg,
     #ffffff 0%,
     #f5fcf8 100%
-  );
+  ) !important;
+
   border: 1px solid #e1eee8;
   border-radius: 22px;
   padding: 34px 38px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   overflow: hidden;
   position: relative;
-  box-shadow:
-    0 12px 35px rgba(39, 83, 68, 0.06);
+
+  box-shadow: 0 12px 35px rgba(39, 83, 68, 0.06);
 }
 
-.cg-hero-content {
+.cg-welcome-content {
   max-width: 700px;
   position: relative;
   z-index: 2;
 }
 
-.cg-eyebrow,
-.cg-section-header > div > span,
-.cg-panel-heading span,
-.cg-responsibility-content > span {
-  color: #287653;
+.cg-welcome-eyebrow {
+  display: block;
+  color: #287653 !important;
   font-size: 10px;
   letter-spacing: 1.7px;
   font-weight: 800;
+  margin-bottom: 8px;
 }
 
-.cg-hero h1 {
-  margin: 9px 0 9px;
-  color: #183e32;
+.cg-welcome-card h1 {
+  margin: 9px 0 12px;
+
+  color: #183e32 !important;
+
   font-size: clamp(30px, 3vw, 43px);
   line-height: 1.1;
   letter-spacing: -1.5px;
+  font-weight: 800;
 }
 
-.cg-hero h1 span:first-of-type {
-  color: #287653;
+.cg-welcome-card h1 > span:not(.cg-wave) {
+  color: #287653 !important;
 }
 
 .cg-wave {
   margin-left: 9px;
 }
 
-.cg-hero p {
+.cg-welcome-card p {
   max-width: 650px;
-  color: #71847d;
+
+  color: #5f746b !important;
+
   font-size: 14px;
   line-height: 1.7;
   margin: 0;
 }
 
-.cg-hero-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 24px;
-}
 
-.cg-primary-action,
-.cg-secondary-action {
-  height: 42px;
-  padding: 0 17px;
-  border-radius: 9px;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 12px;
-  transition: 0.2s ease;
-}
+/* =========================================
+   WELCOME ILLUSTRATION
+   ========================================= */
 
-.cg-primary-action {
-  background: #287653;
-  color: #ffffff;
-}
-
-.cg-primary-action:hover {
-  background: #206447;
-  transform: translateY(-2px);
-}
-
-.cg-secondary-action {
-  background: #ffffff;
-  border: 1px solid #d7e8df;
-  color: #287653;
-}
-
-.cg-secondary-action:hover {
-  background: #eff9f3;
-  transform: translateY(-2px);
-}
-
-.cg-primary-action span,
-.cg-secondary-action span {
-  margin-right: 7px;
-}
-
-
-/* HERO VISUAL */
-
-.cg-hero-visual {
+.cg-welcome-illustration {
   width: 260px;
   height: 230px;
   position: relative;
   flex-shrink: 0;
 }
 
-.cg-visual-circle {
+.cg-welcome-circle {
   position: absolute;
-  border-radius: 50%;
-}
 
-.circle-one {
   width: 220px;
   height: 220px;
-  background: #dff5e9;
+
+  border-radius: 50%;
+
+  background: #dff5e9 !important;
+
   right: 0;
   top: 4px;
 }
 
-.circle-two {
-  width: 150px;
-  height: 150px;
-  background: #c8ead9;
-  right: 42px;
-  top: 39px;
-}
-
-.cg-guide-illustration {
+.cg-welcome-icon {
   position: absolute;
+
   width: 140px;
   height: 140px;
-  background: #ffffff;
+
+  background: #ffffff !important;
   border: 1px solid #d8ebe2;
+
   border-radius: 30px;
+
   right: 42px;
   top: 39px;
+
   box-shadow: 0 15px 35px rgba(40, 118, 83, 0.13);
+
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
 
-.cg-illustration-icon {
   font-size: 45px;
 }
 
-.cg-illustration-lines {
-  display: flex;
-  gap: 4px;
-  margin-top: 5px;
-}
 
-.cg-illustration-lines span {
-  width: 22px;
-  height: 4px;
-  border-radius: 5px;
-  background: #d8f3e5;
-}
+/* =========================================
+   RESPONSIBILITIES CARD
+   ========================================= */
 
-.cg-mini-badge {
-  position: absolute;
-  bottom: -13px;
-  right: -19px;
-  padding: 8px 12px;
-  background: #287653;
-  color: #ffffff;
-  border-radius: 8px;
-  font-size: 10px;
-  font-weight: 800;
-  box-shadow: 0 7px 15px rgba(40, 118, 83, 0.2);
+.cg-responsibilities-card {
+  margin-top: 17px;
+
+  /*
+     IMPORTANT:
+     Force this card to stay LIGHT.
+     This prevents any old dark dashboard
+     style from affecting the new card.
+  */
+  background: #ffffff !important;
+
+  border: 1px solid #e1eee8;
+  border-radius: 18px;
+
+  padding: 26px 29px;
+
+  box-shadow: 0 8px 25px rgba(39, 83, 68, 0.04);
+
+  color: #294139 !important;
 }
 
 
 /* =========================================
-   STATS
+   RESPONSIBILITIES HEADING
    ========================================= */
 
-.cg-stats-grid {
-  display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-  gap: 15px;
-  margin-top: 18px;
-}
-
-.cg-stat-card {
-  background: #ffffff;
-  border: 1px solid #e1eee8;
-  border-radius: 15px;
-  padding: 19px;
+.cg-responsibilities-heading {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  min-height: 112px;
-  position: relative;
-  transition: 0.2s ease;
+  align-items: flex-start;
+  gap: 15px;
 }
 
-.cg-stat-card.clickable {
-  cursor: pointer;
-}
+.cg-responsibilities-icon {
+  width: 50px;
+  height: 50px;
 
-.cg-stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 10px 25px rgba(39, 83, 68, 0.07);
-}
-
-.cg-stat-icon {
-  width: 49px;
-  height: 49px;
   border-radius: 13px;
+
+  background: #d8f3e5 !important;
+  color: #287653 !important;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 22px;
+  font-weight: 800;
+
   flex-shrink: 0;
 }
 
-.cg-stat-icon.students {
-  background: #dff5e9;
+.cg-responsibilities-heading > div:last-child {
+  min-width: 0;
 }
 
-.cg-stat-icon.logbooks {
-  background: #e5f0fa;
-}
-
-.cg-stat-icon.pending {
-  background: #fff0dc;
-}
-
-.cg-stat-content span {
+.cg-responsibilities-heading span {
   display: block;
-  color: #80918b;
+
+  color: #287653 !important;
+
   font-size: 10px;
-  font-weight: 600;
+  letter-spacing: 1.7px;
+  font-weight: 800;
 }
 
-.cg-stat-content strong {
-  display: block;
-  color: #203f35;
-  font-size: 27px;
-  line-height: 1;
-  margin: 5px 0;
-}
+.cg-responsibilities-heading h2 {
+  color: #203f35 !important;
 
-.cg-stat-content small {
-  color: #9aa9a4;
-  font-size: 9px;
-}
+  font-size: 20px;
+  line-height: 1.3;
 
-.cg-stat-arrow {
-  margin-left: auto;
-  color: #9ab1a7;
-  font-size: 19px;
+  margin: 6px 0 0;
+
+  font-weight: 800;
 }
 
 
 /* =========================================
-   DASHBOARD GRID
+   RESPONSIBILITIES LIST
    ========================================= */
 
-.cg-dashboard-grid {
+.cg-responsibilities-list {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 17px;
-  margin-top: 17px;
+
+  grid-template-columns: repeat(
+    3,
+    minmax(0, 1fr)
+  );
+
+  gap: 12px;
+
+  margin-top: 20px;
 }
 
-.cg-panel {
-  background: #ffffff;
-  border: 1px solid #e1eee8;
-  border-radius: 17px;
-  padding: 22px;
-}
+.cg-responsibility-item {
+  min-width: 0;
 
-.cg-panel-heading h2 {
-  margin: 5px 0 0;
-  color: #203f35;
-  font-size: 18px;
-  letter-spacing: -0.3px;
-}
+  background: #f7faf8 !important;
 
-.cg-quick-actions {
-  display: grid;
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 18px;
-}
+  border: 1px solid #e4eee9;
 
-.cg-quick-actions button {
-  min-height: 125px;
-  background: #f9fcfa;
-  border: 1px solid #e3eee9;
   border-radius: 12px;
-  padding: 14px;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.2s ease;
-  position: relative;
-}
 
-.cg-quick-actions button:hover {
-  border-color: #c6dfd3;
-  background: #f3faf6;
-  transform: translateY(-2px);
-}
+  padding: 15px;
 
-.cg-quick-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
+  gap: 12px;
+
+  color: #294139 !important;
 }
 
-.cg-quick-icon.green {
-  background: #d8f3e5;
-}
+.cg-responsibility-item > span {
+  color: #789087 !important;
 
-.cg-quick-icon.coral {
-  background: #ffe6e0;
-}
-
-.cg-quick-icon.blue {
-  background: #e4f0fa;
-}
-
-.cg-quick-actions strong {
-  display: block;
-  color: #294139;
   font-size: 11px;
+  font-weight: 800;
+
+  flex-shrink: 0;
+
+  padding-top: 2px;
 }
 
-.cg-quick-actions small {
+.cg-responsibility-item strong {
   display: block;
-  color: #91a09b;
-  font-size: 9px;
-  margin-top: 4px;
+
+  color: #294139 !important;
+
+  font-size: 12px;
+  font-weight: 800;
+
   line-height: 1.4;
 }
 
-.cg-quick-actions button > span:last-child {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  color: #287653;
-  font-weight: 700;
-}
+.cg-responsibility-item p {
+  color: #657970 !important;
 
-
-/* =========================================
-   REVIEW SUMMARY
-   ========================================= */
-
-.cg-review-summary {
-  margin-top: 19px;
-}
-
-.cg-review-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 9px;
-}
-
-.cg-review-label {
-  color: #687c74;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cg-review-row strong {
-  color: #294139;
-  font-size: 13px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.pending-dot {
-  background: #e7a545;
-}
-
-.approved-dot {
-  background: #49a878;
-}
-
-.rejected-dot {
-  background: #df7767;
-}
-
-.cg-progress {
-  height: 7px;
-  background: #edf3f0;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 18px;
-}
-
-.cg-progress-pending {
-  height: 100%;
-  background: #e7a545;
-  border-radius: 10px;
-  transition: width 0.3s ease;
-}
-
-
-/* =========================================
-   RESPONSIBILITY PANEL
-   ========================================= */
-
-.cg-responsibility-panel {
-  margin-top: 17px;
-  background: #164d3d;
-  border-radius: 18px;
-  padding: 26px 29px;
-  display: flex;
-  gap: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cg-responsibility-panel::after {
-  content: "";
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 35px solid rgba(216, 243, 229, 0.05);
-  right: -55px;
-  top: -60px;
-}
-
-.cg-responsibility-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 13px;
-  background: #d8f3e5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
-
-.cg-responsibility-content {
-  position: relative;
-  z-index: 2;
-}
-
-.cg-responsibility-content > span {
-  color: #9dd0bb;
-}
-
-.cg-responsibility-content h2 {
-  color: #ffffff;
-  font-size: 20px;
-  margin: 6px 0 7px;
-}
-
-.cg-responsibility-content > p {
-  color: #b7d4c8;
-  font-size: 11px;
-  line-height: 1.6;
-  margin: 0;
-  max-width: 720px;
-}
-
-.cg-responsibility-items {
-  display: flex;
-  gap: 25px;
-  margin-top: 17px;
-}
-
-.cg-responsibility-items div {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.cg-responsibility-items span {
-  color: #9dd0bb;
-  font-size: 9px;
-  font-weight: 800;
-}
-
-.cg-responsibility-items p {
-  color: #e1f0eb;
   font-size: 10px;
-  margin: 0;
+  line-height: 1.55;
+
+  margin: 5px 0 0;
 }
 
+
+/* =========================================
+   RESPONSIBILITY ITEM HOVER
+   ========================================= */
+
+.cg-responsibility-item:hover {
+  background: #f2faf6 !important;
+  border-color: #d4e9df;
+
+  transform: translateY(-1px);
+
+  transition: 0.2s ease;
+}
+
+
+/* =========================================
+   RESPONSIVE - 1100px
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+  .cg-welcome-illustration {
+    width: 210px;
+  }
+
+  .cg-responsibilities-list {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - 850px
+   ========================================= */
+
+@media (max-width: 850px) {
+
+  .cg-welcome-card {
+    padding: 28px;
+  }
+
+  .cg-welcome-illustration {
+    display: none;
+  }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - 650px
+   ========================================= */
+
+@media (max-width: 650px) {
+
+  .cg-welcome-card {
+    padding: 24px;
+  }
+
+  .cg-welcome-card h1 {
+    font-size: 28px;
+  }
+
+  .cg-welcome-card p {
+    font-size: 13px;
+  }
+
+  .cg-responsibilities-card {
+    padding: 22px 20px;
+  }
+
+  .cg-responsibilities-heading {
+    gap: 12px;
+  }
+
+  .cg-responsibilities-heading h2 {
+    font-size: 17px;
+  }
+
+  .cg-responsibilities-list {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .cg-responsibility-item {
+    padding: 14px;
+  }
+
+  .cg-responsibility-item strong {
+    font-size: 12px;
+  }
+
+  .cg-responsibility-item p {
+    font-size: 10px;
+  }
+
+}
 
 /* =========================================
    SECTION HEADER
@@ -1319,17 +1182,18 @@
     padding: 25px;
   }
 
-  .cg-hero-visual {
+  /* ONLY NEW DASHBOARD RESPONSIVE */
+  .cg-welcome-illustration {
     width: 210px;
   }
 
-  .cg-dashboard-grid {
+  .cg-responsibilities-list {
     grid-template-columns: 1fr;
   }
 
-  .cg-quick-actions {
+  .cg-students-grid {
     grid-template-columns:
-      repeat(3, 1fr);
+      repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1348,16 +1212,13 @@
     width: 200px;
   }
 
-  .cg-hero {
+  /* ONLY NEW DASHBOARD RESPONSIVE */
+  .cg-welcome-card {
     padding: 28px;
   }
 
-  .cg-hero-visual {
+  .cg-welcome-illustration {
     display: none;
-  }
-
-  .cg-stats-grid {
-    grid-template-columns: 1fr;
   }
 
   .cg-students-grid {
@@ -1417,31 +1278,59 @@
     padding: 20px 15px 40px;
   }
 
-  .cg-hero {
+
+  /* =====================================
+     NEW DASHBOARD MOBILE
+     ===================================== */
+
+  .cg-welcome-card {
+    min-height: auto;
     padding: 24px;
+    border-radius: 18px;
   }
 
-  .cg-hero h1 {
+  .cg-welcome-card h1 {
     font-size: 28px;
   }
 
-  .cg-hero-actions {
-    flex-direction: column;
+  .cg-welcome-card p {
+    font-size: 13px;
+    line-height: 1.65;
   }
 
-  .cg-primary-action,
-  .cg-secondary-action {
-    width: 100%;
+  .cg-responsibilities-card {
+    padding: 22px;
+    border-radius: 17px;
   }
 
-  .cg-quick-actions {
+  .cg-responsibilities-heading {
+    gap: 13px;
+  }
+
+  .cg-responsibilities-icon {
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
+    border-radius: 11px;
+    font-size: 19px;
+  }
+
+  .cg-responsibilities-heading h2 {
+    font-size: 17px;
+  }
+
+  .cg-responsibilities-list {
     grid-template-columns: 1fr;
-  }
-
-  .cg-responsibility-items {
-    flex-direction: column;
     gap: 9px;
   }
+
+  .cg-responsibility-item {
+    min-height: auto;
+    padding: 14px;
+  }
+
+
+  /* OTHER EXISTING RESPONSIVE */
 
   .cg-logbook-body {
     flex-direction: column;
@@ -1466,6 +1355,7 @@
   }
 }
 
+
 /* =========================================
    COMPACT LOGBOOK REVIEW CARDS
    ========================================= */
@@ -1477,9 +1367,7 @@
 }
 
 
-/* =========================================
-   CARD
-   ========================================= */
+/* CARD */
 
 .cg-compact-logbook-card {
   background: #ffffff;
@@ -1499,9 +1387,7 @@
 }
 
 
-/* =========================================
-   HEADER
-   ========================================= */
+/* HEADER */
 
 .cg-compact-header {
   min-height: 67px;
@@ -1600,9 +1486,7 @@
 }
 
 
-/* =========================================
-   BODY
-   ========================================= */
+/* BODY */
 
 .cg-compact-body {
   min-height: 115px;
@@ -1655,9 +1539,7 @@
 }
 
 
-/* =========================================
-   WORK / LEARNINGS
-   ========================================= */
+/* WORK / LEARNINGS */
 
 .cg-compact-section {
   min-width: 0;
@@ -1688,7 +1570,6 @@
   color: #596c64;
   font-size: 9px;
   line-height: 1.55;
-
   margin: 7px 0 0;
 
   display: -webkit-box;
@@ -1699,9 +1580,7 @@
 }
 
 
-/* =========================================
-   FOOTER
-   ========================================= */
+/* FOOTER */
 
 .cg-compact-footer {
   min-height: 48px;
@@ -1779,9 +1658,7 @@
 }
 
 
-/* =========================================
-   APPROVED / REJECTED CARD ACCENTS
-   ========================================= */
+/* APPROVED / REJECTED CARD ACCENTS */
 
 .cg-compact-logbook-card.approved {
   border-left: 3px solid #55ae7e;
@@ -1796,9 +1673,7 @@
 }
 
 
-/* =========================================
-   RESPONSIVE
-   ========================================= */
+/* RESPONSIVE */
 
 @media (max-width: 950px) {
 
@@ -2154,20 +2029,21 @@
   .cg-profile-field:last-child {
     border-bottom: none;
   }
-
 }
+
 
 /* =========================================================
    COMPANY GUIDE ATTENDANCE
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-page {
   width: 100%;
 }
 
+
 /* =========================================================
    ATTENDANCE DETAIL HEADER
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-detail-header {
   margin-bottom: 24px;
@@ -2226,9 +2102,10 @@
   font-size: 14px;
 }
 
+
 /* =========================================================
    ATTENDANCE STUDENT CARDS
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-student-grid {
   display: grid;
@@ -2320,9 +2197,10 @@
   background: #216347;
 }
 
+
 /* =========================================================
    ATTENDANCE SUMMARY
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-summary {
   display: grid;
@@ -2359,9 +2237,10 @@
   font-size: 12px;
 }
 
+
 /* =========================================================
    ATTENDANCE FORM
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-form-card,
 .cg-attendance-history-card {
@@ -2503,9 +2382,10 @@
   cursor: not-allowed;
 }
 
+
 /* =========================================================
    ATTENDANCE MESSAGES
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-error {
   background: #fff1ef;
@@ -2527,9 +2407,10 @@
   font-size: 13px;
 }
 
+
 /* =========================================================
    ATTENDANCE TABLE
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-table-wrapper {
   width: 100%;
@@ -2561,9 +2442,10 @@
   background: #fbfdfc;
 }
 
+
 /* =========================================================
    ATTENDANCE STATUS
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-status,
 .cg-verification-status {
@@ -2605,9 +2487,10 @@
   color: #c15d50;
 }
 
+
 /* =========================================================
    ATTENDANCE EMPTY STATE
-========================================================= */
+   ========================================================= */
 
 .cg-attendance-empty {
   text-align: center;
@@ -2629,11 +2512,13 @@
   margin: 0;
 }
 
+
 /* =========================================================
-   RESPONSIVE
-========================================================= */
+   ATTENDANCE RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 900px) {
+
   .cg-attendance-summary {
     grid-template-columns: 1fr;
   }
@@ -2644,6 +2529,7 @@
 }
 
 @media (max-width: 600px) {
+
   .cg-attendance-form-grid {
     grid-template-columns: 1fr;
   }
@@ -2666,3 +2552,1244 @@
     padding: 16px;
   }
 }
+
+/* =========================================================
+   FINAL DASHBOARD VISIBILITY FIX
+   Dashboard only - no other pages affected
+   ========================================================= */
+
+/* MAIN DASHBOARD */
+.cg-dashboard-home {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   WELCOME CARD
+   ========================================================= */
+
+.cg-welcome-card {
+  width: 100%;
+  min-height: 275px;
+
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #f5fcf8 100%
+  );
+
+  border: 1px solid #e1eee8;
+  border-radius: 22px;
+
+  padding: 34px 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+  overflow: hidden;
+
+  box-shadow:
+    0 12px 35px rgba(39, 83, 68, 0.06);
+}
+
+
+/* TEXT AREA */
+
+.cg-welcome-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 720px;
+
+  position: relative;
+  z-index: 5;
+
+  padding-right: 25px;
+}
+
+.cg-welcome-eyebrow {
+  display: block;
+
+  color: #287653;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+.cg-welcome-card h1 {
+  margin: 0 0 12px;
+
+  color: #183e32;
+
+  font-size: clamp(30px, 3vw, 43px);
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.cg-welcome-card h1 > span:not(.cg-wave) {
+  color: #287653;
+}
+
+.cg-welcome-card .cg-wave {
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.cg-welcome-card p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #5d7068;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   WELCOME ILLUSTRATION
+   ========================================================= */
+
+.cg-welcome-illustration {
+  width: 260px;
+  height: 230px;
+
+  flex: 0 0 260px;
+
+  position: relative;
+  z-index: 1;
+}
+
+.cg-welcome-circle {
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background: #dff5e9;
+
+  right: 0;
+  top: 4px;
+}
+
+.cg-welcome-icon {
+  position: absolute;
+
+  width: 140px;
+  height: 140px;
+
+  background: #ffffff;
+
+  border: 1px solid #d8ebe2;
+
+  border-radius: 30px;
+
+  right: 42px;
+  top: 39px;
+
+  box-shadow:
+    0 15px 35px rgba(40, 118, 83, 0.13);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 55px;
+}
+
+
+/* =========================================================
+   RESPONSIBILITIES CARD
+   ========================================================= */
+
+.cg-responsibilities-card {
+  width: 100%;
+
+  margin-top: 17px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1eee8;
+  border-radius: 18px;
+
+  padding: 26px 29px;
+
+  position: relative;
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 25px rgba(39, 83, 68, 0.05);
+}
+
+.cg-responsibilities-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+
+  border: 35px solid rgba(40, 118, 83, 0.035);
+
+  right: -55px;
+  top: -60px;
+
+  pointer-events: none;
+}
+
+
+/* HEADING */
+
+.cg-responsibilities-heading {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 15px;
+}
+
+.cg-responsibilities-icon {
+  width: 50px;
+  height: 50px;
+
+  flex: 0 0 50px;
+
+  border-radius: 13px;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.cg-responsibilities-heading > div:last-child {
+  min-width: 0;
+}
+
+.cg-responsibilities-heading span {
+  display: block;
+
+  color: #287653;
+
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 800;
+}
+
+.cg-responsibilities-heading h2 {
+  margin: 6px 0 0;
+
+  color: #203f35;
+
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   RESPONSIBILITY ITEMS
+   ========================================================= */
+
+.cg-responsibilities-list {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.cg-responsibility-item {
+  min-width: 0;
+  min-height: 105px;
+
+  background: #f7faf8;
+
+  border: 1px solid #e1eee8;
+  border-radius: 12px;
+
+  padding: 16px;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+}
+
+.cg-responsibility-item > span {
+  flex-shrink: 0;
+
+  color: #287653;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  padding-top: 2px;
+}
+
+.cg-responsibility-item strong {
+  display: block;
+
+  color: #294139;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  line-height: 1.4;
+}
+
+.cg-responsibility-item p {
+  margin: 6px 0 0;
+
+  color: #667a72;
+
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   DASHBOARD RESPONSIVE FIX
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .cg-welcome-content {
+    max-width: none;
+    padding-right: 15px;
+  }
+
+  .cg-welcome-illustration {
+    width: 210px;
+    flex-basis: 210px;
+  }
+
+  .cg-responsibilities-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 850px) {
+
+  .cg-welcome-card {
+    padding: 28px;
+  }
+
+  .cg-welcome-content {
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .cg-welcome-illustration {
+    display: none;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .cg-welcome-card {
+    min-height: auto;
+    padding: 24px;
+
+    border-radius: 18px;
+  }
+
+  .cg-welcome-card h1 {
+    font-size: 28px;
+    letter-spacing: -0.8px;
+  }
+
+  .cg-welcome-card p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .cg-responsibilities-card {
+    padding: 22px 20px;
+    border-radius: 17px;
+  }
+
+  .cg-responsibilities-heading {
+    gap: 12px;
+  }
+
+  .cg-responsibilities-icon {
+    width: 43px;
+    height: 43px;
+    flex-basis: 43px;
+    border-radius: 11px;
+    font-size: 19px;
+  }
+
+  .cg-responsibilities-heading h2 {
+    font-size: 17px;
+  }
+
+  .cg-responsibilities-list {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .cg-responsibility-item {
+    min-height: auto;
+    padding: 14px;
+  }
+}
+
+
+/* =========================================================
+   ASSIGNED STUDENTS - CATEGORY SELECTION
+   ========================================================= */
+
+.cg-assigned-students-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   TWO CATEGORY BOXES
+   ========================================================= */
+
+.cg-student-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+
+.cg-student-category-card {
+  width: 100%;
+  min-height: 150px;
+
+  border: 1px solid #e1eee8;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  position: relative;
+
+  box-shadow:
+    0 8px 25px rgba(39, 83, 68, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.cg-student-category-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #cce7da;
+
+  box-shadow:
+    0 12px 30px rgba(39, 83, 68, 0.08);
+}
+
+
+.cg-student-category-card.active {
+  border-color: #287653;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f2faf6 100%
+    );
+
+  box-shadow:
+    0 12px 32px rgba(40, 118, 83, 0.1);
+}
+
+
+/* =========================================================
+   CATEGORY ICON
+   ========================================================= */
+
+.cg-category-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  border-radius: 15px;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+}
+
+
+.cg-student-category-card.completed
+  .cg-category-icon {
+  background: #e7f4ed;
+  color: #287653;
+}
+
+
+/* =========================================================
+   CATEGORY CONTENT
+   ========================================================= */
+
+.cg-category-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.cg-category-content span {
+  color: #287653;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+}
+
+
+.cg-category-content strong {
+  margin-top: 5px;
+
+  color: #183e32;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+
+.cg-category-content p {
+  margin: 7px 0 0;
+
+  color: #71847d;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ARROW
+   ========================================================= */
+
+.cg-category-arrow {
+  margin-left: auto;
+
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #f1f8f4;
+
+  color: #287653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.cg-student-category-card:hover
+.cg-category-arrow {
+  transform: translateX(3px);
+
+  background: #d8f3e5;
+}
+
+
+/* =========================================================
+   SELECTED STUDENT SECTION
+   ========================================================= */
+
+.cg-selected-students-section {
+  margin-top: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1eee8;
+
+  border-radius: 18px;
+
+  padding: 26px;
+
+  box-shadow:
+    0 8px 25px rgba(39, 83, 68, 0.04);
+}
+
+
+/* =========================================================
+   SELECTED STUDENT HEADER
+   ========================================================= */
+
+.cg-selected-students-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #e7efeb;
+}
+
+
+.cg-selected-students-header > div:first-child {
+  min-width: 0;
+}
+
+
+.cg-selected-students-header span {
+  color: #287653;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+
+.cg-selected-students-header h2 {
+  margin: 6px 0 5px;
+
+  color: #203f35;
+
+  font-size: 21px;
+
+  font-weight: 800;
+}
+
+
+.cg-selected-students-header p {
+  margin: 0;
+
+  color: #71847d;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.cg-close-student-list {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border: 1px solid #e1eee8;
+
+  border-radius: 9px;
+
+  background: #f7faf8;
+
+  color: #71847d;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+
+.cg-close-student-list:hover {
+  background: #d8f3e5;
+
+  color: #287653;
+
+  border-color: #cce7da;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .cg-student-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .cg-student-category-card {
+    min-height: 130px;
+
+    padding: 18px;
+
+    gap: 13px;
+  }
+
+
+  .cg-category-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+  }
+
+
+  .cg-category-content strong {
+    font-size: 26px;
+  }
+
+
+  .cg-category-content p {
+    font-size: 11px;
+  }
+
+
+  .cg-category-arrow {
+    width: 30px;
+    height: 30px;
+
+    font-size: 16px;
+  }
+
+
+  .cg-selected-students-section {
+    padding: 20px;
+  }
+
+
+  .cg-selected-students-header {
+    gap: 12px;
+  }
+
+
+  .cg-selected-students-header h2 {
+    font-size: 18px;
+  }
+
+
+  .cg-selected-students-header p {
+    font-size: 11px;
+  }
+
+}
+
+/* =========================================================
+   LOGBOOK REVIEW - STUDENT DROPDOWN
+   ========================================================= */
+
+.cg-logbooks-page {
+  width: 100%;
+}
+
+
+/* =========================================================
+   STUDENT LIST
+   ========================================================= */
+
+.cg-logbook-student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+
+/* =========================================================
+   STUDENT GROUP
+   ========================================================= */
+
+.cg-logbook-student-group {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #e1eee8;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 6px 20px rgba(39, 83, 68, 0.035);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.cg-logbook-student-group.expanded {
+  border-color: #cce5d9;
+
+  box-shadow:
+    0 10px 28px rgba(39, 83, 68, 0.06);
+}
+
+
+/* =========================================================
+   STUDENT HEADER
+   ========================================================= */
+
+.cg-logbook-student-header {
+  width: 100%;
+
+  min-height: 88px;
+
+  padding: 17px 20px;
+
+  border: none;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+
+.cg-logbook-student-header:hover {
+  background: #f8fcfa;
+}
+
+
+.cg-logbook-student-group.expanded
+.cg-logbook-student-header {
+  background: #f8fcfa;
+}
+
+
+/* =========================================================
+   STUDENT MAIN
+   ========================================================= */
+
+.cg-logbook-student-main {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 0;
+}
+
+
+.cg-logbook-student-avatar {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background: #d8f3e5;
+
+  color: #287653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+
+  font-weight: 800;
+}
+
+
+.cg-logbook-student-info {
+  min-width: 0;
+}
+
+
+.cg-logbook-student-info h3 {
+  margin: 0;
+
+  color: #294139;
+
+  font-size: 14px;
+
+  font-weight: 800;
+}
+
+
+.cg-logbook-student-info span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #8a9b94;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   LOGBOOK COUNT + ARROW
+   ========================================================= */
+
+.cg-logbook-student-meta {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  flex-shrink: 0;
+}
+
+
+.cg-logbook-student-meta > div {
+  display: flex;
+  align-items: flex-end;
+
+  flex-direction: column;
+}
+
+
+.cg-logbook-student-meta strong {
+  color: #287653;
+
+  font-size: 16px;
+
+  line-height: 1;
+
+  font-weight: 800;
+}
+
+
+.cg-logbook-student-meta > div span {
+  margin-top: 4px;
+
+  color: #91a09b;
+
+  font-size: 9px;
+
+  font-weight: 600;
+}
+
+
+.cg-logbook-dropdown-arrow {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #eef8f3;
+
+  color: #287653;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 10px;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.cg-logbook-student-header:hover
+.cg-logbook-dropdown-arrow {
+  background: #d8f3e5;
+}
+
+
+/* =========================================================
+   EXPANDED CONTENT
+   ========================================================= */
+
+.cg-logbook-student-content {
+  padding: 0 18px 18px;
+
+  background: #f8fbf9;
+
+  border-top: 1px solid #e7efeb;
+}
+
+
+/* =========================================================
+   KEEP EXISTING LOGBOOK CARDS CLEAN
+   ========================================================= */
+
+.cg-logbook-student-content
+.cg-compact-logbook-card {
+  margin-top: 14px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .cg-logbook-student-header {
+    min-height: 78px;
+
+    padding: 14px;
+  }
+
+
+  .cg-logbook-student-avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 11px;
+
+    font-size: 15px;
+  }
+
+
+  .cg-logbook-student-info h3 {
+    font-size: 13px;
+  }
+
+
+  .cg-logbook-student-info span {
+    font-size: 10px;
+  }
+
+
+  .cg-logbook-student-meta {
+    gap: 9px;
+  }
+
+
+  .cg-logbook-student-meta > div {
+    display: none;
+  }
+
+
+  .cg-logbook-dropdown-arrow {
+    width: 29px;
+    height: 29px;
+  }
+
+
+  .cg-logbook-student-content {
+    padding: 0 10px 10px;
+  }
+
+}
+
+/* =========================================================
+   COMPANY GUIDE LOGBOOK VIEW
+   BIGGER & MORE READABLE TEXT
+   UI ONLY
+========================================================= */
+
+/* Student name */
+.cg-compact-student-info h3 {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #183e32 !important;
+  margin: 0 0 5px !important;
+}
+
+/* Register number + department */
+.cg-compact-student-info span {
+  font-size: 13px !important;
+  color: #71847d !important;
+  font-weight: 600 !important;
+}
+
+/* Date */
+.cg-compact-date strong {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
+.cg-compact-date span {
+  font-size: 12px !important;
+}
+
+/* Status */
+.cg-compact-status {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  padding: 8px 13px !important;
+}
+
+/* Hours section */
+.cg-compact-hours span {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.7px;
+}
+
+.cg-compact-hours strong {
+  font-size: 24px !important;
+  font-weight: 800 !important;
+}
+
+.cg-compact-hours small {
+  font-size: 13px !important;
+}
+
+/* Work completed / Learnings headings */
+.cg-compact-section-title span:last-child {
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px;
+}
+
+/* Work completed and learning text */
+.cg-compact-section p {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #4d625a !important;
+}
+
+/* Footer labels */
+.cg-compact-statuses span {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.7px;
+}
+
+/* Footer status values */
+.cg-compact-statuses strong {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+}
+
+/* Approve / Reject buttons */
+.cg-compact-actions button {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  padding: 10px 17px !important;
+}
+
+/* Student card spacing */
+.cg-compact-logbook-card {
+  padding: 22px !important;
+}
+
+/* Header spacing */
+.cg-compact-header {
+  gap: 20px !important;
+}
+
+/* Student avatar */
+.cg-compact-avatar {
+  width: 52px !important;
+  height: 52px !important;
+  font-size: 18px !important;
+}
+
+/* Work section spacing */
+.cg-compact-body {
+  gap: 22px !important;
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+
+  .cg-compact-student-info h3 {
+    font-size: 18px !important;
+  }
+
+  .cg-compact-student-info span {
+    font-size: 12px !important;
+  }
+
+  .cg-compact-section p {
+    font-size: 14px !important;
+  }
+
+  .cg-compact-hours strong {
+    font-size: 21px !important;
+  }
+
+  .cg-compact-actions button {
+    font-size: 13px !important;
+  }
+}
+

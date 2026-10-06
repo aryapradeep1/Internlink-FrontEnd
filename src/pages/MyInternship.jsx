@@ -1,262 +1,641 @@
 import { useEffect, useState } from "react";
-import "../css/Internships.css";
+import "../css/MyInternship.css";
 
-function Internships({
+function MyInternship({
+  student,
   onBack,
-  onViewDetails,
+  onGenerateCertificate,
 }) {
-  const [internships, setInternships] = useState([]);
+  const [assignment, setAssignment] = useState(null);
+  const [totalHours, setTotalHours] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [expandedInternship, setExpandedInternship] =
-    useState(null);
+
+  // =====================================================
+  // FETCH CURRENT INTERNSHIP
+  // =====================================================
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/internships")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch internships");
-        }
+    const fetchMyInternship = async () => {
+      try {
+        setLoading(true);
+        setError("");
 
-        return response.json();
-      })
-      .then((data) => {
-        console.log(
-          "Available internships:",
-          data.internships
+        // -----------------------------------------------
+        // FETCH ASSIGNED INTERNSHIP
+        // -----------------------------------------------
+
+        const assignmentResponse = await fetch(
+          `http://localhost:5000/api/internship-assignments/student/${student.id}`
         );
 
-        setInternships(data.internships || []);
+        if (!assignmentResponse.ok) {
+          throw new Error(
+            "Unable to fetch internship assignment"
+          );
+        }
+
+        const assignmentData =
+          await assignmentResponse.json();
+
+        console.log(
+          "My internship assignment:",
+          assignmentData.assignment
+        );
+
+        setAssignment(
+          assignmentData.assignment || null
+        );
+
+        // -----------------------------------------------
+        // FETCH LOGBOOK HOURS
+        // -----------------------------------------------
+
+        try {
+          const logbookResponse = await fetch(
+            `http://localhost:5000/api/logbook/student/${student.id}`
+          );
+
+          if (logbookResponse.ok) {
+            const logbookData =
+              await logbookResponse.json();
+
+            console.log(
+              "My internship logbooks:",
+              logbookData.logbooks
+            );
+
+            const hours = (
+              logbookData.logbooks || []
+            ).reduce(
+              (total, logbook) =>
+                total +
+                Number(logbook.hoursWorked || 0),
+              0
+            );
+
+            setTotalHours(hours);
+          }
+        } catch (logbookError) {
+          console.error(
+            "Logbook fetch failed:",
+            logbookError
+          );
+
+          setTotalHours(0);
+        }
+      } catch (error) {
+        console.error(
+          "My internship fetch failed:",
+          error
+        );
+
+        setError(
+          "Unable to load your internship details."
+        );
+      } finally {
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
+      }
+    };
 
-        setError("Unable to load internships");
-        setLoading(false);
-      });
-  }, []);
+    if (student?.id) {
+      fetchMyInternship();
+    }
+  }, [student]);
 
-  const handleExpand = (internshipId) => {
-    setExpandedInternship((current) =>
-      current === internshipId ? null : internshipId
-    );
-  };
+  // =====================================================
+  // LOADING
+  // =====================================================
 
-  const handleApply = (internship) => {
-    onViewDetails(
-      internship.company,
-      internship
-    );
-  };
+  if (loading) {
+    return (
+      <div className="my-internship-page">
 
-  return (
-    <div className="internships-page">
+        <div className="my-internship-loading">
 
-      {/* HEADER */}
-      <div className="internships-header">
+          <div className="my-internship-loader"></div>
 
-        <div>
-          <p className="internships-eyebrow">
-            INTERNSHIPS
+          <h2>
+            Loading your internship...
+          </h2>
+
+          <p>
+            Please wait while we load your internship
+            details.
           </p>
 
-          <h1>
-            Available Internships
-          </h1>
-
-          <p className="internships-subtitle">
-            Explore internship opportunities posted
-            by approved companies.
-          </p>
         </div>
 
       </div>
+    );
+  }
 
-      {/* LOADING */}
-      {loading && (
-        <div className="internships-status">
-          <div className="internships-loader"></div>
+  // =====================================================
+  // ERROR
+  // =====================================================
 
-          <p>
-            Loading internships...
-          </p>
-        </div>
-      )}
+  if (error) {
+    return (
+      <div className="my-internship-page">
 
-      {/* ERROR */}
-      {error && (
-        <div className="internships-status error-status">
+        <div className="my-internship-message error">
 
-          <div className="status-icon">
+          <div className="message-icon">
             !
           </div>
+
+          <h2>
+            Unable to Load Internship
+          </h2>
 
           <p>
             {error}
           </p>
 
+          <button
+            type="button"
+            className="my-internship-back-btn"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
         </div>
-      )}
 
-      {/* EMPTY */}
-      {!loading &&
-        !error &&
-        internships.length === 0 && (
-          <div className="internships-status empty-status">
+      </div>
+    );
+  }
 
-            <div className="status-icon">
-              📭
+  // =====================================================
+  // NO CURRENT INTERNSHIP
+  // =====================================================
+
+  if (!assignment) {
+    return (
+      <div className="my-internship-page">
+
+        <div className="my-internship-empty">
+
+          <div className="empty-icon">
+            ◆
+          </div>
+
+          <span className="my-internship-eyebrow">
+            MY INTERNSHIP
+          </span>
+
+          <h1>
+            No Current Internship
+          </h1>
+
+          <p>
+            You do not have an assigned internship
+            at the moment.
+          </p>
+
+          <button
+            type="button"
+            className="my-internship-back-btn"
+            onClick={onBack}
+          >
+            ← Back to Dashboard
+          </button>
+
+        </div>
+
+      </div>
+    );
+  }
+
+  // =====================================================
+  // DATA
+  // =====================================================
+
+  const internship = assignment.internship;
+  const company = assignment.company;
+  const facultyGuide = assignment.facultyGuide;
+  const companyGuide = assignment.companyGuide;
+
+  const internshipDuration =
+    internship?.duration || "Not specified";
+
+  const status =
+    assignment.status || "Assigned";
+
+  const credits =
+    assignment.credits ?? 0;
+
+  const mark =
+    assignment.mark !== null &&
+    assignment.mark !== undefined
+      ? assignment.mark
+      : "Not assigned";
+
+  const requiredHours = 60;
+
+  const hoursProgress = Math.min(
+    (totalHours / requiredHours) * 100,
+    100
+  );
+
+  const certificateUrl =
+    assignment.certificate
+      ? `http://localhost:5000/${assignment.certificate}`
+      : null;
+
+  // =====================================================
+  // CERTIFICATE
+  // =====================================================
+
+  const handleGenerateCertificate = () => {
+    if (
+      status === "Completed" &&
+      assignment.mark !== null &&
+      assignment.mark !== undefined &&
+      onGenerateCertificate
+    ) {
+      onGenerateCertificate(
+        assignment,
+        totalHours
+      );
+    }
+  };
+
+  // =====================================================
+  // PAGE
+  // =====================================================
+
+  return (
+    <div className="my-internship-page">
+
+      {/* =================================================
+          PAGE HEADER
+      ================================================= */}
+
+      <div className="my-internship-header">
+
+        <div>
+
+          <span className="my-internship-eyebrow">
+            MY INTERNSHIP
+          </span>
+
+          <h1>
+            Current Internship
+          </h1>
+
+          <p>
+            View the details and progress of your
+            assigned internship.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          MAIN INTERNSHIP CARD
+      ================================================= */}
+
+      <section className="current-internship-card">
+
+        {/* TOP */}
+        <div className="current-internship-top">
+
+          <div className="internship-title-area">
+
+            <div className="internship-company-mark">
+              {company?.companyName
+                ? company.companyName
+                    .charAt(0)
+                    .toUpperCase()
+                : "I"}
             </div>
 
-            <h2>
-              No Internships Available
-            </h2>
+            <div>
+
+              <span className="card-small-label">
+                INTERNSHIP
+              </span>
+
+              <h2>
+                {internship?.title ||
+                  "Internship"}
+              </h2>
+
+              <p>
+                {company?.companyName ||
+                  "Company not available"}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div
+            className={`internship-status-badge status-${status
+              .toLowerCase()
+              .replace(/\s+/g, "-")}`}
+          >
+            {status}
+          </div>
+
+        </div>
+
+
+        {/* DIVIDER */}
+        <div className="internship-card-divider"></div>
+
+
+        {/* =================================================
+            DETAILS
+        ================================================= */}
+
+        <div className="internship-details-grid">
+
+          <div className="internship-info">
+
+            <span>
+              Company
+            </span>
+
+            <strong>
+              {company?.companyName ||
+                "Not available"}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Location
+            </span>
+
+            <strong>
+              {internship?.location ||
+                "Not specified"}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Duration
+            </span>
+
+            <strong>
+              {internshipDuration}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Credits
+            </span>
+
+            <strong>
+              {credits}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Faculty Guide
+            </span>
+
+            <strong>
+              {facultyGuide?.name ||
+                "Not assigned"}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Company Guide
+            </span>
+
+            <strong>
+              {companyGuide?.name ||
+                "Not assigned"}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Mark
+            </span>
+
+            <strong>
+              {mark}
+            </strong>
+
+          </div>
+
+
+          <div className="internship-info">
+
+            <span>
+              Internship Status
+            </span>
+
+            <strong>
+              {status}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================================
+            INTERNSHIP DESCRIPTION
+        ================================================= */}
+
+        {internship?.description && (
+          <div className="internship-description">
+
+            <span className="section-label">
+              ABOUT THE INTERNSHIP
+            </span>
 
             <p>
-              No internship opportunities are
-              currently available.
+              {internship.description}
             </p>
 
           </div>
         )}
 
-      {/* SCROLLABLE INTERNSHIP LIST */}
-      {!loading &&
-        !error &&
-        internships.length > 0 && (
-          <div className="internships-list">
+      </section>
 
-            {internships.map((internship) => {
 
-              const isExpanded =
-                expandedInternship ===
-                internship._id;
+      {/* =================================================
+          PROGRESS + HOURS
+      ================================================= */}
 
-              return (
-                <div
-                  className={`internship-item ${
-                    isExpanded
-                      ? "expanded"
-                      : ""
-                  }`}
-                  key={internship._id}
-                >
+      <section className="internship-progress-card">
 
-                  {/* COLLAPSED ROW */}
-                  <button
-                    type="button"
-                    className="internship-summary"
-                    onClick={() =>
-                      handleExpand(
-                        internship._id
-                      )
-                    }
-                  >
+        <div className="progress-heading">
 
-                    <div className="internship-summary-text">
+          <div>
 
-                      <h2>
-                        {internship.title}
-                      </h2>
+            <span className="section-label">
+              INTERNSHIP PROGRESS
+            </span>
 
-                      <p>
-                        <span>
-                          Company
-                        </span>
-
-                        {internship.company?.companyName ||
-                          "Company not available"}
-                      </p>
-
-                    </div>
-
-                    <div
-                      className={`expand-icon ${
-                        isExpanded
-                          ? "rotated"
-                          : ""
-                      }`}
-                    >
-                      ▼
-                    </div>
-
-                  </button>
-
-                  {/* EXPANDED AREA */}
-                  {isExpanded && (
-                    <div className="internship-expanded">
-
-                      <div className="internship-details-grid">
-
-                        <div className="internship-detail">
-                          <span className="detail-label">
-                            Location
-                          </span>
-
-                          <span className="detail-value">
-                            {internship.location ||
-                              "Not specified"}
-                          </span>
-                        </div>
-
-                        <div className="internship-detail">
-                          <span className="detail-label">
-                            Duration
-                          </span>
-
-                          <span className="detail-value">
-                            {internship.duration ||
-                              "Not specified"}
-                          </span>
-                        </div>
-
-                        <div className="internship-detail full-detail">
-                          <span className="detail-label">
-                            Eligibility
-                          </span>
-
-                          <span className="detail-value">
-                            {internship.eligibility ||
-                              "Not specified"}
-                          </span>
-                        </div>
-
-                      </div>
-
-                      <div className="internship-action">
-
-                        <button
-                          type="button"
-                          className="apply-internship-btn"
-                          onClick={() =>
-                            handleApply(
-                              internship
-                            )
-                          }
-                        >
-                          Apply Internship
-                          <span>→</span>
-                        </button>
-
-                      </div>
-
-                    </div>
-                  )}
-
-                </div>
-              );
-            })}
+            <h2>
+              Logbook Hours
+            </h2>
 
           </div>
-        )}
 
-      {/* BACK BUTTON */}
-      <div className="internships-footer">
+          <div className="hours-number">
+
+            <strong>
+              {totalHours}
+            </strong>
+
+            <span>
+              / {requiredHours} hrs
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div className="progress-track">
+
+          <div
+            className="progress-fill"
+            style={{
+              width: `${hoursProgress}%`,
+            }}
+          ></div>
+
+        </div>
+
+
+        <div className="progress-bottom">
+
+          <span>
+            {totalHours >= requiredHours
+              ? "✓ Required hours completed"
+              : `${requiredHours - totalHours} hours remaining`}
+          </span>
+
+          <span>
+            {Math.round(hoursProgress)}%
+          </span>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          CERTIFICATE
+      ================================================= */}
+
+      {(certificateUrl ||
+        (status === "Completed" &&
+          assignment.mark !== null &&
+          assignment.mark !== undefined)) && (
+        <section className="internship-certificate-card">
+
+          <div className="certificate-icon">
+            ✦
+          </div>
+
+          <div className="certificate-content">
+
+            <span className="section-label">
+              CERTIFICATE
+            </span>
+
+            <h2>
+              Internship Certificate
+            </h2>
+
+            <p>
+              Your internship certificate is available
+              through the options below.
+            </p>
+
+          </div>
+
+
+          <div className="certificate-actions">
+
+            {certificateUrl && (
+              <>
+                <a
+                  href={certificateUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="certificate-btn secondary"
+                >
+                  View Certificate
+                </a>
+
+                <a
+                  href={certificateUrl}
+                  download
+                  className="certificate-btn secondary"
+                >
+                  Download
+                </a>
+              </>
+            )}
+
+
+            {!certificateUrl &&
+              status === "Completed" &&
+              assignment.mark !== null &&
+              assignment.mark !== undefined && (
+                <button
+                  type="button"
+                  className="certificate-btn primary"
+                  onClick={
+                    handleGenerateCertificate
+                  }
+                >
+                  Generate Certificate
+                </button>
+              )}
+
+          </div>
+
+        </section>
+      )}
+
+
+      {/* =================================================
+          BACK
+      ================================================= */}
+
+      <div className="my-internship-footer">
 
         <button
           type="button"
-          className="back-dashboard-btn"
+          className="my-internship-back-btn"
           onClick={onBack}
         >
           ← Back to Dashboard
@@ -268,4 +647,4 @@ function Internships({
   );
 }
 
-export default Internships;
+export default MyInternship;

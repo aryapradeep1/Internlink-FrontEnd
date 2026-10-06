@@ -17,6 +17,10 @@ function StudentLogbook({ student, onBack }) {
 
   const REQUIRED_HOURS = 60;
 
+  /* ======================================================
+     FETCH ASSIGNMENT
+  ====================================================== */
+
   useEffect(() => {
     const fetchAssignment = async () => {
       try {
@@ -44,6 +48,10 @@ function StudentLogbook({ student, onBack }) {
     }
   }, [student?.id]);
 
+  /* ======================================================
+     FETCH LOGBOOK ENTRIES
+  ====================================================== */
+
   useEffect(() => {
     const fetchLogbooks = async () => {
       try {
@@ -69,6 +77,10 @@ function StudentLogbook({ student, onBack }) {
     }
   }, [student?.id]);
 
+  /* ======================================================
+     HOURS CALCULATION
+  ====================================================== */
+
   const totalHours = logbooks.reduce(
     (total, entry) =>
       total + Number(entry.hoursWorked || 0),
@@ -82,6 +94,10 @@ function StudentLogbook({ student, onBack }) {
 
   const progressPercentage =
     (totalHours / REQUIRED_HOURS) * 100;
+
+  /* ======================================================
+     ADD LOGBOOK ENTRY
+  ====================================================== */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,9 +117,7 @@ function StudentLogbook({ student, onBack }) {
       assignment.internship?.id;
 
     if (!internshipId) {
-      setError(
-        "Internship information is missing."
-      );
+      setError("Internship information is missing.");
       return;
     }
 
@@ -186,31 +200,7 @@ function StudentLogbook({ student, onBack }) {
   if (loading) {
     return (
       <div className="logbook-page">
-
-        <header className="logbook-topbar">
-
-          <div className="logbook-brand">
-            <div className="logbook-brand-mark">
-              I
-            </div>
-
-            <div>
-              <strong>InterLink</strong>
-              <span>Internship Logbook</span>
-            </div>
-          </div>
-
-          <button
-            className="logbook-back-btn"
-            onClick={onBack}
-          >
-            ← Back to Dashboard
-          </button>
-
-        </header>
-
         <div className="logbook-scroll">
-
           <div className="logbook-loading">
             <div className="loading-book-icon">
               📖
@@ -222,7 +212,6 @@ function StudentLogbook({ student, onBack }) {
               Please wait while your logbook is loaded.
             </p>
           </div>
-
         </div>
       </div>
     );
@@ -235,33 +224,8 @@ function StudentLogbook({ student, onBack }) {
   if (!assignment) {
     return (
       <div className="logbook-page">
-
-        <header className="logbook-topbar">
-
-          <div className="logbook-brand">
-            <div className="logbook-brand-mark">
-              I
-            </div>
-
-            <div>
-              <strong>InterLink</strong>
-              <span>Internship Logbook</span>
-            </div>
-          </div>
-
-          <button
-            className="logbook-back-btn"
-            onClick={onBack}
-          >
-            ← Back to Dashboard
-          </button>
-
-        </header>
-
         <div className="logbook-scroll">
-
           <div className="logbook-empty-state">
-
             <div className="empty-book-icon">
               📖
             </div>
@@ -272,9 +236,7 @@ function StudentLogbook({ student, onBack }) {
               {error ||
                 "No internship assigned yet."}
             </p>
-
           </div>
-
         </div>
       </div>
     );
@@ -288,48 +250,17 @@ function StudentLogbook({ student, onBack }) {
     <div className="logbook-page">
 
       {/* ==================================================
-          FIXED TOP BAR
-          ================================================== */}
-
-      <header className="logbook-topbar">
-
-        <div className="logbook-brand">
-
-          <div className="logbook-brand-mark">
-            I
-          </div>
-
-          <div className="logbook-brand-text">
-            <strong>InterLink</strong>
-
-            <span>
-              Internship Logbook
-            </span>
-          </div>
-
-        </div>
-
-        <button
-          className="logbook-back-btn"
-          onClick={onBack}
-        >
-          ← Back to Dashboard
-        </button>
-
-      </header>
-
-
-      {/* ==================================================
-          ONLY LOGBOOK CONTENT SCROLLS
-          ================================================== */}
+          ONLY LOGBOOK CONTENT
+          NO EXTRA TOP WHITE HEADER
+      ================================================== */}
 
       <div className="logbook-scroll">
 
         <main className="logbook-container">
 
           {/* ==================================================
-              LOGBOOK COVER / TITLE
-              ================================================== */}
+              LOGBOOK TITLE
+          ================================================== */}
 
           <section className="logbook-title">
 
@@ -352,10 +283,9 @@ function StudentLogbook({ student, onBack }) {
 
           </section>
 
-
           {/* ==================================================
-              COMPACT HOURS SUMMARY
-              ================================================== */}
+              HOURS SUMMARY
+          ================================================== */}
 
           <section className="hours-summary">
 
@@ -367,13 +297,13 @@ function StudentLogbook({ student, onBack }) {
 
               <strong>
                 {totalHours}
+
                 <small>
                   / {REQUIRED_HOURS}
                 </small>
               </strong>
 
             </div>
-
 
             <div className="hours-progress">
 
@@ -396,7 +326,6 @@ function StudentLogbook({ student, onBack }) {
               </span>
 
             </div>
-
 
             <div className="hours-status">
 
@@ -429,10 +358,9 @@ function StudentLogbook({ student, onBack }) {
 
           </section>
 
-
           {/* ==================================================
               ADD NEW ENTRY
-              ================================================== */}
+          ================================================== */}
 
           <section className="new-entry">
 
@@ -443,6 +371,7 @@ function StudentLogbook({ student, onBack }) {
               </div>
 
               <div>
+
                 <span>
                   DAILY ENTRY
                 </span>
@@ -450,10 +379,10 @@ function StudentLogbook({ student, onBack }) {
                 <h2>
                   Add Today's Record
                 </h2>
+
               </div>
 
             </div>
-
 
             {message && (
               <div className="logbook-message success">
@@ -461,13 +390,11 @@ function StudentLogbook({ student, onBack }) {
               </div>
             )}
 
-
             {error && (
               <div className="logbook-message error">
                 {error}
               </div>
             )}
-
 
             <form
               className="logbook-form"
@@ -492,7 +419,6 @@ function StudentLogbook({ student, onBack }) {
                   />
 
                 </div>
-
 
                 <div className="form-field">
 
@@ -527,7 +453,6 @@ function StudentLogbook({ student, onBack }) {
 
               </div>
 
-
               <div className="form-field">
 
                 <label>
@@ -546,7 +471,6 @@ function StudentLogbook({ student, onBack }) {
 
               </div>
 
-
               <div className="form-field">
 
                 <label>
@@ -564,7 +488,6 @@ function StudentLogbook({ student, onBack }) {
                 />
 
               </div>
-
 
               <div className="form-submit">
 
@@ -588,16 +511,16 @@ function StudentLogbook({ student, onBack }) {
 
           </section>
 
-
           {/* ==================================================
               PREVIOUS ENTRIES
-              ================================================== */}
+          ================================================== */}
 
           <section className="previous-logbook">
 
             <div className="entries-heading">
 
               <div>
+
                 <span>
                   YOUR RECORDS
                 </span>
@@ -605,19 +528,22 @@ function StudentLogbook({ student, onBack }) {
                 <h2>
                   Previous Entries
                 </h2>
+
               </div>
 
               <div className="entry-total">
+
                 {logbooks.length}
+
                 <small>
                   {logbooks.length === 1
                     ? " ENTRY"
                     : " ENTRIES"}
                 </small>
+
               </div>
 
             </div>
-
 
             {logbooks.length === 0 ? (
 
@@ -658,7 +584,6 @@ function StudentLogbook({ student, onBack }) {
 
                         <div className="diary-edge"></div>
 
-
                         {/* PAGE HEADER */}
 
                         <div className="diary-header">
@@ -666,12 +591,14 @@ function StudentLogbook({ student, onBack }) {
                           <div className="diary-date">
 
                             <span>
-                              {entryDate.toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "short",
-                                }
-                              ).toUpperCase()}
+                              {entryDate
+                                .toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "short",
+                                  }
+                                )
+                                .toUpperCase()}
                             </span>
 
                             <strong>
@@ -686,7 +613,6 @@ function StudentLogbook({ student, onBack }) {
 
                           </div>
 
-
                           <div className="diary-title">
 
                             <span>
@@ -698,7 +624,6 @@ function StudentLogbook({ student, onBack }) {
                             </h3>
 
                           </div>
-
 
                           <div className="diary-hours">
 
@@ -714,9 +639,7 @@ function StudentLogbook({ student, onBack }) {
 
                         </div>
 
-
                         <div className="diary-divider"></div>
-
 
                         {/* WORK DONE */}
 
@@ -740,7 +663,6 @@ function StudentLogbook({ student, onBack }) {
 
                         </section>
 
-
                         {/* LEARNING */}
 
                         <section className="diary-section">
@@ -763,7 +685,6 @@ function StudentLogbook({ student, onBack }) {
 
                         </section>
 
-
                         {/* PAGE FOOTER */}
 
                         <div className="diary-footer">
@@ -771,6 +692,7 @@ function StudentLogbook({ student, onBack }) {
                           <div className="diary-review">
 
                             <div>
+
                               <span>
                                 FACULTY
                               </span>
@@ -778,10 +700,11 @@ function StudentLogbook({ student, onBack }) {
                               <strong>
                                 {entry.facultyStatus}
                               </strong>
+
                             </div>
 
-
                             <div>
+
                               <span>
                                 COMPANY GUIDE
                               </span>
@@ -791,16 +714,18 @@ function StudentLogbook({ student, onBack }) {
                                   entry.companyGuideStatus
                                 }
                               </strong>
+
                             </div>
 
                           </div>
 
-
                           <div className="diary-page-number">
+
                             {String(
                               logbooks.length -
                                 index
                             ).padStart(2, "0")}
+
                           </div>
 
                         </div>
@@ -817,6 +742,9 @@ function StudentLogbook({ student, onBack }) {
 
           </section>
 
+          {/* ==================================================
+              FOOTER
+          ================================================== */}
 
           <footer className="logbook-footer">
             InterLink · Internship Daily Logbook

@@ -6,8 +6,8 @@
   min-height: 100vh;
   height: 100vh;
   overflow: hidden;
-  background: #f6f8f5;
-  color: #18372f;
+  background: #f4f7fb;
+  color: #172033;
   font-family:
     Inter,
     -apple-system,
@@ -24,7 +24,7 @@
 .company-topbar {
   height: 76px;
   background: #ffffff;
-  border-bottom: 1px solid #e5e9e4;
+  border-bottom: 1px solid #e5eaf2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,7 +43,7 @@
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: #173f34;
+  background: #182b49;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -61,12 +61,12 @@
 
 .company-brand strong {
   font-size: 17px;
-  color: #18372f;
+  color: #172033;
 }
 
 .company-brand span {
   font-size: 11px;
-  color: #91a19b;
+  color: #8a94a6;
   font-weight: 600;
 }
 
@@ -85,8 +85,8 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #e9eef7;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,12 +102,12 @@
 
 .company-user-chip strong {
   font-size: 13px;
-  color: #18372f;
+  color: #172033;
 }
 
 .company-user-chip span {
   font-size: 11px;
-  color: #91a19b;
+  color: #8a94a6;
 }
 
 
@@ -129,7 +129,7 @@
 .company-sidebar {
   width: 245px;
   flex-shrink: 0;
-  background: #173f34;
+  background: #182b49;
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -145,7 +145,7 @@
   font-size: 10px;
   letter-spacing: 1.5px;
   font-weight: 800;
-  color: #91b3a6;
+  color: #8394af;
 }
 
 .company-navigation {
@@ -158,7 +158,7 @@
   width: 100%;
   border: 0;
   background: transparent;
-  color: #b7ccc4;
+  color: #aab8cb;
   min-height: 47px;
   border-radius: 11px;
   padding: 0 13px;
@@ -182,7 +182,7 @@
 
 .company-nav-active {
   background: #ffffff;
-  color: #173f34;
+  color: #182b49;
   box-shadow:
     0 7px 20px rgba(0, 0, 0, 0.12);
 }
@@ -200,8 +200,8 @@
   height: 21px;
   padding: 0 6px;
   border-radius: 20px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #e9eef7;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,7 +210,7 @@
 }
 
 .company-nav-count-alert {
-  background: #d9a441;
+  background: #f2b84b;
   color: #ffffff;
 }
 
@@ -224,7 +224,7 @@
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.11);
   background: rgba(255, 255, 255, 0.05);
-  color: #c8d8d2;
+  color: #c8d1df;
   min-height: 44px;
   border-radius: 10px;
   display: flex;
@@ -252,7 +252,7 @@
   min-width: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #f6f8f5;
+  background: #f4f7fb;
 }
 
 .company-content-inner {
@@ -273,7 +273,7 @@
 .company-welcome-card {
   min-height: 240px;
   border-radius: 22px;
-  background: #173f34;
+  background: #182b49;
   color: #ffffff;
   padding: 35px 40px;
   display: flex;
@@ -282,7 +282,7 @@
   overflow: hidden;
   position: relative;
   box-shadow:
-    0 18px 40px rgba(23, 63, 52, 0.12);
+    0 18px 40px rgba(24, 43, 73, 0.12);
 }
 
 .company-welcome-card::after {
@@ -307,7 +307,7 @@
   padding: 6px 10px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.09);
-  color: #c7ddd5;
+  color: #c5d1e1;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -324,7 +324,7 @@
 
 .company-welcome-card p {
   margin: 11px 0 0;
-  color: #bdd0c9;
+  color: #b8c5d7;
   font-size: 13px;
   line-height: 1.7;
   max-width: 580px;
@@ -352,7 +352,7 @@
 
 .company-primary-button {
   background: #ffffff;
-  color: #173f34;
+  color: #182b49;
 }
 
 .company-primary-button:hover {
@@ -403,7 +403,7 @@
   right: 0;
   bottom: 5px;
   background: #ffffff;
-  color: #173f34;
+  color: #182b49;
   border-radius: 12px;
   padding: 11px 15px;
   display: flex;
@@ -418,7 +418,7 @@
 
 .company-visual-small-card span {
   font-size: 9px;
-  color: #7c8f87;
+  color: #7d8899;
   font-weight: 700;
 }
 
@@ -438,7 +438,7 @@
 .company-stat-card {
   min-height: 92px;
   background: #ffffff;
-  border: 1px solid #e5e9e4;
+  border: 1px solid #e7ebf2;
   border-radius: 15px;
   padding: 17px;
   display: flex;
@@ -450,8 +450,8 @@
   width: 42px;
   height: 42px;
   border-radius: 11px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #edf2f8;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -467,7 +467,7 @@
 
 .company-stat-label {
   font-size: 10px;
-  color: #81938b;
+  color: #8a94a6;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -475,7 +475,7 @@
 
 .company-stat-card strong {
   font-size: 21px;
-  color: #18372f;
+  color: #182033;
 }
 
 
@@ -500,7 +500,7 @@
 
 .company-section-eyebrow {
   display: block;
-  color: #81938b;
+  color: #8a94a6;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 1.5px;
@@ -509,25 +509,25 @@
 
 .company-section-heading h2 {
   margin: 0;
-  color: #18372f;
+  color: #182033;
   font-size: 20px;
   letter-spacing: -0.3px;
 }
 
 .company-section-heading p {
   margin: 5px 0 0;
-  color: #81938b;
+  color: #8a94a6;
   font-size: 12px;
 }
 
 .company-outline-button {
   background: #ffffff;
-  color: #237a5c;
-  border: 1px solid #d7e2dc;
+  color: #182b49;
+  border: 1px solid #dce3ed;
 }
 
 .company-outline-button:hover {
-  background: #eef7f2;
+  background: #f1f4f8;
 }
 
 
@@ -543,7 +543,7 @@
 }
 
 .company-quick-card {
-  border: 1px solid #e5e9e4;
+  border: 1px solid #e5eaf1;
   background: #ffffff;
   border-radius: 14px;
   padding: 16px;
@@ -560,17 +560,17 @@
 
 .company-quick-card:hover {
   transform: translateY(-2px);
-  border-color: #c8dcd2;
+  border-color: #cbd5e2;
   box-shadow:
-    0 10px 25px rgba(35, 122, 92, 0.07);
+    0 10px 25px rgba(24, 43, 73, 0.07);
 }
 
 .company-quick-icon {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #edf2f8;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -585,17 +585,17 @@
 
 .company-quick-card strong {
   font-size: 12px;
-  color: #253d35;
+  color: #1b2435;
 }
 
 .company-quick-card small {
-  color: #81938b;
+  color: #8a94a6;
   font-size: 10px;
   line-height: 1.4;
 }
 
 .company-quick-card b {
-  color: #91a19b;
+  color: #9aa4b3;
 }
 
 
@@ -605,7 +605,7 @@
 
 .company-recent-list {
   background: #ffffff;
-  border: 1px solid #e5e9e4;
+  border: 1px solid #e5eaf1;
   border-radius: 16px;
   overflow: hidden;
 }
@@ -616,7 +616,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid #edf0ec;
+  border-bottom: 1px solid #edf0f4;
 }
 
 .company-recent-item:last-child {
@@ -628,8 +628,8 @@
   height: 38px;
   flex-shrink: 0;
   border-radius: 11px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #e9eef6;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -646,12 +646,12 @@
 }
 
 .company-recent-info strong {
-  color: #253d35;
+  color: #202a3a;
   font-size: 12px;
 }
 
 .company-recent-info span {
-  color: #81938b;
+  color: #8b95a5;
   font-size: 10px;
 }
 
@@ -673,13 +673,13 @@
 }
 
 .status-company-approved {
-  background: #e8f4ee;
-  color: #287748;
+  background: #eaf3ff;
+  color: #28619d;
 }
 
 .status-college-approved {
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #eaf7ef;
+  color: #287748;
 }
 
 .status-rejected {
@@ -688,8 +688,8 @@
 }
 
 .status-default {
-  background: #eef1ee;
-  color: #687872;
+  background: #eef1f5;
+  color: #687384;
 }
 
 
@@ -713,20 +713,20 @@
   margin: 0;
   font-size: 27px;
   letter-spacing: -0.6px;
-  color: #18372f;
+  color: #182033;
 }
 
 .company-page-header p {
   margin: 7px 0 0;
   max-width: 680px;
-  color: #71837b;
+  color: #7d8797;
   font-size: 12px;
   line-height: 1.7;
 }
 
 .company-page-count {
   background: #ffffff;
-  border: 1px solid #e1e8e3;
+  border: 1px solid #e3e8ef;
   border-radius: 13px;
   padding: 13px 17px;
   min-width: 125px;
@@ -737,12 +737,12 @@
 }
 
 .company-page-count strong {
-  color: #237a5c;
+  color: #182b49;
   font-size: 22px;
 }
 
 .company-page-count span {
-  color: #81938b;
+  color: #8a94a6;
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
@@ -761,11 +761,11 @@
 
 .company-application-card {
   background: #ffffff;
-  border: 1px solid #e1e8e3;
+  border: 1px solid #e3e8ef;
   border-radius: 18px;
   padding: 23px;
   box-shadow:
-    0 5px 20px rgba(23, 63, 52, 0.035);
+    0 5px 20px rgba(24, 43, 73, 0.035);
 }
 
 .company-application-header {
@@ -774,7 +774,7 @@
   align-items: center;
   gap: 20px;
   padding-bottom: 18px;
-  border-bottom: 1px solid #edf0ec;
+  border-bottom: 1px solid #edf0f4;
 }
 
 .company-student-main {
@@ -787,8 +787,8 @@
   width: 48px;
   height: 48px;
   border-radius: 13px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #e9eef7;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -799,13 +799,13 @@
 
 .company-student-main h2 {
   margin: 0;
-  color: #18372f;
+  color: #182033;
   font-size: 16px;
 }
 
 .company-student-main p {
   margin: 4px 0 0;
-  color: #81938b;
+  color: #8b95a5;
   font-size: 10px;
 }
 
@@ -815,7 +815,7 @@
 
 .company-info-section-title {
   font-size: 10px;
-  color: #60756c;
+  color: #657184;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -830,8 +830,8 @@
 }
 
 .company-info-grid > div {
-  background: #f7faf8;
-  border: 1px solid #edf0ec;
+  background: #f7f9fb;
+  border: 1px solid #edf0f4;
   border-radius: 10px;
   padding: 11px;
   min-width: 0;
@@ -839,14 +839,14 @@
 
 .company-info-grid span {
   display: block;
-  color: #81938b;
+  color: #8b95a5;
   font-size: 9px;
   margin-bottom: 4px;
 }
 
 .company-info-grid strong {
   display: block;
-  color: #30473f;
+  color: #273142;
   font-size: 11px;
   overflow-wrap: anywhere;
 }
@@ -863,23 +863,23 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  background: #f7faf8;
-  border: 1px solid #e2e9e4;
+  background: #f7f9fb;
+  border: 1px solid #e4e9f0;
   border-radius: 11px;
   padding: 11px;
   transition: 0.2s ease;
 }
 
 .company-document-card:hover {
-  background: #eef7f2;
+  background: #f0f4f8;
 }
 
 .company-document-icon {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #e8edf5;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -896,16 +896,16 @@
 
 .company-document-card strong {
   font-size: 11px;
-  color: #30473f;
+  color: #273142;
 }
 
 .company-document-card small {
-  color: #81938b;
+  color: #8b95a5;
   font-size: 9px;
 }
 
 .company-document-card b {
-  color: #87978f;
+  color: #8792a3;
 }
 
 
@@ -917,8 +917,8 @@
   margin-top: 18px;
   padding: 15px;
   border-radius: 12px;
-  background: #f7faf8;
-  border: 1px solid #e4eae6;
+  background: #f7f9fb;
+  border: 1px solid #e6ebf1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -927,12 +927,12 @@
 
 .company-action-panel strong {
   font-size: 12px;
-  color: #30473f;
+  color: #273142;
 }
 
 .company-action-panel p {
   margin: 4px 0 0;
-  color: #81938b;
+  color: #8a94a6;
   font-size: 10px;
 }
 
@@ -954,7 +954,7 @@
 
 .company-approve-button {
   border: 0;
-  background: #237a5c;
+  background: #243d61;
   color: #ffffff;
 }
 
@@ -976,8 +976,8 @@
 }
 
 .company-info-message {
-  background: #eaf5f0;
-  color: #2d6956;
+  background: #edf5ff;
+  color: #315f8d;
 }
 
 .company-rejected-message {
@@ -1014,14 +1014,14 @@
 .company-guide-assignment {
   margin-top: 18px;
   padding: 16px;
-  border: 1px solid #e2e9e4;
+  border: 1px solid #e5eaf1;
   border-radius: 13px;
-  background: #fafcfb;
+  background: #fafbfd;
 }
 
 .assigned-guide-card {
   background: #ffffff;
-  border: 1px solid #e1e8e3;
+  border: 1px solid #e3e8ef;
   border-radius: 12px;
   padding: 13px;
   display: flex;
@@ -1038,22 +1038,22 @@
 
 .assigned-guide-card strong {
   font-size: 12px;
-  color: #30473f;
+  color: #273142;
 }
 
 .assigned-guide-card span {
   font-size: 10px;
-  color: #71837b;
+  color: #7f8999;
 }
 
 .assigned-guide-card small {
   font-size: 9px;
-  color: #91a19b;
+  color: #9aa3b1;
 }
 
 .assigned-label {
-  background: #e4f5ed;
-  color: #237a5c !important;
+  background: #eaf7ef;
+  color: #287748 !important;
   border-radius: 20px;
   padding: 6px 9px;
   font-size: 9px !important;
@@ -1073,20 +1073,20 @@
 
 .guide-select-area p {
   margin: 4px 0 0;
-  color: #81938b;
+  color: #8993a2;
   font-size: 10px;
 }
 
 .guide-select-area select {
   min-width: 250px;
   height: 40px;
-  border: 1px solid #d6e1db;
+  border: 1px solid #dce3ec;
   border-radius: 9px;
   background: #ffffff;
   padding: 0 11px;
   font-family: inherit;
   font-size: 11px;
-  color: #30473f;
+  color: #273142;
   outline: none;
 }
 
@@ -1106,24 +1106,24 @@
 .certificate-area {
   margin-top: 18px;
   padding-top: 15px;
-  border-top: 1px solid #e5ebe7;
+  border-top: 1px solid #e7ebf1;
 }
 
 .certificate-success {
-  background: #eaf7ef;
+  background: #edf8f1;
   color: #287748;
 }
 
 .certificate-upload-box {
   background: #ffffff;
-  border: 1px dashed #cbdad2;
+  border: 1px dashed #d5dde8;
   border-radius: 11px;
   padding: 14px;
 }
 
 .certificate-upload-box p {
   margin: 0 0 10px;
-  color: #71837b;
+  color: #7f8998;
   font-size: 10px;
 }
 
@@ -1142,35 +1142,36 @@
 
 /* =========================================================
    COMPANY GUIDES PAGE
+   LARGER / MORE READABLE TYPOGRAPHY
 ========================================================= */
 
 .guide-summary-grid {
   display: grid;
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
-  gap: 13px;
-  margin-bottom: 28px;
+  gap: 16px;
+  margin-bottom: 30px;
 }
 
 .guide-summary-card {
   background: #ffffff;
-  border: 1px solid #e2e9e4;
-  border-radius: 14px;
-  padding: 15px;
+  border: 1px solid #e4e9f0;
+  border-radius: 15px;
+  padding: 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .guide-summary-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .guide-summary-icon.pending {
@@ -1179,8 +1180,8 @@
 }
 
 .guide-summary-icon.approved {
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #eaf7ef;
+  color: #287748;
 }
 
 .guide-summary-icon.rejected {
@@ -1191,22 +1192,22 @@
 .guide-summary-card div {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .guide-summary-card span {
-  color: #81938b;
-  font-size: 9px;
+  color: #71877d;
+  font-size: 12px;
   font-weight: 700;
 }
 
 .guide-summary-card strong {
-  color: #253d35;
-  font-size: 20px;
+  color: #1d2738;
+  font-size: 25px;
 }
 
 .guide-section {
-  margin-top: 29px;
+  margin-top: 32px;
 }
 
 .guide-section-heading {
@@ -1214,29 +1215,31 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 20px;
-  margin-bottom: 13px;
+  margin-bottom: 16px;
 }
 
 .guide-section-heading h2 {
   margin: 0;
-  font-size: 18px;
-  color: #253d35;
+  font-size: 23px;
+  color: #294139;
+  font-weight: 750;
 }
 
 .guide-section-heading p {
-  margin: 5px 0 0;
-  color: #81938b;
-  font-size: 10px;
+  margin: 6px 0 0;
+  color: #71877d;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .guide-section-count {
-  min-width: 31px;
-  height: 31px;
-  border-radius: 10px;
+  min-width: 38px;
+  height: 38px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 900;
 }
 
@@ -1246,8 +1249,8 @@
 }
 
 .approved-count {
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #eaf7ef;
+  color: #287748;
 }
 
 .rejected-count {
@@ -1259,27 +1262,27 @@
   display: grid;
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 17px;
 }
 
 .company-guide-card {
   background: #ffffff;
-  border: 1px solid #e0e8e3;
-  border-radius: 16px;
-  padding: 17px;
+  border: 1px solid #e2e8ef;
+  border-radius: 17px;
+  padding: 20px;
   box-shadow:
-    0 5px 18px rgba(23, 63, 52, 0.035);
+    0 5px 18px rgba(24, 43, 73, 0.035);
   transition: 0.2s ease;
 }
 
 .company-guide-card:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 12px 28px rgba(23, 63, 52, 0.07);
+    0 12px 28px rgba(24, 43, 73, 0.07);
 }
 
 .pending-guide-card {
-  border-top: 3px solid #dcae45;
+  border-top: 3px solid #e5b34c;
 }
 
 .approved-guide-card {
@@ -1294,26 +1297,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
 }
 
 .guide-avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: #e4f5ed;
-  color: #237a5c;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #edf1f7;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
 }
 
 .guide-status {
   border-radius: 20px;
-  padding: 6px 9px;
-  font-size: 8px;
+  padding: 7px 11px;
+  font-size: 10px;
   font-weight: 900;
 }
 
@@ -1323,8 +1326,8 @@
 }
 
 .guide-status.approved {
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #eaf7ef;
+  color: #287748;
 }
 
 .guide-status.rejected {
@@ -1333,69 +1336,74 @@
 }
 
 .guide-card-main {
-  margin-top: 14px;
+  margin-top: 17px;
 }
 
 .guide-card-main h3 {
   margin: 0;
-  color: #253d35;
-  font-size: 14px;
+  color: #294139;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 750;
 }
 
 .guide-card-main p {
-  margin: 4px 0 0;
-  color: #899a92;
-  font-size: 9px;
+  margin: 5px 0 0;
+  color: #7c8e86;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .guide-details {
-  margin-top: 15px;
+  margin-top: 17px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .guide-details div {
-  padding-bottom: 8px;
-  border-bottom: 1px solid #edf0ec;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #edf0f4;
 }
 
 .guide-details span {
   display: block;
-  color: #91a19b;
-  font-size: 8px;
-  margin-bottom: 3px;
+  color: #81948c;
+  font-size: 10px;
+  margin-bottom: 4px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.4px;
 }
 
 .guide-details strong {
   display: block;
-  color: #364d44;
-  font-size: 10px;
+  color: #364052;
+  font-size: 13px;
+  line-height: 1.45;
   overflow-wrap: anywhere;
 }
 
 .guide-actions {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 7px;
-  margin-top: 15px;
+  gap: 9px;
+  margin-top: 17px;
 }
 
 .guide-approve-button,
 .guide-reject-button {
-  min-height: 36px;
-  border-radius: 8px;
+  min-height: 40px;
+  border-radius: 9px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 }
 
 .guide-approve-button {
   border: 0;
-  background: #237a5c;
+  background: #287653;
   color: #ffffff;
 }
 
@@ -1406,40 +1414,37 @@
 }
 
 .guide-active-footer {
-  margin-top: 14px;
-  padding-top: 11px;
-  border-top: 1px solid #edf0ec;
-  color: #71837b;
-  font-size: 9px;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0f4;
+  color: #687b72;
+  font-size: 11px;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
 }
 
 .guide-active-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #55a771;
 }
 
 .guide-rejected-footer {
-  margin-top: 14px;
-  padding-top: 11px;
-  border-top: 1px solid #edf0ec;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #edf0f4;
   color: #aa6b6b;
-  font-size: 9px;
+  font-size: 11px;
 }
-
-
-/* =========================================================
-   EMPTY / ERROR / LOADING
+/* ========================================================= EMPTY / ERROR / LOADING
 ========================================================= */
 
 .company-empty-card {
   min-height: 190px;
   background: #ffffff;
-  border: 1px solid #e2e9e4;
+  border: 1px solid #e4e9f0;
   border-radius: 16px;
   display: flex;
   flex-direction: column;
@@ -1453,8 +1458,8 @@
   width: 48px;
   height: 48px;
   border-radius: 13px;
-  background: #e4f5ed;
-  color: #237a5c;
+  background: #edf1f6;
+  color: #182b49;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1465,12 +1470,12 @@
 .company-empty-card h3 {
   margin: 12px 0 0;
   font-size: 14px;
-  color: #30473f;
+  color: #273142;
 }
 
 .company-empty-card p {
   margin: 5px 0 0;
-  color: #899a92;
+  color: #9099a8;
   font-size: 10px;
 }
 
@@ -1487,8 +1492,8 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  border: 3px solid #dfe7e2;
-  border-top-color: #237a5c;
+  border: 3px solid #e1e6ed;
+  border-top-color: #182b49;
   animation: companySpin 0.8s linear infinite;
 }
 
@@ -1642,41 +1647,43 @@
   }
 }
 /* =========================================================
-   APPLICATION PARTITIONING
-   ========================================================= */
+   APPLICATIONS PAGE - POLISHED MINT / SOFT PINK UI
+   UI ONLY - FUNCTIONALITY PRESERVED
+========================================================= */
 
 .company-application-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 22px 0 30px;
 }
 
 .company-application-summary-card {
+  min-height: 88px;
+  padding: 16px 18px;
+  border: 1px solid #dfeae4;
+  border-radius: 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px;
+  gap: 13px;
   background: #ffffff;
-  border: 1px solid #e3eee8;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px rgba(40, 118, 83, 0.06);
+  box-shadow: 0 5px 18px rgba(40, 118, 83, 0.045);
 }
 
 .company-application-summary-card > span {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  font-size: 19px;
-  font-weight: 700;
-  background: #d8f3e5;
-  color: #287653;
+  font-size: 17px;
+  font-weight: 900;
 }
 
-.company-application-summary-card div {
+.company-application-summary-card > div {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -1684,50 +1691,433 @@
 
 .company-application-summary-card strong {
   font-size: 22px;
+  line-height: 1;
   color: #294139;
 }
 
 .company-application-summary-card small {
-  font-size: 12px;
-  color: #71837b;
+  color: #71877d;
+  font-size: 10px;
   line-height: 1.35;
+  font-weight: 700;
 }
 
-.company-application-summary-card.waiting-company
-  > span {
-  background: #fff3d8;
-  color: #a36d00;
+.company-application-summary-card.waiting-company {
+  background: linear-gradient(135deg, #fffdf7, #fff8ed);
 }
 
-.company-application-summary-card.waiting-college
-  > span {
-  background: #e8f0ff;
-  color: #4266a8;
+.company-application-summary-card.waiting-company > span {
+  background: #fff0cf;
+  color: #b37b20;
 }
 
-.company-application-summary-card.fully-approved
-  > span {
+.company-application-summary-card.waiting-college {
+  background: linear-gradient(135deg, #fffafd, #fff2f8);
+}
+
+.company-application-summary-card.waiting-college > span {
+  background: #f9dfe9;
+  color: #c96f89;
+}
+
+.company-application-summary-card.fully-approved {
+  background: linear-gradient(135deg, #f6fcf8, #eaf8f0);
+}
+
+.company-application-summary-card.fully-approved > span {
   background: #d8f3e5;
   color: #287653;
 }
 
-.company-application-summary-card.rejected
-  > span {
-  background: #fde5e1;
-  color: #c65b4d;
+.company-application-summary-card.rejected {
+  background: linear-gradient(135deg, #fffafa, #fff1f1);
+}
+
+.company-application-summary-card.rejected > span {
+  background: #f8dddd;
+  color: #c05e63;
+}
+
+.company-application-section {
+  margin-top: 30px;
+}
+
+.company-application-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 15px;
+  padding-left: 2px;
+}
+
+.company-application-section-heading h2 {
+  margin: 0;
+  color: #294139;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.35px;
+}
+
+.company-application-section-heading p {
+  max-width: 720px;
+  margin: 6px 0 0;
+  color: #73867e;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.company-application-section-count {
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 13px;
+  background: #d8f3e5;
+  color: #287653;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.company-section-waiting-company .company-application-section-count {
+  background: #ffe8c2;
+  color: #a56d17;
+}
+
+.company-section-waiting-college .company-application-section-count {
+  background: #f7dce6;
+  color: #bd607d;
+}
+
+.company-section-rejected .company-application-section-count {
+  background: #f8dddd;
+  color: #b65359;
+}
+
+.company-section-empty {
+  min-height: 105px;
+  padding: 20px 22px;
+  border: 1px dashed #cfe0d7;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.company-section-empty > span {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #d8f3e5;
+  color: #287653;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.company-section-empty strong {
+  display: block;
+  color: #294139;
+  font-size: 13px;
+}
+
+.company-section-empty p {
+  margin: 4px 0 0;
+  color: #7b8d85;
+  font-size: 11px;
+}
+
+.company-application-card {
+  border-color: #dfeae4;
+  border-radius: 18px;
+  padding: 21px;
+  box-shadow: 0 7px 24px rgba(40, 118, 83, 0.055);
+}
+
+.company-application-card:hover {
+  border-color: #c9ded4;
+  box-shadow: 0 10px 28px rgba(40, 118, 83, 0.075);
+}
+
+.company-application-header {
+  padding-bottom: 16px;
+}
+
+.company-large-avatar {
+  background: linear-gradient(135deg, #d8f3e5, #f7dfe3);
+  color: #287653;
+}
+
+.company-student-main h2 {
+  color: #294139;
+  font-size: 17px;
+}
+
+.company-student-main p {
+  color: #81928b;
+  font-size: 10px;
+}
+
+.company-info-section-title {
+  color: #527065;
+}
+
+.company-info-grid > div {
+  background: #f8fbfa;
+  border-color: #e6efeb;
+  border-radius: 11px;
+  padding: 12px;
+}
+
+.company-info-grid span {
+  color: #81948c;
+}
+
+.company-info-grid strong {
+  color: #294139;
+}
+
+.company-document-card {
+  background: #f8fbfa;
+  border-color: #e2ece7;
+}
+
+.company-document-card:hover {
+  background: #eef8f3;
+  border-color: #c9e1d5;
+}
+
+.company-document-icon {
+  background: #d8f3e5;
+  color: #287653;
+}
+
+.company-action-panel {
+  background: linear-gradient(135deg, #f7fcf9, #fff8fa);
+  border-color: #dceae4;
+  border-radius: 14px;
+}
+
+.company-approve-button {
+  background: #287653;
+}
+
+.company-approve-button:hover {
+  background: #216446;
+}
+
+.company-reject-button:hover {
+  background: #fff4f4;
+}
+
+.company-guide-assignment {
+  background: #f8fbfa;
+  border-color: #dfebe5;
+}
+
+.company-page-header {
+  margin-bottom: 18px;
+}
+
+.company-page-header h1 {
+  color: #294139;
+  font-size: 30px;
+}
+
+.company-page-header p {
+  color: #748880;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.company-page-count {
+  background: linear-gradient(135deg, #ffffff, #f2faf6);
+  border-color: #dceae4;
+}
+
+.company-page-count strong {
+  color: #287653;
+}
+
+.company-page-count span {
+  color: #71877d;
+}
+
+.company-empty-card,
+.company-error-card {
+  border-radius: 18px;
+  border-color: #dfeae4;
+}
+
+@media (max-width: 1050px) {
+  .company-application-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .company-page-header,
+  .company-application-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .company-page-count {
+    width: 100%;
+    text-align: left;
+  }
+
+  .company-application-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .company-application-section-count {
+    align-self: flex-start;
+  }
 }
 
 
 /* =========================================================
-   APPLICATION SECTIONS
-   ========================================================= */
+   APPLICATION STATUS BOXES
+   Four clickable categories:
+   Pending / College Approval / Approved / Completed
+========================================================= */
 
-.company-application-section {
-  margin-top: 34px;
+.company-application-status-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 4px 0 24px;
 }
 
-.company-application-section:first-of-type {
-  margin-top: 0;
+.company-application-status-box {
+  position: relative;
+  min-height: 188px;
+  padding: 22px;
+  border: 1px solid #e1eee8;
+  border-radius: 22px;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(40, 118, 83, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease,
+    border-color 0.22s ease, background 0.22s ease;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.company-application-status-box:hover {
+  transform: translateY(-4px);
+  border-color: #b8ddcb;
+  box-shadow: 0 15px 32px rgba(40, 118, 83, 0.11);
+}
+
+.company-application-status-box.active {
+  border: 2px solid #287653;
+  background: linear-gradient(145deg, #e8f8ef 0%, #ffffff 100%);
+  box-shadow: 0 16px 35px rgba(40, 118, 83, 0.14);
+}
+
+.company-status-box-icon {
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  border-radius: 13px;
+  background: #dff4e8;
+  color: #287653;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.company-status-box-icon.college {
+  background: #fce4e6;
+  color: #df7180;
+}
+
+.company-status-box-icon.approved {
+  background: #e3f2ef;
+  color: #4d9483;
+}
+
+.company-status-box-icon.completed {
+  background: #fff0d7;
+  color: #d99a38;
+}
+
+.company-status-box-number {
+  margin-bottom: 5px;
+  color: #294139;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.company-application-status-box h3 {
+  margin: 0 0 6px;
+  color: #294139;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.company-application-status-box p {
+  margin: 0;
+  max-width: 180px;
+  color: #789087;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.company-status-box-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f0f8f4;
+  color: #287653;
+  font-size: 17px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.company-application-status-box:hover .company-status-box-arrow {
+  transform: translateX(3px);
+  background: #d8f3e5;
+}
+
+/* Selected result section */
+
+.company-application-section {
+  width: 100%;
+  padding: 26px;
+  box-sizing: border-box;
+  border: 1px solid #e1eee8;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(40, 118, 83, 0.06);
+  animation: companyApplicationSectionIn 0.25s ease;
+}
+
+@keyframes companyApplicationSectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .company-application-section-heading {
@@ -1735,230 +2125,124 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 18px;
-  padding: 20px 22px;
-  background: #ffffff;
-  border: 1px solid #e3eee8;
-  border-radius: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #edf3ef;
+}
+
+.company-section-eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  color: #287653;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
 }
 
 .company-application-section-heading h2 {
-  margin: 5px 0 5px;
+  margin: 0 0 6px;
   color: #294139;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 750;
 }
 
 .company-application-section-heading p {
   margin: 0;
-  color: #71837b;
+  color: #789087;
   font-size: 13px;
   line-height: 1.5;
-  max-width: 700px;
 }
 
 .company-application-section-count {
-  min-width: 42px;
-  height: 42px;
-  padding: 0 12px;
+  min-width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  flex-shrink: 0;
+  border-radius: 15px;
   background: #d8f3e5;
   color: #287653;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
 }
 
-
-/* =========================================================
-   SECTION-SPECIFIC HEADERS
-   ========================================================= */
-
-.company-section-waiting-company
-  .company-application-section-heading {
-  border-left: 4px solid #e2a93b;
+.company-applications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-
-.company-section-waiting-company
-  .company-application-section-count {
-  background: #fff3d8;
-  color: #a36d00;
-}
-
-.company-section-waiting-college
-  .company-application-section-heading {
-  border-left: 4px solid #6688c4;
-}
-
-.company-section-waiting-college
-  .company-application-section-count {
-  background: #e8f0ff;
-  color: #4266a8;
-}
-
-.company-section-approved
-  .company-application-section-heading {
-  border-left: 4px solid #287653;
-}
-
-.company-section-approved
-  .company-application-section-count {
-  background: #d8f3e5;
-  color: #287653;
-}
-
-.company-section-rejected
-  .company-application-section-heading {
-  border-left: 4px solid #d66b5b;
-}
-
-.company-section-rejected
-  .company-application-section-count {
-  background: #fde5e1;
-  color: #c65b4d;
-}
-
-
-/* =========================================================
-   EMPTY SECTION
-   ========================================================= */
 
 .company-section-empty {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 20px;
-  background: #fbfdfc;
-  border: 1px dashed #d5e5dc;
-  border-radius: 14px;
+  gap: 16px;
+  padding: 30px;
+  border-radius: 18px;
+  background: #f7fbf9;
+  border: 1px dashed #cfe4d8;
 }
 
 .company-section-empty > span {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #d8f3e5;
   color: #287653;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .company-section-empty strong {
   display: block;
+  margin-bottom: 4px;
   color: #294139;
-  font-size: 14px;
-  margin-bottom: 3px;
+  font-size: 15px;
 }
 
 .company-section-empty p {
   margin: 0;
-  color: #7a8b84;
-  font-size: 12px;
+  color: #789087;
+  font-size: 13px;
 }
 
+/* Completed section accent */
 
-/* =========================================================
-   COLLEGE APPROVED MESSAGE
-   ========================================================= */
-
-.company-approved-internship-area {
-  margin-top: 4px;
+.company-section-completed .company-application-section-count {
+  background: #fff0d7;
+  color: #c88c2f;
 }
 
-.company-college-approved-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-  padding: 15px 17px;
-  margin-bottom: 20px;
-  background: #eef9f3;
-  border: 1px solid #cce8d8;
-  border-radius: 13px;
+.company-section-completed .company-section-eyebrow {
+  color: #c88c2f;
 }
 
-.company-college-approved-banner > span {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #287653;
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.company-college-approved-banner strong {
-  display: block;
-  color: #287653;
-  font-size: 14px;
-  margin-bottom: 3px;
-}
-
-.company-college-approved-banner p {
-  margin: 0;
-  color: #587268;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   WAITING FOR COLLEGE MESSAGE
-   ========================================================= */
-
-.company-college-waiting-message {
-  background: #f3f7fd;
-  border-color: #d8e3f3;
-}
-
-.company-college-waiting-message > span {
-  background: #6688c4;
-}
-
-.company-college-waiting-message strong {
-  color: #4266a8;
-}
-
-.company-college-waiting-message small {
-  display: block;
-  margin-top: 6px;
-  color: #7183a1;
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* Responsive */
 
 @media (max-width: 1100px) {
-  .company-application-summary {
-    grid-template-columns: repeat(2, 1fr);
+  .company-application-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 700px) {
-  .company-application-summary {
+@media (max-width: 650px) {
+  .company-application-status-grid {
     grid-template-columns: 1fr;
+  }
+
+  .company-application-status-box {
+    min-height: 160px;
+  }
+
+  .company-application-section {
+    padding: 20px;
   }
 
   .company-application-section-heading {
     align-items: flex-start;
-    padding: 17px;
-  }
-
-  .company-application-section-heading h2 {
-    font-size: 19px;
-  }
-
-  .company-application-section-count {
-    min-width: 38px;
-    height: 38px;
   }
 }

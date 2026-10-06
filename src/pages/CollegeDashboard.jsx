@@ -29,6 +29,7 @@ function CollegeDashboard({
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadingExcel, setUploadingExcel] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
+  const [uploadedExcel, setUploadedExcel] = useState(null);
 
   // ==========================================
   // LOAD COLLEGE DATA
@@ -132,6 +133,14 @@ function CollegeDashboard({
       const data = await response.json();
 
       if (data.status === "success") {
+        // Store information about the uploaded file
+        setUploadedExcel({
+          name: selectedFile.name,
+          size: selectedFile.size,
+          type: selectedFile.type,
+          uploadedAt: new Date(),
+        });
+
         setUploadResult(data.summary);
 
         setMessage(
@@ -327,24 +336,18 @@ function CollegeDashboard({
     (f) => f.status === "Approved"
   );
 
-  // Company-approved applications waiting
-  // for college approval.
   const pendingApplications =
     applications.filter(
       (app) =>
         app.status === "CompanyApproved"
     );
 
-  // Applications already approved
-  // by the college.
   const approvedApplications =
     applications.filter(
       (app) =>
         app.status === "CollegeApproved"
     );
 
-  // Other applications that are not yet
-  // ready for college approval.
   const otherApplications =
     applications.filter(
       (app) =>
@@ -397,115 +400,228 @@ function CollegeDashboard({
   const renderDashboardContent = () => {
 
     // ========================================
-    // OVERVIEW
+    // COLLEGE HOME
     // ========================================
 
     if (activeSection === "dashboard") {
       return (
-        <div className="college-page">
+        <div className="college-page college-home-page">
 
-          <div className="college-page-heading">
-            <div>
+          <div className="college-welcome-card">
 
-              <span className="college-eyebrow">
-                COLLEGE PORTAL
+            <div className="college-welcome-content">
+
+              <span className="college-welcome-eyebrow">
+                WELCOME TO INTERNLINK
               </span>
 
               <h1>
-                Dashboard Overview
+                Welcome,
+                <br />
+                <span>
+                  {college.collegeName}
+                </span>
               </h1>
 
-              <p>
-                Manage students, faculty,
-                and internship activities
-                from one place.
+              <p className="college-welcome-description">
+                Manage your college's internship activities
+                smoothly through one simple platform.
+                InternLink helps you coordinate students,
+                faculty, and internship applications from
+                one place.
               </p>
 
+              <div className="college-welcome-role">
+
+                <div className="college-welcome-role-icon">
+                  ✓
+                </div>
+
+                <div>
+                  <strong>
+                    Your role as a College Coordinator
+                  </strong>
+
+                  <p>
+                    Verify students, manage faculty,
+                    review internship applications, and
+                    approve internships for your students.
+                  </p>
+                </div>
+
+              </div>
+
             </div>
-          </div>
 
-          <div className="college-stat-grid">
+            <div className="college-welcome-visual">
 
-            <div className="college-stat-card">
+              <div className="college-visual-circle circle-one"></div>
+              <div className="college-visual-circle circle-two"></div>
 
-              <div className="college-stat-icon">
+              <div className="college-visual-card">
+
+                <div className="college-visual-card-top">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div className="college-visual-screen">
+
+                  <div className="college-screen-header">
+
+                    <div className="college-screen-avatar">
+                      {college.collegeName
+                        ? college.collegeName
+                            .charAt(0)
+                            .toUpperCase()
+                        : "C"}
+                    </div>
+
+                    <div>
+                      <span></span>
+                      <span></span>
+                    </div>
+
+                  </div>
+
+                  <div className="college-screen-row">
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div className="college-screen-row">
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div className="college-screen-row">
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div className="college-screen-check">
+                    ✓
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div className="college-floating-icon college-floating-student">
                 🎓
               </div>
 
-              <div>
-
-                <span className="college-stat-label">
-                  Total Students
-                </span>
-
-                <strong>
-                  {students.length}
-                </strong>
-
-              </div>
-
-            </div>
-
-            <div className="college-stat-card">
-
-              <div className="college-stat-icon">
-                👨‍🏫
-              </div>
-
-              <div>
-
-                <span className="college-stat-label">
-                  Approved Faculty
-                </span>
-
-                <strong>
-                  {approvedFaculty.length}
-                </strong>
-
-                <small>
-                  {pendingFaculty.length}{" "}
-                  pending requests
-                </small>
-
-              </div>
-
-            </div>
-
-            <div className="college-stat-card">
-
-              <div className="college-stat-icon">
-                📄
-              </div>
-
-              <div>
-
-                <span className="college-stat-label">
-                  Applications
-                </span>
-
-                <strong>
-                  {applications.length}
-                </strong>
-
-              </div>
-
-            </div>
-
-            <div className="college-stat-card">
-
-              <div className="college-stat-icon">
+              <div className="college-floating-icon college-floating-check">
                 ✓
               </div>
 
-              <div>
+              <div className="college-floating-icon college-floating-link">
+                ↗
+              </div>
 
-                <span className="college-stat-label">
-                  Approved Internships
-                </span>
+            </div>
 
-                <strong>
-                  {approvedApplications.length}
-                </strong>
+          </div>
+
+          <div className="college-role-section">
+
+            <div className="college-role-heading">
+
+              <span className="college-eyebrow">
+                YOUR ROLE
+              </span>
+
+              <h2>
+                What you can manage
+              </h2>
+
+              <p>
+                Everything you need to coordinate
+                the internship process at your college.
+              </p>
+
+            </div>
+
+            <div className="college-role-grid">
+
+              <div className="college-role-card">
+
+                <div className="college-role-icon">
+                  🎓
+                </div>
+
+                <div>
+                  <h3>
+                    Manage Students
+                  </h3>
+
+                  <p>
+                    Upload student verification
+                    records and view students
+                    registered under your college.
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="college-role-card">
+
+                <div className="college-role-icon">
+                  👨‍🏫
+                </div>
+
+                <div>
+                  <h3>
+                    Manage Faculty
+                  </h3>
+
+                  <p>
+                    Review faculty registration
+                    requests and approve faculty
+                    members from your institution.
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="college-role-card">
+
+                <div className="college-role-icon">
+                  📄
+                </div>
+
+                <div>
+                  <h3>
+                    Review Applications
+                  </h3>
+
+                  <p>
+                    Review company-approved
+                    internship applications and
+                    verify student internship requests.
+                  </p>
+                </div>
+
+              </div>
+
+              <div className="college-role-card">
+
+                <div className="college-role-icon">
+                  ✓
+                </div>
+
+                <div>
+                  <h3>
+                    Approve Internships
+                  </h3>
+
+                  <p>
+                    Approve verified internships
+                    and help students continue
+                    their internship journey.
+                  </p>
+                </div>
 
               </div>
 
@@ -513,77 +629,23 @@ function CollegeDashboard({
 
           </div>
 
-          <div className="college-section-card">
+          <div className="college-home-footer">
 
-            <div className="college-section-header">
-
-              <div>
-
-                <span className="college-eyebrow">
-                  COLLEGE INFORMATION
-                </span>
-
-                <h2>
-                  College Details
-                </h2>
-
-              </div>
-
+            <div className="college-home-footer-icon">
+              ✦
             </div>
 
-            <div className="college-details-grid">
+            <div>
 
-              <div className="college-detail-item">
-                <span>College Name</span>
+              <strong>
+                Internship management made simple.
+              </strong>
 
-                <strong>
-                  {college.collegeName}
-                </strong>
-              </div>
-
-              <div className="college-detail-item">
-                <span>College Code</span>
-
-                <strong>
-                  {college.collegeCode}
-                </strong>
-              </div>
-
-              <div className="college-detail-item">
-                <span>Email</span>
-
-                <strong>
-                  {college.email}
-                </strong>
-              </div>
-
-              <div className="college-detail-item">
-                <span>Phone</span>
-
-                <strong>
-                  {college.phone ||
-                    "Not available"}
-                </strong>
-              </div>
-
-              <div className="college-detail-item">
-                <span>Location</span>
-
-                <strong>
-                  {college.location ||
-                    "Not available"}
-                </strong>
-              </div>
-
-              <div className="college-detail-item">
-
-                <span>Status</span>
-
-                <span className="college-status-badge approved">
-                  {college.status}
-                </span>
-
-              </div>
+              <span>
+                InternLink connects your college,
+                students, faculty, and companies
+                in one place.
+              </span>
 
             </div>
 
@@ -601,6 +663,7 @@ function CollegeDashboard({
       return (
         <div className="college-page">
 
+          {/* PAGE HEADING */}
           <div className="college-page-heading">
 
             <div>
@@ -614,9 +677,8 @@ function CollegeDashboard({
               </h1>
 
               <p>
-                Upload the college student
-                verification list and view
-                students registered under
+                Upload the college student verification
+                list and view students registered under
                 your college.
               </p>
 
@@ -624,7 +686,10 @@ function CollegeDashboard({
 
           </div>
 
-          {/* STUDENT EXCEL UPLOAD */}
+
+          {/* ==================================
+              EXCEL UPLOAD SECTION
+          ================================== */}
 
           <div className="college-section-card college-excel-upload-card">
 
@@ -641,14 +706,16 @@ function CollegeDashboard({
                 </h2>
 
                 <p>
-                  Upload the Excel file
-                  containing the authorized
-                  student verification records.
+                  Upload the Excel file containing the
+                  authorized student verification records.
                 </p>
 
               </div>
 
             </div>
+
+
+            {/* REQUIRED COLUMNS */}
 
             <div className="college-excel-format-box">
 
@@ -658,11 +725,14 @@ function CollegeDashboard({
 
               <span>
                 Name, College, Register Number,
-                Department, Assigned Faculty
-                Name, Verification Code
+                Department, Assigned Faculty Name,
+                Verification Code
               </span>
 
             </div>
+
+
+            {/* UPLOAD AREA */}
 
             <div className="college-excel-upload-area">
 
@@ -682,28 +752,24 @@ function CollegeDashboard({
                     );
 
                     setUploadResult(null);
+
                   }}
                 />
 
                 <label htmlFor="studentExcelFile">
-
                   {selectedFile
                     ? selectedFile.name
                     : "Choose Excel File"}
-
                 </label>
 
               </div>
 
+
               <button
                 type="button"
                 className="college-excel-upload-button"
-                onClick={
-                  handleExcelUpload
-                }
-                disabled={
-                  uploadingExcel
-                }
+                onClick={handleExcelUpload}
+                disabled={uploadingExcel}
               >
                 {uploadingExcel
                   ? "Uploading..."
@@ -712,10 +778,15 @@ function CollegeDashboard({
 
             </div>
 
+
+            {/* SELECTED FILE */}
+
             {selectedFile && (
               <div className="college-selected-file">
 
-                <span>📄</span>
+                <span>
+                  📄
+                </span>
 
                 <div>
 
@@ -724,17 +795,56 @@ function CollegeDashboard({
                   </strong>
 
                   <small>
-                    {(
-                      selectedFile.size /
-                      1024
-                    ).toFixed(1)}{" "}
-                    KB
+                    {(selectedFile.size / 1024).toFixed(1)} KB
                   </small>
 
                 </div>
 
               </div>
             )}
+
+
+            {/* ==================================
+                UPLOADED EXCEL DOCUMENT
+            ================================== */}
+
+            {uploadedExcel && (
+              <div className="college-uploaded-excel-card">
+
+                <div className="college-uploaded-excel-icon">
+                  📊
+                </div>
+
+
+                <div className="college-uploaded-excel-info">
+
+                  <span className="college-uploaded-excel-label">
+                    UPLOADED EXCEL DOCUMENT
+                  </span>
+
+                  <h3>
+                    {uploadedExcel.name}
+                  </h3>
+
+                  <p>
+                    Excel Spreadsheet
+                    {uploadedExcel.size
+                      ? ` • ${(uploadedExcel.size / 1024).toFixed(1)} KB`
+                      : ""}
+                  </p>
+
+                </div>
+
+
+                <div className="college-uploaded-excel-status">
+                  ✓ Successfully Uploaded
+                </div>
+
+              </div>
+            )}
+
+
+            {/* UPLOAD SUMMARY */}
 
             {uploadResult && (
               <div className="college-excel-result">
@@ -751,9 +861,7 @@ function CollegeDashboard({
                     </span>
 
                     <strong>
-                      {
-                        uploadResult.totalRows
-                      }
+                      {uploadResult.totalRows}
                     </strong>
                   </div>
 
@@ -763,9 +871,7 @@ function CollegeDashboard({
                     </span>
 
                     <strong>
-                      {
-                        uploadResult.imported
-                      }
+                      {uploadResult.imported}
                     </strong>
                   </div>
 
@@ -775,9 +881,7 @@ function CollegeDashboard({
                     </span>
 
                     <strong>
-                      {
-                        uploadResult.updated
-                      }
+                      {uploadResult.updated}
                     </strong>
                   </div>
 
@@ -787,16 +891,18 @@ function CollegeDashboard({
                     </span>
 
                     <strong>
-                      {
-                        uploadResult.skipped
-                      }
+                      {uploadResult.skipped}
                     </strong>
                   </div>
 
                 </div>
 
+
+                {/* ERRORS */}
+
                 {uploadResult.errors &&
                   uploadResult.errors.length > 0 && (
+
                     <div className="college-excel-errors">
 
                       <strong>
@@ -806,13 +912,8 @@ function CollegeDashboard({
                       <ul>
 
                         {uploadResult.errors.map(
-                          (
-                            error,
-                            index
-                          ) => (
-                            <li
-                              key={index}
-                            >
+                          (error, index) => (
+                            <li key={index}>
                               {error}
                             </li>
                           )
@@ -821,6 +922,7 @@ function CollegeDashboard({
                       </ul>
 
                     </div>
+
                   )}
 
               </div>
@@ -828,9 +930,12 @@ function CollegeDashboard({
 
           </div>
 
-          {/* STUDENT LIST */}
 
-          <div className="college-section-card">
+          {/* ==================================
+              REGISTERED STUDENTS
+          ================================== */}
+
+          <div className="college-section-card college-registered-students-card">
 
             <div className="college-section-header">
 
@@ -841,17 +946,17 @@ function CollegeDashboard({
                 </span>
 
                 <h2>
-                  Student Accounts
+                  Registered Students
                 </h2>
 
                 <p>
-                  Students who have
-                  completed registration
-                  using the college
+                  Students who have completed
+                  registration using the college
                   verification list.
                 </p>
 
               </div>
+
 
               <span className="college-count-badge">
                 {students.length}
@@ -859,28 +964,32 @@ function CollegeDashboard({
 
             </div>
 
+
+            {/* NO STUDENTS */}
+
             {students.length === 0 ? (
 
               <div className="college-empty-state">
 
-                <div>🎓</div>
+                <div>
+                  🎓
+                </div>
 
                 <h3>
-                  No students registered
-                  yet
+                  No students registered yet
                 </h3>
 
                 <p>
-                  Upload the student
-                  Excel file above.
-                  Students will appear
-                  here after they
+                  Upload the student Excel file above.
+                  Students will appear here after they
                   complete registration.
                 </p>
 
               </div>
 
             ) : (
+
+              /* REGISTERED STUDENTS TABLE */
 
               <div className="college-table-wrapper">
 
@@ -889,66 +998,69 @@ function CollegeDashboard({
                   <thead>
 
                     <tr>
-                      <th>Name</th>
-                      <th>Register No.</th>
-                      <th>Department</th>
-                      <th>Semester</th>
-                      <th>Email</th>
-                      <th>Phone</th>
+                      <th>
+                        Name
+                      </th>
+
+                      <th>
+                        Register No.
+                      </th>
+
+                      <th>
+                        Department
+                      </th>
+
+                      <th>
+                        Semester
+                      </th>
+
+                      <th>
+                        Email
+                      </th>
+
+                      <th>
+                        Phone
+                      </th>
                     </tr>
 
                   </thead>
+
 
                   <tbody>
 
                     {students.map(
                       (student) => (
-                        <tr
-                          key={
-                            student._id
-                          }
-                        >
+
+                        <tr key={student._id}>
 
                           <td>
                             <strong>
-                              {
-                                student.name
-                              }
+                              {student.name}
                             </strong>
                           </td>
 
                           <td>
-                            {
-                              student.registerNumber
-                            }
+                            {student.registerNumber}
                           </td>
 
                           <td>
-                            {
-                              student.department
-                            }
+                            {student.department}
                           </td>
 
                           <td>
-                            {
-                              student.semester
-                            }
+                            {student.semester}
                           </td>
 
                           <td>
-                            {
-                              student.email
-                            }
+                            {student.email}
                           </td>
 
                           <td>
-                            {
-                              student.phone ||
-                              "—"
-                            }
+                            {student.phone || "—"}
                           </td>
 
                         </tr>
+
                       )
                     )}
 
@@ -957,6 +1069,7 @@ function CollegeDashboard({
                 </table>
 
               </div>
+
             )}
 
           </div>
@@ -995,6 +1108,7 @@ function CollegeDashboard({
 
           </div>
 
+
           {/* PENDING FACULTY */}
 
           <div className="college-section-card">
@@ -1019,6 +1133,7 @@ function CollegeDashboard({
               </span>
 
             </div>
+
 
             {pendingFaculty.length === 0 ? (
 
@@ -1049,6 +1164,7 @@ function CollegeDashboard({
 
                     {pendingFaculty.map(
                       (f) => (
+
                         <tr key={f._id}>
 
                           <td>
@@ -1100,6 +1216,7 @@ function CollegeDashboard({
                           </td>
 
                         </tr>
+
                       )
                     )}
 
@@ -1108,9 +1225,11 @@ function CollegeDashboard({
                 </table>
 
               </div>
+
             )}
 
           </div>
+
 
           {/* APPROVED FACULTY */}
 
@@ -1136,6 +1255,7 @@ function CollegeDashboard({
               </span>
 
             </div>
+
 
             {approvedFaculty.length === 0 ? (
 
@@ -1167,6 +1287,7 @@ function CollegeDashboard({
 
                     {approvedFaculty.map(
                       (f) => (
+
                         <tr key={f._id}>
 
                           <td>
@@ -1198,6 +1319,7 @@ function CollegeDashboard({
                           </td>
 
                         </tr>
+
                       )
                     )}
 
@@ -1206,6 +1328,7 @@ function CollegeDashboard({
                 </table>
 
               </div>
+
             )}
 
           </div>
@@ -1215,7 +1338,7 @@ function CollegeDashboard({
     }
 
     // ========================================
-    // INTERNSHIP APPLICATIONS
+    // APPLICATIONS
     // ========================================
 
     if (activeSection === "applications") {
@@ -1244,9 +1367,8 @@ function CollegeDashboard({
 
           </div>
 
-          {/* ==================================
-              PENDING APPLICATIONS
-          =================================== */}
+
+          {/* PENDING APPLICATIONS */}
 
           <div className="college-application-section">
 
@@ -1276,6 +1398,7 @@ function CollegeDashboard({
 
             </div>
 
+
             {pendingApplications.length === 0 ? (
 
               <div className="college-small-empty">
@@ -1289,12 +1412,11 @@ function CollegeDashboard({
 
                 {pendingApplications.map(
                   (app) => (
+
                     <div
                       key={app._id}
                       className="college-application-card"
                     >
-
-                      {/* HEADER */}
 
                       <div className="college-application-top">
 
@@ -1329,7 +1451,6 @@ function CollegeDashboard({
 
                       </div>
 
-                      {/* DETAILS */}
 
                       <div className="college-application-details">
 
@@ -1385,10 +1506,10 @@ function CollegeDashboard({
 
                       </div>
 
-                      {/* CONFIRMATION LETTER */}
 
                       {app.confirmationLetter
                         ?.message && (
+
                         <div className="college-confirmation-letter">
 
                           <div className="college-confirmation-header">
@@ -1451,6 +1572,7 @@ function CollegeDashboard({
 
                             {app.confirmationLetter
                               .sentAt && (
+
                               <div className="college-letter-date">
 
                                 Sent on:{" "}
@@ -1461,11 +1583,11 @@ function CollegeDashboard({
                                 ).toLocaleString()}
 
                               </div>
+
                             )}
 
                           </div>
 
-                          {/* FORWARD STATUS */}
 
                           {app.forwardedToCollege ? (
 
@@ -1531,9 +1653,9 @@ function CollegeDashboard({
                           )}
 
                         </div>
+
                       )}
 
-                      {/* APPROVE / REJECT */}
 
                       {app.forwardedToCollege ? (
 
@@ -1574,17 +1696,18 @@ function CollegeDashboard({
                       )}
 
                     </div>
+
                   )
                 )}
 
               </div>
+
             )}
 
           </div>
 
-          {/* ==================================
-              APPROVED INTERNSHIPS
-          =================================== */}
+
+          {/* APPROVED INTERNSHIPS */}
 
           <div className="college-application-section approved-internships-section">
 
@@ -1613,6 +1736,7 @@ function CollegeDashboard({
 
             </div>
 
+
             {approvedApplications.length === 0 ? (
 
               <div className="college-approved-empty">
@@ -1639,12 +1763,11 @@ function CollegeDashboard({
 
                 {approvedApplications.map(
                   (app) => (
+
                     <div
                       key={app._id}
                       className="college-approved-card"
                     >
-
-                      {/* APPROVED HEADER */}
 
                       <div className="college-approved-card-header">
 
@@ -1688,12 +1811,10 @@ function CollegeDashboard({
 
                       </div>
 
-                      {/* APPROVED DETAILS */}
 
                       <div className="college-approved-details">
 
                         <div className="college-approved-detail">
-
                           <span>
                             Department
                           </span>
@@ -1703,11 +1824,9 @@ function CollegeDashboard({
                               ?.department ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Semester
                           </span>
@@ -1717,11 +1836,9 @@ function CollegeDashboard({
                               ?.semester ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Email
                           </span>
@@ -1731,11 +1848,9 @@ function CollegeDashboard({
                               ?.email ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Phone
                           </span>
@@ -1745,11 +1860,9 @@ function CollegeDashboard({
                               ?.phone ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Company
                           </span>
@@ -1759,11 +1872,9 @@ function CollegeDashboard({
                               ?.companyName ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Internship
                           </span>
@@ -1773,11 +1884,9 @@ function CollegeDashboard({
                               ?.title ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Position
                           </span>
@@ -1786,11 +1895,9 @@ function CollegeDashboard({
                             {app.position ||
                               "—"}
                           </strong>
-
                         </div>
 
                         <div className="college-approved-detail">
-
                           <span>
                             Applied On
                           </span>
@@ -1802,12 +1909,10 @@ function CollegeDashboard({
                                 ).toLocaleDateString()
                               : "—"}
                           </strong>
-
                         </div>
 
                       </div>
 
-                      {/* FACULTY GUIDE */}
 
                       <div className="college-approved-footer">
 
@@ -1849,7 +1954,6 @@ function CollegeDashboard({
 
                       </div>
 
-                      {/* APPROVAL NOTE */}
 
                       <div className="college-approved-note">
 
@@ -1874,17 +1978,18 @@ function CollegeDashboard({
                       </div>
 
                     </div>
+
                   )
                 )}
 
               </div>
+
             )}
 
           </div>
 
-          {/* ==================================
-              OTHER APPLICATIONS
-          =================================== */}
+
+          {/* OTHER APPLICATIONS */}
 
           {otherApplications.length > 0 && (
 
@@ -1920,6 +2025,7 @@ function CollegeDashboard({
 
                 {otherApplications.map(
                   (app) => (
+
                     <div
                       key={app._id}
                       className="college-other-status-card"
@@ -1951,12 +2057,14 @@ function CollegeDashboard({
                       </span>
 
                     </div>
+
                   )
                 )}
 
               </div>
 
             </div>
+
           )}
 
         </div>
@@ -1993,13 +2101,16 @@ function CollegeDashboard({
 
           </div>
 
+
           <div className="college-section-card">
 
             {approvedFaculty.length === 0 ? (
 
               <div className="college-empty-state">
 
-                <div>👨‍🏫</div>
+                <div>
+                  👨‍🏫
+                </div>
 
                 <h3>
                   No approved faculty
@@ -2044,9 +2155,8 @@ function CollegeDashboard({
 
                     {approvedFaculty.map(
                       (f) => (
-                        <tr
-                          key={f._id}
-                        >
+
+                        <tr key={f._id}>
 
                           <td>
                             <strong>
@@ -2069,6 +2179,7 @@ function CollegeDashboard({
                           </td>
 
                         </tr>
+
                       )
                     )}
 
@@ -2077,6 +2188,7 @@ function CollegeDashboard({
                 </table>
 
               </div>
+
             )}
 
           </div>
@@ -2131,7 +2243,9 @@ function CollegeDashboard({
 
         </div>
 
+
         <div className="college-sidebar-divider"></div>
+
 
         <nav className="college-sidebar-nav">
 
@@ -2153,6 +2267,7 @@ function CollegeDashboard({
             </span>
           </button>
 
+
           <button
             className={`college-nav-item ${
               activeSection ===
@@ -2171,6 +2286,7 @@ function CollegeDashboard({
             </span>
           </button>
 
+
           <button
             className={`college-nav-item ${
               activeSection ===
@@ -2188,6 +2304,7 @@ function CollegeDashboard({
               Faculty
             </span>
           </button>
+
 
           <button
             className={`college-nav-item ${
@@ -2209,25 +2326,8 @@ function CollegeDashboard({
             </span>
           </button>
 
-          <button
-            className={`college-nav-item ${
-              activeSection ===
-              "workload"
-                ? "active"
-                : ""
-            }`}
-            onClick={onGoToWorkload}
-          >
-            <span className="college-nav-icon">
-              ◉
-            </span>
-
-            <span>
-              Faculty Workload
-            </span>
-          </button>
-
         </nav>
+
 
         <div className="college-sidebar-bottom">
 
@@ -2255,6 +2355,7 @@ function CollegeDashboard({
             </span>
           </button>
 
+
           <button
             className="college-logout-button"
             onClick={onLogout}
@@ -2271,6 +2372,7 @@ function CollegeDashboard({
         </div>
 
       </aside>
+
 
       {/* MAIN AREA */}
 
@@ -2289,6 +2391,7 @@ function CollegeDashboard({
             </h1>
 
           </div>
+
 
           <div className="college-header-profile">
 
@@ -2317,6 +2420,7 @@ function CollegeDashboard({
           </div>
 
         </header>
+
 
         {/* MESSAGE */}
 
@@ -2347,6 +2451,7 @@ function CollegeDashboard({
           </div>
         )}
 
+
         {/* CONTENT */}
 
         <main className="college-content">
@@ -2368,6 +2473,7 @@ function CollegeDashboard({
 // ==========================================
 
 const getStatusClass = (status) => {
+
   if (status === "CollegeApproved") {
     return "approved";
   }

@@ -2691,3 +2691,3204 @@ body {
   box-sizing: border-box;
   box-shadow: 0 4px 14px rgba(40, 118, 83, 0.08);
 }
+
+/* =========================================================
+   FACULTY DASHBOARD HOME
+   InternLink - Faculty Home
+   UI ONLY
+========================================================= */
+
+.faculty-home {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   WELCOME HERO
+========================================================= */
+
+.faculty-home-intro {
+  position: relative;
+  min-height: 215px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 32px 38px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border-radius: 23px;
+  background: linear-gradient(135deg, #edf9f3 0%, #f8fcfa 57%, #fff0ec 100%);
+  border: 1px solid #dcece4;
+  box-shadow: 0 12px 32px rgba(40, 118, 83, 0.055);
+}
+
+.faculty-home-intro::before {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  right: -165px;
+  top: -205px;
+  border: 1px solid rgba(40, 118, 83, 0.09);
+  border-radius: 50%;
+}
+
+.faculty-home-intro::after {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  right: 250px;
+  bottom: -125px;
+  border-radius: 50%;
+  background: rgba(239, 128, 110, 0.075);
+}
+
+.faculty-home-intro-content {
+  position: relative;
+  z-index: 4;
+  max-width: 610px;
+}
+
+.faculty-home-eyebrow {
+  margin: 0 0 9px;
+  color: #ef806e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.45px;
+  text-transform: uppercase;
+}
+
+.faculty-home-intro h1 {
+  margin: 0;
+  color: #173f33;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+}
+
+.faculty-home-description {
+  max-width: 570px;
+  margin: 10px 0 0;
+  color: #647b72;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.faculty-home-hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.faculty-home-hero-pills span {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #d8e9e0;
+  color: #287653;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   ANIMATED ILLUSTRATION
+========================================================= */
+
+.faculty-home-illustration {
+  position: relative;
+  z-index: 3;
+  width: 335px;
+  height: 190px;
+  flex-shrink: 0;
+}
+
+.faculty-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px dashed rgba(40, 118, 83, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: facultyOrbitPulse 4s ease-in-out infinite;
+}
+
+.faculty-orbit-one {
+  width: 175px;
+  height: 175px;
+}
+
+.faculty-orbit-two {
+  width: 125px;
+  height: 125px;
+  border-color: rgba(239, 128, 110, 0.2);
+  animation-delay: 1s;
+}
+
+.faculty-illustration-person {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 82px;
+  height: 105px;
+  transform: translate(-50%, -42%);
+  animation: facultyFloat 3.5s ease-in-out infinite;
+}
+
+.faculty-person-head {
+  width: 43px;
+  height: 43px;
+  margin: 0 auto -3px;
+  border-radius: 50%;
+  background: #f5c9b7;
+  border: 5px solid #ffffff;
+  box-shadow: 0 5px 12px rgba(40, 118, 83, 0.08);
+}
+
+.faculty-person-body {
+  position: relative;
+  width: 76px;
+  height: 59px;
+  margin: 0 auto;
+  border-radius: 25px 25px 13px 13px;
+  background: #287653;
+  border: 5px solid #ffffff;
+  box-shadow: 0 8px 18px rgba(40, 118, 83, 0.13);
+}
+
+.faculty-person-book {
+  position: absolute;
+  right: -14px;
+  top: 14px;
+  width: 28px;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #ef806e;
+  color: #ffffff;
+  font-size: 14px;
+  transform: rotate(-8deg);
+}
+
+.faculty-illustration-card {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #dcece4;
+  color: #466258;
+  font-size: 9px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(40, 118, 83, 0.08);
+  animation: facultyCardFloat 3.5s ease-in-out infinite;
+}
+
+.faculty-illustration-card span {
+  color: #287653;
+  font-size: 12px;
+}
+
+.card-one {
+  left: 4px;
+  top: 28px;
+}
+
+.card-two {
+  right: 2px;
+  top: 17px;
+  animation-delay: 0.8s;
+}
+
+.card-two span {
+  color: #d86f5e;
+}
+
+.card-three {
+  right: 18px;
+  bottom: 14px;
+  animation-delay: 1.5s;
+}
+
+.card-three span {
+  color: #e19a45;
+}
+
+.faculty-floating-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: facultyDotFloat 3s ease-in-out infinite;
+}
+
+.dot-one {
+  width: 8px;
+  height: 8px;
+  left: 65px;
+  bottom: 25px;
+  background: #ef806e;
+}
+
+.dot-two {
+  width: 6px;
+  height: 6px;
+  right: 82px;
+  top: 4px;
+  background: #287653;
+  animation-delay: 1s;
+}
+
+.dot-three {
+  width: 10px;
+  height: 10px;
+  left: 110px;
+  top: 18px;
+  background: #f1c76a;
+  animation-delay: 1.8s;
+}
+
+@keyframes facultyFloat {
+  0%, 100% { transform: translate(-50%, -42%); }
+  50% { transform: translate(-50%, -48%); }
+}
+
+@keyframes facultyCardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes facultyDotFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.75; }
+  50% { transform: translateY(-8px) scale(1.15); opacity: 1; }
+}
+
+@keyframes facultyOrbitPulse {
+  0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+/* =========================================================
+   HOME STATISTICS
+========================================================= */
+
+.faculty-home-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 27px;
+}
+
+.faculty-home-stat-card {
+  min-height: 106px;
+  padding: 19px;
+  border-radius: 16px;
+}
+
+.faculty-home-stat-card .info-card-icon {
+  width: 49px;
+  height: 49px;
+  min-width: 49px;
+  border-radius: 14px;
+  font-size: 19px;
+}
+
+.faculty-home-stat-card span {
+  font-size: 10px;
+}
+
+.faculty-home-stat-card strong {
+  font-size: 23px;
+}
+
+.faculty-home-stat-card small {
+  display: block;
+  margin-top: 1px;
+  color: #8a9a94;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.faculty-home-icon-pink {
+  background: #fff0ec !important;
+  color: #d86f5e !important;
+}
+
+.faculty-home-icon-coral {
+  background: #ffe9e4 !important;
+  color: #d66b5a !important;
+}
+
+.faculty-department-value {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 17px !important;
+}
+
+/* =========================================================
+   FACULTY ROLE
+========================================================= */
+
+.faculty-home-role {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 29px;
+  padding: 25px 27px;
+  overflow: hidden;
+  border-radius: 19px;
+  background: linear-gradient(135deg, #ffffff 0%, #f7fcf9 100%);
+  border: 1px solid #dfeae5;
+  box-shadow: 0 7px 22px rgba(40, 118, 83, 0.045);
+}
+
+.faculty-home-role::after {
+  content: "";
+  position: absolute;
+  width: 125px;
+  height: 125px;
+  right: -50px;
+  bottom: -70px;
+  border-radius: 50%;
+  background: rgba(239, 128, 110, 0.07);
+}
+
+.faculty-home-role-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: #dff4e9;
+  color: #287653;
+  font-size: 21px;
+}
+
+.faculty-home-role-content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+}
+
+.faculty-home-section-label {
+  margin: 0 0 5px;
+  color: #ef806e;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.15px;
+  text-transform: uppercase;
+}
+
+.faculty-home-role-content h2 {
+  margin: 0 0 8px;
+  color: #173f33;
+  font-size: 21px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.faculty-home-role-content p:last-child {
+  margin: 0;
+  color: #71857d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   WHAT YOU CAN MANAGE
+========================================================= */
+
+.faculty-home-management {
+  margin-bottom: 10px;
+}
+
+.faculty-home-section-heading {
+  margin-bottom: 15px;
+}
+
+.faculty-home-section-heading h2 {
+  margin: 0;
+  color: #173f33;
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.3px;
+}
+
+.faculty-home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.faculty-home-feature {
+  min-height: 145px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 19px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2ebe7;
+  border-radius: 16px;
+  box-shadow: 0 5px 17px rgba(40, 118, 83, 0.035);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.faculty-home-feature:hover {
+  transform: translateY(-4px);
+  border-color: #cfe2d9;
+  box-shadow: 0 11px 25px rgba(40, 118, 83, 0.08);
+}
+
+.faculty-home-feature-icon {
+  width: 39px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #e1f4eb;
+  color: #287653;
+  font-size: 16px;
+}
+
+.faculty-home-feature-pink {
+  background: #fff0ec;
+  color: #d86f5e;
+}
+
+.faculty-home-feature-coral {
+  background: #ffe9e4;
+  color: #d66b5a;
+}
+
+.faculty-home-feature-mint {
+  background: #e7f6ee;
+  color: #2e8060;
+}
+
+.faculty-home-feature h3 {
+  margin: 0 0 5px;
+  color: #294139;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.faculty-home-feature p {
+  margin: 0;
+  color: #7a8d85;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   RESPONSIVE HOME
+========================================================= */
+
+@media (max-width: 1050px) {
+  .faculty-home-illustration {
+    width: 290px;
+    transform: scale(0.92);
+    transform-origin: right center;
+  }
+
+  .faculty-home-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .faculty-home-intro {
+    padding: 28px;
+  }
+
+  .faculty-home-illustration {
+    width: 255px;
+    transform: scale(0.82);
+    margin-right: -20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .faculty-home-intro {
+    min-height: 0;
+    padding: 27px;
+  }
+
+  .faculty-home-illustration {
+    width: 100%;
+    height: 155px;
+    margin: 0;
+    transform: none;
+  }
+
+  .faculty-home-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-home-feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .faculty-home-intro h1 {
+    font-size: 26px;
+  }
+
+  .faculty-home-description {
+    font-size: 13px;
+  }
+
+  .faculty-home-role {
+    flex-direction: column;
+    padding: 21px;
+  }
+
+  .faculty-home-role-content h2 {
+    font-size: 18px;
+  }
+
+  .faculty-home-illustration-card {
+    font-size: 8px;
+  }
+
+  .card-one {
+    left: 0;
+  }
+
+  .card-two {
+    right: 0;
+  }
+
+  .card-three {
+    right: 5px;
+  }
+}
+
+
+/* =========================================================
+   EXCEL-ASSIGNED STUDENTS
+   Merged into FacultyDashboard.css
+========================================================= */
+
+/* =========================================================
+   EXCEL-ASSIGNED STUDENTS
+   Added for College Excel -> Faculty student assignment
+========================================================= */
+
+.excel-assigned-students-section {
+  margin-top: 28px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e4ebe7;
+  border-radius: 18px;
+}
+
+.excel-assigned-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.excel-assigned-header h2 {
+  margin: 4px 0 6px;
+  color: #294139;
+}
+
+.excel-assigned-header p:not(.faculty-eyebrow) {
+  margin: 0;
+  color: #6b7b74;
+  line-height: 1.5;
+}
+
+.excel-student-count {
+  min-width: 105px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: #d8f3e5;
+  text-align: center;
+}
+
+.excel-student-count span {
+  display: block;
+  font-size: 12px;
+  color: #527064;
+}
+
+.excel-student-count strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 24px;
+  color: #287653;
+}
+
+.excel-assigned-students-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.excel-assigned-student-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  background: #fbfdfc;
+  border: 1px solid #e5ece8;
+  border-radius: 14px;
+}
+
+.excel-student-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.excel-student-avatar {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #d8f3e5;
+  color: #287653;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.excel-student-info h3 {
+  margin: 0 0 3px;
+  color: #294139;
+  font-size: 16px;
+}
+
+.excel-student-info p {
+  margin: 0 0 3px;
+  color: #4e675d;
+  font-size: 14px;
+}
+
+.excel-student-info span {
+  color: #7a8983;
+  font-size: 13px;
+}
+
+.view-student-details-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background: #287653;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.view-student-details-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.excel-students-empty {
+  padding: 34px 20px;
+  text-align: center;
+  border: 1px dashed #cfdcd5;
+  border-radius: 14px;
+  background: #fbfdfc;
+}
+
+.excel-empty-icon {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.excel-students-empty h3 {
+  margin: 0 0 6px;
+  color: #294139;
+}
+
+.excel-students-empty p {
+  margin: 0;
+  color: #73827c;
+}
+
+.internship-assignment-section {
+  margin-top: 32px;
+}
+
+.student-details-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(32, 55, 46, 0.48);
+  overflow-y: auto;
+}
+
+.student-details-modal {
+  width: min(720px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #e3ebe7;
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(30, 55, 45, 0.22);
+}
+
+.student-details-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.student-details-modal-header h2 {
+  margin: 5px 0 4px;
+  color: #294139;
+}
+
+.student-details-modal-header > div > p:last-child {
+  margin: 0;
+  color: #6b7b74;
+}
+
+.student-details-close-btn {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: none;
+  border-radius: 50%;
+  background: #eef4f1;
+  color: #294139;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.student-details-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.student-details-modal-grid > div {
+  padding: 14px;
+  border-radius: 12px;
+  background: #f7faf8;
+}
+
+.student-details-modal-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: #71817a;
+  font-size: 12px;
+}
+
+.student-details-modal-grid strong {
+  display: block;
+  color: #294139;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.student-details-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+@media (max-width: 700px) {
+  .excel-assigned-header {
+    flex-direction: column;
+  }
+
+  .excel-student-count {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .excel-assigned-student-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .view-student-details-btn {
+    width: 100%;
+  }
+
+  .student-details-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-details-modal {
+    padding: 20px;
+  }
+}
+
+/* =========================================================
+   FINAL LOGBOOK REVIEW FIX
+   Show every logbook card. The main faculty content area
+   handles scrolling; the logbook list must never create a
+   second clipped scroll area.
+========================================================= */
+
+.faculty-logbook-page .faculty-logbook-list,
+.faculty-content .faculty-logbook-page .faculty-logbook-list,
+.faculty-content > section.faculty-logbook-page .faculty-logbook-list {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  padding: 4px 2px 30px !important;
+  box-sizing: border-box !important;
+}
+
+.faculty-logbook-page .faculty-logbook-card,
+.faculty-content .faculty-logbook-page .faculty-logbook-card {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+/* Keep the back button clearly visible above the selected student. */
+.faculty-logbook-page .logbook-back-top {
+  position: relative !important;
+  z-index: 20 !important;
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: auto !important;
+  min-height: 40px !important;
+  margin: 0 0 18px !important;
+  padding: 10px 17px !important;
+  background: #ffffff !important;
+  color: #287653 !important;
+  border: 1px solid #cfe2d9 !important;
+  border-radius: 11px !important;
+  cursor: pointer !important;
+}
+
+.faculty-logbook-page .logbook-back-top:hover {
+  background: #f0f8f4 !important;
+  border-color: #a9d2bd !important;
+}
+
+@media (max-width: 700px) {
+  .faculty-logbook-page .faculty-logbook-list,
+  .faculty-content .faculty-logbook-page .faculty-logbook-list {
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    padding-right: 2px !important;
+  }
+}
+
+/* =========================================================
+   LOGBOOK ENTRY COUNT
+========================================================= */
+.logbook-entry-count {
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  box-sizing: border-box;
+  border: 1px solid #dcebe4;
+  border-radius: 10px;
+  background: #f8fcfa;
+  color: #527064;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.logbook-entry-count strong {
+  color: #287653;
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   LOGBOOK REVIEW - STUDENT SELECTION
+   First show student boxes. Logbook cards appear only after
+   a student is selected.
+========================================================= */
+
+.faculty-logbook-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.logbook-student-selection {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e1ece6;
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(40, 118, 83, 0.06);
+}
+
+.logbook-selection-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.logbook-selection-heading h2 {
+  margin: 4px 0 6px;
+  color: #173f33;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.logbook-selection-heading p:not(.faculty-eyebrow) {
+  margin: 0;
+  color: #71847c;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.logbook-selection-count {
+  min-width: 92px;
+  padding: 12px 16px;
+  border-radius: 15px;
+  background: #d8f3e5;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.logbook-selection-count span {
+  display: block;
+  color: #527064;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.logbook-selection-count strong {
+  display: block;
+  margin-top: 2px;
+  color: #287653;
+  font-size: 25px;
+  line-height: 1.1;
+}
+
+.logbook-student-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.logbook-student-box {
+  appearance: none;
+  width: 100%;
+  min-width: 0;
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  box-sizing: border-box;
+  border: 1px solid #dfeae4;
+  border-radius: 18px;
+  background: #fbfdfc;
+  color: #294139;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease, background 0.18s ease;
+}
+
+.logbook-student-box:hover {
+  transform: translateY(-2px);
+  border-color: #b8d8c7;
+  background: #f5fbf8;
+  box-shadow: 0 10px 24px rgba(40, 118, 83, 0.09);
+}
+
+.logbook-student-box:focus-visible {
+  outline: 3px solid rgba(40, 118, 83, 0.18);
+  outline-offset: 2px;
+}
+
+.logbook-student-box-avatar {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #d8f3e5;
+  color: #287653;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.logbook-student-box-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.logbook-student-box-content h3 {
+  margin: 0 0 5px;
+  color: #173f33;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.logbook-student-box-content p {
+  margin: 0 0 4px;
+  color: #587066;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.logbook-student-box-content span {
+  color: #7b8d85;
+  font-size: 12px;
+}
+
+.logbook-student-box-arrow {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e7f5ed;
+  color: #287653;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.logbook-selected-student-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 20px;
+  padding: 22px 24px;
+  border: 1px solid #dfeae4;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(40, 118, 83, 0.05);
+}
+
+.logbook-selected-student-header h1 {
+  margin: 4px 0 5px;
+  color: #173f33;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.logbook-selected-student-header p:not(.faculty-eyebrow) {
+  margin: 0;
+  color: #71847c;
+  font-size: 14px;
+}
+
+.logbook-selected-student-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f4faf7;
+  border: 1px solid #e0ece6;
+}
+
+.logbook-selected-student-card strong,
+.logbook-selected-student-card span {
+  display: block;
+}
+
+.logbook-selected-student-card strong {
+  margin-bottom: 3px;
+  color: #294139;
+  font-size: 15px;
+}
+
+.logbook-selected-student-card span {
+  color: #72857d;
+  font-size: 12px;
+}
+
+@media (max-width: 850px) {
+  .logbook-student-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logbook-selection-heading,
+  .logbook-selected-student-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .logbook-selection-count {
+    align-self: flex-start;
+  }
+
+  .logbook-selected-student-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 560px) {
+  .logbook-student-selection {
+    padding: 16px;
+  }
+
+  .logbook-student-box {
+    padding: 15px;
+  }
+
+  .logbook-student-box-avatar {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+}
+
+
+/* =========================================================
+   FINAL - LOGBOOK REVIEW DISPLAY FIX
+   ========================================================= */
+
+/* The logbook page itself must be allowed to grow */
+.faculty-logbook-page {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* Student selection */
+.faculty-logbook-page .logbook-student-selection {
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Student boxes */
+.faculty-logbook-page .logbook-student-grid {
+  width: 100% !important;
+  height: auto !important;
+  display: grid !important;
+  overflow: visible !important;
+}
+
+/* Selected student header */
+.faculty-logbook-page .logbook-selected-student-header {
+  width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* =========================================================
+   LOGBOOK LIST
+   ========================================================= */
+
+.faculty-logbook-page .faculty-logbook-list {
+  width: 100% !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 18px !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  overflow: visible !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+
+  padding: 0 2px 40px 2px !important;
+
+  box-sizing: border-box !important;
+}
+
+/* =========================================================
+   EVERY LOGBOOK CARD
+   ========================================================= */
+
+.faculty-logbook-page .faculty-logbook-list > .faculty-logbook-card {
+  display: block !important;
+
+  position: relative !important;
+
+  width: 100% !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  overflow: visible !important;
+
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  background: #ffffff !important;
+
+  border: 1px solid #d8e9e0 !important;
+  border-radius: 16px !important;
+
+  padding: 20px !important;
+
+  box-shadow:
+    0 4px 14px rgba(40, 118, 83, 0.08) !important;
+}
+
+/* Make sure cards don't overlap each other */
+.faculty-logbook-page
+  .faculty-logbook-list
+  > .faculty-logbook-card
+  + .faculty-logbook-card {
+  margin-top: 0 !important;
+}
+
+/* =========================================================
+   LOGBOOK CONTENT
+   ========================================================= */
+
+.faculty-logbook-page .faculty-logbook-card .logbook-header {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.faculty-logbook-page .faculty-logbook-card .logbook-section {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.faculty-logbook-page .faculty-logbook-card .logbook-info {
+  display: grid !important;
+  visibility: visible !important;
+}
+
+.faculty-logbook-page .faculty-logbook-card .approval-status {
+  display: grid !important;
+  visibility: visible !important;
+}
+
+.faculty-logbook-page .faculty-logbook-card .logbook-actions {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* =========================================================
+   ENTRY COUNT
+   ========================================================= */
+
+.faculty-logbook-page .logbook-entry-count {
+  display: block !important;
+
+  width: 100% !important;
+
+  margin: 0 0 14px !important;
+
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  box-sizing: border-box !important;
+}
+
+/* =========================================================
+   MAIN CONTENT MUST BE THE ONLY SCROLL AREA
+   ========================================================= */
+
+.faculty-content {
+  min-height: 0 !important;
+  height: 100% !important;
+
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .faculty-logbook-page .faculty-logbook-list {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 0 30px !important;
+  }
+
+  .faculty-logbook-page .faculty-logbook-list > .faculty-logbook-card {
+    width: 100% !important;
+  }
+}
+
+/* =========================================================
+   ONLY CHANGE - STUDENT LOGBOOK DROPDOWN
+   Existing Faculty Dashboard styles are preserved.
+   ========================================================= */
+
+.logbook-student-accordion-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.logbook-student-accordion {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #dfeae4;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(40, 118, 83, 0.05);
+}
+
+.logbook-student-accordion-header {
+  width: 100%;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 20px;
+  border: none;
+  background: #ffffff;
+  color: #294139;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.logbook-student-accordion-header:hover {
+  background: #f8fcfa;
+}
+
+.logbook-student-accordion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.logbook-student-accordion-info h3 {
+  margin: 0 0 4px;
+  color: #173f33;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.logbook-student-accordion-info p {
+  margin: 0 0 3px;
+  color: #587066;
+  font-size: 13px;
+}
+
+.logbook-student-accordion-info span {
+  color: #7b8d85;
+  font-size: 12px;
+}
+
+.logbook-student-accordion-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.logbook-entry-count-small {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e7f5ed;
+  color: #287653;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.logbook-dropdown-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d8f3e5;
+  color: #287653;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.logbook-student-accordion-content {
+  padding: 0 18px 18px;
+  border-top: 1px solid #e6efe9;
+  background: #fbfdfc;
+}
+
+.logbook-student-accordion-content .faculty-logbook-list {
+  padding-top: 16px !important;
+}
+
+@media (max-width: 650px) {
+  .logbook-student-accordion-header {
+    padding: 14px;
+  }
+
+  .logbook-student-accordion-right {
+    gap: 7px;
+  }
+
+  .logbook-entry-count-small {
+    display: none;
+  }
+
+  .logbook-student-accordion-content {
+    padding: 0 10px 10px;
+  }
+}
+
+/* =========================================================
+   MARKS PENDING DROPDOWN
+   Assigned Students - UI ONLY
+========================================================= */
+
+.marks-pending-box {
+  width: 100%;
+  margin-top: 28px;
+  background: #ffffff;
+  border: 1px solid #d8f3e5;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(40, 118, 83, 0.08);
+}
+
+/* =========================
+   CLICKABLE HEADER
+========================= */
+
+.marks-pending-header {
+  width: 100%;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    #f8fffb 0%,
+    #edfaf3 100%
+  );
+
+  padding: 20px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+  text-align: left;
+
+  transition: background 0.2s ease;
+}
+
+.marks-pending-header:hover {
+  background: #e9f8f0;
+}
+
+/* Left side */
+
+.marks-pending-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.marks-pending-icon {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.marks-pending-label {
+  display: block;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+
+  color: #287653;
+
+  margin-bottom: 3px;
+}
+
+.marks-pending-header h3 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #294139;
+}
+
+.marks-pending-header p {
+  margin: 4px 0 0;
+
+  font-size: 13px;
+  color: #71827a;
+}
+
+/* Right side */
+
+.marks-pending-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marks-pending-number {
+  min-width: 34px;
+  height: 34px;
+
+  padding: 0 10px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ef806e;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.marks-pending-arrow {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  color: #287653;
+
+  font-size: 12px;
+
+  transition: transform 0.25s ease;
+}
+
+.marks-pending-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   DROPDOWN CONTENT
+========================================================= */
+
+.marks-pending-dropdown {
+  padding: 20px;
+
+  background: #fbfdfc;
+
+  border-top: 1px solid #d8f3e5;
+}
+
+.marks-pending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================================================
+   INDIVIDUAL PENDING STUDENT
+========================================================= */
+
+.marks-pending-card {
+  background: #ffffff;
+
+  border: 1px solid #e1eee7;
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow: 0 4px 14px rgba(40, 118, 83, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.marks-pending-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(40, 118, 83, 0.1);
+}
+
+/* =========================
+   STUDENT
+========================= */
+
+.marks-pending-student {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid #edf3ef;
+}
+
+.marks-pending-student .student-avatar {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  flex-shrink: 0;
+}
+
+.marks-pending-student h3 {
+  margin: 0 0 4px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #294139;
+}
+
+.marks-pending-student span {
+  font-size: 13px;
+  color: #71827a;
+}
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.marks-pending-details {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  padding: 18px 0;
+}
+
+.marks-pending-details > div {
+  background: #f8fbf9;
+
+  border: 1px solid #edf3ef;
+  border-radius: 10px;
+
+  padding: 12px 14px;
+}
+
+.marks-pending-details span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  color: #84948d;
+}
+
+.marks-pending-details strong {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 650;
+
+  color: #294139;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   FINAL ASSESSMENT
+========================================================= */
+
+.marks-pending-evaluation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 16px;
+
+  border-radius: 12px;
+
+  background: #fff8f6;
+  border: 1px solid #f5ddd8;
+}
+
+.evaluation-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #ef806e;
+}
+
+.marks-pending-evaluation h4 {
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #294139;
+}
+
+/* =========================================================
+   MARK INPUT
+========================================================= */
+
+.marks-pending-input-area {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.marks-pending-input-area input {
+  width: 120px;
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: 1px solid #cfe4d8;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #294139;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  outline: none;
+}
+
+.marks-pending-input-area input:focus {
+  border-color: #287653;
+
+  box-shadow:
+    0 0 0 3px rgba(40, 118, 83, 0.1);
+}
+
+.marks-pending-input-area button {
+  height: 42px;
+
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #287653;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.marks-pending-input-area button:hover {
+  background: #216448;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   NO MARKS PENDING
+========================================================= */
+
+.marks-pending-empty {
+  padding: 35px 20px;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border: 1px dashed #cfe4d8;
+  border-radius: 14px;
+}
+
+.marks-pending-empty-icon {
+  width: 46px;
+  height: 46px;
+
+  margin: 0 auto 12px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d8f3e5;
+  color: #287653;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.marks-pending-empty h3 {
+  margin: 0 0 5px;
+
+  font-size: 16px;
+
+  color: #294139;
+}
+
+.marks-pending-empty p {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #71827a;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .marks-pending-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .marks-pending-evaluation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .marks-pending-input-area {
+    width: 100%;
+  }
+
+  .marks-pending-input-area input {
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .marks-pending-header {
+    padding: 16px;
+  }
+
+  .marks-pending-header-left {
+    gap: 10px;
+  }
+
+  .marks-pending-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .marks-pending-header h3 {
+    font-size: 17px;
+  }
+
+  .marks-pending-header p {
+    font-size: 12px;
+  }
+
+  .marks-pending-dropdown {
+    padding: 12px;
+  }
+
+  .marks-pending-card {
+    padding: 15px;
+  }
+
+  .marks-pending-details {
+    grid-template-columns: 1fr;
+  }
+
+  .marks-pending-input-area {
+    flex-direction: column;
+  }
+
+  .marks-pending-input-area input,
+  .marks-pending-input-area button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   FACULTY DASHBOARD HOME
+   Clean landing-page style
+   No cards / no buttons / no statistics
+========================================================= */
+
+.faculty-dashboard-home {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 78% 45%,
+      rgba(216, 243, 229, 0.72) 0%,
+      rgba(216, 243, 229, 0) 34%
+    ),
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(239, 128, 110, 0.07) 0%,
+      rgba(239, 128, 110, 0) 27%
+    ),
+    #fbfdfc;
+
+  color: #294139;
+}
+
+
+/* =========================================================
+   MAIN HOME CONTAINER
+========================================================= */
+
+.faculty-dashboard-home-inner {
+  width: 100%;
+  max-width: 1250px;
+  min-height: calc(100vh - 180px);
+
+  margin: 0 auto;
+
+  padding: 45px 55px;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+
+  gap: 30px;
+
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   LEFT TEXT
+========================================================= */
+
+.faculty-dashboard-home-text {
+  position: relative;
+  z-index: 5;
+
+  max-width: 620px;
+}
+
+
+.faculty-dashboard-home-eyebrow {
+  margin: 0 0 18px;
+
+  color: #287653;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+
+.faculty-dashboard-home-text h1 {
+  margin: 0;
+
+  color: #294139;
+
+  font-size: clamp(44px, 5vw, 70px);
+
+  line-height: 1.05;
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+}
+
+
+.faculty-dashboard-home-text h1 span {
+  display: inline-block;
+
+  color: #287653;
+
+  animation: facultyHomeNameFloat 4s ease-in-out infinite;
+}
+
+
+.faculty-dashboard-home-description {
+  max-width: 560px;
+
+  margin: 28px 0 0;
+
+  color: #61756d;
+
+  font-size: 18px;
+
+  line-height: 1.8;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   SMALL ACCENT LINE
+========================================================= */
+
+.faculty-dashboard-home-accent {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 30px;
+}
+
+
+.faculty-dashboard-home-accent span {
+  display: block;
+
+  height: 5px;
+
+  border-radius: 20px;
+
+  background: #d8f3e5;
+}
+
+
+.faculty-dashboard-home-accent span:nth-child(1) {
+  width: 62px;
+
+  background: #ef806e;
+}
+
+
+.faculty-dashboard-home-accent span:nth-child(2) {
+  width: 24px;
+
+  background: #287653;
+}
+
+
+.faculty-dashboard-home-accent span:nth-child(3) {
+  width: 10px;
+
+  background: #d8f3e5;
+}
+
+
+/* =========================================================
+   RIGHT VISUAL AREA
+========================================================= */
+
+.faculty-dashboard-home-visual {
+  position: relative;
+
+  width: 100%;
+
+  height: 600px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.faculty-dashboard-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.glow-main {
+  width: 390px;
+  height: 390px;
+
+  background: rgba(216, 243, 229, 0.72);
+
+  filter: blur(3px);
+
+  animation:
+    facultyGlowPulse
+    5s
+    ease-in-out
+    infinite;
+}
+
+
+.glow-coral {
+  width: 190px;
+  height: 190px;
+
+  background: rgba(239, 128, 110, 0.12);
+
+  filter: blur(8px);
+
+  animation:
+    facultyGlowPulse
+    4s
+    ease-in-out
+    infinite
+    reverse;
+}
+
+
+/* =========================================================
+   ORBIT RINGS
+========================================================= */
+
+.faculty-dashboard-orbit {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.orbit-one {
+  width: 440px;
+  height: 440px;
+
+  border: 1px solid rgba(40, 118, 83, 0.15);
+
+  animation:
+    facultyOrbitRotate
+    20s
+    linear
+    infinite;
+}
+
+
+.orbit-two {
+  width: 350px;
+  height: 350px;
+
+  border: 1px solid rgba(239, 128, 110, 0.18);
+
+  animation:
+    facultyOrbitRotateReverse
+    15s
+    linear
+    infinite;
+}
+
+
+.orbit-three {
+  width: 510px;
+  height: 510px;
+
+  border: 1px dashed rgba(40, 118, 83, 0.10);
+
+  animation:
+    facultyOrbitRotate
+    28s
+    linear
+    infinite;
+}
+
+
+/* =========================================================
+   DECORATIVE DOTS
+========================================================= */
+
+.faculty-dashboard-dot {
+  position: absolute;
+
+  display: block;
+
+  border-radius: 50%;
+
+  z-index: 4;
+}
+
+
+.dot-a {
+  width: 11px;
+  height: 11px;
+
+  top: 105px;
+  right: 130px;
+
+  background: #287653;
+
+  animation:
+    facultyDotFloat
+    3.5s
+    ease-in-out
+    infinite;
+}
+
+
+.dot-b {
+  width: 8px;
+  height: 8px;
+
+  bottom: 120px;
+  left: 115px;
+
+  background: #ef806e;
+
+  animation:
+    facultyDotFloat
+    4s
+    ease-in-out
+    0.5s
+    infinite;
+}
+
+
+.dot-c {
+  width: 16px;
+  height: 16px;
+
+  top: 190px;
+  left: 75px;
+
+  background: #d8f3e5;
+
+  animation:
+    facultyDotFloat
+    4.5s
+    ease-in-out
+    1s
+    infinite;
+}
+
+
+.dot-d {
+  width: 7px;
+  height: 7px;
+
+  bottom: 185px;
+  right: 85px;
+
+  background: #287653;
+
+  animation:
+    facultyDotFloat
+    3s
+    ease-in-out
+    0.8s
+    infinite;
+}
+
+
+/* =========================================================
+   FLOATING ICONS
+========================================================= */
+
+.faculty-dashboard-float-icon {
+  position: absolute;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 15px 35px rgba(40, 118, 83, 0.14);
+
+  z-index: 6;
+}
+
+
+.float-check {
+  top: 115px;
+  right: 100px;
+
+  color: #287653;
+
+  animation:
+    facultyFloatIcon
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+.float-star {
+  bottom: 105px;
+  left: 90px;
+
+  color: #ef806e;
+
+  background: #fff7f4;
+
+  animation:
+    facultyFloatIcon
+    4.5s
+    ease-in-out
+    0.6s
+    infinite;
+}
+
+
+/* =========================================================
+   PERSON
+========================================================= */
+
+.faculty-dashboard-person {
+  position: absolute;
+
+  width: 190px;
+  height: 300px;
+
+  bottom: 145px;
+
+  z-index: 5;
+
+  animation:
+    facultyPersonFloat
+    4.5s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   HEAD
+========================================================= */
+
+.dashboard-person-head {
+  position: absolute;
+
+  width: 82px;
+  height: 82px;
+
+  left: 54px;
+  top: 10px;
+
+  border-radius: 50%;
+
+  background: #f2c5a5;
+
+  z-index: 3;
+}
+
+
+/* Hair */
+
+.dashboard-person-hair {
+  position: absolute;
+
+  width: 88px;
+  height: 48px;
+
+  left: -3px;
+  top: -8px;
+
+  border-radius: 50px 50px 18px 18px;
+
+  background: #294139;
+}
+
+
+/* Face */
+
+.dashboard-person-face {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #294139;
+
+  right: 20px;
+  top: 43px;
+}
+
+
+/* =========================================================
+   NECK
+========================================================= */
+
+.dashboard-person-neck {
+  position: absolute;
+
+  width: 32px;
+  height: 35px;
+
+  left: 79px;
+  top: 78px;
+
+  background: #efb996;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.dashboard-person-body {
+  position: absolute;
+
+  width: 145px;
+  height: 185px;
+
+  left: 23px;
+  bottom: 0;
+
+  border-radius: 70px 70px 25px 25px;
+
+  background: #287653;
+
+  box-shadow:
+    0 20px 35px rgba(40, 118, 83, 0.22);
+}
+
+
+/* Shirt */
+
+.dashboard-person-shirt {
+  position: absolute;
+
+  width: 85px;
+  height: 115px;
+
+  left: 30px;
+  top: 25px;
+
+  border-radius: 40px 40px 12px 12px;
+
+  background: #d8f3e5;
+}
+
+
+/* =========================================================
+   BOOK
+========================================================= */
+
+.dashboard-person-book {
+  position: absolute;
+
+  width: 72px;
+  height: 55px;
+
+  left: 37px;
+  top: 67px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #287653;
+
+  font-size: 25px;
+  font-weight: 800;
+
+  transform: rotate(-7deg);
+
+  box-shadow:
+    0 9px 20px rgba(0, 0, 0, 0.13);
+}
+
+
+/* =========================================================
+   ARM
+========================================================= */
+
+.dashboard-person-arm {
+  position: absolute;
+
+  width: 38px;
+  height: 115px;
+
+  right: -5px;
+  bottom: 30px;
+
+  border-radius: 25px;
+
+  background: #f2c5a5;
+
+  transform: rotate(-23deg);
+
+  z-index: 4;
+}
+
+
+/* =========================================================
+   DESK
+========================================================= */
+
+.faculty-dashboard-desk {
+  position: absolute;
+
+  width: 360px;
+  height: 160px;
+
+  bottom: 70px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 7;
+}
+
+
+/* Desk top */
+
+.dashboard-desk-top {
+  position: absolute;
+
+  width: 100%;
+  height: 24px;
+
+  top: 0;
+
+  border-radius: 12px;
+
+  background: #294139;
+
+  box-shadow:
+    0 12px 25px rgba(41, 65, 57, 0.20);
+}
+
+
+/* Desk legs */
+
+.dashboard-desk-leg {
+  position: absolute;
+
+  width: 14px;
+  height: 130px;
+
+  top: 20px;
+
+  border-radius: 10px;
+
+  background: #287653;
+}
+
+
+.dashboard-desk-leg.left {
+  left: 35px;
+
+  transform: rotate(4deg);
+}
+
+
+.dashboard-desk-leg.right {
+  right: 35px;
+
+  transform: rotate(-4deg);
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+.faculty-dashboard-laptop {
+  position: absolute;
+
+  width: 205px;
+  height: 145px;
+
+  bottom: 108px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+}
+
+
+/* Screen */
+
+.dashboard-laptop-screen {
+  position: absolute;
+
+  width: 170px;
+  height: 105px;
+
+  left: 17px;
+  top: 0;
+
+  border-radius: 12px 12px 5px 5px;
+
+  background: #ffffff;
+
+  border: 7px solid #294139;
+
+  box-shadow:
+    0 12px 25px rgba(40, 118, 83, 0.15);
+}
+
+
+/* Laptop logo */
+
+.dashboard-laptop-logo {
+  position: absolute;
+
+  top: 18px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #d8f3e5;
+
+  color: #287653;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+
+/* Screen lines */
+
+.dashboard-laptop-line {
+  position: absolute;
+
+  height: 5px;
+
+  border-radius: 10px;
+
+  background: #d8f3e5;
+
+  left: 35px;
+}
+
+
+.dashboard-laptop-line.line-one {
+  width: 75px;
+  bottom: 23px;
+}
+
+
+.dashboard-laptop-line.line-two {
+  width: 52px;
+  bottom: 12px;
+}
+
+
+.dashboard-laptop-line.line-three {
+  width: 25px;
+  bottom: 12px;
+  left: 95px;
+
+  background: #ef806e;
+}
+
+
+/* Laptop base */
+
+.dashboard-laptop-base {
+  position: absolute;
+
+  width: 205px;
+  height: 13px;
+
+  bottom: 25px;
+  left: 0;
+
+  border-radius: 5px 5px 18px 18px;
+
+  background: #294139;
+
+  box-shadow:
+    0 7px 15px rgba(41, 65, 57, 0.18);
+}
+
+
+/* =========================================================
+   PLANT
+========================================================= */
+
+.faculty-dashboard-plant {
+  position: absolute;
+
+  width: 75px;
+  height: 130px;
+
+  bottom: 92px;
+  right: 55px;
+
+  z-index: 8;
+
+  animation:
+    facultyPlantFloat
+    5s
+    ease-in-out
+    infinite;
+}
+
+
+/* Plant leaves */
+
+.dashboard-plant-leaf {
+  position: absolute;
+
+  width: 30px;
+  height: 55px;
+
+  border-radius: 30px 5px 30px 5px;
+
+  background: #287653;
+
+  transform-origin: bottom center;
+}
+
+
+.dashboard-plant-leaf.leaf-one {
+  left: 23px;
+  top: 12px;
+
+  transform: rotate(-28deg);
+}
+
+
+.dashboard-plant-leaf.leaf-two {
+  left: 38px;
+  top: 5px;
+
+  transform: rotate(28deg);
+}
+
+
+.dashboard-plant-leaf.leaf-three {
+  left: 20px;
+  top: 35px;
+
+  transform: rotate(-5deg);
+}
+
+
+/* Pot */
+
+.dashboard-plant-pot {
+  position: absolute;
+
+  width: 48px;
+  height: 42px;
+
+  left: 14px;
+  bottom: 0;
+
+  border-radius: 5px 5px 16px 16px;
+
+  background: #ef806e;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes facultyHomeNameFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+
+@keyframes facultyGlowPulse {
+
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+}
+
+
+@keyframes facultyOrbitRotate {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes facultyOrbitRotateReverse {
+
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+@keyframes facultyDotFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+
+@keyframes facultyFloatIcon {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-13px) rotate(4deg);
+  }
+}
+
+
+@keyframes facultyPersonFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+@keyframes facultyPlantFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .faculty-dashboard-home-inner {
+    grid-template-columns: 1fr 1fr;
+
+    padding: 35px 30px;
+
+    gap: 10px;
+  }
+
+  .faculty-dashboard-home-text h1 {
+    font-size: 48px;
+  }
+
+  .faculty-dashboard-home-visual {
+    height: 520px;
+  }
+
+  .orbit-one {
+    width: 380px;
+    height: 380px;
+  }
+
+  .orbit-two {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbit-three {
+    width: 440px;
+    height: 440px;
+  }
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .faculty-dashboard-home {
+    min-height: auto;
+    height: auto;
+
+    overflow: visible;
+  }
+
+
+  .faculty-dashboard-home-inner {
+    grid-template-columns: 1fr;
+
+    min-height: auto;
+
+    padding: 45px 25px;
+
+    gap: 10px;
+  }
+
+
+  .faculty-dashboard-home-text {
+    max-width: 700px;
+
+    text-align: center;
+
+    margin: 0 auto;
+  }
+
+
+  .faculty-dashboard-home-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .faculty-dashboard-home-accent {
+    justify-content: center;
+  }
+
+
+  .faculty-dashboard-home-visual {
+    height: 500px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .faculty-dashboard-home-inner {
+    padding: 30px 18px;
+  }
+
+
+  .faculty-dashboard-home-text h1 {
+    font-size: 39px;
+
+    letter-spacing: -1px;
+  }
+
+
+  .faculty-dashboard-home-description {
+    font-size: 15px;
+
+    line-height: 1.7;
+  }
+
+
+  .faculty-dashboard-home-visual {
+    height: 410px;
+  }
+
+
+  .glow-main {
+    width: 280px;
+    height: 280px;
+  }
+
+
+  .orbit-one {
+    width: 300px;
+    height: 300px;
+  }
+
+
+  .orbit-two {
+    width: 240px;
+    height: 240px;
+  }
+
+
+  .orbit-three {
+    width: 350px;
+    height: 350px;
+  }
+
+
+  .faculty-dashboard-person {
+    transform: scale(0.82);
+
+    bottom: 120px;
+  }
+
+
+  .faculty-dashboard-desk {
+    transform: translateX(-50%) scale(0.82);
+
+    bottom: 55px;
+  }
+
+
+  .faculty-dashboard-laptop {
+    transform: translateX(-50%) scale(0.82);
+
+    bottom: 92px;
+  }
+
+
+  .faculty-dashboard-plant {
+    right: 20px;
+
+    transform: scale(0.8);
+  }
+
+
+  .float-check {
+    right: 25px;
+    top: 70px;
+  }
+
+
+  .float-star {
+    left: 25px;
+    bottom: 80px;
+  }
+
+}

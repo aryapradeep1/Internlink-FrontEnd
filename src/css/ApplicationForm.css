@@ -1,36 +1,35 @@
 /* =========================================================
    INTERNLINK - APPLICATION FORM
-   Final UI Polish
-   JSX / functionality unchanged
-   ========================================================= */
-
-
-/* =========================================================
-   APPLICATION PAGE CONTAINER
+   Final Clean Layout
    ========================================================= */
 
 .application-form-container {
-  position: relative;
-
   width: 100%;
   height: 100%;
+  min-height: 0;
 
   box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
 
   overflow: hidden;
 
   background:
     radial-gradient(
-      circle at 8% 15%,
-      rgba(61, 143, 105, 0.14),
+      circle at 10% 20%,
+      rgba(61, 143, 105, 0.12),
       transparent 25%
     ),
     radial-gradient(
-      circle at 92% 85%,
-      rgba(53, 104, 180, 0.08),
-      transparent 28%
+      circle at 90% 80%,
+      rgba(239, 128, 110, 0.08),
+      transparent 25%
     ),
-    #f3f6f5;
+    #f5f9f7;
 
   font-family:
     Inter,
@@ -43,33 +42,16 @@
 
 
 /* =========================================================
-   MAIN APPLICATION CARD
+   MAIN CARD
    ========================================================= */
 
 .application-form-card {
-  position: absolute;
+  position: relative;
 
-  /*
-    The dashboard content starts below the header.
-    Keep the card near the upper-middle part of the
-    available content area so the complete card is visible.
-  */
+  width: 750px;
+  max-width: 100%;
 
-  top: 55px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  width: 660px;
-
-  height: 510px;
-
-  box-sizing: border-box;
-
-  display: grid;
-
-  grid-template-columns: 38% 62%;
+  height: 520px;
 
   overflow: hidden;
 
@@ -77,12 +59,10 @@
 
   background: #ffffff;
 
-  border: 1px solid #e3ebe7;
+  border: 1px solid #dce8e2;
 
   box-shadow:
-    0 18px 50px rgba(30, 55, 45, 0.12);
-
-  isolation: isolate;
+    0 18px 45px rgba(35, 75, 58, 0.12);
 }
 
 
@@ -101,18 +81,18 @@
 
   width: 38%;
 
-  z-index: 0;
+  z-index: 1;
 
   background:
     radial-gradient(
-      circle at 20% 18%,
-      rgba(255, 255, 255, 0.14),
-      transparent 27%
+      circle at 20% 15%,
+      rgba(255, 255, 255, 0.13),
+      transparent 28%
     ),
     linear-gradient(
       145deg,
       #205640 0%,
-      #28694e 52%,
+      #28694e 55%,
       #34768c 100%
     );
 
@@ -121,7 +101,7 @@
 
 
 /* =========================================================
-   APPLICATION HEADING
+   APPLICATION TITLE
    ========================================================= */
 
 .application-form-card h1 {
@@ -129,43 +109,40 @@
 
   z-index: 3;
 
-  left: 38px;
+  left: 30px;
+  top: 58px;
 
-  top: 38px;
-
-  width: 31%;
+  width: 250px;
 
   margin: 0;
 
+  padding: 0;
+
   color: #ffffff !important;
 
-  font-size: 28px;
+  font-size: 31px;
 
-  line-height: 1.15;
+  line-height: 1.12;
 
   font-weight: 800;
 
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 
-/* =========================================================
-   HEADING ACCENT
-   ========================================================= */
-
 .application-form-card h1::after {
   content: "";
 
   display: block;
 
-  width: 42px;
+  width: 52px;
 
   height: 4px;
 
-  margin-top: 15px;
+  margin-top: 18px;
 
   border-radius: 10px;
 
@@ -182,21 +159,22 @@
 
   z-index: 3;
 
-  left: 38px;
+  left: 30px;
+  top: 137px;
 
-  top: 125px;
-
-  width: 31%;
+  width: 250px;
 
   margin: 0;
 
-  color: #e9fff3 !important;
+  padding: 0;
 
-  font-size: 15px;
+  color: #eafff2 !important;
+
+  font-size: 17px;
 
   line-height: 1.4;
 
-  font-weight: 650;
+  font-weight: 700;
 
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.12);
@@ -212,19 +190,30 @@
 
   z-index: 3;
 
-  left: 38px;
+  left: 30px;
+  bottom: 30px;
 
-  bottom: 28px;
-
-  width: calc(38% - 76px);
-
-  box-sizing: border-box;
+  width: 250px;
 
   margin: 0;
 
-  padding: 14px 0 0;
+  padding: 18px 0 0;
 
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  box-sizing: border-box;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  border-radius: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
 }
 
 
@@ -233,15 +222,15 @@
    ========================================================= */
 
 .internship-summary p {
-  margin: 8px 0;
+  margin: 0;
 
   color: #eafff3 !important;
 
   font-size: 13px;
 
-  line-height: 1.4;
+  line-height: 1.3;
 
-  font-weight: 550;
+  font-weight: 600;
 
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.12);
@@ -249,7 +238,7 @@
 
 
 /* =========================================================
-   SUMMARY LABELS
+   SUMMARY LABEL
    ========================================================= */
 
 .internship-summary strong {
@@ -261,16 +250,18 @@
 
   font-size: 10px;
 
-  font-weight: 750;
+  line-height: 1.2;
+
+  font-weight: 800;
 
   text-transform: uppercase;
 
-  letter-spacing: 0.9px;
+  letter-spacing: 0.8px;
 }
 
 
 /* =========================================================
-   RIGHT FORM AREA
+   RIGHT FORM
    ========================================================= */
 
 .application-form-card form {
@@ -279,7 +270,6 @@
   z-index: 5;
 
   top: 0;
-
   right: 0;
 
   width: 62%;
@@ -288,7 +278,7 @@
 
   box-sizing: border-box;
 
-  padding: 30px 40px;
+  padding: 38px 34px;
 
   display: flex;
 
@@ -296,7 +286,7 @@
 
   justify-content: center;
 
-  gap: 12px;
+  gap: 16px;
 
   background: #ffffff;
 }
@@ -309,13 +299,15 @@
 .form-group {
   position: relative;
 
-  padding: 13px 16px;
+  padding: 15px 16px;
 
-  border: 1px solid #dfe8e3;
+  border: 1px solid #dce7e1;
 
-  border-radius: 13px;
+  border-radius: 14px;
 
   background: #fbfdfc;
+
+  box-sizing: border-box;
 
   transition:
     border-color 0.2s ease,
@@ -349,7 +341,7 @@
 .form-group label {
   display: block;
 
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 
   color: #244d3c;
 
@@ -371,6 +363,8 @@
    ========================================================= */
 
 .form-group input[type="file"] {
+  display: block;
+
   width: 100%;
 
   box-sizing: border-box;
@@ -395,14 +389,10 @@
 }
 
 
-/* =========================================================
-   FILE SELECT BUTTON
-   ========================================================= */
-
 .form-group input[type="file"]::file-selector-button {
   margin-right: 9px;
 
-  padding: 6px 11px;
+  padding: 7px 12px;
 
   border: none;
 
@@ -419,8 +409,6 @@
   font-weight: 700;
 
   cursor: pointer;
-
-  transition: 0.2s ease;
 }
 
 
@@ -438,7 +426,7 @@
 .form-group small {
   display: block;
 
-  margin-top: 5px;
+  margin-top: 6px;
 
   color: #687872;
 
@@ -451,7 +439,7 @@
 
 
 /* =========================================================
-   ERROR MESSAGE
+   ERROR
    ========================================================= */
 
 .error-message {
@@ -484,18 +472,14 @@
 
   justify-content: flex-end;
 
-  gap: 9px;
+  gap: 10px;
 
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
 .application-buttons button {
-  min-height: 42px;
+  min-height: 43px;
 
   padding: 9px 18px;
 
@@ -583,32 +567,24 @@
 @media (max-width: 850px) {
 
   .application-form-container {
-    height: 100%;
+    height: auto;
+
+    min-height: 100%;
+
+    padding: 20px;
 
     overflow-y: auto;
 
-    padding: 20px;
+    align-items: flex-start;
   }
 
 
   .application-form-card {
-    position: relative;
-
-    top: auto;
-
-    left: auto;
-
-    transform: none;
-
     width: 100%;
 
     height: auto;
 
-    min-height: 600px;
-
-    grid-template-columns: 1fr;
-
-    margin: 0 auto;
+    min-height: 650px;
   }
 
 
@@ -621,7 +597,6 @@
     position: relative;
 
     left: auto;
-
     top: auto;
 
     width: auto;
@@ -638,7 +613,6 @@
     position: relative;
 
     left: auto;
-
     top: auto;
 
     width: auto;
@@ -655,16 +629,17 @@
     position: relative;
 
     left: auto;
-
     bottom: auto;
 
     width: auto;
 
-    margin: 0 28px 8px;
+    margin: 0 28px;
 
     padding: 12px 0;
 
     border-top: 1px solid #e2e9e5;
+
+    background: transparent !important;
   }
 
 
@@ -683,6 +658,9 @@
   .application-form-card form {
     position: relative;
 
+    top: auto;
+    right: auto;
+
     width: 100%;
 
     height: auto;
@@ -695,7 +673,7 @@
 
 
 /* =========================================================
-   SMALL MOBILE
+   MOBILE
    ========================================================= */
 
 @media (max-width: 550px) {
@@ -708,12 +686,12 @@
   .application-form-card {
     border-radius: 18px;
 
-    min-height: 580px;
+    min-height: 600px;
   }
 
 
   .application-form-card h1 {
-    padding: 23px 20px 0;
+    padding: 24px 20px 0;
 
     font-size: 25px;
   }

@@ -657,16 +657,16 @@ if (page === "studentDashboard" && student) {
           ===================================================== */}
 
       {studentSection === "internships" && (
-  <Companies
-    student={student}
-    onBack={goToStudentDashboard}
-   onViewDetails={(companyData, internshipData) => {
-  setSelectedCompany(companyData);
-  setSelectedInternship(internshipData);
-  setStudentSection("internshipDetails");
-  setPage("studentDashboard");
-}}
-  />
+<Companies
+  student={student}
+  onBack={goToStudentDashboard}
+  onViewDetails={(companyData, internshipData) => {
+    setSelectedCompany(companyData);
+    setSelectedInternship(internshipData);
+    setStudentSection("applicationForm");
+    setPage("studentDashboard");
+  }}
+/>
 )}
 
 {studentSection === "attendance" && (

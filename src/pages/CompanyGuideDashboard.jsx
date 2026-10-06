@@ -16,6 +16,9 @@ function CompanyGuideDashboard({
   const [assignments, setAssignments] = useState([]);
   const [logbooks, setLogbooks] = useState([]);
 
+  const [expandedLogbookStudent, setExpandedLogbookStudent] =
+  useState(null);
+
   const [loadingAssignments, setLoadingAssignments] =
     useState(true);
 
@@ -70,6 +73,9 @@ function CompanyGuideDashboard({
   */
   const [localSection, setLocalSection] =
     useState(null);
+
+    const [studentCategory, setStudentCategory] =
+  useState(null);
 
   const currentSection =
     localSection || activeSection || "dashboard";
@@ -414,20 +420,20 @@ function CompanyGuideDashboard({
         selectedAttendanceAssignment._id ||
         selectedAttendanceAssignment.id;
 
-        console.log(
-  "SELECTED ASSIGNMENT:",
-  selectedAttendanceAssignment
-);
+      console.log(
+        "SELECTED ASSIGNMENT:",
+        selectedAttendanceAssignment
+      );
 
-console.log(
-  "ASSIGNMENT ID:",
-  assignmentId
-);
+      console.log(
+        "ASSIGNMENT ID:",
+        assignmentId
+      );
 
-console.log(
-  "ASSIGNMENT STATUS:",
-  selectedAttendanceAssignment.status
-);
+      console.log(
+        "ASSIGNMENT STATUS:",
+        selectedAttendanceAssignment.status
+      );
 
       const response = await fetch(
         "http://localhost:5000/api/attendance/company-guide/mark",
@@ -579,474 +585,196 @@ console.log(
   // DASHBOARD
   // ==========================================
   const renderDashboard = () => {
-    const pendingReviews =
-      logbooks.filter(
-        (logbook) =>
-          logbook.companyGuideStatus !==
-            "Approved" &&
-          logbook.companyGuideStatus !==
-            "Rejected"
-      ).length;
-
-    const approvedLogbooks =
-      logbooks.filter(
-        (logbook) =>
-          logbook.companyGuideStatus ===
-          "Approved"
-      ).length;
-
-    const rejectedLogbooks =
-      logbooks.filter(
-        (logbook) =>
-          logbook.companyGuideStatus ===
-          "Rejected"
-      ).length;
-
     return (
       <div className="cg-dashboard-home">
 
-        {/* HERO */}
-        <section className="cg-hero">
+        {/* =================================================
+            WELCOME HOME CARD
+        ================================================= */}
+        <section className="cg-welcome-card">
 
-          <div className="cg-hero-content">
+          <div className="cg-welcome-content">
 
-            <div className="cg-eyebrow">
-              COMPANY GUIDE PORTAL
+            <div className="cg-welcome-text">
+
+              <span className="cg-welcome-eyebrow">
+                WELCOME TO INTERNLINK
+              </span>
+
+              <h1>
+                Welcome back,{" "}
+                <span>
+                  {guide?.name ||
+                    "Company Guide"}
+                </span>
+                <span className="cg-welcome-wave">
+                  👋
+                </span>
+              </h1>
+
+              <p>
+                Your workspace for guiding
+                students, monitoring their
+                internship progress, and
+                supporting them throughout
+                their internship journey.
+              </p>
+
             </div>
 
-            <h1>
-              Welcome back{" "}
+            <div
+              className="cg-welcome-visual"
+              aria-hidden="true"
+            >
+
+              <div className="cg-welcome-circle circle-one"></div>
+
+              <div className="cg-welcome-circle circle-two"></div>
+
+              <div className="cg-welcome-person">
+
+                <div className="cg-person-head">
+                  👨‍💼
+                </div>
+
+                <div className="cg-person-body">
+                  <span></span>
+                  <span></span>
+                </div>
+
+              </div>
+
+              <div className="cg-floating-check">
+                ✓
+              </div>
+
+              <div className="cg-floating-star">
+                ✦
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* =================================================
+            RESPONSIBILITIES CARD
+        ================================================= */}
+        <section className="cg-responsibilities-card">
+
+          <div className="cg-responsibilities-header">
+
+            <div className="cg-responsibilities-icon">
+              ✦
+            </div>
+
+            <div>
               <span>
-                {guide?.name ||
-                  "Company Guide"}
+                YOUR RESPONSIBILITIES
               </span>
 
-              <span className="cg-wave">
-                👋
-              </span>
-            </h1>
+              <h2>
+                Supporting students at every step
+              </h2>
+
+              <p>
+                As a Company Guide, you play an
+                important role in helping students
+                complete their internship successfully.
+              </p>
+            </div>
+
+          </div>
+
+          <div className="cg-responsibilities-list">
+
+            <div className="cg-responsibility-item">
+
+              <div className="cg-responsibility-number">
+                01
+              </div>
+
+              <div className="cg-responsibility-icon-small">
+                👨‍🎓
+              </div>
+
+              <div className="cg-responsibility-text">
+
+                <h3>
+                  Guide Assigned Students
+                </h3>
+
+                <p>
+                  Support students during their
+                  internship and help them stay on
+                  the right path.
+                </p>
+
+              </div>
+
+            </div>
+
+            <div className="cg-responsibility-item">
+
+              <div className="cg-responsibility-number">
+                02
+              </div>
+
+              <div className="cg-responsibility-icon-small">
+                ✓
+              </div>
+
+              <div className="cg-responsibility-text">
+
+                <h3>
+                  Monitor Attendance
+                </h3>
+
+                <p>
+                  Keep track of daily attendance
+                  and internship participation.
+                </p>
+
+              </div>
+
+            </div>
+
+            <div className="cg-responsibility-item">
+
+              <div className="cg-responsibility-number">
+                03
+              </div>
+
+              <div className="cg-responsibility-icon-small">
+                📖
+              </div>
+
+              <div className="cg-responsibility-text">
+
+                <h3>
+                  Review Logbook Activities
+                </h3>
+
+                <p>
+                  Review students' daily work and
+                  approve their completed activities.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="cg-responsibilities-footer">
+
+            <span className="cg-footer-dot"></span>
 
             <p>
-              Guide your assigned students,
-              monitor their internship
-              progress, and review their
-              daily logbook activities from
-              one place.
+              Your guidance helps students make
+              their internship experience meaningful.
             </p>
-
-            <div className="cg-hero-actions">
-
-              <button
-                className="cg-primary-action"
-                onClick={() =>
-                  openSection(
-                    "assignedStudents"
-                  )
-                }
-              >
-                <span>👨‍🎓</span>
-                View Assigned Students
-              </button>
-
-              <button
-                className="cg-secondary-action"
-                onClick={() =>
-                  openSection(
-                    "logbooks"
-                  )
-                }
-              >
-                <span>📖</span>
-                Review Logbooks
-              </button>
-
-            </div>
-
-          </div>
-
-          <div className="cg-hero-visual">
-
-            <div className="cg-visual-circle circle-one"></div>
-            <div className="cg-visual-circle circle-two"></div>
-
-            <div className="cg-guide-illustration">
-
-              <div className="cg-illustration-icon">
-                👨‍💼
-              </div>
-
-              <div className="cg-illustration-lines">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-
-              <div className="cg-mini-badge">
-                ✓ Guide
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* STATS */}
-        <section className="cg-stats-grid">
-
-          <div
-            className="cg-stat-card clickable"
-            onClick={() =>
-              openSection(
-                "assignedStudents"
-              )
-            }
-          >
-            <div className="cg-stat-icon students">
-              👨‍🎓
-            </div>
-
-            <div className="cg-stat-content">
-              <span>
-                Assigned Students
-              </span>
-
-              <strong>
-                {assignments.length}
-              </strong>
-
-              <small>
-                Students under your guidance
-              </small>
-            </div>
-
-            <div className="cg-stat-arrow">
-              →
-            </div>
-          </div>
-
-          <div
-            className="cg-stat-card clickable"
-            onClick={() =>
-              openSection("logbooks")
-            }
-          >
-            <div className="cg-stat-icon logbooks">
-              📖
-            </div>
-
-            <div className="cg-stat-content">
-              <span>
-                Total Logbooks
-              </span>
-
-              <strong>
-                {logbooks.length}
-              </strong>
-
-              <small>
-                Entries submitted by students
-              </small>
-            </div>
-
-            <div className="cg-stat-arrow">
-              →
-            </div>
-          </div>
-
-          <div
-            className="cg-stat-card clickable"
-            onClick={() =>
-              openSection("logbooks")
-            }
-          >
-            <div className="cg-stat-icon pending">
-              ⏳
-            </div>
-
-            <div className="cg-stat-content">
-              <span>
-                Pending Reviews
-              </span>
-
-              <strong>
-                {pendingReviews}
-              </strong>
-
-              <small>
-                Logbooks waiting for review
-              </small>
-            </div>
-
-            <div className="cg-stat-arrow">
-              →
-            </div>
-          </div>
-
-        </section>
-
-        {/* LOWER GRID */}
-        <section className="cg-dashboard-grid">
-
-          {/* QUICK ACTIONS */}
-          <div className="cg-panel cg-quick-panel">
-
-            <div className="cg-panel-heading">
-
-              <div>
-
-                <span>
-                  QUICK ACCESS
-                </span>
-
-                <h2>
-                  What would you like to do?
-                </h2>
-
-              </div>
-
-            </div>
-
-            <div className="cg-quick-actions">
-
-              <button
-                onClick={() =>
-                  openSection(
-                    "assignedStudents"
-                  )
-                }
-              >
-
-                <div className="cg-quick-icon green">
-                  👨‍🎓
-                </div>
-
-                <div>
-                  <strong>
-                    Assigned Students
-                  </strong>
-
-                  <small>
-                    View student details
-                  </small>
-                </div>
-
-                <span>→</span>
-
-              </button>
-
-              <button
-                onClick={() =>
-                  openSection(
-                    "attendance"
-                  )
-                }
-              >
-
-                <div className="cg-quick-icon green">
-                  ✓
-                </div>
-
-                <div>
-                  <strong>
-                    Attendance
-                  </strong>
-
-                  <small>
-                    Mark student attendance
-                  </small>
-                </div>
-
-                <span>→</span>
-
-              </button>
-
-              <button
-                onClick={() =>
-                  openSection("logbooks")
-                }
-              >
-
-                <div className="cg-quick-icon coral">
-                  📖
-                </div>
-
-                <div>
-                  <strong>
-                    Review Logbooks
-                  </strong>
-
-                  <small>
-                    Approve student entries
-                  </small>
-                </div>
-
-                <span>→</span>
-
-              </button>
-
-              <button
-                onClick={() =>
-                  openSection("profile")
-                }
-              >
-
-                <div className="cg-quick-icon blue">
-                  👤
-                </div>
-
-                <div>
-                  <strong>
-                    My Profile
-                  </strong>
-
-                  <small>
-                    View guide information
-                  </small>
-                </div>
-
-                <span>→</span>
-
-              </button>
-
-            </div>
-
-          </div>
-
-          {/* REVIEW SUMMARY */}
-          <div className="cg-panel">
-
-            <div className="cg-panel-heading">
-
-              <div>
-
-                <span>
-                  LOGBOOK OVERVIEW
-                </span>
-
-                <h2>
-                  Review Status
-                </h2>
-
-              </div>
-
-            </div>
-
-            <div className="cg-review-summary">
-
-              <div className="cg-review-row">
-
-                <div className="cg-review-label">
-                  <span className="status-dot pending-dot"></span>
-                  Pending
-                </div>
-
-                <strong>
-                  {pendingReviews}
-                </strong>
-
-              </div>
-
-              <div className="cg-progress">
-
-                <div
-                  className="cg-progress-pending"
-                  style={{
-                    width: `${
-                      logbooks.length
-                        ? (pendingReviews /
-                            logbooks.length) *
-                          100
-                        : 0
-                    }%`,
-                  }}
-                ></div>
-
-              </div>
-
-              <div className="cg-review-row">
-
-                <div className="cg-review-label">
-                  <span className="status-dot approved-dot"></span>
-                  Approved
-                </div>
-
-                <strong>
-                  {approvedLogbooks}
-                </strong>
-
-              </div>
-
-              <div className="cg-review-row">
-
-                <div className="cg-review-label">
-                  <span className="status-dot rejected-dot"></span>
-                  Rejected
-                </div>
-
-                <strong>
-                  {rejectedLogbooks}
-                </strong>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* RESPONSIBILITIES */}
-        <section className="cg-responsibility-panel">
-
-          <div className="cg-responsibility-icon">
-            💡
-          </div>
-
-          <div className="cg-responsibility-content">
-
-            <span>
-              YOUR ROLE IN INTERNLINK
-            </span>
-
-            <h2>
-              Supporting students throughout
-              their internship journey
-            </h2>
-
-            <p>
-              As a Company Guide, you help
-              students complete their
-              internship successfully by
-              monitoring their work and
-              reviewing their daily progress.
-            </p>
-
-            <div className="cg-responsibility-items">
-
-              <div>
-                <span>01</span>
-                <p>
-                  Monitor assigned students
-                </p>
-              </div>
-
-              <div>
-                <span>02</span>
-                <p>
-                  Review internship activities
-                </p>
-              </div>
-
-              <div>
-                <span>03</span>
-                <p>
-                  Approve completed logbook
-                  entries
-                </p>
-              </div>
-
-            </div>
 
           </div>
 
@@ -1300,232 +1028,485 @@ console.log(
     );
   };
 
-  // ==========================================
-  // ASSIGNED STUDENTS
-  // ==========================================
-  const renderAssignedStudents = () => {
-    return (
-      <>
-        <div className="cg-section-header">
+ // ==========================================
+// ASSIGNED STUDENTS
+// ==========================================
+const renderAssignedStudents = () => {
 
-          <div>
+  // Internship ongoing:
+  // Includes students whose assignment is
+  // Assigned or Active.
+  const ongoingStudents = assignments.filter(
+    (assignment) =>
+      assignment.status !== "Completed"
+  );
 
-            <span>
-              STUDENT MANAGEMENT
-            </span>
+  // Internship completed
+  const completedStudents = assignments.filter(
+    (assignment) =>
+      assignment.status === "Completed"
+  );
 
-            <h1>
-              Assigned Students
-            </h1>
+  const displayedStudents =
+    studentCategory === "ongoing"
+      ? ongoingStudents
+      : studentCategory === "completed"
+      ? completedStudents
+      : [];
 
-            <p>
-              Students currently assigned to
-              you for internship guidance.
-            </p>
+  return (
+    <div className="cg-assigned-students-page">
 
-          </div>
+      {/* ==========================================
+          PAGE HEADER
+      ========================================== */}
 
-          <div className="cg-section-count">
+      <div className="cg-section-header">
 
-            <strong>
-              {assignments.length}
-            </strong>
+        <div>
 
-            <span>
-              Assigned
-            </span>
+          <span>
+            STUDENT MANAGEMENT
+          </span>
 
-          </div>
+          <h1>
+            Assigned Students
+          </h1>
+
+          <p>
+            Manage and monitor students assigned
+            to you for internship guidance.
+          </p>
 
         </div>
 
-        {loadingAssignments ? (
-          <div className="cg-empty-card">
+        <div className="cg-section-count">
 
-            <div className="cg-loader"></div>
+          <strong>
+            {assignments.length}
+          </strong>
 
-            <p>
-              Loading assigned students...
-            </p>
+          <span>
+            Total Students
+          </span>
+
+        </div>
+
+      </div>
+
+
+      {/* ==========================================
+          LOADING
+      ========================================== */}
+
+      {loadingAssignments ? (
+
+        <div className="cg-empty-card">
+
+          <div className="cg-loader"></div>
+
+          <p>
+            Loading assigned students...
+          </p>
+
+        </div>
+
+      ) : assignments.length === 0 ? (
+
+        <div className="cg-empty-card">
+
+          <div className="cg-empty-icon">
+            👨‍🎓
+          </div>
+
+          <h3>
+            No Students Assigned
+          </h3>
+
+          <p>
+            There are currently no students
+            assigned to you.
+          </p>
+
+        </div>
+
+      ) : (
+
+        <>
+
+          {/* ==========================================
+              TWO CATEGORY BOXES
+          ========================================== */}
+
+          <div className="cg-student-category-grid">
+
+            {/* ONGOING */}
+
+            <button
+              type="button"
+              className={`cg-student-category-card ${
+                studentCategory === "ongoing"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setStudentCategory("ongoing")
+              }
+            >
+
+              <div className="cg-category-icon">
+                👨‍💻
+              </div>
+
+              <div className="cg-category-content">
+
+                <span>
+                  INTERNSHIP ONGOING
+                </span>
+
+                <strong>
+                  {ongoingStudents.length}
+                </strong>
+
+                <p>
+                  Students currently doing
+                  their internship
+                </p>
+
+              </div>
+
+              <div className="cg-category-arrow">
+                →
+              </div>
+
+            </button>
+
+
+            {/* COMPLETED */}
+
+            <button
+              type="button"
+              className={`cg-student-category-card completed ${
+                studentCategory === "completed"
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setStudentCategory("completed")
+              }
+            >
+
+              <div className="cg-category-icon">
+                ✓
+              </div>
+
+              <div className="cg-category-content">
+
+                <span>
+                  COMPLETED INTERNSHIP
+                </span>
+
+                <strong>
+                  {completedStudents.length}
+                </strong>
+
+                <p>
+                  Students who completed
+                  their internship
+                </p>
+
+              </div>
+
+              <div className="cg-category-arrow">
+                →
+              </div>
+
+            </button>
 
           </div>
-        ) : assignments.length === 0 ? (
-          <div className="cg-empty-card">
 
-            <div className="cg-empty-icon">
-              👨‍🎓
-            </div>
 
-            <h3>
-              No Students Assigned
-            </h3>
+          {/* ==========================================
+              STUDENT LIST
+          ========================================== */}
 
-            <p>
-              There are currently no students
-              assigned to you.
-            </p>
+          {studentCategory && (
 
-          </div>
-        ) : (
-          <div className="cg-students-grid">
+            <div className="cg-selected-students-section">
 
-            {assignments.map(
-              (assignment, index) => (
-                <div
-                  className="cg-student-card"
-                  key={
-                    assignment._id ||
-                    assignment.id ||
-                    index
+              <div className="cg-selected-students-header">
+
+                <div>
+
+                  <span>
+                    {studentCategory ===
+                    "ongoing"
+                      ? "CURRENT INTERNS"
+                      : "COMPLETED INTERNS"}
+                  </span>
+
+                  <h2>
+                    {studentCategory ===
+                    "ongoing"
+                      ? "Students Currently Doing Internship"
+                      : "Students Who Completed Internship"}
+                  </h2>
+
+                  <p>
+                    {studentCategory ===
+                    "ongoing"
+                      ? "View students currently assigned to you and monitor their internship progress."
+                      : "View students who have completed their internship and their internship details."}
+                  </p>
+
+                </div>
+
+                <button
+                  type="button"
+                  className="cg-close-student-list"
+                  onClick={() =>
+                    setStudentCategory(null)
                   }
                 >
+                  ×
+                </button>
 
-                  <div className="cg-student-top">
+              </div>
 
-                    <div className="cg-student-avatar">
-                      {assignment.student?.name
-                        ?.charAt(0)
-                        ?.toUpperCase() ||
-                        "S"}
-                    </div>
 
-                    <div>
+              {/* NO STUDENTS IN SELECTED CATEGORY */}
 
-                      <h3>
-                        {assignment.student
-                          ?.name ||
-                          "Not available"}
-                      </h3>
+              {displayedStudents.length === 0 ? (
 
-                      <span>
-                        {assignment.student
-                          ?.registerNumber ||
-                          "No register number"}
-                      </span>
+                <div className="cg-empty-card">
 
-                    </div>
-
+                  <div className="cg-empty-icon">
+                    {studentCategory ===
+                    "ongoing"
+                      ? "👨‍💻"
+                      : "✓"}
                   </div>
 
-                  <div className="cg-student-details">
+                  <h3>
+                    {studentCategory ===
+                    "ongoing"
+                      ? "No Ongoing Internships"
+                      : "No Completed Internships"}
+                  </h3>
 
-                    <div>
-                      <span>
-                        Department
-                      </span>
+                  <p>
+                    There are currently no students
+                    in this category.
+                  </p>
 
-                      <strong>
-                        {assignment.student
-                          ?.department ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                </div>
 
-                    <div>
-                      <span>
-                        Semester
-                      </span>
+              ) : (
 
-                      <strong>
-                        {assignment.student
-                          ?.semester ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                <div className="cg-students-grid">
 
-                    <div>
-                      <span>
-                        Email
-                      </span>
+                  {displayedStudents.map(
+                    (assignment, index) => (
 
-                      <strong>
-                        {assignment.student
-                          ?.email ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                      <div
+                        className="cg-student-card"
+                        key={
+                          assignment._id ||
+                          assignment.id ||
+                          index
+                        }
+                      >
 
-                    <div>
-                      <span>
-                        Internship
-                      </span>
+                        {/* STUDENT HEADER */}
 
-                      <strong>
-                        {assignment.internship
-                          ?.position ||
-                          assignment.internship
-                            ?.title ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                        <div className="cg-student-top">
 
-                    <div>
-                      <span>
-                        Company
-                      </span>
+                          <div className="cg-student-avatar">
 
-                      <strong>
-                        {assignment.company
-                          ?.companyName ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                            {assignment.student?.name
+                              ?.charAt(0)
+                              ?.toUpperCase() ||
+                              "S"}
 
-                    <div>
-                      <span>
-                        Location
-                      </span>
+                          </div>
 
-                      <strong>
-                        {assignment.company
-                          ?.location ||
-                          "Not available"}
-                      </strong>
-                    </div>
+                          <div>
 
-                  </div>
+                            <h3>
+                              {assignment.student
+                                ?.name ||
+                                "Not available"}
+                            </h3>
 
-                  <div className="cg-student-footer">
+                            <span>
+                              {assignment.student
+                                ?.registerNumber ||
+                                "No register number"}
+                            </span>
 
-                    <span className="cg-assignment-status">
-                      {assignment.status ||
-                        "Not available"}
-                    </span>
+                          </div>
 
-                  </div>
+                        </div>
 
-                  {assignment.facultyGuide && (
-                    <div className="cg-faculty-box">
 
-                      <span>
-                        FACULTY GUIDE
-                      </span>
+                        {/* STUDENT DETAILS */}
 
-                      <strong>
-                        {assignment.facultyGuide
-                          ?.name ||
-                          "Not available"}
-                      </strong>
+                        <div className="cg-student-details">
 
-                      <small>
-                        {assignment.facultyGuide
-                          ?.email ||
-                          ""}
-                      </small>
+                          <div>
 
-                    </div>
+                            <span>
+                              Department
+                            </span>
+
+                            <strong>
+                              {assignment.student
+                                ?.department ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+
+                          <div>
+
+                            <span>
+                              Semester
+                            </span>
+
+                            <strong>
+                              {assignment.student
+                                ?.semester ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+
+                          <div>
+
+                            <span>
+                              Email
+                            </span>
+
+                            <strong>
+                              {assignment.student
+                                ?.email ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+
+                          <div>
+
+                            <span>
+                              Internship
+                            </span>
+
+                            <strong>
+                              {assignment.internship
+                                ?.position ||
+                                assignment.internship
+                                  ?.title ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+
+                          <div>
+
+                            <span>
+                              Company
+                            </span>
+
+                            <strong>
+                              {assignment.company
+                                ?.companyName ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+
+                          <div>
+
+                            <span>
+                              Location
+                            </span>
+
+                            <strong>
+                              {assignment.company
+                                ?.location ||
+                                "Not available"}
+                            </strong>
+
+                          </div>
+
+                        </div>
+
+
+                        {/* STATUS */}
+
+                        <div className="cg-student-footer">
+
+                          <span className="cg-assignment-status">
+
+                            {assignment.status ||
+                              "Not available"}
+
+                          </span>
+
+                        </div>
+
+
+                        {/* FACULTY GUIDE */}
+
+                        {assignment.facultyGuide && (
+
+                          <div className="cg-faculty-box">
+
+                            <span>
+                              FACULTY GUIDE
+                            </span>
+
+                            <strong>
+                              {assignment.facultyGuide
+                                ?.name ||
+                                "Not available"}
+                            </strong>
+
+                            <small>
+                              {assignment.facultyGuide
+                                ?.email ||
+                                ""}
+                            </small>
+
+                          </div>
+
+                        )}
+
+                      </div>
+
+                    )
                   )}
 
                 </div>
-              )
-            )}
 
-          </div>
-        )}
+              )}
 
-      </>
-    );
-  };
+            </div>
+
+          )}
+
+        </>
+
+      )}
+
+    </div>
+  );
+};
 
   // ==========================================
   // ATTENDANCE
@@ -2193,313 +2174,524 @@ console.log(
   };
 
   // ==========================================
-  // LOGBOOKS
+// LOGBOOKS
+// ==========================================
+const renderLogbooks = () => {
+
   // ==========================================
-  const renderLogbooks = () => {
-    return (
-      <>
-        <div className="cg-section-header">
+  // GROUP LOGBOOKS BY STUDENT
+  // ==========================================
 
-          <div>
+  const studentLogbookGroups = {};
 
-            <span>
-              INTERNSHIP MONITORING
-            </span>
+  logbooks.forEach((logbook) => {
 
-            <h1>
-              Logbook Review
-            </h1>
+    const studentId =
+      logbook.student?._id ||
+      logbook.student?.id ||
+      logbook.student?.registerNumber ||
+      logbook.student?.name ||
+      "unknown";
 
-            <p>
-              Review daily internship
-              activities submitted by your
-              assigned students.
-            </p>
+    if (!studentLogbookGroups[studentId]) {
+      studentLogbookGroups[studentId] = {
+        student: logbook.student,
+        logbooks: [],
+      };
+    }
 
-          </div>
+    studentLogbookGroups[studentId].logbooks.push(
+      logbook
+    );
+  });
 
-          <div className="cg-section-count">
+  const studentGroups =
+    Object.values(studentLogbookGroups);
 
-            <strong>
-              {logbooks.length}
-            </strong>
 
-            <span>
-              Entries
-            </span>
+  // ==========================================
+  // TOGGLE STUDENT
+  // ==========================================
 
-          </div>
+  const toggleStudentLogbooks = (studentId) => {
+
+    if (
+      expandedLogbookStudent === studentId
+    ) {
+      setExpandedLogbookStudent(null);
+    } else {
+      setExpandedLogbookStudent(studentId);
+    }
+  };
+
+
+  return (
+    <div className="cg-logbooks-page">
+
+      {/* ==========================================
+          PAGE HEADER
+      ========================================== */}
+
+      <div className="cg-section-header">
+
+        <div>
+
+          <span>
+            INTERNSHIP MONITORING
+          </span>
+
+          <h1>
+            Logbook Review
+          </h1>
+
+          <p>
+            Select a student to view and review
+            their internship logbook activities.
+          </p>
 
         </div>
 
-        {loadingLogbooks ? (
-          <div className="cg-empty-card">
+        <div className="cg-section-count">
 
-            <div className="cg-loader"></div>
+          <strong>
+            {studentGroups.length}
+          </strong>
 
-            <p>
-              Loading logbooks...
-            </p>
+          <span>
+            Students
+          </span>
 
+        </div>
+
+      </div>
+
+
+      {/* ==========================================
+          LOADING
+      ========================================== */}
+
+      {loadingLogbooks ? (
+
+        <div className="cg-empty-card">
+
+          <div className="cg-loader"></div>
+
+          <p>
+            Loading logbooks...
+          </p>
+
+        </div>
+
+      ) : logbooks.length === 0 ? (
+
+        <div className="cg-empty-card">
+
+          <div className="cg-empty-icon">
+            📖
           </div>
-        ) : logbooks.length === 0 ? (
-          <div className="cg-empty-card">
 
-            <div className="cg-empty-icon">
-              📖
-            </div>
+          <h3>
+            No Logbook Entries
+          </h3>
 
-            <h3>
-              No Logbook Entries
-            </h3>
+          <p>
+            There are currently no logbook
+            entries available for review.
+          </p>
 
-            <p>
-              There are currently no logbook
-              entries available for review.
-            </p>
+        </div>
 
-          </div>
-        ) : (
-          <div className="cg-logbook-list-compact">
+      ) : (
 
-            {logbooks.map(
-              (logbook, index) => {
+        <div className="cg-logbook-student-list">
 
-                const logbookId =
-                  logbook._id ||
-                  logbook.id;
+          {studentGroups.map(
+            (group, index) => {
 
-                const status =
-                  logbook.companyGuideStatus ||
-                  "Pending";
+              const student =
+                group.student;
 
-                return (
-                  <div
-                    className={`cg-compact-logbook-card ${status.toLowerCase()}`}
-                    key={
-                      logbookId ||
-                      index
+              const studentId =
+                student?._id ||
+                student?.id ||
+                student?.registerNumber ||
+                student?.name ||
+                `student-${index}`;
+
+              const isExpanded =
+                expandedLogbookStudent ===
+                studentId;
+
+              return (
+                <div
+                  className={`cg-logbook-student-group ${
+                    isExpanded
+                      ? "expanded"
+                      : ""
+                  }`}
+                  key={studentId}
+                >
+
+                  {/* ==========================================
+                      STUDENT HEADER
+                  ========================================== */}
+
+                  <button
+                    type="button"
+                    className="cg-logbook-student-header"
+                    onClick={() =>
+                      toggleStudentLogbooks(
+                        studentId
+                      )
                     }
                   >
 
-                    <div className="cg-compact-header">
+                    <div className="cg-logbook-student-main">
 
-                      <div className="cg-compact-student">
+                      <div className="cg-logbook-student-avatar">
 
-                        <div className="cg-compact-avatar">
-                          {logbook.student?.name
-                            ?.charAt(0)
-                            ?.toUpperCase() ||
-                            "S"}
-                        </div>
-
-                        <div className="cg-compact-student-info">
-
-                          <h3>
-                            {logbook.student
-                              ?.name ||
-                              "Student"}
-                          </h3>
-
-                          <span>
-                            {logbook.student
-                              ?.registerNumber ||
-                              "Register number unavailable"}
-
-                            {logbook.student
-                              ?.department
-                              ? ` • ${logbook.student.department}`
-                              : ""}
-                          </span>
-
-                        </div>
+                        {student?.name
+                          ?.charAt(0)
+                          ?.toUpperCase() ||
+                          "S"}
 
                       </div>
 
-                      <div className="cg-compact-date">
+                      <div className="cg-logbook-student-info">
 
-                        <strong>
-                          {logbook.date
-                            ? new Date(
-                                logbook.date
-                              ).toLocaleDateString(
-                                "en-IN",
-                                {
-                                  day: "2-digit",
-                                  month: "short",
-                                  year: "numeric",
-                                }
-                              )
-                            : "Date unavailable"}
-                        </strong>
+                        <h3>
+                          {student?.name ||
+                            "Student"}
+                        </h3>
 
                         <span>
-                          Logbook Entry
+
+                          {student?.registerNumber ||
+                            "Register number unavailable"}
+
+                          {student?.department
+                            ? ` • ${student.department}`
+                            : ""}
+
                         </span>
 
                       </div>
 
-                      <span
-                        className={`cg-compact-status ${status.toLowerCase()}`}
-                      >
-                        {status ===
-                        "Approved"
-                          ? "✓ Approved"
-                          : status ===
-                            "Rejected"
-                          ? "✕ Rejected"
-                          : "● Pending"}
+                    </div>
+
+
+                    <div className="cg-logbook-student-meta">
+
+                      <div>
+
+                        <strong>
+                          {group.logbooks.length}
+                        </strong>
+
+                        <span>
+                          {group.logbooks.length ===
+                          1
+                            ? "Logbook"
+                            : "Logbooks"}
+                        </span>
+
+                      </div>
+
+                      <span className="cg-logbook-dropdown-arrow">
+                        {isExpanded
+                          ? "▲"
+                          : "▼"}
                       </span>
 
                     </div>
 
-                    <div className="cg-compact-body">
+                  </button>
 
-                      <div className="cg-compact-hours">
 
-                        <div className="cg-hours-icon">
-                          ⏱
-                        </div>
+                  {/* ==========================================
+                      STUDENT LOGBOOKS
+                  ========================================== */}
 
-                        <div>
+                  {isExpanded && (
 
-                          <span>
-                            HOURS WORKED
-                          </span>
+                    <div className="cg-logbook-student-content">
 
-                          <strong>
-                            {logbook.hoursWorked ??
-                              "0"}
+                      {group.logbooks.map(
+                        (
+                          logbook,
+                          logbookIndex
+                        ) => {
 
-                            <small>
-                              {" "}
-                              hrs
-                            </small>
-                          </strong>
+                          const logbookId =
+                            logbook._id ||
+                            logbook.id ||
+                            logbookIndex;
 
-                        </div>
+                          const status =
+                            logbook.companyGuideStatus ||
+                            "Pending";
 
-                      </div>
+                          return (
+                            <div
+                              className={`cg-compact-logbook-card ${status.toLowerCase()}`}
+                              key={
+                                logbookId
+                              }
+                            >
 
-                      <div className="cg-compact-section">
+                              {/* ==========================================
+                                  LOGBOOK HEADER
+                              ========================================== */}
 
-                        <div className="cg-compact-section-title">
+                              <div className="cg-compact-header">
 
-                          <span className="cg-section-icon">
-                            📝
-                          </span>
+                                <div className="cg-compact-student">
 
-                          <span>
-                            WORK COMPLETED
-                          </span>
+                                  <div className="cg-compact-avatar">
 
-                        </div>
+                                    {student?.name
+                                      ?.charAt(0)
+                                      ?.toUpperCase() ||
+                                      "S"}
 
-                        <p>
-                          {logbook.workDone ||
-                            "No work details provided."}
-                        </p>
+                                  </div>
 
-                      </div>
+                                  <div className="cg-compact-student-info">
 
-                      <div className="cg-compact-section">
+                                    <h3>
+                                      {student?.name ||
+                                        "Student"}
+                                    </h3>
 
-                        <div className="cg-compact-section-title">
+                                    <span>
+                                      {student?.registerNumber ||
+                                        "Register number unavailable"}
+                                    </span>
 
-                          <span className="cg-section-icon">
-                            💡
-                          </span>
+                                  </div>
 
-                          <span>
-                            LEARNINGS
-                          </span>
+                                </div>
 
-                        </div>
 
-                        <p>
-                          {logbook.learnings ||
-                            "No learning details provided."}
-                        </p>
+                                <div className="cg-compact-date">
 
-                      </div>
+                                  <strong>
+                                    {logbook.date
+                                      ? new Date(
+                                          logbook.date
+                                        ).toLocaleDateString(
+                                          "en-IN",
+                                          {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                          }
+                                        )
+                                      : "Date unavailable"}
+                                  </strong>
+
+                                  <span>
+                                    Logbook Entry #
+                                    {logbookIndex + 1}
+                                  </span>
+
+                                </div>
+
+
+                                <span
+                                  className={`cg-compact-status ${status.toLowerCase()}`}
+                                >
+                                  {status ===
+                                  "Approved"
+                                    ? "✓ Approved"
+                                    : status ===
+                                      "Rejected"
+                                    ? "✕ Rejected"
+                                    : "● Pending"}
+                                </span>
+
+                              </div>
+
+
+                              {/* ==========================================
+                                  LOGBOOK BODY
+                              ========================================== */}
+
+                              <div className="cg-compact-body">
+
+                                {/* HOURS */}
+
+                                <div className="cg-compact-hours">
+
+                                  <div className="cg-hours-icon">
+                                    ⏱
+                                  </div>
+
+                                  <div>
+
+                                    <span>
+                                      HOURS WORKED
+                                    </span>
+
+                                    <strong>
+
+                                      {logbook.hoursWorked ??
+                                        "0"}
+
+                                      <small>
+                                        {" "}
+                                        hrs
+                                      </small>
+
+                                    </strong>
+
+                                  </div>
+
+                                </div>
+
+
+                                {/* WORK */}
+
+                                <div className="cg-compact-section">
+
+                                  <div className="cg-compact-section-title">
+
+                                    <span className="cg-section-icon">
+                                      📝
+                                    </span>
+
+                                    <span>
+                                      WORK COMPLETED
+                                    </span>
+
+                                  </div>
+
+                                  <p>
+                                    {logbook.workDone ||
+                                      "No work details provided."}
+                                  </p>
+
+                                </div>
+
+
+                                {/* LEARNINGS */}
+
+                                <div className="cg-compact-section">
+
+                                  <div className="cg-compact-section-title">
+
+                                    <span className="cg-section-icon">
+                                      💡
+                                    </span>
+
+                                    <span>
+                                      LEARNINGS
+                                    </span>
+
+                                  </div>
+
+                                  <p>
+                                    {logbook.learnings ||
+                                      "No learning details provided."}
+                                  </p>
+
+                                </div>
+
+                              </div>
+
+
+                              {/* ==========================================
+                                  LOGBOOK FOOTER
+                              ========================================== */}
+
+                              <div className="cg-compact-footer">
+
+                                <div className="cg-compact-statuses">
+
+                                  <div>
+
+                                    <span>
+                                      FACULTY
+                                    </span>
+
+                                    <strong>
+                                      {logbook.facultyStatus ||
+                                        "Pending"}
+                                    </strong>
+
+                                  </div>
+
+                                  <div>
+
+                                    <span>
+                                      COMPANY GUIDE
+                                    </span>
+
+                                    <strong>
+                                      {status}
+                                    </strong>
+
+                                  </div>
+
+                                </div>
+
+
+                                {status !==
+                                  "Approved" &&
+                                  status !==
+                                    "Rejected" && (
+
+                                  <div className="cg-compact-actions">
+
+                                    <button
+                                      className="cg-compact-reject"
+                                      onClick={() =>
+                                        handleReject(
+                                          logbookId
+                                        )
+                                      }
+                                    >
+                                      ✕ Reject
+                                    </button>
+
+                                    <button
+                                      className="cg-compact-approve"
+                                      onClick={() =>
+                                        handleApprove(
+                                          logbookId
+                                        )
+                                      }
+                                    >
+                                      ✓ Approve
+                                    </button>
+
+                                  </div>
+
+                                )}
+
+                              </div>
+
+                            </div>
+                          );
+                        }
+                      )}
 
                     </div>
 
-                    <div className="cg-compact-footer">
+                  )}
 
-                      <div className="cg-compact-statuses">
+                </div>
+              );
+            }
+          )}
 
-                        <div>
+        </div>
 
-                          <span>
-                            FACULTY
-                          </span>
+      )}
 
-                          <strong>
-                            {logbook.facultyStatus ||
-                              "Pending"}
-                          </strong>
-
-                        </div>
-
-                        <div>
-
-                          <span>
-                            COMPANY GUIDE
-                          </span>
-
-                          <strong>
-                            {status}
-                          </strong>
-
-                        </div>
-
-                      </div>
-
-                      {status !==
-                        "Approved" &&
-                        status !==
-                          "Rejected" && (
-                          <div className="cg-compact-actions">
-
-                            <button
-                              className="cg-compact-reject"
-                              onClick={() =>
-                                handleReject(
-                                  logbookId
-                                )
-                              }
-                            >
-                              ✕ Reject
-                            </button>
-
-                            <button
-                              className="cg-compact-approve"
-                              onClick={() =>
-                                handleApprove(
-                                  logbookId
-                                )
-                              }
-                            >
-                              ✓ Approve
-                            </button>
-
-                          </div>
-                        )}
-
-                    </div>
-
-                  </div>
-                );
-              }
-            )}
-
-          </div>
-        )}
-
-      </>
-    );
-  };
+    </div>
+  );
+};
 
   // ==========================================
   // CONTENT SWITCH
