@@ -240,7 +240,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
           className="signup-back-button"
           onClick={onBackToLogin}
         >
-          ← Back to Faculty Login
+          ← Back to Login
         </button>
 
         <div className="signup-visual-content">
@@ -749,7 +749,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
               type="button"
               onClick={onBackToLogin}
             >
-              Back to Faculty Login →
+              Back to Login →
             </button>
 
           </div>

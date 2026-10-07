@@ -85,7 +85,7 @@ function CollegeRegister({ onSuccess, onBack }) {
         className="signup-back-button"
         onClick={onBack}
       >
-        ← Back to College Login
+        ← Back to Login
       </button>
 
       <div className="signup-shell">
@@ -439,7 +439,7 @@ function CollegeRegister({ onSuccess, onBack }) {
               type="button"
               onClick={onBack}
             >
-              Back to College Login →
+              Back to Login →
             </button>
 
           </div>

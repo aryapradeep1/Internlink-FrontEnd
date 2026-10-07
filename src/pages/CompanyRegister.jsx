@@ -69,7 +69,7 @@ function CompanyRegister({ onBack, onLogin }) {
           className="signup-back-button"
           onClick={onBack}
         >
-          ← Back to Company Login
+          ← Back to Login
         </button>
 
         <div className="signup-visual-content">
@@ -305,7 +305,7 @@ function CompanyRegister({ onBack, onLogin }) {
               type="button"
               onClick={onLogin}
             >
-              Back to Company Login →
+              Back to Login →
             </button>
 
           </div>

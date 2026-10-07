@@ -168,7 +168,7 @@ function CompanyGuideRegister({
         className="signup-back-button"
         onClick={onBack}
       >
-        ← Back to Company Guide Login
+        ← Back to Login
       </button>
 
       <div className="signup-shell">
@@ -449,7 +449,7 @@ function CompanyGuideRegister({
               type="button"
               onClick={onBack}
             >
-              Back to Company Guide Login →
+              Back to  Login →
             </button>
           </div>
 

@@ -12,7 +12,6 @@ import MyInternship from "./pages/MyInternship";
 import StudentLogbook from "./pages/StudentLogbook";
 import StudentAttendance from "./pages/StudentAttendance";
 // Company
-import CompanyLogin from "./components/CompanyLogin";
 import CompanyRegister from "./pages/CompanyRegister";
 import CompanyDashboard from "./pages/CompanyDashboard";
 import CompanyProfile from "./pages/CompanyProfile";
@@ -21,25 +20,22 @@ import EditCompanyProfile from "./pages/EditCompanyProfile";
 
 import ApplicationForm from "./pages/ApplicationForm";
 // Admin
-import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 
 // Faculty
-import FacultyLogin from "./pages/FacultyLogin";
 import FacultyRegister from "./pages/FacultyRegister";
 import FacultyDashboard from "./pages/FacultyDashboard";
 import FacultyProfile from "./pages/FacultyProfile";
 import EditFacultyProfile from "./pages/EditFacultyProfile";
 
 // Company Guide
-import CompanyGuideLogin from "./pages/CompanyGuideLogin";
+
 import CompanyGuideRegister from "./pages/CompanyGuideRegister";
 import CompanyGuideDashboard from "./pages/CompanyGuideDashboard";
 import CompanyGuideProfile from "./pages/CompanyGuideProfile";
 import EditCompanyGuideProfile from "./pages/EditCompanyGuideProfile";
 
 // College
-import CollegeLogin from "./pages/CollegeLogin";
 import CollegeRegister from "./pages/CollegeRegister";
 import CollegeDashboard from "./pages/CollegeDashboard";
 import CollegeProfile from "./pages/CollegeProfile";
@@ -97,6 +93,7 @@ const [certificateHours, setCertificateHours] = useState(0);
         const response = await fetch(
           "http://localhost:5000/api/auth/me",
           {
+            method: "GET",
             credentials: "include",
           }
         );
@@ -204,15 +201,7 @@ const goToStudentAttendance = () => {
   setPage("studentDashboard");
 };
 
-  // =====================================================
-  // COMPANY
-  // =====================================================
-const handleCompanyLogin = (companyData) => {
-  setCompany(companyData);
-  setCompanySection("dashboard");
-  setPage("companyDashboard");
-};
-
+ 
 const handleCompanyLogout = async () => {
   try {
     await fetch(
@@ -284,14 +273,7 @@ const goToCompanyChangePassword = () => {
     setPage("changeAdminPassword");
   };
 
-  // =====================================================
-  // FACULTY
-  // =====================================================
-const handleFacultyLogin = (facultyData) => {
-  setFaculty(facultyData);
-  setFacultySection("dashboard");
-  setPage("facultyDashboard");
-};
+
 
 const handleFacultyLogout = async () => {
   try {
@@ -347,11 +329,7 @@ const goToFacultyChangePassword = () => {
   // =====================================================
   // COMPANY GUIDE
   // =====================================================
-const handleCompanyGuideLogin = (guideData) => {
-  setCompanyGuide(guideData);
-  setCompanyGuideSection("dashboard");
-  setPage("companyGuideDashboard");
-};
+
 
 const handleCompanyGuideLogout = async () => {
   try {
@@ -403,10 +381,70 @@ const goToCompanyGuideChangePassword = () => {
   // =====================================================
   // COLLEGE
   // =====================================================
+
+
+// =====================================================
+// COMMON LOGIN
+// =====================================================
+
+const handleCompanyLogin = (companyData) => {
+  setCompany(companyData);
+  setCompanySection("dashboard");
+  setPage("companyDashboard");
+};
+
+
+
+const handleFacultyLogin = (facultyData) => {
+  setFaculty(facultyData);
+  setFacultySection("dashboard");
+  setPage("facultyDashboard");
+};
+
+const handleCompanyGuideLogin = (guideData) => {
+  setCompanyGuide(guideData);
+  setCompanyGuideSection("dashboard");
+  setPage("companyGuideDashboard");
+};
+
 const handleCollegeLogin = (collegeData) => {
   setCollege(collegeData);
   setCollegeSection("dashboard");
   setPage("collegeDashboard");
+};
+
+const handleLogin = (role, userData) => {
+  if (role === "student") {
+    handleStudentLogin(userData);
+    return;
+  }
+
+  if (role === "company") {
+    handleCompanyLogin(userData);
+    return;
+  }
+
+  if (role === "admin") {
+    handleAdminLogin(userData);
+    return;
+  }
+
+  if (role === "faculty") {
+    handleFacultyLogin(userData);
+    return;
+  }
+
+  if (role === "companyGuide") {
+    handleCompanyGuideLogin(userData);
+    return;
+  }
+
+  if (role === "collegeAdmin") {
+    handleCollegeLogin(userData);
+    return;
+  }
+
+  console.error("Unknown login role:", role);
 };
 
   const handleCollegeLogout = async () => {
@@ -494,28 +532,35 @@ if (page === "home") {
   // MAIN LOGIN PAGE
   // =====================================================
 
-  if (page === "login") {
-    return (
-      <Login
-        onLogin={handleStudentLogin}
-        onGoToRegister={() => setPage("register")}
-        onGoToCompanyLogin={() => setPage("companyLogin")}
-        onGoToAdminLogin={() => setPage("adminLogin")}
-        onGoToFacultyLogin={() => setPage("facultyLogin")}
-        onGoToCompanyGuideLogin={() =>
-          setPage("companyGuideLogin")
-        }
-        onGoToCompanyGuideRegister={() =>
-          setPage("companyGuideRegister")
-        }
-        onGoToCollegeLogin={() => setPage("collegeLogin")}
-        onGoToCollegeRegister={() =>
-          setPage("collegeRegister")
-        }
-        onGoToHome={() => setPage("home")}
-      />
-    );
-  }
+if (page === "login") {
+  return (
+    <Login
+      onLogin={handleLogin}
+
+      onGoToRegister={() => setPage("register")}
+
+      onGoToCompanyRegister={() =>
+        setPage("companyRegister")
+      }
+
+      onGoToFacultyRegister={() =>
+        setPage("facultyRegister")
+      }
+
+      onGoToCompanyGuideRegister={() =>
+        setPage("companyGuideRegister")
+      }
+
+      onGoToCollegeRegister={() =>
+        setPage("collegeRegister")
+      }
+
+      onGoToHome={() =>
+        setPage("home")
+      }
+    />
+  );
+}
 
   // =====================================================
   // STUDENT REGISTER
@@ -1066,33 +1111,18 @@ if (page === "companies" && student) {
 
 
 
-
-  // =====================================================
-  // COMPANY LOGIN
-  // =====================================================
-
-  if (page === "companyLogin") {
-    return (
-      <CompanyLogin
-        onLogin={handleCompanyLogin}
-        onRegister={() => setPage("companyRegister")}
-        onBack={() => setPage("login")}
-      />
-    );
-  }
-
   // =====================================================
   // COMPANY REGISTER
   // =====================================================
 
-  if (page === "companyRegister") {
-    return (
-      <CompanyRegister
-        onBack={() => setPage("companyLogin")}
-        onLogin={() => setPage("companyLogin")}
-      />
-    );
-  }
+if (page === "companyRegister") {
+  return (
+    <CompanyRegister
+      onBack={() => setPage("login")}
+      onLogin={() => setPage("login")}
+    />
+  );
+}
 
   // =====================================================
   // COMPANY DASHBOARD
@@ -1160,18 +1190,7 @@ if (page === "companyDashboard" && company) {
     </CompanyDashboard>
   );
 }
-  // =====================================================
-  // ADMIN LOGIN
-  // =====================================================
 
-  if (page === "adminLogin") {
-    return (
-      <AdminLogin
-        onLogin={handleAdminLogin}
-        onBack={() => setPage("login")}
-      />
-    );
-  }
 
   // =====================================================
   // ADMIN DASHBOARD
@@ -1202,27 +1221,13 @@ if (page === "companyDashboard" && company) {
   }
 
   // =====================================================
-  // FACULTY LOGIN
-  // =====================================================
-
-  if (page === "facultyLogin") {
-    return (
-      <FacultyLogin
-        onLogin={handleFacultyLogin}
-        onRegister={() => setPage("facultyRegister")}
-        onBack={() => setPage("login")}
-      />
-    );
-  }
-
-  // =====================================================
   // FACULTY REGISTER
   // =====================================================
 if (page === "facultyRegister") {
   return (
     <FacultyRegister
-      onRegisterSuccess={() => setPage("facultyLogin")}
-      onBackToLogin={() => setPage("facultyLogin")}
+      onRegisterSuccess={() => setPage("login")}
+      onBackToLogin={() => setPage("login")}
     />
   );
 }
@@ -1276,24 +1281,6 @@ if (page === "facultyRegister") {
   );
 }
 
-
-
-  // =====================================================
-  // COMPANY GUIDE LOGIN
-  // =====================================================
-
-  if (page === "companyGuideLogin") {
-    return (
-      <CompanyGuideLogin
-        onLogin={handleCompanyGuideLogin}
-        onRegister={() =>
-          setPage("companyGuideRegister")
-        }
-        onBack={() => setPage("login")}
-      />
-    );
-  }
-
   // =====================================================
   // COMPANY GUIDE REGISTER
   // =====================================================
@@ -1301,10 +1288,8 @@ if (page === "facultyRegister") {
 if (page === "companyGuideRegister") {
   return (
     <CompanyGuideRegister
-      onBack={() => setPage("companyGuideLogin")}
-      onRegisterSuccess={() =>
-        setPage("companyGuideLogin")
-      }
+      onBack={() => setPage("login")}
+      onRegisterSuccess={() => setPage("login")}
     />
   );
 }
@@ -1357,34 +1342,18 @@ if (page === "companyGuideRegister") {
   );
 }
 
-
-
-  // =====================================================
-  // COLLEGE LOGIN
-  // =====================================================
-
-if (page === "collegeLogin") {
-  return (
-    <CollegeLogin
-      onLogin={handleCollegeLogin}
-      onGoToRegister={() => setPage("collegeRegister")}
-      onBack={() => setPage("login")}
-    />
-  );
-}
-
   // =====================================================
   // COLLEGE REGISTER
   // =====================================================
 
-  if (page === "collegeRegister") {
-    return (
-      <CollegeRegister
-        onBack={() => setPage("collegeLogin")}
-        onLogin={() => setPage("collegeLogin")}
-      />
-    );
-  }
+if (page === "collegeRegister") {
+  return (
+    <CollegeRegister
+      onBack={() => setPage("login")}
+      onLogin={() => setPage("login")}
+    />
+  );
+}
 
   // =====================================================
   // COLLEGE DASHBOARD
