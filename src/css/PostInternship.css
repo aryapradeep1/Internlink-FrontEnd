@@ -512,3 +512,213 @@
     margin-left: auto;
   }
 }
+
+/* =========================================================
+   READABILITY + INTERNLINK LOGIN THEME
+   Existing form fields and submission behavior are unchanged.
+========================================================= */
+
+.company-content-inner.company-child-page:has(.post-internship-page) {
+  padding: 12px clamp(14px, 2vw, 28px) 20px;
+}
+
+.post-internship-page {
+  max-width: 1420px;
+  padding: 0;
+  color: #0b1b32;
+}
+
+.post-internship-header {
+  min-height: 0;
+  padding: 20px 25px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(132, 167, 207, 0.3);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(232, 201, 217, 0.2), transparent 28%),
+    linear-gradient(120deg, #0e1a4c, #28435f 70%, #385879);
+  box-shadow: 0 12px 27px rgba(14, 26, 76, 0.14);
+}
+
+.post-internship-eyebrow { color: #e8c9d9; font-size: 11px; }
+.post-internship-header h1 { font-size: clamp(24px, 2vw, 28px); }
+.post-internship-header p { margin-top: 5px; color: rgba(255, 255, 255, 0.9); font-size: 15px; line-height: 1.45; }
+
+.post-internship-header-mark {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(232, 201, 217, 0.32);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  font-size: 26px;
+}
+
+.post-internship-company-card {
+  min-height: 64px;
+  gap: 12px;
+  padding: 10px 15px;
+  margin-bottom: 12px;
+  border-color: rgba(132, 167, 207, 0.3);
+  border-radius: 15px;
+  background: linear-gradient(105deg, #fff, rgba(132, 167, 207, 0.12));
+}
+
+.post-internship-company-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(132, 167, 207, 0.3);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(196, 140, 179, 0.32), rgba(132, 167, 207, 0.28));
+  color: #0e1a4c;
+  font-size: 17px;
+}
+
+.post-internship-company-card span { color: #784d70; font-size: 9px; }
+.post-internship-company-card strong { color: #0b1b32; font-size: 15px; }
+.post-internship-company-card p { color: #405873; font-size: 12px; }
+.post-internship-company-status { border-color: rgba(132, 167, 207, 0.34); color: #28435f; font-size: 12px; }
+.post-internship-company-status span { background: #84a7cf; }
+
+.post-internship-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+}
+
+.post-internship-form-card {
+  min-width: 0;
+  padding: 17px 18px;
+  border-color: rgba(132, 167, 207, 0.3);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 20px rgba(14, 26, 76, 0.06);
+}
+
+.post-internship-form > .post-internship-form-card:nth-of-type(3),
+.post-internship-form > .post-internship-message,
+.post-internship-form > .post-internship-actions {
+  grid-column: 1 / -1;
+}
+
+.post-internship-section-heading {
+  gap: 11px;
+  margin-bottom: 13px;
+}
+
+.post-internship-section-number {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(196, 140, 179, 0.28);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(196, 140, 179, 0.29), rgba(132, 167, 207, 0.28));
+  color: #28435f;
+  font-size: 11px;
+}
+
+.post-internship-section-heading span { margin-bottom: 3px; color: #784d70; font-size: 9px; }
+.post-internship-section-heading h2 { color: #0b1b32; font-size: 19px; }
+.post-internship-section-heading p { margin-top: 4px; color: #405873; font-size: 13px; line-height: 1.45; }
+
+.post-internship-fields { gap: 12px; }
+.post-internship-field label { margin-bottom: 5px; color: #28435f; font-size: 14px; }
+.post-internship-field label span { color: #784d70; }
+
+.post-internship-field input,
+.post-internship-field textarea {
+  border-color: rgba(40, 67, 95, 0.25);
+  border-radius: 10px;
+  background: #fff;
+  color: #0b1b32;
+  font-size: 16px;
+}
+
+.post-internship-field input { height: 43px; padding: 0 12px; }
+.post-internship-field textarea { min-height: 88px; padding: 10px 12px; line-height: 1.5; }
+
+.post-internship-field input::placeholder,
+.post-internship-field textarea::placeholder { color: #526a83; opacity: 0.8; }
+
+.post-internship-field input:focus,
+.post-internship-field textarea:focus {
+  border-color: #c48cb3;
+  box-shadow: 0 0 0 3px rgba(196, 140, 179, 0.16);
+}
+
+.post-internship-field small { margin-top: 4px; color: #526a83; font-size: 12px; }
+
+.post-internship-deadline-area {
+  grid-template-columns: minmax(250px, 0.8fr) 1.2fr;
+  gap: 14px;
+}
+
+.post-internship-deadline-note {
+  min-height: 43px;
+  padding: 10px 12px;
+  border-color: rgba(132, 167, 207, 0.28);
+  border-radius: 11px;
+  background: linear-gradient(105deg, rgba(132, 167, 207, 0.14), rgba(232, 201, 217, 0.18));
+}
+
+.post-internship-note-icon { background: rgba(196, 140, 179, 0.3); color: #0e1a4c; }
+.post-internship-deadline-note strong { color: #28435f; font-size: 13px; }
+.post-internship-deadline-note p { color: #405873; font-size: 12px; line-height: 1.4; }
+
+.post-internship-message { padding: 10px 13px; border-radius: 11px; font-size: 14px; }
+.post-internship-message strong { font-size: 14px; }
+.post-internship-message span { font-size: 13px; }
+.post-internship-success { border-color: rgba(132, 167, 207, 0.34); background: rgba(132, 167, 207, 0.14); color: #28435f; }
+.post-internship-success > div:first-child { background: rgba(132, 167, 207, 0.3); }
+.post-internship-error { border-color: rgba(196, 140, 179, 0.35); background: rgba(232, 201, 217, 0.24); color: #784d70; }
+.post-internship-error > div:first-child { background: rgba(196, 140, 179, 0.32); }
+
+.post-internship-actions {
+  gap: 14px;
+  padding: 12px 14px;
+  border-color: rgba(132, 167, 207, 0.28);
+  border-radius: 14px;
+  background: linear-gradient(105deg, #fff, rgba(132, 167, 207, 0.12));
+}
+
+.post-internship-cancel-button,
+.post-internship-submit-button {
+  height: 43px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.post-internship-cancel-button { border-color: rgba(40, 67, 95, 0.25); color: #28435f; }
+.post-internship-cancel-button:hover { background: rgba(132, 167, 207, 0.13); }
+
+.post-internship-action-info span { color: #28435f; font-size: 14px; }
+.post-internship-action-info small { color: #526a83; font-size: 12px; }
+
+.post-internship-submit-button {
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  box-shadow: 0 7px 16px rgba(14, 26, 76, 0.16);
+}
+
+.post-internship-submit-button:hover { box-shadow: 0 10px 20px rgba(14, 26, 76, 0.2); }
+
+@media (max-width: 980px) {
+  .post-internship-form { grid-template-columns: minmax(0, 1fr); }
+  .post-internship-form > .post-internship-form-card:nth-of-type(3),
+  .post-internship-form > .post-internship-message,
+  .post-internship-form > .post-internship-actions { grid-column: auto; }
+}
+
+@media (max-width: 800px) {
+  .post-internship-page { padding: 0; }
+  .post-internship-header { padding: 18px; }
+  .post-internship-form-card { padding: 15px; }
+  .post-internship-deadline-area { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .post-internship-fields { grid-template-columns: 1fr; }
+  .post-internship-field-full { grid-column: auto; }
+  .post-internship-actions { gap: 9px; }
+  .post-internship-action-info { order: 3; }
+}

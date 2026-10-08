@@ -1212,11 +1212,17 @@ if (page === "companyDashboard" && company) {
 
   if (page === "changeAdminPassword" && admin) {
     return (
-      <ChangePassword
-        user={admin}
-        role="admin"
-        onBack={() => setPage("adminDashboard")}
-      />
+      <AdminDashboard
+        admin={admin}
+        onLogout={handleAdminLogout}
+        onChangePassword={goToAdminChangePassword}
+      >
+        <ChangePassword
+          user={admin}
+          role="admin"
+          onBack={() => setPage("adminDashboard")}
+        />
+      </AdminDashboard>
     );
   }
 
@@ -1424,4 +1430,3 @@ if (page === "collegeRegister") {
 }
 
 export default App;
-

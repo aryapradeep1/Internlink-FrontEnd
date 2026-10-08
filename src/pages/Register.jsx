@@ -302,7 +302,7 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
       <header className="signup-topbar">
         <div className="signup-brand">
           <span className="signup-brand-mark">I</span>
-          <span>InterLink</span>
+          <span>InternLink</span>
         </div>
 
         <button

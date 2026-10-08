@@ -229,6 +229,10 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
   return (
     <div className="signup-page faculty-signup-page">
 
+      <div className="signup-brand" aria-label="InternLink">
+        <span className="signup-brand-mark">I</span>
+      </div>
+
       {/* ==========================================
           LEFT SIDE
           ========================================== */}

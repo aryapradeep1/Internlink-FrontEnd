@@ -1616,3 +1616,140 @@
     padding: 0 18px 21px !important;
   }
 }
+
+/* Student Dashboard internship section: balanced cards in the Login palette. */
+.student-dashboard .companies-page .companies-container {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  padding-bottom: 12px;
+}
+.student-dashboard .companies-page .companies-header {
+  min-width: 0;
+  margin-bottom: 20px;
+  padding: 22px 26px;
+  border: 1px solid rgba(40, 67, 95, .14);
+  border-radius: 18px;
+  background: linear-gradient(110deg, #fff 0%, rgba(232, 201, 217, .22) 58%, rgba(132, 167, 207, .2) 100%);
+  box-shadow: 0 10px 28px rgba(11, 27, 50, .07);
+}
+.student-dashboard .companies-page .companies-header-icon {
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(196, 140, 179, .25);
+  border-radius: 15px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .3), rgba(132, 167, 207, .32));
+  color: #0e1a4c;
+  font-size: 23px;
+}
+.student-dashboard .companies-page .companies-eyebrow { color: #784d70; }
+.student-dashboard .companies-page .companies-header h2 { color: #0b1b32; }
+.student-dashboard .companies-page .companies-header p { color: #28435f; }
+.student-dashboard .companies-page .internships-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr)) !important;
+  align-items: stretch !important;
+  gap: 16px !important;
+}
+.student-dashboard .companies-page .internship-item {
+  min-width: 0 !important;
+  border: 1px solid rgba(40, 67, 95, .15) !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 22px rgba(11, 27, 50, .07) !important;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.student-dashboard .companies-page .internship-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196, 140, 179, .52) !important;
+  box-shadow: 0 13px 28px rgba(11, 27, 50, .11) !important;
+}
+.student-dashboard .companies-page .internship-summary {
+  min-height: 112px !important;
+  padding: 19px 22px !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  background: #fff !important;
+}
+.student-dashboard .companies-page .internship-summary-left {
+  width: auto !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  justify-content: flex-start !important;
+  gap: 15px !important;
+}
+.student-dashboard .companies-page .internship-summary-icon {
+  flex: 0 0 48px !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  border: 1px solid rgba(196, 140, 179, .23);
+  border-radius: 14px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .24), rgba(132, 167, 207, .3));
+  color: #0e1a4c;
+  font-size: 21px;
+}
+.student-dashboard .companies-page .internship-summary-text {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  text-align: left !important;
+}
+.student-dashboard .companies-page .internship-summary-text h2 {
+  display: -webkit-box;
+  max-width: 100%;
+  max-height: 2.6em;
+  margin-bottom: 6px;
+  overflow: hidden;
+  color: #0b1b32;
+  font-size: 19px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.student-dashboard .companies-page .internship-company-name {
+  min-width: 0;
+  color: #28435f;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .companies-page .internship-company-name > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .companies-page .internship-expanded {
+  padding: 0 22px 20px !important;
+  background: linear-gradient(180deg, #fff, rgba(132, 167, 207, .08)) !important;
+}
+.student-dashboard .companies-page .expanded-divider {
+  margin-bottom: 15px !important;
+  background: rgba(40, 67, 95, .14) !important;
+}
+.student-dashboard .companies-page .expanded-detail-grid { gap: 11px !important; }
+.student-dashboard .companies-page .expanded-detail-card,
+.student-dashboard .companies-page .expanded-info-card,
+.student-dashboard .companies-page .expanded-deadline {
+  border-color: rgba(40, 67, 95, .13);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .92);
+  color: #28435f;
+}
+.student-dashboard .companies-page .expanded-actions .apply-internship-btn {
+  border-radius: 11px;
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  box-shadow: 0 7px 17px rgba(14, 26, 76, .13);
+}
+.student-dashboard .companies-page .expanded-actions .apply-internship-btn:hover {
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  box-shadow: 0 10px 21px rgba(14, 26, 76, .18);
+}
+
+@media (max-width: 760px) {
+  .student-dashboard .companies-page .internships-list {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .student-dashboard .companies-page .companies-header { padding: 18px; }
+  .student-dashboard .companies-page .internship-summary { padding: 16px !important; }
+}

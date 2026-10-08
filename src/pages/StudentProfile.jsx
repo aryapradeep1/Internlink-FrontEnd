@@ -91,6 +91,36 @@ function StudentProfile({
   return (
     <div className="student-profile-page">
 
+      <section className="student-profile-hero">
+        <div className="profile-identity">
+          <div className="profile-identity-avatar" aria-label={`${profile.name || "Student"} initials`}>
+            {(profile.name || "Student")
+              .trim()
+              .split(/\s+/)
+              .slice(0, 2)
+              .map((part) => part.charAt(0))
+              .join("")
+              .toUpperCase()}
+          </div>
+          <div className="profile-identity-copy">
+            <span className="profile-identity-eyebrow">STUDENT PROFILE</span>
+            <h1>{profile.name || "Student"}</h1>
+            <p>
+              {[profile.department, profile.semester ? `Semester ${profile.semester}` : null]
+                .filter(Boolean)
+                .join(" · ") || "Your academic and contact information"}
+            </p>
+          </div>
+        </div>
+        <button
+          className="profile-primary-action profile-hero-edit"
+          onClick={onEdit}
+        >
+          <span>✏️</span>
+          Edit Profile
+        </button>
+      </section>
+
       {/* ==================================================
           PROFILE CARD
           ================================================== */}
@@ -282,24 +312,6 @@ function StudentProfile({
 
       </div>
 
-
-      {/* ==================================================
-          ACTIONS
-          ================================================== */}
-
-      <div className="student-profile-actions">
-
-        <button
-          className="profile-primary-action"
-          onClick={onEdit}
-        >
-          <span>✏️</span>
-          Edit Profile
-        </button>
-
-        
-
-      </div>
 
     </div>
   );

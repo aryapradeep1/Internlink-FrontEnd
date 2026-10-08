@@ -1059,3 +1059,481 @@
   }
 
 }
+
+/* Student Dashboard applications: aligned tracking cards in the Login palette. */
+.student-dashboard .my-applications-page {
+  min-width: 0;
+  color: #0b1b32;
+}
+.student-dashboard .applications-content {
+  width: 100%;
+  min-width: 0;
+  margin: 0 auto;
+}
+.student-dashboard .applications-page-header {
+  margin: 0 0 20px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(40, 67, 95, .16);
+}
+.student-dashboard .applications-page-header > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #784d70;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+.student-dashboard .applications-page-header h1 {
+  margin: 0;
+  color: #0b1b32;
+  font-size: clamp(24px, 2.1vw, 30px);
+  line-height: 1.2;
+}
+.student-dashboard .applications-page-header p {
+  margin: 7px 0 0;
+  color: #28435f;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.student-dashboard .applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  align-items: stretch;
+  gap: 18px;
+}
+.student-dashboard .application-card {
+  min-width: 0;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  padding: 19px 20px !important;
+  border: 1px solid rgba(40, 67, 95, .15);
+  border-radius: 17px;
+  background: linear-gradient(145deg, #fff 0%, #fff 70%, rgba(132, 167, 207, .1) 100%);
+  box-shadow: 0 9px 24px rgba(11, 27, 50, .07);
+  overflow: visible;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.student-dashboard .application-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196, 140, 179, .48);
+  box-shadow: 0 14px 30px rgba(11, 27, 50, .11);
+}
+.student-dashboard .application-card::before {
+  height: 3px;
+  border-radius: 17px 17px 0 0;
+  background: linear-gradient(90deg, #c48cb3, #84a7cf, rgba(232, 201, 217, .7));
+}
+.student-dashboard .application-card-top {
+  min-width: 0;
+  gap: 12px;
+  padding: 2px 0 14px !important;
+  border-bottom-color: rgba(40, 67, 95, .12);
+}
+.student-dashboard .company-icon {
+  flex: 0 0 46px;
+  border: 1px solid rgba(196, 140, 179, .2);
+  border-radius: 13px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .24), rgba(132, 167, 207, .3));
+  font-size: 19px;
+}
+.student-dashboard .company-info { min-width: 0; }
+.student-dashboard .company-label { color: #784d70; font-size: 10px; }
+.student-dashboard .company-info h2 {
+  display: -webkit-box;
+  max-height: 2.6em;
+  overflow: hidden;
+  color: #0b1b32;
+  font-size: 18px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.student-dashboard .status-badge {
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.student-dashboard .status-badge.pending {
+  color: #28435f;
+  background: rgba(132, 167, 207, .2);
+  border-color: rgba(40, 67, 95, .18);
+}
+.student-dashboard .status-badge.pending .status-dot { background: #536f98; }
+.student-dashboard .status-badge.companyapproved,
+.student-dashboard .status-badge.collegeapproved {
+  color: #0e1a4c;
+  background: rgba(132, 167, 207, .28);
+  border-color: rgba(40, 67, 95, .19);
+}
+.student-dashboard .status-badge.companyapproved .status-dot,
+.student-dashboard .status-badge.collegeapproved .status-dot { background: #28435f; }
+.student-dashboard .status-badge.rejected,
+.student-dashboard .status-badge.companyrejected,
+.student-dashboard .status-badge.collegerejected {
+  color: #704761;
+  background: rgba(232, 201, 217, .42);
+  border-color: rgba(196, 140, 179, .4);
+}
+.student-dashboard .status-badge.rejected .status-dot,
+.student-dashboard .status-badge.companyrejected .status-dot,
+.student-dashboard .status-badge.collegerejected .status-dot { background: #784d70; }
+.student-dashboard .application-details {
+  align-items: stretch;
+  gap: 10px;
+  padding: 13px 0 !important;
+}
+.student-dashboard .detail-item {
+  min-height: 66px;
+  padding: 10px;
+  border-color: rgba(40, 67, 95, .12);
+  border-radius: 11px;
+  background: rgba(132, 167, 207, .1);
+}
+.student-dashboard .detail-icon {
+  border: 1px solid rgba(40, 67, 95, .08);
+  border-radius: 9px;
+  background: #fff;
+}
+.student-dashboard .detail-label { color: #784d70; font-size: 10px; }
+.student-dashboard .detail-item strong {
+  color: #28435f;
+  font-size: 14px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .confirmation-letter {
+  margin-top: 4px;
+  padding: 16px;
+  border-color: rgba(40, 67, 95, .14);
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgba(132, 167, 207, .12), rgba(232, 201, 217, .17));
+}
+.student-dashboard .confirmation-letter-header { gap: 11px; margin-bottom: 12px; }
+.student-dashboard .confirmation-letter-icon {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(196, 140, 179, .22);
+  border-radius: 11px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .28), rgba(132, 167, 207, .34));
+  font-size: 20px;
+}
+.student-dashboard .confirmation-letter-header h3 { color: #0b1b32; font-size: 17px; }
+.student-dashboard .confirmation-letter-header p,
+.student-dashboard .letter-date { color: #53677f; }
+.student-dashboard .confirmation-letter-paper {
+  padding: 17px;
+  border-color: rgba(40, 67, 95, .12);
+  border-radius: 11px;
+  box-shadow: 0 5px 15px rgba(11, 27, 50, .05);
+}
+.student-dashboard .letter-subject { color: #28435f; font-size: 15px; }
+.student-dashboard .letter-message { color: #0b1b32; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
+.student-dashboard .forward-letter-info {
+  border-color: rgba(196, 140, 179, .3);
+  border-radius: 10px;
+  background: rgba(232, 201, 217, .22);
+}
+.student-dashboard .forward-letter-info p { color: #28435f; }
+.student-dashboard .forward-college-button {
+  min-height: 44px;
+  border: 1px solid rgba(196, 140, 179, .25);
+  border-radius: 11px;
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  box-shadow: 0 7px 16px rgba(14, 26, 76, .12);
+}
+.student-dashboard .forward-college-button:hover:not(:disabled) {
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  box-shadow: 0 10px 20px rgba(14, 26, 76, .17);
+}
+.student-dashboard .forwarded-to-college-badge {
+  border-color: rgba(40, 67, 95, .16);
+  background: rgba(132, 167, 207, .2);
+  color: #0e1a4c;
+}
+.student-dashboard .forwarded-to-college-badge > span {
+  background: #28435f;
+  color: #fff;
+}
+.student-dashboard .forwarded-to-college-badge small { color: #53677f; }
+.student-dashboard .faculty-section {
+  margin-top: 4px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(40, 67, 95, .13);
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgba(232, 201, 217, .18), rgba(132, 167, 207, .12));
+}
+.student-dashboard .faculty-header { border-bottom-color: rgba(40, 67, 95, .12); }
+.student-dashboard .faculty-title-icon {
+  border: 1px solid rgba(196, 140, 179, .22);
+  border-radius: 10px;
+  background: rgba(196, 140, 179, .22);
+}
+.student-dashboard .faculty-header h3,
+.student-dashboard .faculty-main h4 { color: #0b1b32; }
+.student-dashboard .faculty-header p,
+.student-dashboard .faculty-main span { color: #53677f; }
+.student-dashboard .faculty-avatar {
+  background: linear-gradient(140deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+}
+.student-dashboard .faculty-details { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.student-dashboard .faculty-detail {
+  border-color: rgba(40, 67, 95, .12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .82);
+}
+.student-dashboard .faculty-detail small { color: #784d70; font-size: 9px; }
+.student-dashboard .faculty-detail strong { color: #28435f; font-size: 12px; }
+.student-dashboard .empty-applications,
+.student-dashboard .applications-loading {
+  border-color: rgba(40, 67, 95, .15);
+  border-radius: 17px;
+  background: linear-gradient(145deg, #fff, rgba(132, 167, 207, .12));
+  box-shadow: 0 10px 25px rgba(11, 27, 50, .07);
+}
+.student-dashboard .empty-icon {
+  border: 1px solid rgba(196, 140, 179, .22);
+  border-radius: 16px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .26), rgba(132, 167, 207, .35));
+}
+.student-dashboard .empty-applications h2,
+.student-dashboard .applications-loading h2 { color: #0b1b32; }
+.student-dashboard .empty-applications p,
+.student-dashboard .applications-loading p { color: #53677f; }
+.student-dashboard .applications-error {
+  border-color: rgba(196, 140, 179, .35);
+  border-radius: 12px;
+  background: rgba(232, 201, 217, .24);
+  color: #704761;
+}
+
+@media (max-width: 720px) {
+  .student-dashboard .applications-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .student-dashboard .applications-page-header { margin-bottom: 15px; padding-bottom: 12px; }
+  .student-dashboard .application-card { padding: 16px !important; }
+  .student-dashboard .application-card-top { gap: 9px; }
+  .student-dashboard .status-badge { white-space: normal; }
+  .student-dashboard .application-details { grid-template-columns: minmax(0, 1fr); }
+  .student-dashboard .faculty-details { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Compact application summaries with independent expandable details. */
+.student-dashboard .applications-list { align-items: start; }
+.student-dashboard .application-card {
+  height: auto !important;
+  align-self: start;
+  padding: 15px 18px !important;
+}
+.student-dashboard .application-card-top {
+  align-items: center;
+  gap: 12px;
+  padding: 2px 0 10px !important;
+  border-bottom: 0;
+}
+.student-dashboard .company-info h2 { margin-bottom: 3px; }
+.student-dashboard .application-position {
+  display: -webkit-box;
+  max-height: 2.8em;
+  margin: 0;
+  overflow: hidden;
+  color: #28435f;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.student-dashboard .application-card-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+.student-dashboard .application-expand-button {
+  display: inline-grid;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(40, 67, 95, .16);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(196, 140, 179, .25), rgba(132, 167, 207, .32));
+  color: #0e1a4c;
+  font: inherit;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.student-dashboard .application-expand-button span {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.student-dashboard .application-expand-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, rgba(196, 140, 179, .38), rgba(132, 167, 207, .46));
+  box-shadow: 0 5px 12px rgba(14, 26, 76, .12);
+}
+.student-dashboard .application-expand-button:focus-visible {
+  outline: 3px solid rgba(196, 140, 179, .45);
+  outline-offset: 2px;
+}
+.student-dashboard .application-card-applied {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  color: #53677f;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.student-dashboard .application-card-applied .detail-icon {
+  display: inline-grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  place-items: center;
+  border: 1px solid rgba(40, 67, 95, .1);
+  border-radius: 8px;
+  background: rgba(132, 167, 207, .13);
+  font-size: 12px;
+}
+.student-dashboard .application-expand-region {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows .32s ease, opacity .22s ease, visibility .22s linear .22s;
+}
+.student-dashboard .application-expand-region.open {
+  grid-template-rows: 1fr;
+  margin-top: 13px;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.student-dashboard .application-expand-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.student-dashboard .application-expand-content {
+  padding-top: 14px;
+  border-top: 1px solid rgba(40, 67, 95, .14);
+}
+.student-dashboard .application-expand-heading {
+  margin: 0 0 5px;
+  color: #784d70;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+.student-dashboard .application-expand-content > .application-details {
+  padding-top: 9px !important;
+}
+
+@media (max-width: 560px) {
+  .student-dashboard .application-card-top { align-items: flex-start; }
+  .student-dashboard .application-card-controls { gap: 6px; }
+  .student-dashboard .application-expand-button { width: 34px; height: 34px; flex-basis: 34px; }
+  .student-dashboard .application-card-applied { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .student-dashboard .application-expand-region,
+  .student-dashboard .application-expand-button { transition: none; }
+}
+
+/* Larger, comfortable typography only within expanded application details. */
+.student-dashboard .my-applications-page .status-badge { font-size: 14px; }
+.student-dashboard .application-expand-heading { font-size: 19px; }
+.student-dashboard .application-expand-content .detail-label {
+  margin-bottom: 4px;
+  color: #784d70;
+  font-size: 14px;
+  letter-spacing: .35px;
+}
+.student-dashboard .application-expand-content .detail-item strong {
+  color: #28435f;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.student-dashboard .application-expand-content .detail-item {
+  min-height: 72px;
+  padding: 12px;
+}
+.student-dashboard .application-expand-content .confirmation-letter-header h3,
+.student-dashboard .application-expand-content .faculty-header h3 {
+  color: #0b1b32;
+  font-size: 19px;
+  line-height: 1.3;
+}
+.student-dashboard .application-expand-content .confirmation-letter-header p,
+.student-dashboard .application-expand-content .faculty-header p {
+  color: #53677f;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.student-dashboard .application-expand-content .letter-subject {
+  color: #28435f;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .application-expand-content .letter-subject strong { font-size: 16px; }
+.student-dashboard .application-expand-content .letter-message {
+  color: #0b1b32;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .application-expand-content .letter-message p { margin-bottom: 10px; }
+.student-dashboard .application-expand-content .letter-date { font-size: 14px; line-height: 1.45; }
+.student-dashboard .application-expand-content .forward-letter-info p {
+  color: #28435f;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.student-dashboard .application-expand-content .forward-college-button {
+  min-height: 46px;
+  font-size: 15px;
+}
+.student-dashboard .application-expand-content .forwarded-to-college-badge strong {
+  color: #0e1a4c;
+  font-size: 16px;
+}
+.student-dashboard .application-expand-content .forwarded-to-college-badge small {
+  color: #53677f;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.student-dashboard .application-expand-content .faculty-main h4 {
+  color: #0b1b32;
+  font-size: 18px;
+}
+.student-dashboard .application-expand-content .faculty-main span {
+  color: #53677f;
+  font-size: 15px;
+}
+.student-dashboard .application-expand-content .faculty-detail small {
+  color: #784d70;
+  font-size: 14px;
+}
+.student-dashboard .application-expand-content .faculty-detail strong {
+  color: #28435f;
+  font-size: 16px;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

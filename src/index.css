@@ -3,6 +3,16 @@
    ===================================================== */
 
 :root {
+  --brand-navy: #20324a;
+  --brand-indigo: #526b9a;
+  --brand-blue-soft: #eaf0f8;
+  --surface-white: #ffffff;
+  --surface-soft: #f5f7fb;
+  --text-primary: #253248;
+  --text-muted: #68768b;
+  --border-soft: #dfe5ee;
+  --shadow-soft: 0 12px 32px rgba(32, 50, 74, 0.08);
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -12,8 +22,8 @@
     "Segoe UI",
     sans-serif;
 
-  color: #24382f;
-  background: #f7faf8;
+  color: var(--text-primary);
+  background: var(--surface-soft);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -34,7 +44,8 @@ body {
 }
 
 body {
-  background: #f7faf8;
+  color: var(--text-primary);
+  background: var(--surface-soft);
 }
 
 button,
@@ -1226,4 +1237,3 @@ button {
     padding: 13px;
   }
 }
-

@@ -61,6 +61,10 @@ function CompanyRegister({ onBack, onLogin }) {
   return (
     <div className="signup-page company-signup-page">
 
+      <div className="signup-brand" aria-label="InternLink">
+        <span className="signup-brand-mark">I</span>
+      </div>
+
       {/* LEFT SIDE */}
       <div className="signup-visual company-signup-visual">
 

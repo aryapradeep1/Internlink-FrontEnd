@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/StudentAttendance.css";
 
 function StudentAttendance({ student, onBack }) {
   const [assignments, setAssignments] = useState([]);
@@ -172,6 +173,7 @@ function StudentAttendance({ student, onBack }) {
 
   return (
     <div
+      className="student-attendance"
       style={{
         width: "100%",
         boxSizing: "border-box",
@@ -183,6 +185,7 @@ function StudentAttendance({ student, onBack }) {
       ================================================= */}
 
       <div
+        className="attendance-page-heading"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -293,6 +296,7 @@ function StudentAttendance({ student, onBack }) {
           }}
         >
           <div
+            className="attendance-selector-card"
             style={{
               fontSize: "38px",
               marginBottom: "12px",
@@ -412,6 +416,7 @@ function StudentAttendance({ student, onBack }) {
 
           {summary && (
             <div
+              className="attendance-summary-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns:
@@ -422,6 +427,7 @@ function StudentAttendance({ student, onBack }) {
             >
 
               <div
+                className="attendance-stat-card"
                 style={{
                   background: "#eaf8f0",
                   borderRadius: "12px",
@@ -452,6 +458,7 @@ function StudentAttendance({ student, onBack }) {
 
 
               <div
+                className="attendance-stat-card"
                 style={{
                   background: "#fff4f1",
                   borderRadius: "12px",
@@ -482,6 +489,7 @@ function StudentAttendance({ student, onBack }) {
 
 
               <div
+                className="attendance-stat-card"
                 style={{
                   background: "#f3f0ff",
                   borderRadius: "12px",
@@ -512,6 +520,7 @@ function StudentAttendance({ student, onBack }) {
 
 
               <div
+                className="attendance-stat-card"
                 style={{
                   background: "#f0f8f4",
                   borderRadius: "12px",
@@ -551,6 +560,7 @@ function StudentAttendance({ student, onBack }) {
           ================================================= */}
 
           <div
+            className="attendance-records-card"
             style={{
               background: "#ffffff",
               border: "1px solid #e2eee8",

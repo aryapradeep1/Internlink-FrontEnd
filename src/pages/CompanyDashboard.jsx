@@ -1928,49 +1928,6 @@ function CompanyDashboard({
   return (
     <div className="company-dashboard-container">
 
-      {/* TOP HEADER */}
-
-      <header className="company-topbar">
-        <div className="company-brand">
-          <div className="company-brand-mark">
-            IL
-          </div>
-
-          <div>
-            <strong>
-              InternLink
-            </strong>
-
-            <span>
-              Company Portal
-            </span>
-          </div>
-        </div>
-
-        <div className="company-topbar-right">
-          <div className="company-user-chip">
-            <div className="company-user-avatar">
-              {(
-                company?.companyName ||
-                "C"
-              )
-                .charAt(0)
-                .toUpperCase()}
-            </div>
-
-            <div>
-              <strong>
-                {company?.companyName}
-              </strong>
-
-              <span>
-                Company Account
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* MAIN WORKSPACE */}
 
       <div className="company-workspace">
@@ -1978,6 +1935,14 @@ function CompanyDashboard({
         {/* SIDEBAR */}
 
         <aside className="company-sidebar">
+
+          <div className="company-sidebar-brand">
+            <div className="company-brand-mark">IL</div>
+            <div className="company-sidebar-brand-copy">
+              <strong>InternLink</strong>
+              <span>Company Portal</span>
+            </div>
+          </div>
 
           <div className="company-sidebar-heading">
             <span>
@@ -2126,6 +2091,40 @@ function CompanyDashboard({
           </div>
         </aside>
 
+        <div className="company-main-area">
+
+        {/* TOP HEADER */}
+
+        <header className="company-topbar">
+          <div className="company-topbar-heading">
+            <span>COMPANY WORKSPACE</span>
+            <strong>Management portal</strong>
+          </div>
+
+          <div className="company-topbar-right">
+            <div className="company-user-chip">
+              <div className="company-user-avatar">
+                {(
+                  company?.companyName ||
+                  "C"
+                )
+                  .charAt(0)
+                  .toUpperCase()}
+              </div>
+
+              <div>
+                <strong>
+                  {company?.companyName}
+                </strong>
+
+                <span>
+                  Company Account
+                </span>
+              </div>
+            </div>
+          </div>
+        </header>
+
         {/* CONTENT */}
 
         <main className="company-dashboard-content">
@@ -2163,6 +2162,7 @@ function CompanyDashboard({
           )}
 
         </main>
+        </div>
       </div>
     </div>
   );

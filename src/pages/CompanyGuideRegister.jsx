@@ -158,6 +158,10 @@ function CompanyGuideRegister({
   return (
     <div className="signup-page company-guide-signup">
 
+      <div className="signup-brand" aria-label="InternLink">
+        <span className="signup-brand-mark">I</span>
+      </div>
+
       {/* Decorative background */}
       <div className="signup-orbit signup-orbit-one"></div>
       <div className="signup-orbit signup-orbit-two"></div>

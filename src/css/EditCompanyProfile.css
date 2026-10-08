@@ -663,3 +663,285 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   COMPACT COMPANY EDIT PROFILE — LOGIN/STUDENT THEME
+   Presentation only; form fields and handlers remain unchanged.
+========================================================= */
+
+.company-content-inner.company-child-page:has(.edit-company-page) {
+  box-sizing: border-box;
+  padding: 12px clamp(14px, 2vw, 28px) 16px;
+}
+
+.edit-company-page {
+  width: 100%;
+  max-width: 1420px;
+  min-height: 0;
+  padding: 0;
+  color: #0b1b32;
+}
+
+.edit-company-header {
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.edit-company-header-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border: 1px solid rgba(132, 167, 207, 0.35);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(196, 140, 179, 0.3), rgba(132, 167, 207, 0.28));
+  color: #28435f;
+  font-size: 23px;
+  box-shadow: 0 7px 17px rgba(14, 26, 76, 0.1);
+}
+
+.edit-company-eyebrow {
+  color: #784d70;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.edit-company-header h1 {
+  color: #0b1b32;
+  font-size: clamp(22px, 2vw, 26px);
+  letter-spacing: -0.5px;
+}
+
+.edit-company-header p {
+  margin-top: 4px;
+  color: #405873;
+  font-size: 14px;
+}
+
+.edit-company-workspace {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.55fr);
+  min-height: 0;
+  border: 1px solid rgba(132, 167, 207, 0.32);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 34px rgba(14, 26, 76, 0.08);
+}
+
+.edit-company-info-panel {
+  padding: 22px 20px;
+  background:
+    radial-gradient(circle at 90% 6%, rgba(196, 140, 179, 0.2), transparent 28%),
+    linear-gradient(150deg, #0e1a4c 0%, #28435f 58%, #3b5876 100%);
+}
+
+.edit-company-info-panel::after { background: rgba(132, 167, 207, 0.2); }
+
+.edit-company-info-badge {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(232, 201, 217, 0.34);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  font-size: 19px;
+}
+
+.edit-company-info-panel h2 {
+  color: #fff;
+  font-size: 21px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.edit-company-info-panel > p {
+  margin: 8px 0 16px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.edit-company-info-list { gap: 8px; }
+
+.edit-company-info-item {
+  gap: 10px;
+  padding: 9px;
+  border-color: rgba(232, 201, 217, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.edit-company-info-item > span {
+  width: 28px;
+  height: 28px;
+  flex-basis: 28px;
+  border-radius: 8px;
+  background: rgba(196, 140, 179, 0.26);
+  color: #fff;
+  font-size: 12px;
+}
+
+.edit-company-info-item strong { color: #fff; font-size: 13px; }
+.edit-company-info-item small { color: rgba(255, 255, 255, 0.82); font-size: 11px; }
+
+.edit-company-form-panel {
+  min-width: 0;
+  padding: 19px 22px 17px;
+  background: linear-gradient(135deg, #fff 0%, #fbfcfe 72%, rgba(232, 201, 217, 0.14) 100%);
+}
+
+.edit-company-form-heading {
+  padding-bottom: 11px;
+  margin-bottom: 13px;
+  border-color: rgba(132, 167, 207, 0.3);
+}
+
+.edit-company-form-heading span { margin-bottom: 3px; color: #784d70; font-size: 9px; }
+.edit-company-form-heading h2 { color: #0b1b32; font-size: 19px; }
+
+.edit-company-secure-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(132, 167, 207, 0.25);
+  border-radius: 11px;
+  background: rgba(132, 167, 207, 0.18);
+  color: #28435f;
+  font-size: 15px;
+}
+
+.edit-company-form-panel form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 14px;
+  row-gap: 11px;
+}
+
+.edit-company-field { min-width: 0; margin: 0; }
+
+.edit-company-field label {
+  margin-bottom: 5px;
+  color: #28435f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.edit-company-input-icon {
+  left: 11px;
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  background: rgba(132, 167, 207, 0.2);
+  color: #28435f;
+  font-size: 12px;
+}
+
+.edit-company-input-wrap input {
+  height: 44px;
+  padding: 0 12px 0 44px;
+  border-color: rgba(40, 67, 95, 0.25);
+  border-radius: 11px;
+  background: #fff;
+  color: #0b1b32;
+  font-size: 16px;
+}
+
+.edit-company-input-wrap input::placeholder,
+.edit-company-field textarea::placeholder { color: #526a83; opacity: 0.82; }
+
+.edit-company-input-wrap input:focus,
+.edit-company-field textarea:focus {
+  border-color: #c48cb3;
+  box-shadow: 0 0 0 3px rgba(196, 140, 179, 0.17);
+}
+
+.edit-company-field:nth-of-type(4) { grid-column: 1 / -1; }
+
+.edit-company-label-row { margin-bottom: 5px; }
+.edit-company-label-row span { color: #526a83; font-size: 11px; }
+
+.edit-company-field textarea {
+  min-height: 74px;
+  height: 74px;
+  padding: 10px 12px;
+  resize: vertical;
+  border-color: rgba(40, 67, 95, 0.25);
+  border-radius: 11px;
+  background: #fff;
+  color: #0b1b32;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.edit-company-message {
+  grid-column: 1 / -1;
+  padding: 9px 11px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.edit-company-message strong { font-size: 13px; }
+.edit-company-message p { font-size: 12px; }
+.edit-company-success { border-color: rgba(132, 167, 207, 0.35); background: rgba(132, 167, 207, 0.15); color: #28435f; }
+.edit-company-success > span { background: #84a7cf; color: #0e1a4c; }
+.edit-company-error { border-color: rgba(196, 140, 179, 0.4); background: rgba(232, 201, 217, 0.28); color: #784d70; }
+.edit-company-error > span { background: #c48cb3; color: #0e1a4c; }
+
+.edit-company-actions {
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.edit-company-cancel,
+.edit-company-save {
+  min-height: 42px;
+  padding: 0 17px;
+  border-radius: 11px;
+  font-size: 15px;
+}
+
+.edit-company-cancel {
+  border-color: rgba(40, 67, 95, 0.25);
+  background: #fff;
+  color: #28435f;
+}
+
+.edit-company-cancel:hover:not(:disabled) { background: rgba(132, 167, 207, 0.15); border-color: #84a7cf; }
+
+.edit-company-save {
+  border: 1px solid #28435f;
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  box-shadow: 0 7px 18px rgba(14, 26, 76, 0.15);
+}
+
+.edit-company-save:hover:not(:disabled) {
+  background: linear-gradient(105deg, #b87da7, #7399c5);
+  box-shadow: 0 9px 20px rgba(14, 26, 76, 0.2);
+}
+
+@media (max-width: 1000px) {
+  .edit-company-workspace { grid-template-columns: 250px minmax(0, 1fr); }
+  .edit-company-info-panel { padding: 18px 16px; }
+  .edit-company-form-panel { padding: 17px; }
+}
+
+@media (max-width: 760px) {
+  .company-content-inner.company-child-page:has(.edit-company-page) { padding: 12px 14px 20px; }
+  .edit-company-page { padding: 0; }
+  .edit-company-workspace { grid-template-columns: 1fr; }
+  .edit-company-info-panel { padding: 16px; }
+  .edit-company-info-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .edit-company-info-panel > p { margin-bottom: 10px; }
+  .edit-company-form-panel { padding: 16px; }
+}
+
+@media (max-width: 520px) {
+  .edit-company-info-list,
+  .edit-company-form-panel form { grid-template-columns: 1fr; }
+  .edit-company-field:nth-of-type(4) { grid-column: auto; }
+  .edit-company-actions { flex-direction: column-reverse; }
+  .edit-company-cancel,
+  .edit-company-save { width: 100%; }
+}

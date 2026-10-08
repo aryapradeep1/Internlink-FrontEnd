@@ -1326,3 +1326,212 @@
     font-size: 16px;
   }
 }
+
+/* Student Dashboard logbook readability, using the established Login palette. */
+.student-dashboard .logbook-page {
+  min-width: 0;
+  min-height: 0;
+  background: transparent;
+  color: #0b1b32;
+}
+.student-dashboard .logbook-scroll {
+  width: 100%;
+  padding: 0;
+  overflow: visible;
+}
+.student-dashboard .logbook-container {
+  width: min(1220px, 100%);
+  margin: 0 auto;
+}
+.student-dashboard .logbook-title { margin-bottom: 17px; }
+.student-dashboard .logbook-label {
+  margin-bottom: 6px;
+  color: #784d70;
+  font-size: 12px;
+}
+.student-dashboard .logbook-title h1 {
+  color: #0b1b32;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 27px;
+  line-height: 1.2;
+  font-weight: 750;
+}
+.student-dashboard .logbook-description {
+  max-width: 650px;
+  margin: 7px auto 12px;
+  color: #28435f;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.student-dashboard .title-line { background: rgba(40, 67, 95, .16); }
+.student-dashboard .hours-summary {
+  grid-template-columns: 180px minmax(180px, 1fr) minmax(220px, 260px);
+  gap: 16px;
+  min-height: 80px;
+  margin-bottom: 16px;
+  padding: 13px 16px;
+  border-color: rgba(40, 67, 95, .14);
+  border-radius: 13px;
+  background: linear-gradient(110deg, #fff, rgba(132, 167, 207, .11));
+  box-shadow: 0 7px 18px rgba(11, 27, 50, .05);
+}
+.student-dashboard .hours-label { color: #784d70; font-size: 12px; }
+.student-dashboard .hours-summary-main strong { color: #0e1a4c; font-size: 24px; }
+.student-dashboard .hours-summary-main small { color: #53677f; font-size: 15px; }
+.student-dashboard .hours-progress-track { height: 9px; background: rgba(40, 67, 95, .12); }
+.student-dashboard .hours-progress-fill { background: linear-gradient(90deg, #c48cb3, #84a7cf); }
+.student-dashboard .hours-progress > span { min-width: 48px; color: #28435f; font-size: 14px; }
+.student-dashboard .hours-status { gap: 3px; }
+.student-dashboard .hours-status strong { color: #0e1a4c; font-size: 15px; }
+.student-dashboard .hours-status span { color: #53677f; font-size: 13px; }
+.student-dashboard .new-entry,
+.student-dashboard .previous-logbook {
+  border-color: rgba(40, 67, 95, .14);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 9px 24px rgba(11, 27, 50, .06);
+}
+.student-dashboard .new-entry { margin-bottom: 20px; padding: 18px 20px; }
+.student-dashboard .new-entry-heading { gap: 12px; margin-bottom: 13px; }
+.student-dashboard .new-entry-icon {
+  width: 38px;
+  height: 38px;
+  border-color: rgba(196, 140, 179, .25);
+  border-radius: 11px;
+  background: linear-gradient(140deg, rgba(196, 140, 179, .26), rgba(132, 167, 207, .32));
+  color: #0e1a4c;
+  font-size: 21px;
+}
+.student-dashboard .new-entry-heading span { color: #784d70; font-size: 11px; }
+.student-dashboard .new-entry-heading h2 { color: #0b1b32; font-size: 20px; }
+.student-dashboard .logbook-message { padding: 10px 12px; border-radius: 9px; font-size: 14px; }
+.student-dashboard .logbook-message.success {
+  border-color: rgba(40, 67, 95, .18);
+  background: rgba(132, 167, 207, .17);
+  color: #0e1a4c;
+}
+.student-dashboard .logbook-message.error {
+  border-color: rgba(196, 140, 179, .4);
+  background: rgba(232, 201, 217, .28);
+  color: #704761;
+}
+.student-dashboard .logbook-form { gap: 10px; }
+.student-dashboard .logbook-form .form-row { gap: 12px; }
+.student-dashboard .logbook-page .form-field { gap: 5px; min-width: 0; }
+.student-dashboard .logbook-page .form-field label {
+  color: #28435f;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: .55px;
+}
+.student-dashboard .logbook-page .form-field input,
+.student-dashboard .logbook-page .form-field textarea {
+  width: 100%;
+  border-color: rgba(40, 67, 95, .2);
+  border-radius: 10px;
+  background: #fff;
+  color: #0b1b32;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.student-dashboard .logbook-page .form-field input { height: 44px; padding: 0 12px; }
+.student-dashboard .logbook-page .form-field textarea {
+  min-height: 104px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+.student-dashboard .logbook-page .form-field input::placeholder,
+.student-dashboard .logbook-page .form-field textarea::placeholder {
+  color: #53677f;
+  font-size: 15px;
+  opacity: 1;
+}
+.student-dashboard .logbook-page .form-field input:focus,
+.student-dashboard .logbook-page .form-field textarea:focus {
+  border-color: #c48cb3;
+  box-shadow: 0 0 0 3px rgba(196, 140, 179, .16);
+  outline: none;
+}
+.student-dashboard .hours-input span { color: #28435f; font-size: 14px; }
+.student-dashboard .form-submit {
+  align-items: center;
+  gap: 12px;
+  margin-top: 1px;
+}
+.student-dashboard .form-submit span { color: #53677f; font-size: 13px; line-height: 1.4; }
+.student-dashboard .form-submit button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgba(196, 140, 179, .25);
+  border-radius: 11px;
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  color: #0e1a4c;
+  font-size: 15px;
+  font-weight: 750;
+  box-shadow: 0 7px 17px rgba(14, 26, 76, .13);
+}
+.student-dashboard .form-submit button:hover:not(:disabled) {
+  background: linear-gradient(105deg, #c48cb3, #84a7cf);
+  box-shadow: 0 10px 21px rgba(14, 26, 76, .18);
+}
+.student-dashboard .entries-heading { margin-bottom: 14px; }
+.student-dashboard .entries-heading > div:first-child span { color: #784d70; font-size: 11px; }
+.student-dashboard .entries-heading h2 { color: #0b1b32; font-size: 22px; }
+.student-dashboard .entry-total { color: #0e1a4c; font-size: 19px; }
+.student-dashboard .entry-total small { color: #53677f; font-size: 10px; }
+.student-dashboard .previous-logbook { padding: 18px 20px; }
+.student-dashboard .book-pages { gap: 14px; }
+.student-dashboard .diary-page {
+  border-color: rgba(40, 67, 95, .15);
+  border-radius: 14px;
+  background: linear-gradient(140deg, #fff, rgba(132, 167, 207, .09));
+  box-shadow: 0 7px 19px rgba(11, 27, 50, .06);
+}
+.student-dashboard .diary-date span { color: #784d70; font-size: 12px; }
+.student-dashboard .diary-date strong { color: #0e1a4c; font-size: 29px; }
+.student-dashboard .diary-date small { color: #53677f; font-size: 12px; }
+.student-dashboard .diary-title span { color: #784d70; font-size: 11px; }
+.student-dashboard .diary-title h3 { color: #0b1b32; font-size: 21px; }
+.student-dashboard .diary-hours strong { color: #0e1a4c; font-size: 22px; }
+.student-dashboard .diary-hours span { color: #53677f; font-size: 11px; }
+.student-dashboard .diary-divider { background: rgba(40, 67, 95, .15); }
+.student-dashboard .diary-section-heading h4 { color: #0b1b32; font-size: 18px; }
+.student-dashboard .diary-marker { color: #0e1a4c; font-size: 11px; }
+.student-dashboard .diary-section p {
+  color: #28435f;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.student-dashboard .diary-review span { color: #784d70; font-size: 10px; }
+.student-dashboard .diary-review strong { color: #28435f; font-size: 14px; }
+.student-dashboard .diary-page-number { color: #53677f; font-size: 14px; }
+.student-dashboard .no-entries,
+.student-dashboard .logbook-loading,
+.student-dashboard .logbook-empty-state {
+  border-color: rgba(40, 67, 95, .15);
+  border-radius: 14px;
+  background: linear-gradient(140deg, #fff, rgba(132, 167, 207, .1));
+}
+.student-dashboard .no-entries h3,
+.student-dashboard .logbook-loading h2,
+.student-dashboard .logbook-empty-state h2 { color: #0b1b32; font-size: 20px; }
+.student-dashboard .no-entries p,
+.student-dashboard .logbook-loading p,
+.student-dashboard .logbook-empty-state p { color: #53677f; font-size: 14px; line-height: 1.5; }
+
+@media (max-width: 800px) {
+  .student-dashboard .hours-summary { grid-template-columns: minmax(130px, .7fr) minmax(0, 1fr); }
+  .student-dashboard .hours-status { grid-column: 1 / -1; }
+  .student-dashboard .diary-review { gap: 12px; }
+}
+@media (max-width: 600px) {
+  .student-dashboard .logbook-title h1 { font-size: 25px; }
+  .student-dashboard .hours-summary { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .student-dashboard .hours-status { grid-column: auto; }
+  .student-dashboard .new-entry,
+  .student-dashboard .previous-logbook { padding: 15px; }
+  .student-dashboard .logbook-page .form-row { grid-template-columns: minmax(0, 1fr); }
+  .student-dashboard .diary-section p { font-size: 15px; }
+  .student-dashboard .diary-review strong { font-size: 13px; }
+}

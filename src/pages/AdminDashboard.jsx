@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/AdminDashboard.css";
 
 function AdminDashboard({
   admin,
   onLogout,
   onChangePassword,
+  children,
 }) {
+  const adminContentRef = useRef(null);
+
   const [pendingCompanies, setPendingCompanies] =
     useState([]);
 
@@ -25,6 +28,18 @@ function AdminDashboard({
     useState("");
 
   const [loading, setLoading] = useState(true);
+
+  const resetAdminContentScroll = () => {
+    const content = adminContentRef.current;
+    if (!content) return;
+
+    const { overflowY } = window.getComputedStyle(content);
+    if (overflowY === "auto" || overflowY === "scroll") {
+      content.scrollTop = 0;
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  };
 
   // ======================================================
   // FETCH ADMIN DATA
@@ -112,6 +127,23 @@ function AdminDashboard({
 
   useEffect(() => {
     fetchAdminData();
+  }, []);
+
+  useEffect(() => {
+    if (!loading || children) {
+      resetAdminContentScroll();
+    }
+  }, [loading, children]);
+
+  useEffect(() => {
+    const resetAfterSectionNavigation = () => {
+      window.setTimeout(resetAdminContentScroll, 0);
+    };
+
+    window.addEventListener("hashchange", resetAfterSectionNavigation);
+    return () => {
+      window.removeEventListener("hashchange", resetAfterSectionNavigation);
+    };
   }, []);
 
   // ======================================================
@@ -298,7 +330,7 @@ function AdminDashboard({
   // LOADING
   // ======================================================
 
-  if (loading) {
+  if (loading && !children) {
     return (
       <div className="admin-loading-screen">
 
@@ -363,7 +395,7 @@ function AdminDashboard({
 
           <a
             href="#admin-overview"
-            className="admin-nav-item active"
+            className="admin-nav-item"
           >
             <span className="admin-nav-icon">
               ◇
@@ -375,7 +407,7 @@ function AdminDashboard({
           </a>
 
           <a
-            href="#company-management"
+            href="#admin-companies"
             className="admin-nav-item"
           >
             <span className="admin-nav-icon">
@@ -386,13 +418,10 @@ function AdminDashboard({
               Companies
             </span>
 
-            <span className="nav-count">
-              {pendingCompanies.length}
-            </span>
           </a>
 
           <a
-            href="#college-management"
+            href="#admin-colleges"
             className="admin-nav-item"
           >
             <span className="admin-nav-icon">
@@ -403,17 +432,11 @@ function AdminDashboard({
               Colleges
             </span>
 
-            <span className="nav-count college-count">
-              {pendingColleges.length}
-            </span>
           </a>
 
-          <a
-            href="#company-management"
-            className="admin-nav-item"
-          >
-            
-
+          <a href="#admin-requests" className="admin-nav-item">
+            <span className="admin-nav-icon">◷</span>
+            <span>Pending Requests</span>
           </a>
 
         </nav>
@@ -421,6 +444,8 @@ function AdminDashboard({
         {/* SIDEBAR BOTTOM */}
 
         <div className="sidebar-bottom">
+
+          <div className="sidebar-label account-label">ACCOUNT</div>
 
           <div className="admin-user">
 
@@ -448,7 +473,8 @@ function AdminDashboard({
 
           <div className="sidebar-divider"></div>
 
-          <button
+          <a
+            href="#admin-change-password"
             className="sidebar-action"
             onClick={onChangePassword}
           >
@@ -456,7 +482,7 @@ function AdminDashboard({
             <span>
               Change Password
             </span>
-          </button>
+          </a>
 
           <button
             className="sidebar-action logout-action"
@@ -476,7 +502,12 @@ function AdminDashboard({
           MAIN CONTENT
       ================================================== */}
 
-      <main className="admin-main">
+      <main className="admin-main" ref={adminContentRef}>
+        <header className="admin-topbar">
+          <div className="admin-topbar-heading"><span>INTERNLINK / ADMIN</span><strong>Administration workspace</strong></div>
+          <div className="admin-topbar-user"><span className="topbar-avatar">{admin?.name ? admin.name.charAt(0).toUpperCase() : "A"}</span><span><strong>{admin?.name || "Admin"}</strong><small>Administrator</small></span></div>
+        </header>
+        {children && <section id="admin-change-password" className="admin-integrated-page">{children}</section>}
 
         {/* ==================================================
             OVERVIEW
@@ -486,113 +517,68 @@ function AdminDashboard({
           id="admin-overview"
           className="admin-overview"
         >
-
-          <div className="overview-heading">
-
-            <div>
-
-              <span className="section-eyebrow">
-                ADMINISTRATION
-              </span>
-
-              <h1>
-                Admin Dashboard
-              </h1>
-
-              {admin?.name && (
-                <p>
-                  Welcome,{" "}
-                  <strong>
-                    {admin.name}
-                  </strong>
-                  . Manage the InterLink
-                  platform from one place.
-                </p>
-              )}
-
+          <div className="admin-welcome-hero">
+            <div className="hero-copy">
+              <span className="hero-kicker"><span></span> INTERNLINK · ADMIN WORKSPACE</span>
+              <p className="hero-greeting">Welcome back{admin?.name ? `, ${admin.name}` : ", Admin"}</p>
+              <h1>Building a <em>trusted internship ecosystem.</em></h1>
+              <p className="hero-description">Manage the institutions and organizations that make a structured FYUGP internship experience possible.</p>
+              <div className="hero-signature"><span className="signature-mark">✦</span><span>One connected platform for students, colleges, faculty and employers.</span></div>
             </div>
 
+            <div className="ecosystem-art" aria-hidden="true">
+              <div className="art-glow art-glow-one"></div>
+              <div className="art-glow art-glow-two"></div>
+              <div className="art-ring ring-outer"></div>
+              <div className="art-ring ring-inner"></div>
+              <span className="art-connection connection-a"></span>
+              <span className="art-connection connection-b"></span>
+              <span className="art-connection connection-c"></span>
+              <span className="art-connection connection-d"></span>
+              <div className="ecosystem-hub"><span className="hub-logo">IL</span><small>INTERNLINK</small><strong>Where opportunity<br />finds direction</strong></div>
+              <div className="ecosystem-node node-campus"><span className="node-symbol">⌂</span><span><strong>Campus</strong><small>Institutions</small></span></div>
+              <div className="ecosystem-node node-industry"><span className="node-symbol">▦</span><span><strong>Industry</strong><small>Organizations</small></span></div>
+              <div className="ecosystem-node node-students"><span className="node-symbol">✧</span><span><strong>Students</strong><small>Future talent</small></span></div>
+              <div className="ecosystem-node node-faculty"><span className="node-symbol">◌</span><span><strong>Faculty</strong><small>Guidance</small></span></div>
+              <div className="art-caption"><span></span> A connected learning journey</div>
+            </div>
           </div>
 
-          {/* SUMMARY CARDS */}
-
-          <div className="admin-summary">
-
-            <div className="summary-card pending-summary">
-
-              <div className="summary-icon">
-                ⏳
-              </div>
-
-              <div>
-                <span>
-                  Pending Companies
-                </span>
-
-                <strong>
-                  {pendingCompanies.length}
-                </strong>
-              </div>
-
+          <section className="admin-role-section">
+            <div className="role-heading"><span className="section-eyebrow">YOUR ROLE IN INTERNLINK</span><h2>Make every connection count.</h2><p>Thoughtful administration creates a dependable foundation for meaningful internship experiences.</p></div>
+            <div className="admin-principles">
+              <article className="admin-principle-card"><span className="principle-mark">✓</span><div><h3>Verify with care</h3><p>Help students engage with credible organizations and institutions.</p></div></article>
+              <article className="admin-principle-card"><span className="principle-mark">↔</span><div><h3>Connect the ecosystem</h3><p>Keep academic partners and internship providers working together.</p></div></article>
+              <article className="admin-principle-card"><span className="principle-mark">✦</span><div><h3>Enable progress</h3><p>Support a clear, structured journey from learning to experience.</p></div></article>
             </div>
+          </section>
 
-            <div className="summary-card approved-summary">
-
-              <div className="summary-icon">
-                ✓
-              </div>
-
-              <div>
-                <span>
-                  Approved Companies
-                </span>
-
-                <strong>
-                  {approvedCompanies.length}
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="summary-card college-summary">
-
-              <div className="summary-icon">
-                ◈
-              </div>
-
-              <div>
-                <span>
-                  Pending Colleges
-                </span>
-
-                <strong>
-                  {pendingColleges.length}
-                </strong>
-              </div>
-
-            </div>
-
-            <div className="summary-card approved-college-summary">
-
-              <div className="summary-icon">
-                ✓
-              </div>
-
-              <div>
-                <span>
-                  Approved Colleges
-                </span>
-
-                <strong>
-                  {approvedColleges.length}
-                </strong>
-              </div>
-
-            </div>
-
-          </div>
+          <div className="platform-statement"><span className="statement-rule"></span><div><strong>One platform. A connected internship ecosystem.</strong><p>InternLink brings the people and institutions behind student opportunity into one trusted space.</p></div><span className="statement-spark">✦</span></div>
 
         </section>
+
+        <section id="admin-requests" className="management-section pending-requests-page">
+          <div className="management-section-heading">
+            <span className="section-eyebrow">REVIEW QUEUE</span>
+            <h2>Pending Requests</h2>
+            <p>Review company and college registrations awaiting verification.</p>
+          </div>
+          <details id="pending-requests-disclosure" className="pending-requests-box">
+            <summary><span><strong>Organization requests</strong><small>Open the queue to review and respond to submissions</small></span><span className="request-count">{pendingCompanies.length + pendingColleges.length}</span><span className="request-chevron">⌄</span></summary>
+            <div className="pending-request-content">
+              <div className="pending-request-group">
+                <h3>Company requests <span>{filteredPendingCompanies.length}</span></h3>
+                {filteredPendingCompanies.length === 0 ? <p className="request-empty">No company registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingCompanies.map((company) => <article className="request-row" key={company._id}><div><strong>{company.companyName}</strong><span>{company.email} · {company.location || "Location not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCompany(company._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCompany(company._id)}>× Reject</button></div></article>)}</div>}
+              </div>
+              <div className="pending-request-group">
+                <h3>College requests <span>{filteredPendingColleges.length}</span></h3>
+                {filteredPendingColleges.length === 0 ? <p className="request-empty">No college registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingColleges.map((college) => <article className="request-row" key={college._id}><div><strong>{college.collegeName}</strong><span>{college.email} · {college.location || "Location not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCollege(college._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCollege(college._id)}>× Reject</button></div></article>)}</div>}
+              </div>
+            </div>
+          </details>
+        </section>
+
+
 
 
         {/* ==================================================
@@ -600,7 +586,7 @@ function AdminDashboard({
         ================================================== */}
 
         <section
-          id="company-management"
+          id="admin-companies"
           className="management-section"
         >
 
@@ -618,12 +604,11 @@ function AdminDashboard({
                 </span>
 
                 <h2>
-                  Company Management
+                  Verified Companies
                 </h2>
 
                 <p>
-                  Review and manage companies
-                  registered on InterLink.
+                  Organizations approved to participate in the InternLink internship ecosystem.
                 </p>
 
               </div>
@@ -636,159 +621,6 @@ function AdminDashboard({
 
 
             <div className="management-content">
-
-              {/* ==================================================
-                  PENDING COMPANIES
-              ================================================== */}
-
-              <div className="subsection-block">
-
-                <div className="subsection-title">
-
-                  <div className="subsection-title-left">
-
-                    <span className="status-dot pending"></span>
-
-                    <h3>
-                      Pending Company Registrations
-                    </h3>
-
-                    <span className="section-number pending-number">
-                      {filteredPendingCompanies.length}
-                    </span>
-
-                  </div>
-
-                </div>
-
-
-                {filteredPendingCompanies.length === 0 ? (
-
-                  <div className="empty-state">
-
-                    <div className="empty-icon">
-                      ✓
-                    </div>
-
-                    <h4>
-                      No pending companies
-                    </h4>
-
-                    <p>
-                      There are no company
-                      registrations waiting
-                      for approval.
-                    </p>
-
-                  </div>
-
-                ) : (
-
-                  <div className="company-grid">
-
-                    {filteredPendingCompanies.map(
-                      (company) => (
-
-                        <div
-                          className="organization-card"
-                          key={company._id}
-                        >
-
-                          <div className="organization-card-top">
-
-                            <div className="organization-avatar company-avatar">
-                              {company.companyName
-                                ?.charAt(0)
-                                ?.toUpperCase() || "C"}
-                            </div>
-
-                            <div>
-
-                              <h3>
-                                {company.companyName}
-                              </h3>
-
-                              <span className="pending-badge">
-                                Pending
-                              </span>
-
-                            </div>
-
-                          </div>
-
-
-                          <div className="organization-details">
-
-                            <p>
-                              <strong>
-                                Email:
-                              </strong>{" "}
-                              {company.email}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Location:
-                              </strong>{" "}
-                              {company.location ||
-                                "Not provided"}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Description:
-                              </strong>{" "}
-                              {company.description ||
-                                "Not provided"}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Status:
-                              </strong>{" "}
-                              {company.status}
-                            </p>
-
-                          </div>
-
-
-                          <div className="organization-actions">
-
-                            <button
-                              className="approve-button"
-                              onClick={() =>
-                                handleApproveCompany(
-                                  company._id
-                                )
-                              }
-                            >
-                              ✓ Approve
-                            </button>
-
-                            <button
-                              className="reject-button"
-                              onClick={() =>
-                                handleRejectCompany(
-                                  company._id
-                                )
-                              }
-                            >
-                              × Reject
-                            </button>
-
-                          </div>
-
-                        </div>
-
-                      )
-                    )}
-
-                  </div>
-
-                )}
-
-              </div>
-
 
               {/* ==================================================
                   APPROVED COMPANIES
@@ -916,136 +748,7 @@ function AdminDashboard({
                                 "Not provided"}
                             </p>
 
-                            <p>
-                              <strong>
-                                Internships Posted:
-                              </strong>{" "}
-                              {company.internships?.length ||
-                                0}
-                            </p>
-
                           </div>
-
-
-                          {/* ==================================================
-                              POSTED INTERNSHIPS
-                          ================================================== */}
-
-                          {company.internships &&
-                            company.internships.length >
-                              0 && (
-
-                              <div className="internship-section">
-
-                                <div className="internship-section-header">
-
-                                  <h4>
-                                    Posted Internships
-                                  </h4>
-
-                                  <span>
-                                    {company.internships.length}
-                                  </span>
-
-                                </div>
-
-
-                                <div className="internship-list">
-
-                                  {company.internships.map(
-                                    (
-                                      internship,
-                                      index
-                                    ) => (
-
-                                      <div
-                                        className="internship-card"
-                                        key={
-                                          internship._id ||
-                                          index
-                                        }
-                                      >
-
-                                        <div className="internship-card-heading">
-
-                                          <div className="internship-icon">
-                                            ✦
-                                          </div>
-
-                                          <div>
-
-                                            <strong>
-                                              {internship.position ||
-                                                "Not provided"}
-                                            </strong>
-
-                                            <span>
-                                              Internship
-                                            </span>
-
-                                          </div>
-
-                                        </div>
-
-
-                                        <div className="internship-info-grid">
-
-                                          <div>
-                                            <label>
-                                              Eligibility
-                                            </label>
-
-                                            <p>
-                                              {internship.eligibility ||
-                                                "Not provided"}
-                                            </p>
-                                          </div>
-
-                                          <div>
-                                            <label>
-                                              Skills Required
-                                            </label>
-
-                                            <p>
-                                              {internship.skillsRequired ||
-                                                "Not provided"}
-                                            </p>
-                                          </div>
-
-                                          <div>
-                                            <label>
-                                              Duration
-                                            </label>
-
-                                            <p>
-                                              {internship.duration ||
-                                                "Not provided"}
-                                            </p>
-                                          </div>
-
-                                          <div>
-                                            <label>
-                                              Deadline
-                                            </label>
-
-                                            <p>
-                                              {internship.deadline ||
-                                                "Not provided"}
-                                            </p>
-                                          </div>
-
-                                        </div>
-
-                                      </div>
-
-                                    )
-                                  )}
-
-                                </div>
-
-                              </div>
-
-                            )}
 
                         </div>
 
@@ -1064,18 +767,18 @@ function AdminDashboard({
 
         </section>
 
-
         {/* ==================================================
             COLLEGE MANAGEMENT
         ================================================== */}
 
         <section
-          id="college-management"
+          id="admin-colleges"
           className="management-section"
         >
 
           <details
             className="management-details"
+            open
           >
 
             <summary className="management-summary">
@@ -1087,12 +790,11 @@ function AdminDashboard({
                 </span>
 
                 <h2>
-                  College Management
+                  Verified Colleges
                 </h2>
 
                 <p>
-                  Review and manage registered
-                  FYUGP colleges.
+                  Institutions approved to participate in the InternLink platform.
                 </p>
 
               </div>
@@ -1105,174 +807,6 @@ function AdminDashboard({
 
 
             <div className="management-content">
-
-              {/* ==================================================
-                  PENDING COLLEGES
-              ================================================== */}
-
-              <div className="subsection-block">
-
-                <div className="subsection-title">
-
-                  <div className="subsection-title-left">
-
-                    <span className="status-dot pending"></span>
-
-                    <h3>
-                      Pending College Registrations
-                    </h3>
-
-                    <span className="section-number pending-number">
-                      {filteredPendingColleges.length}
-                    </span>
-
-                  </div>
-
-                </div>
-
-
-                {filteredPendingColleges.length === 0 ? (
-
-                  <div className="empty-state">
-
-                    <div className="empty-icon">
-                      ✓
-                    </div>
-
-                    <h4>
-                      No pending colleges
-                    </h4>
-
-                    <p>
-                      There are no college
-                      registrations waiting
-                      for approval.
-                    </p>
-
-                  </div>
-
-                ) : (
-
-                  <div className="college-grid">
-
-                    {filteredPendingColleges.map(
-                      (college) => (
-
-                        <div
-                          className="organization-card"
-                          key={college._id}
-                        >
-
-                          <div className="organization-card-top">
-
-                            <div className="organization-avatar college-avatar">
-                              {college.collegeName
-                                ?.charAt(0)
-                                ?.toUpperCase() || "C"}
-                            </div>
-
-                            <div>
-
-                              <h3>
-                                {college.collegeName}
-                              </h3>
-
-                              <span className="pending-badge">
-                                Pending
-                              </span>
-
-                            </div>
-
-                          </div>
-
-
-                          <div className="organization-details">
-
-                            <p>
-                              <strong>
-                                College Code:
-                              </strong>{" "}
-                              {college.collegeCode}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Email:
-                              </strong>{" "}
-                              {college.email}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Phone:
-                              </strong>{" "}
-                              {college.phone ||
-                                "Not provided"}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Location:
-                              </strong>{" "}
-                              {college.location ||
-                                "Not provided"}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Website:
-                              </strong>{" "}
-                              {college.website ||
-                                "Not provided"}
-                            </p>
-
-                            <p>
-                              <strong>
-                                Status:
-                              </strong>{" "}
-                              {college.status}
-                            </p>
-
-                          </div>
-
-
-                          <div className="organization-actions">
-
-                            <button
-                              className="approve-button"
-                              onClick={() =>
-                                handleApproveCollege(
-                                  college._id
-                                )
-                              }
-                            >
-                              ✓ Approve
-                            </button>
-
-                            <button
-                              className="reject-button"
-                              onClick={() =>
-                                handleRejectCollege(
-                                  college._id
-                                )
-                              }
-                            >
-                              × Reject
-                            </button>
-
-                          </div>
-
-                        </div>
-
-                      )
-                    )}
-
-                  </div>
-
-                )}
-
-              </div>
-
 
               {/* ==================================================
                   APPROVED COLLEGES

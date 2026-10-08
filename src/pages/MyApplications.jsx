@@ -8,6 +8,8 @@ function MyApplications({ student, onBack }) {
 
   const [forwardingApplicationId, setForwardingApplicationId] =
     useState(null);
+  const [expandedApplications, setExpandedApplications] =
+    useState({});
 
   // =====================================================
   // FETCH APPLICATIONS
@@ -146,6 +148,12 @@ function MyApplications({ student, onBack }) {
     <div className="my-applications-page">
       <div className="applications-content">
 
+        <div className="applications-page-header">
+          <span>STUDENT WORKSPACE</span>
+          <h1>My Applications</h1>
+          <p>Track your internship applications and monitor their progress in one place.</p>
+        </div>
+
         {/* ERROR */}
 
         {error && (
@@ -201,7 +209,11 @@ function MyApplications({ student, onBack }) {
               {applications.map(
                 (application) => (
                   <div
-                    className="application-card"
+                    className={`application-card ${
+                      expandedApplications[application._id]
+                        ? "expanded"
+                        : ""
+                    }`}
                     key={application._id}
                   >
 
@@ -226,22 +238,66 @@ function MyApplications({ student, onBack }) {
                             "Company"}
                         </h2>
 
+                        <p className="application-position">
+                          {application.position}
+                        </p>
+
                       </div>
 
-                      <div
-                        className={`status-badge ${
-                          application.status
-                            ?.toLowerCase() ||
-                          "pending"
-                        }`}
-                      >
-                        <span className="status-dot"></span>
+                      <div className="application-card-controls">
+                        <div
+                          className={`status-badge ${
+                            application.status
+                              ?.toLowerCase() ||
+                            "pending"
+                          }`}
+                        >
+                          <span className="status-dot"></span>
 
-                        {application.status ||
-                          "Pending"}
+                          {application.status ||
+                            "Pending"}
+                        </div>
+
+                        <button
+                          type="button"
+                          className="application-expand-button"
+                          aria-expanded={Boolean(
+                            expandedApplications[application._id]
+                          )}
+                          aria-label={`${expandedApplications[application._id] ? "Collapse" : "Expand"} application details for ${application.company?.companyName || "Company"}`}
+                          onClick={() =>
+                            setExpandedApplications((currentApplications) => ({
+                              ...currentApplications,
+                              [application._id]: !currentApplications[application._id],
+                            }))
+                          }
+                        >
+                          <span aria-hidden="true">
+                            {expandedApplications[application._id] ? "⌃" : "⌄"}
+                          </span>
+                        </button>
                       </div>
 
                     </div>
+
+                    <div className="application-card-applied">
+                      <span className="detail-icon" aria-hidden="true">📅</span>
+                      <span>
+                        Applied {application.createdAt
+                          ? new Date(application.createdAt).toLocaleDateString()
+                          : "N/A"}
+                      </span>
+                    </div>
+
+                    <div
+                      className={`application-expand-region ${
+                        expandedApplications[application._id] ? "open" : ""
+                      }`}
+                      aria-hidden={!expandedApplications[application._id]}
+                    >
+                      <div className="application-expand-inner">
+                        <div className="application-expand-content">
+                          <p className="application-expand-heading">Application details</p>
 
                     {/* APPLICATION DETAILS */}
 
@@ -604,6 +660,10 @@ function MyApplications({ student, onBack }) {
 
                       </div>
                     )}
+
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
                 )

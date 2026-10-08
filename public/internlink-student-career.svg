@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 500" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Student internship journey</title>
+  <desc id="description">A student works at a laptop while an academic campus connects to a company and a career opportunity.</desc>
+  <defs>
+    <linearGradient id="panel" x1="102" y1="68" x2="644" y2="432" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8C9D9" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#84A7CF" stop-opacity=".38"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="307" y1="264" x2="449" y2="354" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8C9D9"/><stop offset="1" stop-color="#84A7CF"/>
+    </linearGradient>
+    <linearGradient id="path" x1="126" y1="220" x2="610" y2="244" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C48CB3"/><stop offset=".52" stop-color="#E8C9D9"/><stop offset="1" stop-color="#84A7CF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="cardShadow" x="-25%" y="-25%" width="160%" height="165%" color-interpolation-filters="sRGB" filterUnits="objectBoundingBox">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0B1B32" flood-opacity=".18"/>
+    </filter>
+  </defs>
+
+  <circle cx="372" cy="243" r="194" fill="url(#panel)" opacity=".6"/>
+  <circle cx="372" cy="243" r="174" stroke="#fff" stroke-opacity=".42" stroke-width="1.5"/>
+  <circle cx="372" cy="243" r="145" stroke="#0E1A4C" stroke-opacity=".13" stroke-width="1.5" stroke-dasharray="3 8"/>
+  <path d="M126 224C204 119 297 119 369 224c66 96 151 103 231-7" stroke="url(#path)" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10"/>
+
+  <!-- Academic partner -->
+  <g filter="url(#cardShadow)">
+    <rect x="42" y="139" width="158" height="118" rx="20" fill="#fff" fill-opacity=".96"/>
+    <rect x="56" y="153" width="42" height="42" rx="13" fill="#E8C9D9"/>
+    <path d="m64 168 13-7 13 7-13 7-13-7Z" fill="#0E1A4C"/>
+    <path d="M68 171v8c5 4 13 4 18 0v-8m5-3v10" stroke="#0E1A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62 208h117" stroke="#0E1A4C" stroke-opacity=".1"/>
+    <text x="56" y="224" fill="#0B1B32" font-family="Inter,Segoe UI,sans-serif" font-size="12" font-weight="700">ACADEMIC FOUNDATION</text>
+    <text x="56" y="241" fill="#28435F" font-family="Inter,Segoe UI,sans-serif" font-size="10">Learn · prepare · discover</text>
+  </g>
+
+  <!-- Company partner -->
+  <g filter="url(#cardShadow)">
+    <rect x="520" y="111" width="158" height="118" rx="20" fill="#fff" fill-opacity=".96"/>
+    <rect x="534" y="125" width="42" height="42" rx="13" fill="#84A7CF" fill-opacity=".42"/>
+    <path d="M545 157v-17h20v17m-24 0h28m-20-12h2m6 0h2m-10 6h2m6 0h2" stroke="#0E1A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M540 180h117" stroke="#0E1A4C" stroke-opacity=".1"/>
+    <text x="534" y="196" fill="#0B1B32" font-family="Inter,Segoe UI,sans-serif" font-size="12" font-weight="700">COMPANY EXPERIENCE</text>
+    <text x="534" y="213" fill="#28435F" font-family="Inter,Segoe UI,sans-serif" font-size="10">Practice · contribute · grow</text>
+  </g>
+
+  <!-- Career destination -->
+  <g filter="url(#cardShadow)">
+    <rect x="533" y="311" width="145" height="86" rx="18" fill="#0E1A4C" fill-opacity=".96"/>
+    <circle cx="558" cy="341" r="13" fill="#C48CB3"/>
+    <path d="m552 341 4 4 8-9" stroke="#0E1A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="580" y="338" fill="#fff" font-family="Inter,Segoe UI,sans-serif" font-size="11" font-weight="700">CAREER</text>
+    <text x="580" y="354" fill="#E8C9D9" font-family="Inter,Segoe UI,sans-serif" font-size="9">Confidence in action</text>
+    <path d="M550 374h111" stroke="#E8C9D9" stroke-opacity=".2"/>
+    <circle cx="555" cy="385" r="3" fill="#C48CB3"/><circle cx="569" cy="385" r="3" fill="#E8C9D9"/><circle cx="583" cy="385" r="3" fill="#84A7CF"/>
+    <path d="M592 385h57" stroke="#84A7CF" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Student workspace -->
+  <ellipse cx="365" cy="406" rx="173" ry="22" fill="#0B1B32" opacity=".12" filter="url(#shadow)"/>
+  <path d="M211 389h309l-19 15H226l-15-15Z" fill="#0E1A4C"/>
+  <path d="M227 388h276" stroke="#84A7CF" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Laptop -->
+  <path d="M309 258c0-6 5-11 11-11h103c6 0 11 5 11 11v79H309v-79Z" fill="#0B1B32"/>
+  <rect x="318" y="257" width="107" height="70" rx="4" fill="url(#screen)"/>
+  <rect x="331" y="269" width="29" height="29" rx="9" fill="#0E1A4C"/>
+  <path d="m339 284 5-9 5 9m-8-3h6m-8 9h10" stroke="#E8C9D9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="368" y="273" width="43" height="5" rx="2.5" fill="#0E1A4C" fill-opacity=".75"/>
+  <rect x="368" y="284" width="33" height="4" rx="2" fill="#28435F" fill-opacity=".65"/>
+  <rect x="331" y="309" width="80" height="8" rx="4" fill="#fff" fill-opacity=".72"/>
+  <path d="M297 337h159l17 50H282l15-50Z" fill="#28435F"/>
+  <path d="M355 344h44" stroke="#84A7CF" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Student figure, shown working at the internship workspace -->
+  <path d="M264 291c1-34 22-55 52-55 25 0 43 17 48 43l-11 29h-80l-9-17Z" fill="#0B1B32"/>
+  <path d="M286 266c3-18 17-29 34-27 17 2 26 15 25 33l-8 28h-41l-10-34Z" fill="#C48CB3"/>
+  <path d="M291 269c4-17 18-27 31-25 12 1 20 10 22 22-15-8-34-9-53 3Z" fill="#0B1B32"/>
+  <path d="M300 283c3-3 7-3 10 0m12 0c3-3 7-3 10 0" stroke="#0B1B32" stroke-width="2" stroke-linecap="round"/>
+  <path d="M310 296c4 3 9 3 13 0" stroke="#0E1A4C" stroke-width="2" stroke-linecap="round"/>
+  <path d="M275 316c9-13 21-19 36-19 22 0 37 13 44 31l9 59h-99l10-71Z" fill="#84A7CF"/>
+  <path d="M284 323c-18 8-30 20-41 37l26 9 26-25m54-18c15 6 25 15 39 27l-20 16-29-21" fill="#C48CB3"/>
+  <path d="M301 313c6 8 15 12 25 11" stroke="#E8C9D9" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Opportunity marker -->
+  <circle cx="460" cy="223" r="24" fill="#0E1A4C" fill-opacity=".95"/>
+  <circle cx="460" cy="223" r="17" fill="#C48CB3"/>
+  <path d="M453 223h14m-7-7v14" stroke="#0E1A4C" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Progress journey -->
+  <g filter="url(#cardShadow)">
+    <rect x="55" y="321" width="169" height="75" rx="17" fill="#fff" fill-opacity=".96"/>
+    <text x="70" y="342" fill="#28435F" font-family="Inter,Segoe UI,sans-serif" font-size="9" font-weight="700" letter-spacing="1">YOUR JOURNEY</text>
+    <circle cx="76" cy="365" r="7" fill="#C48CB3"/><circle cx="130" cy="365" r="7" fill="#E8C9D9"/><circle cx="184" cy="365" r="7" fill="#84A7CF"/>
+    <path d="M83 365h40m14 0h40" stroke="#28435F" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+    <text x="67" y="384" fill="#0B1B32" font-family="Inter,Segoe UI,sans-serif" font-size="8">Learn</text>
+    <text x="116" y="384" fill="#0B1B32" font-family="Inter,Segoe UI,sans-serif" font-size="8">Experience</text>
+    <text x="176" y="384" fill="#0B1B32" font-family="Inter,Segoe UI,sans-serif" font-size="8">Grow</text>
+  </g>
+
+  <circle cx="265" cy="115" r="4" fill="#E8C9D9"/><circle cx="473" cy="132" r="3" fill="#84A7CF"/><circle cx="494" cy="293" r="4" fill="#C48CB3"/><circle cx="246" cy="285" r="3" fill="#84A7CF"/>
+</svg>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "../css/StudentDashboard.css";
 
 function StudentDashboard({
@@ -15,6 +15,12 @@ function StudentDashboard({
   activeSection,
   children,
 }) {
+  const studentContentRef = useRef(null);
+
+  useEffect(() => {
+    studentContentRef.current?.scrollTo({ top: 0, behavior: "auto" });
+  }, [activeSection]);
+
   return (
     <div className="student-dashboard">
 
@@ -332,7 +338,7 @@ function StudentDashboard({
             PAGE CONTENT
         ===================================================== */}
 
-        <div className="student-page-content">
+        <div className="student-page-content" ref={studentContentRef}>
 
           {/* =================================================
               HOME / DASHBOARD
@@ -385,93 +391,11 @@ function StudentDashboard({
                 ========================================= */}
 
                 <div className="student-illustration-area">
-
-                  <div className="illustration-glow"></div>
-
-                  {/* FLOATING BULB */}
-
-                  <div className="floating-bulb">
-                    <div className="bulb-rays">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-
-                    <div className="bulb-icon">
-                      💡
-                    </div>
-                  </div>
-
-
-                  {/* BOOKS */}
-
-                  <div className="study-books">
-                    <div className="book book-one"></div>
-                    <div className="book book-two"></div>
-                    <div className="book book-three"></div>
-                  </div>
-
-
-                  {/* DESK */}
-
-                  <div className="study-desk"></div>
-
-
-                  {/* LAPTOP */}
-
-                  <div className="study-laptop">
-
-                    <div className="laptop-screen">
-                      <div className="laptop-screen-line"></div>
-                      <div className="laptop-screen-line short"></div>
-                      <div className="laptop-screen-dot"></div>
-                    </div>
-
-                    <div className="laptop-base"></div>
-
-                  </div>
-
-
-                  {/* STUDENT */}
-
-                  <div className="study-student">
-
-                    <div className="student-hair"></div>
-
-                    <div className="student-head">
-                      <div className="student-eye left"></div>
-                      <div className="student-eye right"></div>
-                      <div className="student-smile"></div>
-                    </div>
-
-                    <div className="student-body">
-
-                      <div className="student-shirt"></div>
-
-                      <div className="student-arm left-arm"></div>
-
-                      <div className="student-arm right-arm"></div>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* PLANT */}
-
-                  <div className="study-plant">
-
-                    <div className="plant-pot"></div>
-
-                    <div className="plant-stem"></div>
-
-                    <div className="plant-leaf leaf-one"></div>
-                    <div className="plant-leaf leaf-two"></div>
-                    <div className="plant-leaf leaf-three"></div>
-
-                  </div>
-
+                  <img
+                    className="student-career-illustration"
+                    src="/internlink-student-career.svg"
+                    alt="A student connecting their academic journey to company internship experience and career growth"
+                  />
                 </div>
 
               </div>

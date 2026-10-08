@@ -121,32 +121,45 @@ function ApplicationForm({
     <div className="application-form-container">
       <div className="application-form-card">
 
-        <h1>Apply for Internship</h1>
+        <section className="application-internship-overview">
+          <p className="application-eyebrow">INTERNSHIP APPLICATION</p>
+          <h1>Apply for Internship</h1>
 
-        <h2>
-          {company?.companyName}
-        </h2>
-
-        <div className="internship-summary">
-
-          <p>
-            <strong>Position:</strong>{" "}
-            {internship?.title}
+          <p className="application-intro">
+            Review the opportunity and attach the documents required for your application.
           </p>
 
-          <p>
-            <strong>Location:</strong>{" "}
-            {internship?.location}
-          </p>
+          <h2>
+            {company?.companyName}
+          </h2>
 
-          <p>
-            <strong>Duration:</strong>{" "}
-            {internship?.duration}
-          </p>
+          <div className="internship-summary">
 
-        </div>
+            <p>
+              <strong>Position:</strong>{" "}
+              {internship?.title}
+            </p>
 
-        <form onSubmit={handleSubmit}>
+            <p>
+              <strong>Location:</strong>{" "}
+              {internship?.location}
+            </p>
+
+            <p>
+              <strong>Duration:</strong>{" "}
+              {internship?.duration}
+            </p>
+
+          </div>
+        </section>
+
+        <section className="application-form-panel">
+          <div className="application-form-heading">
+            <h2>Application documents</h2>
+            <p>Submit your current CV and academic mark list as PDF files.</p>
+          </div>
+
+          <form onSubmit={handleSubmit}>
 
           {/* CV / Resume */}
 
@@ -220,7 +233,8 @@ function ApplicationForm({
 
           </div>
 
-        </form>
+          </form>
+        </section>
 
       </div>
     </div>
