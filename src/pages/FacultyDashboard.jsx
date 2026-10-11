@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/FacultyDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 import ChangePassword from "./ChangePassword";
 
 function FacultyDashboard({
@@ -25,6 +26,7 @@ function FacultyDashboard({
   const [message, setMessage] = useState("");
 
   const [marksPendingOpen, setMarksPendingOpen] = useState(false);
+  const [studentListFilter, setStudentListFilter] = useState("all");
 
   // =========================
   // ATTENDANCE STATE
@@ -32,6 +34,12 @@ function FacultyDashboard({
 
   const [selectedAttendanceAssignment, setSelectedAttendanceAssignment] =
     useState(null);
+  const [expandedAttendanceByAssignment, setExpandedAttendanceByAssignment] =
+    useState({});
+  const [attendanceRecordsByAssignment, setAttendanceRecordsByAssignment] =
+    useState({});
+  const [attendanceLoadingByAssignment, setAttendanceLoadingByAssignment] =
+    useState({});
 
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [attendanceLoading, setAttendanceLoading] = useState(false);
@@ -40,6 +48,9 @@ function FacultyDashboard({
   useEffect(() => {
     if (activeSection !== "logbooks") {
       setSelectedLogbookStudent(null);
+    }
+    if (activeSection !== "attendance") {
+      setExpandedAttendanceByAssignment({});
     }
   }, [activeSection]);
 
@@ -228,6 +239,10 @@ function FacultyDashboard({
   const fetchAttendance = async (assignmentId) => {
     try {
       setAttendanceLoading(true);
+      setAttendanceLoadingByAssignment((previous) => ({
+        ...previous,
+        [assignmentId]: true,
+      }));
 
       const response = await fetch(
         `http://localhost:5000/api/attendance/faculty/${assignmentId}`
@@ -236,11 +251,18 @@ function FacultyDashboard({
       const data = await response.json();
 
       if (response.ok && data.status === "success") {
-        setAttendanceRecords(
-          data.attendance || data.records || []
-        );
+        const records = data.attendance || data.records || [];
+        setAttendanceRecords(records);
+        setAttendanceRecordsByAssignment((previous) => ({
+          ...previous,
+          [assignmentId]: records,
+        }));
       } else {
         setAttendanceRecords([]);
+        setAttendanceRecordsByAssignment((previous) => ({
+          ...previous,
+          [assignmentId]: [],
+        }));
         setMessage(
           data.message || "Unable to load attendance."
         );
@@ -248,29 +270,46 @@ function FacultyDashboard({
     } catch (error) {
       console.error("Fetch attendance error:", error);
       setAttendanceRecords([]);
+      setAttendanceRecordsByAssignment((previous) => ({
+        ...previous,
+        [assignmentId]: [],
+      }));
       setMessage("Unable to load attendance.");
     } finally {
       setAttendanceLoading(false);
+      setAttendanceLoadingByAssignment((previous) => ({
+        ...previous,
+        [assignmentId]: false,
+      }));
     }
   };
 
   const openAttendance = async (assignment) => {
     setSelectedAttendanceAssignment(assignment);
-    setAttendanceRecords([]);
+    setExpandedAttendanceByAssignment((previous) => ({
+      ...previous,
+      [assignment._id]: true,
+    }));
     setMessage("");
 
-    await fetchAttendance(assignment._id);
+    if (!Object.prototype.hasOwnProperty.call(attendanceRecordsByAssignment, assignment._id)) {
+      setAttendanceRecords([]);
+      await fetchAttendance(assignment._id);
+    }
   };
 
-  const closeAttendance = () => {
-    setSelectedAttendanceAssignment(null);
-    setAttendanceRecords([]);
+  const closeAttendance = (assignmentId) => {
+    setExpandedAttendanceByAssignment((previous) => ({
+      ...previous,
+      [assignmentId]: false,
+    }));
     setMessage("");
   };
 
   const verifyAttendance = async (
     attendanceId,
-    verificationStatus
+    verificationStatus,
+    assignmentId = selectedAttendanceAssignment?._id
   ) => {
     try {
       const facultyId = faculty?.id || faculty?._id;
@@ -298,10 +337,8 @@ function FacultyDashboard({
             : "Attendance rejected."
         );
 
-        if (selectedAttendanceAssignment?._id) {
-          await fetchAttendance(
-            selectedAttendanceAssignment._id
-          );
+        if (assignmentId) {
+          await fetchAttendance(assignmentId);
         }
       } else {
         setMessage(
@@ -403,81 +440,36 @@ function FacultyDashboard({
         application.mark === null)
   );
 
+  const filteredStudents = studentsWithAssignments.filter(
+    ({ assignment }) => {
+      if (studentListFilter === "completed") {
+        return assignment?.status === "Completed";
+      }
+
+      if (studentListFilter === "marksPending") {
+        return marksPendingAssignments.includes(assignment);
+      }
+
+      return true;
+    }
+  );
+
+
+
+
   return (
     <div className="faculty-layout">
-
-      {/* ================= HEADER ================= */}
-
-      <header className="faculty-header">
-
-        <div className="faculty-brand">
-
-          <button
-            type="button"
-            className="faculty-logo"
-            onClick={onGoToDashboard}
-          >
-            <span className="faculty-logo-mark">
-              IL
-            </span>
-
-            <span className="faculty-logo-text">
-              InternLink
-            </span>
-          </button>
-
-          <span className="faculty-role">
-            Faculty Portal
-          </span>
-
-        </div>
-
-        <div className="faculty-header-right">
-
-          <div className="faculty-user">
-
-            <div className="faculty-avatar">
-              {getInitials()}
-            </div>
-
-            <div className="faculty-user-info">
-
-              <strong>
-                {faculty?.name || "Faculty"}
-              </strong>
-
-              <span>
-                {faculty?.designation || "Faculty"}
-              </span>
-
-            </div>
-
+      <aside className="faculty-sidebar">
+        <div className="faculty-student-brand">
+          <BrandLogo className="faculty-brand-logo" />
+          <div className="faculty-brand-copy">
+            <strong>InternLink</strong>
+            <small>FYUGP INTERNSHIP PLATFORM</small>
           </div>
-
-          <button
-            className="faculty-logout-btn"
-            onClick={onLogout}
-          >
-            Logout
-          </button>
-
         </div>
-
-      </header>
-
-      {/* ================= MAIN AREA ================= */}
-
-      <div className="faculty-main">
-
-        {/* ================= SIDEBAR ================= */}
-
-        <aside className="faculty-sidebar">
-
-          <div className="faculty-sidebar-title">
-            Faculty Dashboard
-          </div>
-
-          <nav className="faculty-nav">
+        <div className="faculty-sidebar-divider" />
+        <div className="faculty-sidebar-title">WORKSPACE</div>
+        <nav className="faculty-nav">
 
             {/* Dashboard */}
 
@@ -554,27 +546,8 @@ function FacultyDashboard({
               My Profile
             </button>
 
-            {/* Change Password */}
-
-            <button
-              type="button"
-              className={
-                activeSection === "changePassword"
-                  ? "faculty-nav-item active"
-                  : "faculty-nav-item"
-              }
-              onClick={onGoToChangePassword}
-            >
-              <span>🔐</span>
-              <span>Change Password</span>
-            </button>
-
-          </nav>
-
-          {/* ================= SIDEBAR PROFILE ================= */}
-
+        </nav>
           <div className="faculty-sidebar-bottom">
-
             <button
               type="button"
               className="faculty-profile-mini"
@@ -598,16 +571,24 @@ function FacultyDashboard({
               </div>
 
             </button>
-
+            <button type="button" className="faculty-bottom-action" onClick={onGoToChangePassword}>🔐 <span>Change Password</span></button>
+            <button type="button" className="faculty-bottom-action faculty-bottom-logout" onClick={onLogout}>↪ <span>Logout</span></button>
           </div>
+      </aside>
 
-        </aside>
+      <main className="faculty-main">
+        <header className="faculty-header">
+          <div>
+            <div className="faculty-page-label">FYUGP FACULTY WORKSPACE</div>
+            <h1>{activeSection === "students" ? "Assigned Students" : activeSection === "attendance" ? "Attendance" : activeSection === "logbooks" ? "Logbook Review" : activeSection === "profile" ? "My Profile" : activeSection === "editProfile" ? "Edit Profile" : activeSection === "changePassword" ? "Change Password" : "Home"}</h1>
+          </div>
+          <div className="faculty-header-right">
+            <div className="faculty-header-welcome">Welcome back</div>
+            <div className="faculty-avatar">{getInitials()}</div>
+          </div>
+        </header>
+        <div className="faculty-content">
 
-        {/* ================= CONTENT ================= */}
-
-        <main className="faculty-content">
-
-        
 {/* ================= DASHBOARD ================= */}
 
 {activeSection === "dashboard" && (
@@ -630,8 +611,8 @@ function FacultyDashboard({
         </h1>
 
         <p className="faculty-dashboard-home-description">
-          Your dedicated workspace for guiding students
-          through their internship journey.
+          Manage student guidance, internship progress, applications,
+          and academic supervision from one place.
         </p>
 
         <div className="faculty-dashboard-home-accent">
@@ -643,140 +624,45 @@ function FacultyDashboard({
       </div>
 
 
-      {/* ================= RIGHT ANIMATED ILLUSTRATION ================= */}
-
-      <div
-        className="faculty-dashboard-home-visual"
-        aria-hidden="true"
-      >
-
-        {/* Soft background glow */}
-
-        <div className="faculty-dashboard-glow glow-main"></div>
-        <div className="faculty-dashboard-glow glow-coral"></div>
-
-
-        {/* Animated orbit rings */}
-
-        <div className="faculty-dashboard-orbit orbit-one"></div>
-        <div className="faculty-dashboard-orbit orbit-two"></div>
-        <div className="faculty-dashboard-orbit orbit-three"></div>
-
-
-        {/* Decorative floating dots */}
-
-        <span className="faculty-dashboard-dot dot-a"></span>
-        <span className="faculty-dashboard-dot dot-b"></span>
-        <span className="faculty-dashboard-dot dot-c"></span>
-        <span className="faculty-dashboard-dot dot-d"></span>
-
-
-        {/* Floating check icon */}
-
-        <div className="faculty-dashboard-float-icon float-check">
-          ✓
-        </div>
-
-
-        {/* Floating sparkle */}
-
-        <div className="faculty-dashboard-float-icon float-star">
-          ✦
-        </div>
-
-
-        {/* ================= MAIN PERSON ================= */}
-
-        <div className="faculty-dashboard-person">
-
-          {/* Head */}
-
-          <div className="dashboard-person-head">
-
-            <div className="dashboard-person-hair"></div>
-
-            <div className="dashboard-person-face"></div>
-
-          </div>
-
-
-          {/* Neck */}
-
-          <div className="dashboard-person-neck"></div>
-
-
-          {/* Body */}
-
-          <div className="dashboard-person-body">
-
-            <div className="dashboard-person-shirt"></div>
-
-
-            {/* Book */}
-
-            <div className="dashboard-person-book">
-              <span>IL</span>
-            </div>
-
-          </div>
-
-
-          {/* Arm */}
-
-          <div className="dashboard-person-arm"></div>
-
-        </div>
-
-
-        {/* ================= DESK ================= */}
-
-        <div className="faculty-dashboard-desk">
-
-          <div className="dashboard-desk-top"></div>
-
-          <div className="dashboard-desk-leg left"></div>
-          <div className="dashboard-desk-leg right"></div>
-
-        </div>
-
-
-        {/* ================= LAPTOP ================= */}
-
-        <div className="faculty-dashboard-laptop">
-
-          <div className="dashboard-laptop-screen">
-
-            <div className="dashboard-laptop-logo">
-              IL
-            </div>
-
-            <div className="dashboard-laptop-line line-one"></div>
-            <div className="dashboard-laptop-line line-two"></div>
-            <div className="dashboard-laptop-line line-three"></div>
-
-          </div>
-
-          <div className="dashboard-laptop-base"></div>
-
-        </div>
-
-
-        {/* ================= SMALL PLANT ================= */}
-
-        <div className="faculty-dashboard-plant">
-
-          <div className="dashboard-plant-leaf leaf-one"></div>
-          <div className="dashboard-plant-leaf leaf-two"></div>
-          <div className="dashboard-plant-leaf leaf-three"></div>
-
-          <div className="dashboard-plant-pot"></div>
-
-        </div>
-
+      <div className="faculty-dashboard-home-visual">
+        <img
+          src="/internlink-student-career.svg"
+          alt="Academic guidance connecting a student’s internship experience with career growth"
+        />
       </div>
 
     </div>
 
+  </section>
+)}
+{activeSection === "dashboard" && (
+  <section className="faculty-dashboard-landing" aria-label="Faculty welcome">
+    <div className="faculty-landing-feature-grid">
+      <article className="faculty-landing-feature">
+        <span className="faculty-landing-feature-icon">♙</span>
+        <h2>Student guidance</h2>
+        <p>Help students stay focused and supported throughout their internship journey.</p>
+      </article>
+      <article className="faculty-landing-feature">
+        <span className="faculty-landing-feature-icon coral">▣</span>
+        <h2>Internship monitoring</h2>
+        <p>Encourage steady progress through regular academic supervision.</p>
+      </article>
+      <article className="faculty-landing-feature">
+        <span className="faculty-landing-feature-icon mint">✦</span>
+        <h2>Academic supervision</h2>
+        <p>Support meaningful learning and successful internship completion.</p>
+      </article>
+    </div>
+
+    <aside className="faculty-landing-guidance">
+      <span className="faculty-landing-guidance-mark">i</span>
+      <div>
+        <p className="faculty-eyebrow">FACULTY WORKSPACE</p>
+        <h2>Your work, all in one place</h2>
+        <p>Use the navigation menu to manage students, review applications, monitor internship activities, and track student progress.</p>
+      </div>
+    </aside>
   </section>
 )}
           {/* ================= STUDENTS ================= */}
@@ -797,19 +683,8 @@ function FacultyDashboard({
                   </h1>
 
                   <p>
-                    View students assigned to you and manage final
-                    internship evaluation.
+                    View and manage students assigned to you for internship guidance and supervision.
                   </p>
-
-                </div>
-
-                <div className="students-count-card">
-
-                  <span>Total Assigned</span>
-
-                  <strong>
-                    {assignedStudents.length}
-                  </strong>
 
                 </div>
 
@@ -825,22 +700,32 @@ function FacultyDashboard({
 
               <div className="student-summary-grid faculty-student-summary-clean">
 
-                <div className="student-summary-card">
+                <button
+                  type="button"
+                  className={`student-summary-card ${studentListFilter === "all" ? "active" : ""}`}
+                  onClick={() => setStudentListFilter("all")}
+                  aria-pressed={studentListFilter === "all"}
+                >
 
                   <div className="summary-icon">
                     👨‍🎓
                   </div>
 
                   <div>
-                    <span>Assigned Students</span>
+                    <span>All Students</span>
                     <strong>
-                      {assignedStudents.length}
+                      {studentsWithAssignments.length}
                     </strong>
                   </div>
 
-                </div>
+                </button>
 
-                <div className="student-summary-card">
+                <button
+                  type="button"
+                  className={`student-summary-card ${studentListFilter === "completed" ? "active" : ""}`}
+                  onClick={() => setStudentListFilter("completed")}
+                  aria-pressed={studentListFilter === "completed"}
+                >
 
                   <div className="summary-icon">
                     🎓
@@ -848,22 +733,25 @@ function FacultyDashboard({
 
                   <div>
 
-                    <span>Completed</span>
+                    <span>Completed Students</span>
 
                     <strong>
-                      {
-                        applications.filter(
-                          (application) =>
-                            application.status === "Completed"
-                        ).length
-                      }
+                      {studentsWithAssignments.filter(
+                        ({ assignment }) =>
+                          assignment?.status === "Completed"
+                      ).length}
                     </strong>
 
                   </div>
 
-                </div>
+                </button>
 
-                <div className="student-summary-card">
+                <button
+                  type="button"
+                  className={`student-summary-card ${studentListFilter === "marksPending" ? "active" : ""}`}
+                  onClick={() => setStudentListFilter("marksPending")}
+                  aria-pressed={studentListFilter === "marksPending"}
+                >
 
                   <div className="summary-icon">
                     📝
@@ -871,15 +759,18 @@ function FacultyDashboard({
 
                   <div>
 
-                    <span>Marks Pending</span>
+                    <span>Mark Pending</span>
 
                     <strong>
-                      {marksPendingAssignments.length}
+                      {studentsWithAssignments.filter(
+                        ({ assignment }) =>
+                          marksPendingAssignments.includes(assignment)
+                      ).length}
                     </strong>
 
                   </div>
 
-                </div>
+                </button>
 
               </div>
 
@@ -891,18 +782,17 @@ function FacultyDashboard({
 
                   <div>
 
-                    <h2>Your Students</h2>
+                    <h2>{studentListFilter === "all" ? "Your Students" : studentListFilter === "completed" ? "Completed Students" : "Students with Marks Pending"}</h2>
 
                     <p>
-                      Each student appears once. Internship information
-                      is shown only when an assignment exists.
+                      Showing {filteredStudents.length} {filteredStudents.length === 1 ? "student" : "students"}.
                     </p>
 
                   </div>
 
                 </div>
 
-                {studentsWithAssignments.length === 0 ? (
+                {filteredStudents.length === 0 ? (
 
                   <div className="faculty-empty students-empty">
 
@@ -911,12 +801,19 @@ function FacultyDashboard({
                     </div>
 
                     <h3>
-                      No Students Assigned
+                      {studentListFilter === "completed"
+                        ? "No Completed Students"
+                        : studentListFilter === "marksPending"
+                        ? "No Pending Marks"
+                        : "No Students Assigned"}
                     </h3>
 
                     <p>
-                      Students assigned to you by your college
-                      will appear here.
+                      {studentListFilter === "completed"
+                        ? "There are currently no students who have completed their internship."
+                        : studentListFilter === "marksPending"
+                        ? "All completed student marks have been updated."
+                        : "Students assigned to you by your college will appear here."}
                     </p>
 
                   </div>
@@ -925,7 +822,7 @@ function FacultyDashboard({
 
                   <div className="faculty-card-list faculty-student-directory-list">
 
-                    {studentsWithAssignments.map(
+                    {filteredStudents.map(
                       ({ student, assignment }) => {
 
                         const studentName =
@@ -1491,507 +1388,182 @@ function FacultyDashboard({
           {/* ================= ATTENDANCE ================= */}
 
           {activeSection === "attendance" && (
+            <section className="faculty-attendance-page">
+              <div className="faculty-page-heading">
+                <div>
+                  <p className="faculty-eyebrow">INTERNSHIP MONITORING</p>
+                  <h1>Attendance Sheet</h1>
+                  <p>Select an assigned student to review their daily attendance register.</p>
+                </div>
+              </div>
 
-            <section>
+              {message && <div className="faculty-message">{message}</div>}
 
-              {!selectedAttendanceAssignment ? (
+              {applications.length === 0 ? (
+                <div className="faculty-empty">
+                  <div>◷</div>
+                  <h3>No Assigned Internships</h3>
+                  <p>Assigned internship attendance will appear here.</p>
+                </div>
+              ) : (
+                <div className="faculty-attendance-list">
+                  {applications.map((application) => {
+                    const isExpanded = Boolean(
+                      expandedAttendanceByAssignment[application._id]
+                    );
+                    const records = attendanceRecordsByAssignment[application._id] ?? (
+                      selectedAttendanceAssignment?._id === application._id
+                        ? attendanceRecords
+                        : []
+                    );
+                    const isLoading = Boolean(
+                      attendanceLoadingByAssignment[application._id] ||
+                      (selectedAttendanceAssignment?._id === application._id && attendanceLoading)
+                    );
 
-                <>
-
-                  <div className="faculty-page-heading">
-
-                    <div>
-
-                      <p className="faculty-eyebrow">
-                        INTERNSHIP MONITORING
-                      </p>
-
-                      <h1>
-                        Attendance Verification
-                      </h1>
-
-                      <p>
-                        Review attendance marked by the company guide.
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                  {message && (
-                    <div className="faculty-message">
-                      {message}
-                    </div>
-                  )}
-
-                  {applications.length === 0 ? (
-
-                    <div className="faculty-empty">
-
-                      <div>🕒</div>
-
-                      <h3>
-                        No Assigned Internships
-                      </h3>
-
-                      <p>
-                        Assigned internship attendance will appear here.
-                      </p>
-
-                    </div>
-
-                  ) : (
-
-                    <div className="faculty-attendance-list">
-
-                      {applications.map(
-                        (application) => (
-
-                          <div
-                            className="faculty-student-card attendance-card"
-                            key={application._id}
-                          >
-
-                            <div className="student-card-header">
-
-                              <div className="student-identity">
-
-                                <div className="student-avatar">
-                                  {(application.student?.name ||
-                                    "S")
-                                    .charAt(0)
-                                    .toUpperCase()}
-                                </div>
-
-                                <div>
-
-                                  <h3>
-                                    {application.student?.name ||
-                                      "Student"}
-                                  </h3>
-
-                                  <span>
-                                    Register No:{" "}
-                                    {application.student
-                                      ?.registerNumber ||
-                                      "Not available"}
-                                  </span>
-
-                                </div>
-
-                              </div>
-
-                              <span
-                                className={`status-pill status-${(
-                                  application.status ||
-                                  "Assigned"
-                                ).toLowerCase()}`}
-                              >
-                                {application.status ||
-                                  "Assigned"}
-                              </span>
-
+                    return (
+                      <article
+                        className={`faculty-student-card attendance-card ${isExpanded ? "expanded" : ""}`}
+                        key={application._id}
+                      >
+                        <div className="student-card-header">
+                          <div className="student-identity">
+                            <div className="student-avatar">
+                              {(application.student?.name || "S").charAt(0).toUpperCase()}
                             </div>
-
-                            <div className="student-details-grid">
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Company
-                                </span>
-
-                                <strong>
-                                  {application.company
-                                    ?.companyName ||
-                                    "Not available"}
-                                </strong>
-
-                              </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Internship
-                                </span>
-
-                                <strong>
-                                  {application.internship?.title ||
-                                    application.internship?.position ||
-                                    "Not available"}
-                                </strong>
-
-                              </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Faculty Guide
-                                </span>
-
-                                <strong>
-                                  {application.facultyGuide?.name ||
-                                    "You"}
-                                </strong>
-
-                              </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Credits
-                                </span>
-
-                                <strong>
-                                  {application.credits ?? 0}
-                                </strong>
-
-                              </div>
-
+                            <div>
+                              <h3>{application.student?.name || "Student"}</h3>
+                              <span>Register No: {application.student?.registerNumber || "Not available"}</span>
                             </div>
+                          </div>
+                          <span className={`status-pill status-${(application.status || "Assigned").toLowerCase()}`}>
+                            {application.status || "Assigned"}
+                          </span>
+                        </div>
 
-                            <div className="attendance-card-action">
+                        <div className="student-details-grid attendance-summary-details">
+                          <div className="student-detail-item">
+                            <span>Company</span>
+                            <strong>{application.company?.companyName || "Not available"}</strong>
+                          </div>
+                          <div className="student-detail-item">
+                            <span>Internship</span>
+                            <strong>{application.internship?.title || application.internship?.position || "Not available"}</strong>
+                          </div>
+                          <div className="student-detail-item">
+                            <span>Department</span>
+                            <strong>{application.student?.department || "Not available"}</strong>
+                          </div>
+                        </div>
 
+                        {!isExpanded && (
+                          <div className="attendance-card-action">
+                            <button
+                              type="button"
+                              className="save-mark-button"
+                              aria-expanded="false"
+                              onClick={() => openAttendance(application)}
+                            >
+                              View Attendance
+                            </button>
+                          </div>
+                        )}
+
+                        {isExpanded && (
+                          <section className="attendance-inline-details" aria-label={`Attendance details for ${application.student?.name || "student"}`}>
+                            <div className="attendance-inline-heading">
+                              <h2>Attendance Sheet</h2>
                               <button
                                 type="button"
-                                className="save-mark-button"
-                                onClick={() =>
-                                  openAttendance(application)
-                                }
+                                className="attendance-minimize-button"
+                                onClick={() => closeAttendance(application._id)}
+                                aria-label={`Minimize attendance details for ${application.student?.name || "student"}`}
                               >
-                                View Attendance →
+                                Minimize
                               </button>
-
                             </div>
 
-                          </div>
-
-                        )
-                      )}
-
-                    </div>
-
-                  )}
-
-                </>
-
-              ) : (
-
-                <>
-
-                  <div className="faculty-page-heading attendance-detail-heading">
-
-                    <div>
-
-                      <button
-                        type="button"
-                        className="attendance-back-button"
-                        onClick={closeAttendance}
-                      >
-                        ← Back to Attendance
-                      </button>
-
-                      <p className="faculty-eyebrow">
-                        ATTENDANCE VERIFICATION
-                      </p>
-
-                      <h1>
-                        {selectedAttendanceAssignment
-                          .student?.name ||
-                          "Student"}
-                      </h1>
-
-                      <p>
-                        Review and verify company guide attendance records.
-                      </p>
-
-                    </div>
-
-                  </div>
-
-                  {message && (
-                    <div className="faculty-message">
-                      {message}
-                    </div>
-                  )}
-
-                  <div className="faculty-profile-card attendance-profile-card">
-
-                    <div className="profile-header">
-
-                      <div className="profile-avatar-large">
-
-                        {(
-                          selectedAttendanceAssignment
-                            .student?.name ||
-                          "S"
-                        )
-                          .charAt(0)
-                          .toUpperCase()}
-
-                      </div>
-
-                      <div className="profile-header-info">
-
-                        <h2>
-                          {selectedAttendanceAssignment
-                            .student?.name ||
-                            "Student"}
-                        </h2>
-
-                        <p>
-                          Register No:{" "}
-                          {selectedAttendanceAssignment
-                            .student?.registerNumber ||
-                            "Not available"}
-                        </p>
-
-                        <span className="profile-status">
-                          {selectedAttendanceAssignment.status ||
-                            "Assigned"}
-                        </span>
-
-                      </div>
-
-                    </div>
-
-                    <div className="profile-details">
-
-                      <div className="profile-field">
-
-                        <span>
-                          Company
-                        </span>
-
-                        <strong>
-                          {selectedAttendanceAssignment
-                            .company?.companyName ||
-                            "Not available"}
-                        </strong>
-
-                      </div>
-
-                      <div className="profile-field">
-
-                        <span>
-                          Internship
-                        </span>
-
-                        <strong>
-                          {selectedAttendanceAssignment
-                            .internship?.title ||
-                            selectedAttendanceAssignment
-                              .internship?.position ||
-                            "Not available"}
-                        </strong>
-
-                      </div>
-
-                      <div className="profile-field">
-
-                        <span>
-                          Department
-                        </span>
-
-                        <strong>
-                          {selectedAttendanceAssignment
-                            .student?.department ||
-                            "Not available"}
-                        </strong>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  {attendanceLoading ? (
-
-                    <div className="faculty-empty">
-
-                      <div>⏳</div>
-
-                      <h3>
-                        Loading Attendance...
-                      </h3>
-
-                    </div>
-
-                  ) : attendanceRecords.length === 0 ? (
-
-                    <div className="faculty-empty">
-
-                      <div>🕒</div>
-
-                      <h3>
-                        No Attendance Records
-                      </h3>
-
-                      <p>
-                        The company guide has not marked attendance yet.
-                      </p>
-
-                    </div>
-
-                  ) : (
-
-                    <div className="faculty-attendance-records">
-
-                      {attendanceRecords.map(
-                        (record) => (
-
-                          <div
-                            className="faculty-student-card attendance-record-card"
-                            key={record._id}
-                          >
-
-                            <div className="attendance-record-header">
-
-                              <div>
-
-                                <h3>
-                                  {record.date
-                                    ? new Date(
-                                        record.date
-                                      ).toLocaleDateString()
-                                    : "Date unavailable"}
-                                </h3>
-
-                                <span>
-                                  {record.status ||
-                                    "Present"}
-                                </span>
-
-                              </div>
-
-                              <span
-                                className={`attendance-verification-status ${String(
-                                  record.verificationStatus ||
-                                    "Pending"
-                                ).toLowerCase()}`}
-                              >
-                                {record.verificationStatus ||
-                                  "Pending"}
-                              </span>
-
+                            <div className="attendance-sheet-summary" aria-label="Selected student and internship">
+                              <div><span>Student Name</span><strong>{application.student?.name || "Student"}</strong></div>
+                              <div><span>Register Number</span><strong>{application.student?.registerNumber || "Not available"}</strong></div>
+                              <div><span>Internship Title</span><strong>{application.internship?.title || application.internship?.position || "Not available"}</strong></div>
+                              <div><span>Company Name</span><strong>{application.company?.companyName || "Not available"}</strong></div>
+                              <div><span>Faculty Guide</span><strong>{application.facultyGuide?.name || "You"}</strong></div>
                             </div>
 
-                            <div className="student-details-grid">
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Check In
-                                </span>
-
-                                <strong>
-                                  {record.checkIn || "—"}
-                                </strong>
-
+                            {isLoading ? (
+                              <div className="faculty-empty attendance-inline-empty">
+                                <h3>Loading Attendance...</h3>
                               </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Check Out
-                                </span>
-
-                                <strong>
-                                  {record.checkOut || "—"}
-                                </strong>
-
+                            ) : records.length === 0 ? (
+                              <div className="faculty-empty attendance-inline-empty">
+                                <h3>No Attendance Records</h3>
+                                <p>The company guide has not marked attendance yet.</p>
                               </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Total Hours
-                                </span>
-
-                                <strong>
-                                  {record.totalHours || 0} hours
-                                </strong>
-
-                              </div>
-
-                              <div className="student-detail-item">
-
-                                <span>
-                                  Status
-                                </span>
-
-                                <strong>
-                                  {record.status ||
-                                    "Present"}
-                                </strong>
-
-                              </div>
-
-                            </div>
-
-                            {record.verificationStatus ===
-                            "Pending" ? (
-
-                              <div className="attendance-verification-actions">
-
-                                <button
-                                  type="button"
-                                  className="approve-btn"
-                                  onClick={() =>
-                                    verifyAttendance(
-                                      record._id,
-                                      "Approved"
-                                    )
-                                  }
-                                >
-                                  ✓ Approve Attendance
-                                </button>
-
-                                <button
-                                  type="button"
-                                  className="reject-btn"
-                                  onClick={() =>
-                                    verifyAttendance(
-                                      record._id,
-                                      "Rejected"
-                                    )
-                                  }
-                                >
-                                  ✕ Reject Attendance
-                                </button>
-
-                              </div>
-
                             ) : (
-
-                              <div className="attendance-reviewed-message">
-
-                                {record.verificationStatus ===
-                                "Approved"
-                                  ? "✓ Attendance approved"
-                                  : "Attendance rejected"}
-
+                              <div className="attendance-sheet-scroll" role="region" aria-label={`Daily attendance register for ${application.student?.name || "student"}`} tabIndex="0">
+                                <table className="attendance-sheet-table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Date</th>
+                                      <th scope="col">Day</th>
+                                      <th scope="col">Check In</th>
+                                      <th scope="col">Check Out</th>
+                                      <th scope="col">Hours</th>
+                                      <th scope="col">Status</th>
+                                      <th scope="col">Review</th>
+                                      <th scope="col">Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {records.map((record) => {
+                                      const date = record.date ? new Date(record.date) : null;
+                                      const validDate = date && !Number.isNaN(date.getTime());
+                                      return (
+                                        <tr key={record._id}>
+                                          <td>{validDate ? date.toLocaleDateString() : "Date unavailable"}</td>
+                                          <td>{validDate ? date.toLocaleDateString(undefined, { weekday: "long" }) : "—"}</td>
+                                          <td>{record.checkIn || "—"}</td>
+                                          <td>{record.checkOut || "—"}</td>
+                                          <td>{record.totalHours ?? "—"}</td>
+                                          <td><span className="attendance-sheet-status">{record.status || "Present"}</span></td>
+                                          <td>
+                                            <span className={`attendance-verification-status ${String(record.verificationStatus || "Pending").toLowerCase()}`}>
+                                              {record.verificationStatus || "Pending"}
+                                            </span>
+                                          </td>
+                                          <td>
+                                            {record.verificationStatus === "Pending" ? (
+                                              <div className="attendance-verification-actions">
+                                                <button type="button" className="approve-btn" onClick={() => verifyAttendance(record._id, "Approved", application._id)}>
+                                                  ✓ Approve
+                                                </button>
+                                                <button type="button" className="reject-btn" onClick={() => verifyAttendance(record._id, "Rejected", application._id)}>
+                                                  ✕ Reject
+                                                </button>
+                                              </div>
+                                            ) : (
+                                              <span className="attendance-reviewed-message">
+                                                {record.verificationStatus === "Approved" ? "✓ Approved" : "Rejected"}
+                                              </span>
+                                            )}
+                                          </td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </table>
                               </div>
-
                             )}
-
-                          </div>
-
-                        )
-                      )}
-
-                    </div>
-
-                  )}
-
-                </>
-
+                          </section>
+                        )}
+                      </article>
+                    );
+                  })}
+                </div>
               )}
-
             </section>
-
           )}
-
           {/* ================= LOGBOOKS ================= */}
 
           {activeSection === "logbooks" && (
@@ -2249,7 +1821,7 @@ function FacultyDashboard({
                                   ) => (
 
                                     <div
-                                      className="faculty-logbook-card"
+                                      className="faculty-logbook-card logbook-book-page"
                                       key={
                                         logbook._id ||
                                         `logbook-${studentId}-${index}`
@@ -2260,34 +1832,26 @@ function FacultyDashboard({
 
                                         <div>
 
-                                          <h2>
-                                            {logbook
-                                              .student
-                                              ?.name ||
-                                              student?.name ||
-                                              "Student"}
-                                          </h2>
-
-                                          <span>
-                                            Register No:{" "}
-                                            {logbook
-                                              .student
-                                              ?.registerNumber ||
-                                              student?.registerNumber ||
-                                              "Not available"}
-                                          </span>
+                                          <div className="logbook-entry-title-row">
+                                            <h2>Internship Log Book</h2>
+                                            <span className="logbook-page-number">Page {index + 1}</span>
+                                          </div>
 
                                         </div>
 
-                                        <span className="date-pill">
-
-                                          {logbook.date
-                                            ? new Date(
-                                                logbook.date
-                                              ).toLocaleDateString()
-                                            : "Date unavailable"}
-
-                                        </span>
+                                        <div className="logbook-date-block">
+                                          <span className="logbook-date-label">Logbook Date</span>
+                                          <span className="date-pill">
+                                            {logbook.date
+                                              ? new Date(logbook.date).toLocaleDateString()
+                                              : "Date unavailable"}
+                                          </span>
+                                          {logbook.date && !Number.isNaN(new Date(logbook.date).getTime()) && (
+                                            <span className="logbook-day-label">
+                                              {new Date(logbook.date).toLocaleDateString(undefined, { weekday: "long" })}
+                                            </span>
+                                          )}
+                                        </div>
 
                                       </div>
 
@@ -2635,10 +2199,9 @@ function FacultyDashboard({
             </>
           )}
 
-        </main>
-
-      </div>
-
+        </div>
+        <footer className="faculty-footer"><span>© InternLink</span><span>FYUGP Internship Management Platform</span></footer>
+      </main>
     </div>
   );
 }

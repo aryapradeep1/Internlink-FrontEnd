@@ -4370,146 +4370,119 @@ body:has(.faculty-signup-page) {
 }
 
 
+
 /* =========================================================
    COMPANY GUIDE REGISTER
-   SAME DESIGN AS STUDENT / COMPANY / COLLEGE REGISTER
-   CSS ONLY
+   Complete CSS — consolidated layout
+   Theme: Navy blue, dusty pink, lavender
    ========================================================= */
 
+/* ==================== PAGE ==================== */
+
 .company-guide-signup {
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: 100vh;
   height: 100dvh;
+  min-width: 0;
   min-height: 0;
-
   margin: 0;
   padding: 0;
-
-  position: relative;
-
-  overflow: hidden !important;
-
+  overflow: hidden;
   box-sizing: border-box;
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
-  background:
-    linear-gradient(
-      135deg,
-      #28435f 0%,
-      #526f91 45%,
-      #8b9cba 100%
-    );
+  background: linear-gradient(
+    135deg,
+    #28435f 0%,
+    #526f91 45%,
+    #8b9cba 100%
+  );
 
   color: #ffffff;
-
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
 }
 
+.company-guide-signup *,
+.company-guide-signup *::before,
+.company-guide-signup *::after {
+  box-sizing: border-box;
+}
 
-/* =========================================================
-   BACKGROUND
-   ========================================================= */
+/* ==================== BACKGROUND ORBITS ==================== */
 
 .company-guide-signup .signup-orbit {
   position: absolute;
-
   border-radius: 50%;
-
   pointer-events: none;
-
   z-index: 0;
-
   filter: blur(1px);
 }
 
 .company-guide-signup .signup-orbit-one {
   width: 520px;
   height: 520px;
-
   left: -260px;
   top: -220px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(196, 140, 179, 0.28),
-      rgba(196, 140, 179, 0)
-    );
+  background: radial-gradient(
+    circle,
+    rgba(196, 140, 179, 0.28),
+    rgba(196, 140, 179, 0)
+  );
 
-  animation:
-    guideOrbitOne
-    12s ease-in-out infinite;
+  animation: guideOrbitOne 12s ease-in-out infinite;
 }
 
 .company-guide-signup .signup-orbit-two {
   width: 600px;
   height: 600px;
-
   right: -300px;
   bottom: -300px;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(132, 167, 207, 0.30),
-      rgba(132, 167, 207, 0)
-    );
+  background: radial-gradient(
+    circle,
+    rgba(132, 167, 207, 0.30),
+    rgba(132, 167, 207, 0)
+  );
 
-  animation:
-    guideOrbitTwo
-    14s ease-in-out infinite;
+  animation: guideOrbitTwo 14s ease-in-out infinite;
 }
 
-
-/* =========================================================
-   BACK BUTTON
-   ========================================================= */
+/* ==================== BACK BUTTON ==================== */
 
 .company-guide-signup .signup-back-button {
   position: absolute;
-
-  top: 25px;
-  left: 32px;
-
+  top: 20px;
+  right: 25px;
   z-index: 100;
 
-  height: 43px;
-
+  min-height: 43px;
   padding: 0 20px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 24px;
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.28);
-
-  background:
-    rgba(255, 255, 255, 0.10);
-
+  background: rgba(11, 27, 50, 0.60);
   color: #ffffff;
 
   font-family: inherit;
-
   font-size: 13px;
   font-weight: 800;
 
   cursor: pointer;
-
   backdrop-filter: blur(12px);
 
-  box-shadow:
-    0 8px 25px rgba(11, 27, 50, 0.10);
+  box-shadow: 0 8px 25px rgba(11, 27, 50, 0.10);
 
   transition:
     transform 0.25s ease,
@@ -4519,127 +4492,92 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .signup-back-button:hover {
   transform: translateY(-2px);
-
-  background:
-    rgba(255, 255, 255, 0.17);
-
-  border-color:
-    rgba(255, 255, 255, 0.45);
+  background: rgba(11, 27, 50, 0.85);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
-
-/* =========================================================
-   MAIN SHELL
-   IMPORTANT: FORCE TWO COLUMNS
-   ========================================================= */
+/* ==================== MAIN SHELL ==================== */
 
 .company-guide-signup .signup-shell {
-  width: calc(100% - 60px) !important;
-  height: calc(100vh - 60px) !important;
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
 
-  margin: 30px !important;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
 
-  padding: 0 !important;
+  display: grid;
+  grid-template-columns: minmax(0, 54%) minmax(0, 46%);
+  grid-template-rows: minmax(0, 1fr);
 
-  display: grid !important;
-
-  grid-template-columns:
-    minmax(0, 54%)
-    minmax(0, 46%) !important;
-
-  grid-template-rows: 1fr !important;
-
-  position: relative;
-
+  overflow: hidden;
+  isolation: isolate;
   z-index: 5;
 
-  box-sizing: border-box;
-
-  overflow: hidden !important;
-
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 28px;
 
-  background:
-    rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.12);
-
-  box-shadow:
-    0 30px 80px
-    rgba(8, 20, 42, 0.24);
+  box-shadow: 0 30px 80px rgba(8, 20, 42, 0.24);
 }
 
-
-/* =========================================================
-   LEFT SIDE
-   ========================================================= */
+/* ==================== LEFT VISUAL PANEL ==================== */
 
 .company-guide-signup .signup-visual {
-  width: 100% !important;
-  height: 100% !important;
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
 
-  min-width: 0 !important;
-  min-height: 0 !important;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
 
-  box-sizing: border-box;
+  padding: 34px clamp(26px, 3.5vw, 55px) 24px;
 
-  padding:
-    55px
-    55px
-    30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 
   overflow: hidden;
 
-  position: relative;
-
-  display: flex !important;
-
-  flex-direction: column;
-
-  justify-content: flex-start;
-
-  grid-column: 1;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(11, 27, 50, 0.58),
-      rgba(40, 67, 95, 0.42)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(11, 27, 50, 0.58),
+    rgba(40, 67, 95, 0.42)
+  );
 }
 
-
-/* =========================================================
-   BADGE
-   ========================================================= */
+/* ==================== VISUAL BADGE ==================== */
 
 .company-guide-signup .signup-visual-badge {
   width: fit-content;
-
+  max-width: 100%;
   padding: 9px 17px;
 
   display: flex;
-
   align-items: center;
-
   gap: 9px;
 
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 25px;
 
-  background:
-    rgba(255, 255, 255, 0.10);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.18);
-
+  background: rgba(255, 255, 255, 0.10);
   color: #f7edf4;
 
   font-size: 12px;
   font-weight: 850;
-
   letter-spacing: 1px;
 
   backdrop-filter: blur(10px);
@@ -4647,152 +4585,101 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .signup-visual-badge span {
   color: #e8c9d9;
-
   font-size: 16px;
-
-  animation:
-    guideSparkle
-    2.5s ease-in-out infinite;
+  animation: guideSparkle 2.5s ease-in-out infinite;
 }
 
-
-/* =========================================================
-   HEADING
-   ========================================================= */
+/* ==================== VISUAL HEADING ==================== */
 
 .company-guide-signup .signup-visual h1 {
-  margin: 25px 0 0;
-
-  max-width: 650px;
+  max-width: 600px;
+  margin: 22px 0 0;
 
   color: #ffffff;
-
-  font-size:
-    clamp(44px, 4.5vw, 68px);
-
-  line-height: 0.94;
-
-  letter-spacing: -3px;
-
+  font-size: clamp(36px, 3.4vw, 54px);
+  line-height: 1;
+  letter-spacing: -2px;
   font-weight: 950;
+  overflow-wrap: break-word;
 }
 
 .company-guide-signup .signup-visual h1 span {
   color: #e8c9d9;
 }
 
-
-/* =========================================================
-   DESCRIPTION
-   ========================================================= */
+/* ==================== VISUAL DESCRIPTION ==================== */
 
 .company-guide-signup .signup-visual-text {
-  max-width: 600px;
+  max-width: 540px;
+  margin: 18px 0 0;
 
-  margin: 20px 0 0;
-
-  color:
-    rgba(255, 255, 255, 0.78);
-
-  font-size: 15px;
-
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
   line-height: 1.6;
-
   font-weight: 500;
 }
 
-
-/* =========================================================
-   ILLUSTRATION
-   ========================================================= */
+/* ==================== ILLUSTRATION ==================== */
 
 .company-guide-signup .guide-illustration {
-  width: 100%;
-  height: 265px;
-
-  min-height: 0;
-
-  margin-top: 20px;
-
   position: relative;
 
-  flex-shrink: 0;
+  width: 100%;
+  max-width: 460px;
+  height: 210px;
+  min-height: 0;
+
+  margin-top: 16px;
+  flex-shrink: 1;
 
   overflow: hidden;
-
+  border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 25px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.10),
-      rgba(255, 255, 255, 0.035)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.035)
+  );
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.11);
-
-  box-shadow:
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-
-/* =========================================================
-   WINDOW
-   ========================================================= */
+/* ==================== ILLUSTRATION WINDOW ==================== */
 
 .company-guide-signup .guide-window {
   position: absolute;
-
-  width: 330px;
-  height: 205px;
-
   left: 50%;
-  bottom: 25px;
+  bottom: 18px;
 
-  transform:
-    translateX(-50%);
+  width: min(76%, 330px);
+  height: 185px;
 
+  transform: translateX(-50%);
   border-radius: 15px;
 
   background: #f4f5f8;
+  box-shadow: 0 18px 40px rgba(11, 27, 50, 0.25);
 
-  box-shadow:
-    0 18px 40px
-    rgba(11, 27, 50, 0.25);
-
-  animation:
-    guideWindowFloat
-    5s ease-in-out infinite;
+  animation: guideWindowFloat 5s ease-in-out infinite;
 }
 
 .company-guide-signup .guide-window-top {
   height: 30px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 6px;
-
   padding-left: 12px;
 
-  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 
+  border-radius: 15px 15px 0 0;
   background: #dfe3ea;
-
-  border-radius:
-    15px 15px 0 0;
 }
 
 .company-guide-signup .guide-window-top span {
   width: 7px;
   height: 7px;
-
   border-radius: 50%;
-
   background: #c48cb3;
 }
 
@@ -4805,43 +4692,29 @@ body:has(.faculty-signup-page) {
 }
 
 .company-guide-signup .guide-window-body {
+  position: relative;
   width: 100%;
   height: calc(100% - 30px);
-
-  position: relative;
-
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      135deg,
-      #f8f8fa,
-      #edf0f5
-    );
+  background: linear-gradient(135deg, #f8f8fa, #edf0f5);
 }
 
-
-/* =========================================================
-   PEOPLE
-   ========================================================= */
+/* ==================== ILLUSTRATION PEOPLE ==================== */
 
 .company-guide-signup .guide-person {
   position: absolute;
-
-  left: 65px;
+  left: 19%;
   bottom: 10px;
 
   width: 62px;
   height: 145px;
 
-  animation:
-    guidePersonFloat
-    4.2s ease-in-out infinite;
+  animation: guidePersonFloat 4.2s ease-in-out infinite;
 }
 
 .company-guide-signup .guide-head {
   position: absolute;
-
   left: 11px;
   top: 0;
 
@@ -4849,70 +4722,50 @@ body:has(.faculty-signup-page) {
   height: 43px;
 
   border-radius: 50%;
-
   background: #edc1b3;
 }
 
 .company-guide-signup .guide-head::before {
   content: "";
-
   position: absolute;
-
   left: -1px;
   top: -2px;
 
   width: 42px;
   height: 20px;
 
-  border-radius:
-    22px 22px 7px 7px;
-
+  border-radius: 22px 22px 7px 7px;
   background: #2d3e52;
 }
 
 .company-guide-signup .guide-body {
   position: absolute;
-
   left: 0;
   bottom: 0;
 
   width: 62px;
   height: 102px;
 
-  border-radius:
-    25px 25px 9px 9px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #28435f,
-      #17295b
-    );
+  border-radius: 25px 25px 9px 9px;
+  background: linear-gradient(145deg, #28435f, #17295b);
 }
 
 .company-guide-signup .guide-body::after {
   content: "I";
-
   position: absolute;
-
   left: 50%;
   top: 27px;
 
-  transform:
-    translateX(-50%);
-
   width: 25px;
   height: 25px;
+  transform: translateX(-50%);
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   border-radius: 7px;
-
   background: #c48cb3;
-
   color: #ffffff;
 
   font-size: 12px;
@@ -4921,23 +4774,18 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .guide-student {
   position: absolute;
-
-  right: 63px;
+  right: 19%;
   bottom: 10px;
 
   width: 52px;
   height: 125px;
 
-  animation:
-    guidePersonFloat
-    4.5s ease-in-out infinite;
-
+  animation: guidePersonFloat 4.5s ease-in-out infinite;
   animation-delay: 0.7s;
 }
 
 .company-guide-signup .student-head {
   position: absolute;
-
   left: 9px;
   top: 0;
 
@@ -4945,170 +4793,119 @@ body:has(.faculty-signup-page) {
   height: 38px;
 
   border-radius: 50%;
-
   background: #efc5b8;
 }
 
 .company-guide-signup .student-head::before {
   content: "";
-
   position: absolute;
-
   left: 0;
   top: -2px;
 
   width: 36px;
   height: 17px;
 
-  border-radius:
-    20px 20px 5px 5px;
-
+  border-radius: 20px 20px 5px 5px;
   background: #35445a;
 }
 
 .company-guide-signup .student-body {
   position: absolute;
-
   left: 0;
   bottom: 0;
 
   width: 52px;
   height: 83px;
 
-  border-radius:
-    22px 22px 8px 8px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #84a7cf,
-      #718eb4
-    );
+  border-radius: 22px 22px 8px 8px;
+  background: linear-gradient(145deg, #84a7cf, #718eb4);
 }
 
-
-/* =========================================================
-   MESSAGE CARDS
-   ========================================================= */
+/* ==================== ILLUSTRATION MESSAGE CARDS ==================== */
 
 .company-guide-signup .guide-message {
   position: absolute;
-
-  left: 18px;
+  left: 15px;
   top: 22px;
+  z-index: 5;
 
   display: flex;
-
   align-items: center;
-
   gap: 7px;
 
+  max-width: 80%;
   padding: 8px 11px;
 
   border-radius: 9px;
-
   background: #ffffff;
-
   color: #28435f;
 
   font-size: 9px;
   font-weight: 850;
 
-  box-shadow:
-    0 7px 18px
-    rgba(11, 27, 50, 0.12);
-
-  animation:
-    guideMessageFloat
-    4s ease-in-out infinite;
+  box-shadow: 0 7px 18px rgba(11, 27, 50, 0.12);
+  animation: guideMessageFloat 4s ease-in-out infinite;
 }
 
 .company-guide-signup .guide-message span {
   width: 19px;
   height: 19px;
+  flex-shrink: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   border-radius: 6px;
-
   background: #e8c9d9;
-
   color: #17295b;
-
   font-size: 10px;
 }
 
 .company-guide-signup .guide-message-two {
   left: auto;
-  right: 18px;
+  right: 15px;
   top: 52px;
-
   animation-delay: 1s;
 }
 
 .company-guide-signup .guide-message-two span {
   background: #d8e3f2;
-
   color: #526f91;
 }
 
-
-/* =========================================================
-   FLOATING CARDS
-   ========================================================= */
+/* ==================== FLOATING STAT CARDS ==================== */
 
 .company-guide-signup .guide-floating-card {
   position: absolute;
-
   z-index: 10;
 
-  min-width: 78px;
-
-  padding: 10px 13px;
-
-  box-sizing: border-box;
+  min-width: 72px;
+  padding: 10px 12px;
 
   border-radius: 13px;
-
   background: #ffffff;
-
   color: #28435f;
 
-  box-shadow:
-    0 12px 28px
-    rgba(11, 27, 50, 0.18);
-
   text-align: center;
+  box-shadow: 0 12px 28px rgba(11, 27, 50, 0.18);
 
-  animation:
-    guideCardFloat
-    4.2s ease-in-out infinite;
+  animation: guideCardFloat 4.2s ease-in-out infinite;
 }
 
 .company-guide-signup .guide-floating-card strong {
   display: block;
-
   color: #c48cb3;
-
   font-size: 21px;
-
   line-height: 1;
-
   font-weight: 950;
 }
 
 .company-guide-signup .guide-floating-card small {
   display: block;
-
   margin-top: 4px;
-
   color: #697687;
-
   font-size: 9px;
-
   font-weight: 750;
 }
 
@@ -5119,107 +4916,85 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .guide-card-two {
   right: 5%;
-  bottom: 22px;
-
+  bottom: 15px;
   animation-delay: 0.9s;
 }
 
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* ==================== VISUAL FOOTER ==================== */
 
 .company-guide-signup .signup-visual-footer {
   width: 100%;
+  max-width: 460px;
 
   margin-top: 12px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
+  gap: 12px;
 
-  gap: 15px;
-
-  color:
-    rgba(255, 255, 255, 0.45);
-
+  color: rgba(255, 255, 255, 0.55);
   font-size: 9px;
-
   letter-spacing: 0.8px;
-
   text-transform: uppercase;
 }
 
 .company-guide-signup .signup-visual-footer span:first-child {
   color: #e8c9d9;
-
   font-weight: 900;
-
   letter-spacing: 2px;
 }
 
-
-/* =========================================================
-   RIGHT FORM
-   ========================================================= */
+/* ==================== RIGHT FORM PANEL ==================== */
 
 .company-guide-signup .signup-form-area {
-  width: 100% !important;
-  height: 100% !important;
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
 
-  min-width: 0 !important;
-  min-height: 0 !important;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
 
-  box-sizing: border-box;
+  padding: 24px clamp(22px, 3vw, 42px);
 
-  padding:
-    35px 42px 25px;
-
-  overflow: hidden;
-
-  display: flex !important;
-
+  display: flex;
   flex-direction: column;
-
+  align-items: center;
   justify-content: center;
 
-  grid-column: 2;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  background:
-    linear-gradient(
-      145deg,
-      #f0dce9 0%,
-      #ead5e4 50%,
-      #dfd5e8 100%
-    );
+  background: linear-gradient(
+    145deg,
+    #f0dce9 0%,
+    #ead5e4 50%,
+    #dfd5e8 100%
+  );
 
   color: #17295b;
 }
 
-
-/* =========================================================
-   FORM HEADER
-   ========================================================= */
+/* ==================== FORM HEADER ==================== */
 
 .company-guide-signup .signup-form-header {
-  margin-bottom: 16px;
+  width: 100%;
+  max-width: 480px;
+  min-width: 0;
+
+  margin: 0 auto 16px;
 }
 
 .company-guide-signup .signup-small-label {
   display: inline-block;
-
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 
   color: #a45f8d;
-
   font-size: 11px;
-
   font-weight: 950;
-
   letter-spacing: 1.8px;
-
   text-transform: uppercase;
 }
 
@@ -5227,94 +5002,74 @@ body:has(.faculty-signup-page) {
   margin: 0;
 
   color: #17295b;
-
-  font-size: 34px;
-
-  line-height: 1;
-
-  letter-spacing: -1.5px;
-
+  font-size: clamp(28px, 2.4vw, 35px);
+  line-height: 1.08;
+  letter-spacing: -1.3px;
   font-weight: 950;
 }
 
 .company-guide-signup .signup-form-header p {
-  max-width: 450px;
-
+  max-width: 440px;
   margin: 9px 0 0;
 
   color: #5c6371;
-
   font-size: 12px;
-
-  line-height: 1.45;
-
+  line-height: 1.5;
   font-weight: 500;
 }
 
-
-/* =========================================================
-   FORM
-   ========================================================= */
+/* ==================== REGISTRATION FORM ==================== */
 
 .company-guide-signup .signup-form {
   width: 100%;
+  max-width: 480px;
+  min-width: 0;
 
-  display: flex;
+  margin: 0 auto;
 
-  flex-direction: column;
-
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px 15px;
 }
+
+/* ==================== FORM FIELDS ==================== */
 
 .company-guide-signup .signup-field {
   width: 100%;
+  min-width: 0;
   margin: 0;
 }
 
 .company-guide-signup .signup-field label {
   display: block;
-
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 
   color: #283d59;
-
   font-size: 12px;
-
+  line-height: 1.3;
   font-weight: 850;
 }
 
-
-/* =========================================================
-   INPUT
-   ========================================================= */
+/* ==================== INPUT CONTAINERS ==================== */
 
 .company-guide-signup .signup-input-wrap {
   width: 100%;
+  height: 44px;
+  min-width: 0;
 
-  height: 43px;
-
-  box-sizing: border-box;
+  padding: 0 11px;
 
   display: flex;
-
   align-items: center;
+  gap: 8px;
 
-  gap: 10px;
-
-  padding: 0 12px;
-
+  border: 1px solid rgba(40, 67, 95, 0.17);
   border-radius: 11px;
 
-  background:
-    rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.82);
 
-  border:
-    1px solid
-    rgba(40, 67, 95, 0.15);
-
-  box-shadow:
-    0 5px 14px
-    rgba(40, 67, 95, 0.06);
+  box-shadow: 0 5px 14px rgba(40, 67, 95, 0.06);
 
   transition:
     border-color 0.2s ease,
@@ -5324,202 +5079,208 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .signup-input-wrap:focus-within {
   background: #ffffff;
-
   border-color: #c48cb3;
 
-  box-shadow:
-    0 0 0 3px
-    rgba(196, 140, 179, 0.13);
+  box-shadow: 0 0 0 3px rgba(196, 140, 179, 0.15);
 }
 
-.company-guide-signup .signup-input-icon {
-  width: 24px;
+/* ==================== INPUT ICONS ==================== */
 
-  flex-shrink: 0;
+.company-guide-signup .signup-input-icon {
+  position: static;
+
+  width: 20px;
+  min-width: 20px;
+  flex: 0 0 20px;
+
+  margin: 0;
+  padding: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   color: #a45f8d;
-
-  font-size: 15px;
-
+  font-size: 14px;
+  line-height: 1;
   font-weight: 900;
 }
 
+/* ==================== INPUTS AND SELECTS ==================== */
+
 .company-guide-signup .signup-input-wrap input,
 .company-guide-signup .signup-input-wrap select {
-  width: 100%;
+  position: static;
+
+  display: block;
+  flex: 1 1 0%;
+
+  width: 0;
+  min-width: 0;
+  max-width: 100%;
   height: 100%;
 
-  min-width: 0;
+  margin: 0;
+  padding: 0;
 
   border: none;
   outline: none;
+  border-radius: 0;
 
   background: transparent;
-
   color: #283d59;
 
   font-family: inherit;
-
-  font-size: 13px;
-
+  font-size: 12px;
   font-weight: 650;
+  line-height: normal;
+
+  box-shadow: none;
+  box-sizing: border-box;
 }
 
 .company-guide-signup .signup-input-wrap input::placeholder {
-  color: #9a9fab;
-
+  color: #8b8d9d;
   font-size: 12px;
-
   font-weight: 500;
+  opacity: 1;
 }
 
 .company-guide-signup .signup-input-wrap select {
   cursor: pointer;
-
   appearance: auto;
+  text-overflow: ellipsis;
 }
 
 .company-guide-signup .signup-input-wrap select option {
   color: #283d59;
-
   background: #ffffff;
 }
 
+/* ==================== COMPANY DROPDOWN ==================== */
 
-/* =========================================================
-   LOADING
-   ========================================================= */
+/* Company is the fifth field in the current form. */
+.company-guide-signup .signup-form > .signup-field:nth-child(5) {
+  grid-column: 1 / -1;
+}
+
+.company-guide-signup .signup-form > .signup-field:nth-child(5)
+.signup-input-wrap {
+  width: 100%;
+}
+
+/* ==================== LOADING AND INLINE ERRORS ==================== */
 
 .company-guide-signup .signup-loading,
 .company-guide-signup .signup-error-inline {
   width: 100%;
+  min-width: 0;
 
   display: flex;
   align-items: center;
 
   color: #7c7f8c;
-
   font-size: 11px;
-
   font-weight: 600;
+
+  overflow-wrap: anywhere;
 }
 
 .company-guide-signup .signup-error-inline {
   color: #b05d72;
 }
 
-
-/* =========================================================
-   MESSAGE
-   ========================================================= */
+/* ==================== STATUS MESSAGES ==================== */
 
 .company-guide-signup .signup-message {
   width: 100%;
-
-  box-sizing: border-box;
-
-  padding: 8px 11px;
+  min-width: 0;
+  margin: 0;
+  padding: 9px 11px;
 
   display: flex;
-
   align-items: center;
-
   gap: 8px;
 
   border-radius: 10px;
 
-  font-size: 10px;
-
-  line-height: 1.3;
-
+  font-size: 11px;
+  line-height: 1.4;
   font-weight: 700;
+
+  overflow-wrap: anywhere;
 }
 
 .company-guide-signup .signup-success {
   background: #e1f1e8;
-
   border: 1px solid #b9ddc9;
-
   color: #276547;
 }
 
 .company-guide-signup .signup-error {
   background: #f7e1e7;
-
   border: 1px solid #e7bac8;
-
   color: #a04460;
 }
 
 .company-guide-signup .signup-message > span {
-  width: 19px;
-  height: 19px;
-
-  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.75);
 
   font-weight: 950;
 }
 
+/* Messages must span both form columns. */
+.company-guide-signup .signup-form > .signup-message,
+.company-guide-signup .signup-form > .signup-error-inline,
+.company-guide-signup .signup-form > .signup-loading {
+  grid-column: 1 / -1;
+}
 
-/* =========================================================
-   BUTTON
-   ========================================================= */
+/* ==================== SUBMIT BUTTON ==================== */
 
 .company-guide-signup .signup-submit {
+  grid-column: 1 / -1;
+
   width: 100%;
+  min-width: 0;
+  height: 47px;
+  min-height: 47px;
 
-  height: 46px;
-
-  margin-top: 2px;
-
+  margin: 2px 0 0;
   padding: 0 17px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
+  gap: 12px;
 
   border: none;
-
   border-radius: 12px;
 
-  background:
-    linear-gradient(
-      90deg,
-      #c48cb3 0%,
-      #a998c9 50%,
-      #84a7cf 100%
-    );
+  background: linear-gradient(
+    90deg,
+    #c48cb3 0%,
+    #a998c9 50%,
+    #84a7cf 100%
+  );
 
   color: #17295b;
-
   font-family: inherit;
-
   font-size: 13px;
-
   font-weight: 950;
 
   cursor: pointer;
 
-  box-shadow:
-    0 10px 22px
-    rgba(132, 167, 207, 0.22);
+  box-shadow: 0 10px 22px rgba(132, 167, 207, 0.22);
 
   transition:
     transform 0.25s ease,
@@ -5529,23 +5290,18 @@ body:has(.faculty-signup-page) {
 
 .company-guide-signup .signup-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-
-  box-shadow:
-    0 15px 28px
-    rgba(132, 167, 207, 0.32);
+  box-shadow: 0 15px 28px rgba(132, 167, 207, 0.32);
 }
 
 .company-guide-signup .signup-submit:disabled {
   cursor: not-allowed;
-
   opacity: 0.55;
 }
 
 .company-guide-signup .signup-submit-arrow {
+  flex-shrink: 0;
   font-size: 20px;
-
-  transition:
-    transform 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
 .company-guide-signup
@@ -5554,50 +5310,40 @@ body:has(.faculty-signup-page) {
   transform: translateX(5px);
 }
 
-
-/* =========================================================
-   LOGIN FOOTER
-   ========================================================= */
+/* ==================== LOGIN FOOTER ==================== */
 
 .company-guide-signup .signup-login-footer {
   width: 100%;
+  max-width: 480px;
+  min-width: 0;
 
-  margin-top: 10px;
-
+  margin: 12px auto 0;
   padding-top: 10px;
 
   display: flex;
-
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
 
-  justify-content: center;
-
-  gap: 6px;
-
-  border-top:
-    1px solid
-    rgba(40, 67, 95, 0.12);
+  border-top: 1px solid rgba(40, 67, 95, 0.12);
 
   color: #737685;
-
-  font-size: 10px;
-
+  font-size: 11px;
+  line-height: 1.4;
   font-weight: 600;
 }
 
 .company-guide-signup .signup-login-footer button {
-  border: none;
-
+  margin: 0;
   padding: 0;
 
+  border: none;
   background: transparent;
 
   color: #a45f8d;
-
   font-family: inherit;
-
-  font-size: 10px;
-
+  font-size: 11px;
   font-weight: 900;
 
   cursor: pointer;
@@ -5607,68 +5353,47 @@ body:has(.faculty-signup-page) {
   color: #28435f;
 }
 
-
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
+/* ==================== ANIMATIONS ==================== */
 
 @keyframes guideOrbitOne {
   0%, 100% {
-    transform:
-      translate(0, 0)
-      scale(1);
+    transform: translate(0, 0) scale(1);
   }
 
   50% {
-    transform:
-      translate(30px, 25px)
-      scale(1.08);
+    transform: translate(30px, 25px) scale(1.08);
   }
 }
 
 @keyframes guideOrbitTwo {
   0%, 100% {
-    transform:
-      translate(0, 0)
-      scale(1);
+    transform: translate(0, 0) scale(1);
   }
 
   50% {
-    transform:
-      translate(-25px, -20px)
-      scale(1.06);
+    transform: translate(-25px, -20px) scale(1.06);
   }
 }
 
 @keyframes guideSparkle {
   0%, 100% {
-    transform:
-      scale(1)
-      rotate(0deg);
-
+    transform: scale(1) rotate(0deg);
     opacity: 0.7;
   }
 
   50% {
-    transform:
-      scale(1.2)
-      rotate(12deg);
-
+    transform: scale(1.2) rotate(12deg);
     opacity: 1;
   }
 }
 
 @keyframes guideWindowFloat {
   0%, 100% {
-    transform:
-      translateX(-50%)
-      translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   50% {
-    transform:
-      translateX(-50%)
-      translateY(-5px);
+    transform: translateX(-50%) translateY(-5px);
   }
 }
 
@@ -5702,57 +5427,138 @@ body:has(.faculty-signup-page) {
   }
 }
 
+/* ==================== SHORT DESKTOP SCREENS ==================== */
 
-/* =========================================================
-   SHORT HEIGHT
-   ========================================================= */
-
-@media (max-height: 850px) and (min-width: 901px) {
-
+@media (min-width: 901px) and (max-height: 850px) {
   .company-guide-signup .signup-shell {
-    height: calc(100vh - 40px) !important;
-    margin: 20px !important;
+    top: 18px;
+    bottom: 18px;
   }
 
   .company-guide-signup .signup-visual {
-    padding:
-      42px
-      45px
-      22px;
+    padding-top: 28px;
+    padding-bottom: 18px;
   }
 
   .company-guide-signup .signup-visual h1 {
-    margin-top: 20px;
-
-    font-size: 48px;
+    margin-top: 18px;
+    font-size: clamp(34px, 3.2vw, 46px);
   }
 
   .company-guide-signup .signup-visual-text {
-    margin-top: 13px;
-
+    margin-top: 12px;
     font-size: 13px;
   }
 
   .company-guide-signup .guide-illustration {
-    height: 210px;
-
-    margin-top: 14px;
+    height: 190px;
+    margin-top: 12px;
   }
 
   .company-guide-signup .guide-window {
-    width: 280px;
-    height: 175px;
+    height: 165px;
   }
 
   .company-guide-signup .signup-form-area {
-    padding:
-      25px
-      32px
-      18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
   }
 
   .company-guide-signup .signup-form-header {
-    margin-bottom: 10px;
+    margin-bottom: 11px;
+  }
+
+  .company-guide-signup .signup-form-header h2 {
+    font-size: 29px;
+  }
+
+  .company-guide-signup .signup-form-header p {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+
+  .company-guide-signup .signup-form {
+    gap: 8px 12px;
+  }
+
+  .company-guide-signup .signup-field label {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  .company-guide-signup .signup-input-wrap {
+    height: 40px;
+  }
+
+  .company-guide-signup .signup-submit {
+    height: 43px;
+    min-height: 43px;
+  }
+
+  .company-guide-signup .signup-login-footer {
+    margin-top: 8px;
+    padding-top: 7px;
+  }
+}
+
+/* ==================== TABLET ==================== */
+
+@media (max-width: 900px) {
+  .company-guide-signup .signup-shell {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+
+    display: block;
+    border-radius: 24px;
+  }
+
+  .company-guide-signup .signup-visual {
+    display: none;
+  }
+
+  .company-guide-signup .signup-form-area {
+    width: 100%;
+    height: 100%;
+    padding: 72px 30px 25px;
+  }
+
+  .company-guide-signup .signup-form-header,
+  .company-guide-signup .signup-form,
+  .company-guide-signup .signup-login-footer {
+    max-width: 540px;
+  }
+
+  .company-guide-signup .signup-form-header h2 {
+    font-size: 33px;
+  }
+}
+
+/* ==================== MOBILE ==================== */
+
+@media (max-width: 600px) {
+  .company-guide-signup .signup-back-button {
+    top: 13px;
+    right: 13px;
+
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 11px;
+  }
+
+  .company-guide-signup .signup-shell {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    border: none;
+    border-radius: 0;
+  }
+
+  .company-guide-signup .signup-form-area {
+    padding: 65px 20px 22px;
   }
 
   .company-guide-signup .signup-form-header h2 {
@@ -5760,110 +5566,16 @@ body:has(.faculty-signup-page) {
   }
 
   .company-guide-signup .signup-form-header p {
-    margin-top: 6px;
-
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .company-guide-signup .signup-form {
-    gap: 6px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
 
-  .company-guide-signup .signup-field label {
-    margin-bottom: 3px;
-
-    font-size: 10px;
-  }
-
-  .company-guide-signup .signup-input-wrap {
-    height: 39px;
-  }
-
-  .company-guide-signup .signup-submit {
-    height: 43px;
-  }
-
-  .company-guide-signup .signup-login-footer {
-    margin-top: 6px;
-
-    padding-top: 6px;
-  }
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .company-guide-signup .signup-shell {
-    width: calc(100% - 30px) !important;
-    height: calc(100vh - 30px) !important;
-
-    margin: 15px !important;
-
-    grid-template-columns: 1fr !important;
-  }
-
-  .company-guide-signup .signup-visual {
-    display: none !important;
-  }
-
-  .company-guide-signup .signup-form-area {
-    grid-column: 1 !important;
-
-    width: 100% !important;
-
-    padding:
-      75px
-      30px
-      25px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-  .company-guide-signup .signup-back-button {
-    top: 15px;
-    left: 15px;
-
-    height: 38px;
-
-    padding: 0 14px;
-
-    font-size: 11px;
-  }
-
-  .company-guide-signup .signup-shell {
-    width: 100% !important;
-    height: 100% !important;
-
-    margin: 0 !important;
-
-    border-radius: 0;
-
-    border: none;
-  }
-
-  .company-guide-signup .signup-form-area {
-    padding:
-      70px
-      18px
-      18px;
-  }
-
-  .company-guide-signup .signup-form-header h2 {
-    font-size: 31px;
-  }
-
-  .company-guide-signup .signup-form-header p {
-    font-size: 12px;
+  .company-guide-signup .signup-form > * {
+    grid-column: 1 / -1;
   }
 
   .company-guide-signup .signup-input-wrap {
@@ -5872,238 +5584,33 @@ body:has(.faculty-signup-page) {
 
   .company-guide-signup .signup-submit {
     height: 48px;
+    min-height: 48px;
+  }
+
+  .company-guide-signup .signup-login-footer {
+    justify-content: space-between;
+    font-size: 11px;
   }
 }
 
-/* =========================================================
-   COMPANY GUIDE REGISTER
-   FINAL LEFT / RIGHT ALIGNMENT
-   ========================================================= */
+/* ==================== REDUCED MOTION ==================== */
 
-.company-guide-signup {
-  position: fixed !important;
-
-  inset: 0 !important;
-
-  width: 100vw !important;
-  height: 100vh !important;
-
-  max-width: 100vw !important;
-  max-height: 100vh !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  overflow: hidden !important;
-
-  box-sizing: border-box !important;
-}
-
-
-/* =========================================================
-   MAIN SHELL
-   ========================================================= */
-
-.company-guide-signup .signup-shell {
-  position: absolute !important;
-
-  top: 22px !important;
-  left: 22px !important;
-
-  width: calc(100vw - 44px) !important;
-  height: calc(100vh - 44px) !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  display: flex !important;
-
-  flex-direction: row !important;
-
-  align-items: stretch !important;
-
-  overflow: hidden !important;
-
-  box-sizing: border-box !important;
-
-  min-width: 0 !important;
-  max-width: calc(100vw - 44px) !important;
-
-  min-height: 0 !important;
-  max-height: calc(100vh - 44px) !important;
-}
-
-
-/* =========================================================
-   LEFT PANEL
-   ========================================================= */
-
-.company-guide-signup .signup-visual {
-  position: relative !important;
-
-  flex: 0 0 54% !important;
-
-  width: 54% !important;
-  max-width: 54% !important;
-  min-width: 0 !important;
-
-  height: 100% !important;
-
-  box-sizing: border-box !important;
-
-  overflow: hidden !important;
-
-  display: flex !important;
-
-  flex-direction: column !important;
-}
-
-
-/* =========================================================
-   RIGHT PANEL
-   ========================================================= */
-
-.company-guide-signup .signup-form-area {
-  position: relative !important;
-
-  flex: 0 0 46% !important;
-
-  width: 46% !important;
-  max-width: 46% !important;
-  min-width: 0 !important;
-
-  height: 100% !important;
-
-  box-sizing: border-box !important;
-
-  overflow: hidden !important;
-
-  display: flex !important;
-
-  flex-direction: column !important;
-
-  justify-content: center !important;
-
-  flex-shrink: 1 !important;
-}
-
-
-/* =========================================================
-   FORM CONTENT MUST STAY INSIDE RIGHT PANEL
-   ========================================================= */
-
-.company-guide-signup .signup-form-header,
-.company-guide-signup .signup-form,
-.company-guide-signup .signup-login-footer {
-  width: 100% !important;
-
-  max-width: 100% !important;
-  min-width: 0 !important;
-
-  box-sizing: border-box !important;
-}
-
-
-.company-guide-signup .signup-field {
-  width: 100% !important;
-
-  max-width: 100% !important;
-  min-width: 0 !important;
-
-  box-sizing: border-box !important;
-}
-
-
-.company-guide-signup .signup-input-wrap {
-  width: 100% !important;
-
-  max-width: 100% !important;
-  min-width: 0 !important;
-
-  box-sizing: border-box !important;
-}
-
-
-.company-guide-signup .signup-input-wrap input,
-.company-guide-signup .signup-input-wrap select {
-  min-width: 0 !important;
-  max-width: 100% !important;
-
-  box-sizing: border-box !important;
-}
-
-
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
-@media (min-width: 901px) {
-
-  .company-guide-signup .signup-shell {
-    display: flex !important;
-
-    flex-direction: row !important;
+@media (prefers-reduced-motion: reduce) {
+  .company-guide-signup .signup-orbit,
+  .company-guide-signup .signup-visual-badge span,
+  .company-guide-signup .guide-window,
+  .company-guide-signup .guide-person,
+  .company-guide-signup .guide-student,
+  .company-guide-signup .guide-message,
+  .company-guide-signup .guide-floating-card {
+    animation: none !important;
   }
 
-  .company-guide-signup .signup-visual {
-    display: flex !important;
-
-    flex: 0 0 54% !important;
-  }
-
-  .company-guide-signup .signup-form-area {
-    display: flex !important;
-
-    flex: 0 0 46% !important;
-  }
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .company-guide-signup .signup-shell {
-    top: 15px !important;
-    left: 15px !important;
-
-    width: calc(100vw - 30px) !important;
-    height: calc(100vh - 30px) !important;
-
-    max-width: calc(100vw - 30px) !important;
-  }
-
-  .company-guide-signup .signup-visual {
-    display: none !important;
-  }
-
-  .company-guide-signup .signup-form-area {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    flex: 0 0 100% !important;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-  .company-guide-signup .signup-shell {
-    top: 0 !important;
-    left: 0 !important;
-
-    width: 100vw !important;
-    height: 100vh !important;
-
-    max-width: 100vw !important;
-
-    border-radius: 0 !important;
+  .company-guide-signup *,
+  .company-guide-signup *::before,
+  .company-guide-signup *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -10034,15 +9541,16 @@ body:has(.signup-page),
 .signup-page.college-signup > .signup-brand .signup-brand-mark,
 .signup-page.company-guide-signup > .signup-brand .signup-brand-mark {
   display: flex !important;
-  width: 36px !important;
-  height: 36px !important;
+  width: 52px !important;
+  height: 52px !important;
+  object-fit: contain !important;
   align-items: center !important;
   justify-content: center !important;
-  color: #e8c9d9 !important;
-  background: #0e1a4c !important;
-  border: 1px solid rgba(232, 201, 217, 0.25) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 6px 20px rgba(14, 26, 76, 0.30) !important;
+  color: transparent !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .student-signup-page .signup-back-button,

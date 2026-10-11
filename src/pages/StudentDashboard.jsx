@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "../css/StudentDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function StudentDashboard({
   student,
@@ -34,16 +35,10 @@ function StudentDashboard({
 
         <div className="student-brand">
 
-          <div className="student-brand-logo">
-            <span className="logo-i">I</span>
-            <span className="logo-arrow">↗</span>
-          </div>
+          <BrandLogo className="student-brand-logo" />
 
           <div className="student-brand-text">
-            <div className="student-brand-name">
-              InternLink
-            </div>
-
+            <div className="student-brand-name">InternLink</div>
             <div className="student-brand-tagline">
               FYUGP INTERNSHIP PLATFORM
             </div>

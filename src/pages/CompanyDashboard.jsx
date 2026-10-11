@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/CompanyDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 import "../css/CompanyDashboardHome.css";
 
 function CompanyDashboard({
@@ -1259,7 +1260,7 @@ function CompanyDashboard({
           <span>READY WHEN YOU ARE</span>
           <h2>Your next internship opportunity can start here.</h2>
         </div>
-        <div className="company-home-bottom-mark">IL</div>
+        <BrandLogo className="company-home-bottom-mark" />
       </section>
 
     </div>
@@ -1937,7 +1938,7 @@ function CompanyDashboard({
         <aside className="company-sidebar">
 
           <div className="company-sidebar-brand">
-            <div className="company-brand-mark">IL</div>
+            <BrandLogo className="company-brand-mark" />
             <div className="company-sidebar-brand-copy">
               <strong>InternLink</strong>
               <span>Company Portal</span>

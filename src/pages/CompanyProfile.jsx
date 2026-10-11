@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CompanyProfile({
   company,
@@ -359,14 +360,10 @@ function CompanyProfile({
 
               <div className="company-profile-platform-card">
 
-                <div className="company-profile-platform-mark">
-                  IL
-                </div>
+                <BrandLogo className="company-profile-platform-mark" />
 
                 <div>
-                  <strong>
-                    InternLink
-                  </strong>
+                  <strong>InternLink</strong>
 
                   <p>
                     Connected internship management

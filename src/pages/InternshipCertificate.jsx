@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/InternshipCertificate.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function InternshipCertificate({ assignment, totalHours, onBack }) {
   const handlePrint = () => {
@@ -51,14 +52,10 @@ function InternshipCertificate({ assignment, totalHours, onBack }) {
           {/* TOP BRAND */}
           <div className="il-cert-brand">
 
-            <div className="il-cert-logo">
-              <span>I</span>
-              <b>↗</b>
-            </div>
+            <BrandLogo className="il-cert-logo" />
 
             <div className="il-cert-brand-text">
               <h1>InternLink</h1>
-
               <p>
                 FYUGP INTERNSHIP MANAGEMENT PLATFORM
               </p>
@@ -262,9 +259,7 @@ function InternshipCertificate({ assignment, totalHours, onBack }) {
 
                 <div className="il-cert-seal-inner">
 
-                  <strong>
-                    IL
-                  </strong>
+                  <BrandLogo className="il-cert-seal-logo" />
 
                   <span>
                     INTERNLINK

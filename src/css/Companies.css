@@ -1648,7 +1648,7 @@
 .student-dashboard .companies-page .companies-header p { color: #28435f; }
 .student-dashboard .companies-page .internships-list {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr)) !important;
+  grid-template-columns: minmax(0, 1fr) !important;
   align-items: stretch !important;
   gap: 16px !important;
 }
@@ -1752,4 +1752,48 @@
   }
   .student-dashboard .companies-page .companies-header { padding: 18px; }
   .student-dashboard .companies-page .internship-summary { padding: 16px !important; }
+}
+
+/* Keep each internship card's summary content on one horizontal row. */
+.student-dashboard .companies-page button.internship-summary {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  text-align: left !important;
+}
+.student-dashboard .companies-page .internship-summary-left {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+.student-dashboard .companies-page .internship-expand-icon {
+  flex: 0 0 42px !important;
+  margin-left: 16px !important;
+  align-self: center !important;
+}
+
+@media (max-width: 480px) {
+  .student-dashboard .companies-page button.internship-summary {
+    gap: 10px !important;
+    padding: 14px !important;
+  }
+  .student-dashboard .companies-page .internship-summary-left {
+    gap: 10px !important;
+  }
+  .student-dashboard .companies-page .internship-summary-icon {
+    flex-basis: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+  }
+  .student-dashboard .companies-page .internship-expand-icon {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    margin-left: 0 !important;
+  }
 }

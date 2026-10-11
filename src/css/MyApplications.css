@@ -1485,6 +1485,11 @@
   font-size: 15px;
   line-height: 1.45;
 }
+
+.student-dashboard .faculty-header h3,
+.student-dashboard .application-expand-content .faculty-header h3 {
+  color: #ffffff;
+}
 .student-dashboard .application-expand-content .letter-subject {
   color: #28435f;
   font-size: 16px;

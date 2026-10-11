@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/Signup.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function Register({ onRegisterSuccess, onGoToLogin }) {
   const [formData, setFormData] = useState({
@@ -301,7 +302,7 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
 
       <header className="signup-topbar">
         <div className="signup-brand">
-          <span className="signup-brand-mark">I</span>
+          <BrandLogo className="signup-brand-mark" />
           <span>InternLink</span>
         </div>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CollegeLogin({ onLogin, onGoToRegister, onBack }) {
   const [email, setEmail] = useState("");
@@ -50,8 +51,8 @@ function CollegeLogin({ onLogin, onGoToRegister, onBack }) {
       {/* Top Navigation */}
       <header className="college-topbar">
         <div className="college-brand">
-          <div className="college-brand-mark">I</div>
-          <span>InterLink</span>
+          <BrandLogo className="college-brand-mark" />
+          <span>InternLink</span>
         </div>
 
         <button

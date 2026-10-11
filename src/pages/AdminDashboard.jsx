@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/AdminDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function AdminDashboard({
   admin,
@@ -334,12 +335,8 @@ function AdminDashboard({
     return (
       <div className="admin-loading-screen">
 
-        <div className="admin-loading-logo">
-          <span className="logo-i">I</span>
-          <span className="logo-arrow">↗</span>
-        </div>
-
-        <h2>InterLink</h2>
+        <BrandLogo className="admin-loading-logo" />
+        <h2>InternLink</h2>
 
         <p>
           Loading Admin Dashboard...
@@ -366,16 +363,10 @@ function AdminDashboard({
 
         <div className="admin-brand">
 
-          <div className="admin-brand-logo">
-            <span className="logo-i">I</span>
-            <span className="logo-arrow">↗</span>
-          </div>
+          <BrandLogo className="admin-brand-logo" />
 
           <div className="admin-brand-text">
-
-            <div className="admin-brand-name">
-              InternLink
-            </div>
+            <div className="admin-brand-name">InternLink</div>
 
             <div className="admin-brand-tagline">
               FYUGP INTERNSHIP PLATFORM
@@ -535,7 +526,7 @@ function AdminDashboard({
               <span className="art-connection connection-b"></span>
               <span className="art-connection connection-c"></span>
               <span className="art-connection connection-d"></span>
-              <div className="ecosystem-hub"><span className="hub-logo">IL</span><small>INTERNLINK</small><strong>Where opportunity<br />finds direction</strong></div>
+              <div className="ecosystem-hub"><BrandLogo className="hub-logo" /><small>INTERNLINK</small><strong>Where opportunity<br />finds direction</strong></div>
               <div className="ecosystem-node node-campus"><span className="node-symbol">⌂</span><span><strong>Campus</strong><small>Institutions</small></span></div>
               <div className="ecosystem-node node-industry"><span className="node-symbol">▦</span><span><strong>Industry</strong><small>Organizations</small></span></div>
               <div className="ecosystem-node node-students"><span className="node-symbol">✧</span><span><strong>Students</strong><small>Future talent</small></span></div>
@@ -995,14 +986,8 @@ function AdminDashboard({
 
           <div className="footer-brand-small">
 
-            <div className="footer-mini-logo">
-              <span className="logo-i">I</span>
-              <span className="logo-arrow">↗</span>
-            </div>
-
-            <strong>
-              InterLink
-            </strong>
+            <BrandLogo className="footer-mini-logo" />
+            <strong>InternLink</strong>
 
           </div>
 

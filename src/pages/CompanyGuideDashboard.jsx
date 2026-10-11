@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/CompanyGuideDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CompanyGuideDashboard({
   guide,
@@ -587,199 +588,64 @@ function CompanyGuideDashboard({
   const renderDashboard = () => {
     return (
       <div className="cg-dashboard-home">
-
-        {/* =================================================
-            WELCOME HOME CARD
-        ================================================= */}
         <section className="cg-welcome-card">
-
           <div className="cg-welcome-content">
-
             <div className="cg-welcome-text">
-
               <span className="cg-welcome-eyebrow">
-                WELCOME TO INTERNLINK
+                COMPANY GUIDE WORKSPACE
               </span>
-
               <h1>
-                Welcome back,{" "}
-                <span>
-                  {guide?.name ||
-                    "Company Guide"}
-                </span>
-                <span className="cg-welcome-wave">
-                  👋
-                </span>
+                Welcome, <span>{guide?.name || "Company Guide"}</span>!
               </h1>
-
-              <p>
-                Your workspace for guiding
-                students, monitoring their
-                internship progress, and
-                supporting them throughout
-                their internship journey.
+              <p className="cg-welcome-lead">
+                Support, monitor and guide students throughout their internship journey.
               </p>
-
-            </div>
-
-            <div
-              className="cg-welcome-visual"
-              aria-hidden="true"
-            >
-
-              <div className="cg-welcome-circle circle-one"></div>
-
-              <div className="cg-welcome-circle circle-two"></div>
-
-              <div className="cg-welcome-person">
-
-                <div className="cg-person-head">
-                  👨‍💼
-                </div>
-
-                <div className="cg-person-body">
-                  <span></span>
-                  <span></span>
-                </div>
-
-              </div>
-
-              <div className="cg-floating-check">
-                ✓
-              </div>
-
-              <div className="cg-floating-star">
-                ✦
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* =================================================
-            RESPONSIBILITIES CARD
-        ================================================= */}
-        <section className="cg-responsibilities-card">
-
-          <div className="cg-responsibilities-header">
-
-            <div className="cg-responsibilities-icon">
-              ✦
-            </div>
-
-            <div>
-              <span>
-                YOUR RESPONSIBILITIES
-              </span>
-
-              <h2>
-                Supporting students at every step
-              </h2>
-
-              <p>
-                As a Company Guide, you play an
-                important role in helping students
-                complete their internship successfully.
+              <p className="cg-welcome-description">
+                Help students gain practical experience by following their progress,
+                reviewing their work and offering professional guidance.
               </p>
             </div>
-
-          </div>
-
-          <div className="cg-responsibilities-list">
-
-            <div className="cg-responsibility-item">
-
-              <div className="cg-responsibility-number">
-                01
+            <div className="cg-welcome-illustration" aria-hidden="true">
+              <div className="cg-welcome-circle"></div>
+              <div className="cg-welcome-icon">
+                <img src="/internlink-student-career.svg" alt="" />
               </div>
-
-              <div className="cg-responsibility-icon-small">
-                👨‍🎓
-              </div>
-
-              <div className="cg-responsibility-text">
-
-                <h3>
-                  Guide Assigned Students
-                </h3>
-
-                <p>
-                  Support students during their
-                  internship and help them stay on
-                  the right path.
-                </p>
-
-              </div>
-
             </div>
-
-            <div className="cg-responsibility-item">
-
-              <div className="cg-responsibility-number">
-                02
-              </div>
-
-              <div className="cg-responsibility-icon-small">
-                ✓
-              </div>
-
-              <div className="cg-responsibility-text">
-
-                <h3>
-                  Monitor Attendance
-                </h3>
-
-                <p>
-                  Keep track of daily attendance
-                  and internship participation.
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="cg-responsibility-item">
-
-              <div className="cg-responsibility-number">
-                03
-              </div>
-
-              <div className="cg-responsibility-icon-small">
-                📖
-              </div>
-
-              <div className="cg-responsibility-text">
-
-                <h3>
-                  Review Logbook Activities
-                </h3>
-
-                <p>
-                  Review students' daily work and
-                  approve their completed activities.
-                </p>
-
-              </div>
-
-            </div>
-
           </div>
-
-          <div className="cg-responsibilities-footer">
-
-            <span className="cg-footer-dot"></span>
-
-            <p>
-              Your guidance helps students make
-              their internship experience meaningful.
-            </p>
-
-          </div>
-
         </section>
 
+        <section className="cg-home-role-section" aria-labelledby="cg-home-role-title">
+          <div className="cg-home-role-heading">
+            <span>YOUR IMPACT</span>
+            <h2 id="cg-home-role-title">Make every internship a learning experience</h2>
+          </div>
+
+          <div className="cg-home-role-grid">
+            <article className="cg-home-role-card">
+              <span className="cg-home-role-icon" aria-hidden="true">✦</span>
+              <div>
+                <h3>Guide students</h3>
+                <p>Help students settle into the workplace and build confidence in their role.</p>
+              </div>
+            </article>
+
+            <article className="cg-home-role-card">
+              <span className="cg-home-role-icon monitor" aria-hidden="true">◷</span>
+              <div>
+                <h3>Monitor progress</h3>
+                <p>Keep track of internship activities, attendance and learning milestones.</p>
+              </div>
+            </article>
+
+            <article className="cg-home-role-card">
+              <span className="cg-home-role-icon evaluate" aria-hidden="true">✓</span>
+              <div>
+                <h3>Support evaluation</h3>
+                <p>Review student work and share feedback that helps them grow.</p>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     );
   };
@@ -2742,306 +2608,160 @@ const renderLogbooks = () => {
   // ==========================================
   return (
     <div className="cg-layout">
-
-      {/* HEADER */}
-      <header className="cg-header">
-
-        <div className="cg-brand">
-
-          <div className="cg-brand-mark">
-
-            <span className="cg-mark-left"></span>
-
-            <span className="cg-mark-right"></span>
-
-          </div>
-
-          <div className="cg-brand-text">
-
-            <h2>
-              InternLink
-            </h2>
-
-            <span>
-              Internship Management Platform
-            </span>
-
-          </div>
-
-        </div>
-
-        <div className="cg-header-right">
-
-          <div className="cg-header-user">
-
-            <div className="cg-header-avatar">
-              {guide?.name
-                ?.charAt(0)
-                ?.toUpperCase() ||
-                "G"}
-            </div>
-
-            <div className="cg-header-user-info">
-
-              <strong>
-                {guide?.name ||
-                  "Company Guide"}
-              </strong>
-
-              <span>
-                Company Guide
-              </span>
-
-            </div>
-
-          </div>
-
-          <button
-            className="cg-logout"
-            onClick={onLogout}
-          >
-
-            <span>
-              ↪
-            </span>
-
-            Logout
-
-          </button>
-
-        </div>
-
-      </header>
-
-      {/* MAIN */}
       <div className="cg-main">
-
-        {/* SIDEBAR */}
         <aside className="cg-sidebar">
-
-          <div className="cg-sidebar-profile">
-
-            <div className="cg-sidebar-avatar">
-              {guide?.name
-                ?.charAt(0)
-                ?.toUpperCase() ||
-                "G"}
+          <div className="cg-brand">
+            <BrandLogo className="cg-brand-mark" alt="InternLink logo" />
+            <div className="cg-brand-text">
+              <h2>InternLink</h2>
+              <span>Internship Management Platform</span>
             </div>
-
-            <div>
-
-              <strong>
-                {guide?.name ||
-                  "Company Guide"}
-              </strong>
-
-              <span>
-                Guide Portal
-              </span>
-
-            </div>
-
           </div>
-
-          <div className="cg-menu-label">
-            MAIN MENU
-          </div>
-
-          <nav className="cg-navigation">
-
-            {/* DASHBOARD */}
-            <button
-              className={`cg-nav-item ${
-                currentSection ===
-                "dashboard"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                openSection(
-                  "dashboard"
-                )
-              }
-            >
-              <span>
-                ⌂
-              </span>
-
-              Dashboard
-            </button>
-
-            {/* PROFILE */}
-            <button
-              className={`cg-nav-item ${
-                currentSection ===
-                "profile"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                openSection(
-                  "profile"
-                )
-              }
-            >
-              <span>
-                ♙
-              </span>
-
-              My Profile
-            </button>
-
-            {/* ASSIGNED STUDENTS */}
-            <button
-              className={`cg-nav-item ${
-                currentSection ===
-                "assignedStudents"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                openSection(
-                  "assignedStudents"
-                )
-              }
-            >
-              <span>
-                ♙
-              </span>
-
-              Assigned Students
-
-              {assignments.length >
-                0 && (
-                <em>
-                  {assignments.length}
-                </em>
-              )}
-
-            </button>
-
-            {/* ATTENDANCE */}
-            <button
-              className={`cg-nav-item ${
-                currentSection ===
-                "attendance"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                openSection(
-                  "attendance"
-                )
-              }
-            >
-              <span>
-                ✓
-              </span>
-
-              Attendance
-            </button>
-
-            {/* LOGBOOKS */}
-            <button
-              className={`cg-nav-item ${
-                currentSection ===
-                "logbooks"
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                openSection(
-                  "logbooks"
-                )
-              }
-            >
-              <span>
-                ▤
-              </span>
-
-              View Logbooks
-
-              {logbooks.filter(
-                (logbook) =>
-                  logbook.companyGuideStatus !==
-                    "Approved" &&
-                  logbook.companyGuideStatus !==
-                    "Rejected"
-              ).length > 0 && (
-                <em className="notification">
-
-                  {
-                    logbooks.filter(
-                      (logbook) =>
-                        logbook.companyGuideStatus !==
-                          "Approved" &&
-                        logbook.companyGuideStatus !==
-                          "Rejected"
-                    ).length
-                  }
-
-                </em>
-              )}
-
-            </button>
-
-          </nav>
 
           <div className="cg-sidebar-divider"></div>
+          <div className="cg-menu-label">WORKSPACE</div>
 
-          <div className="cg-guide-info">
+          <nav className="cg-navigation">
+            <button
+              type="button"
+              className={`cg-nav-item ${
+                currentSection === "dashboard" ? "active" : ""
+              }`}
+              onClick={() => openSection("dashboard")}
+            >
+              <span className="cg-nav-icon">⌂</span>
+              <span className="cg-nav-label">Dashboard</span>
+            </button>
 
-            <div className="cg-guide-info-icon">
-              ✓
+            <button
+              type="button"
+              className={`cg-nav-item ${
+                currentSection === "profile" ? "active" : ""
+              }`}
+              onClick={() => openSection("profile")}
+            >
+              <span className="cg-nav-icon">◯</span>
+              <span className="cg-nav-label">My Profile</span>
+            </button>
+
+            <button
+              type="button"
+              className={`cg-nav-item ${
+                currentSection === "assignedStudents" ? "active" : ""
+              }`}
+              onClick={() => openSection("assignedStudents")}
+            >
+              <span className="cg-nav-icon">♙</span>
+              <span className="cg-nav-label">Assigned Students</span>
+              {assignments.length > 0 && <em>{assignments.length}</em>}
+            </button>
+
+            <button
+              type="button"
+              className={`cg-nav-item ${
+                currentSection === "attendance" ? "active" : ""
+              }`}
+              onClick={() => openSection("attendance")}
+            >
+              <span className="cg-nav-icon">◷</span>
+              <span className="cg-nav-label">Attendance</span>
+            </button>
+
+            <button
+              type="button"
+              className={`cg-nav-item ${
+                currentSection === "logbooks" ? "active" : ""
+              }`}
+              onClick={() => openSection("logbooks")}
+            >
+              <span className="cg-nav-icon">▥</span>
+              <span className="cg-nav-label">View Logbooks</span>
+              {logbooks.filter((logbook) =>
+                logbook.companyGuideStatus !== "Approved" &&
+                logbook.companyGuideStatus !== "Rejected"
+              ).length > 0 && (
+                <em className="notification">
+                  {logbooks.filter((logbook) =>
+                    logbook.companyGuideStatus !== "Approved" &&
+                    logbook.companyGuideStatus !== "Rejected"
+                  ).length}
+                </em>
+              )}
+            </button>
+          </nav>
+
+          <div className="cg-sidebar-bottom">
+            <div className="cg-sidebar-profile">
+              <div className="cg-sidebar-avatar">
+                {guide?.name?.charAt(0)?.toUpperCase() || "G"}
+              </div>
+              <div className="cg-sidebar-user-details">
+                <strong>{guide?.name || "Company Guide"}</strong>
+                <span>Company Guide</span>
+              </div>
             </div>
-
-            <div>
-
-              <span>
-                ACCOUNT STATUS
-              </span>
-
-              <strong>
-                {guide?.status ||
-                  "Approved"}
-              </strong>
-
+            <div className="cg-guide-info">
+              <div className="cg-guide-info-icon">✓</div>
+              <div className="cg-guide-info-text">
+              <span>ACCOUNT STATUS</span>
+              <strong>{guide?.status || "Approved"}</strong>
+              </div>
             </div>
-
+            <button
+              type="button"
+              className="cg-sidebar-action"
+              onClick={() => openSection("changePassword")}
+            >
+              <span>🔐</span>
+              <span className="cg-sidebar-action-label">Change Password</span>
+            </button>
+            <button
+              type="button"
+              className="cg-sidebar-action logout"
+              onClick={onLogout}
+            >
+              <span>↪</span>
+              <span className="cg-sidebar-action-label">Logout</span>
+            </button>
           </div>
-
-          <div className="cg-sidebar-footer">
-
-            InternLink
-
-            <span>
-              •
-            </span>
-
-            Company Guide
-
-          </div>
-
         </aside>
 
-        {/* CONTENT */}
         <main className="cg-content">
-
+          <header className="cg-page-header">
+            <div>
+              <div className="cg-page-label">FYUGP COMPANY GUIDE WORKSPACE</div>
+              <h1>
+                {currentSection === "dashboard" ? "Dashboard"
+                  : currentSection === "profile" ? "My Profile"
+                  : currentSection === "editProfile" ? "Edit Profile"
+                  : currentSection === "assignedStudents" ? "Assigned Students"
+                  : currentSection === "attendance" ? "Attendance"
+                  : currentSection === "logbooks" ? "View Logbooks"
+                  : currentSection === "changePassword" ? "Change Password"
+                  : "Dashboard"}
+              </h1>
+            </div>
+            <div className="cg-page-user">
+              <span>Welcome back</span>
+              <div className="cg-header-avatar">
+                {guide?.name?.charAt(0)?.toUpperCase() || "G"}
+              </div>
+            </div>
+          </header>
           <div className="cg-content-inner">
-
             {currentSection ===
                 "editProfile" ||
             currentSection ===
                 "changePassword"
               ? children
               : renderContent()}
-
           </div>
-
+          <footer className="cg-footer">
+            <span>© InternLink</span>
+            <span>FYUGP Internship Management Platform</span>
+          </footer>
         </main>
-
       </div>
-
     </div>
   );
 }

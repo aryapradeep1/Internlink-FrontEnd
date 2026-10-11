@@ -216,19 +216,11 @@ function CollegeProfile({
             </button>
 
             <button
-              className="college-profile-password-button"
+              className="college-profile-edit-button"
               onClick={onChangePassword}
             >
               <span>🔐</span>
               Change Password
-            </button>
-
-            <button
-              className="college-profile-back-button"
-              onClick={onBack}
-            >
-              <span>←</span>
-              Back to Dashboard
             </button>
 
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function Login({
   onLogin,
@@ -131,8 +132,7 @@ function Login({
           className="single-login-brand"
           onClick={onGoToHome}
         >
-          <span className="single-login-logo">I</span>
-          <span className="single-login-arrow">↗</span>
+          <BrandLogo className="single-login-logo" />
           <span className="single-login-brand-text">InternLink</span>
         </button>
 

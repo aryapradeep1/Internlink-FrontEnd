@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function FacultyLogin({ onLogin, onBack, onRegister }) {
   const [email, setEmail] = useState("");
@@ -50,7 +51,7 @@ const response = await fetch(
         {/* Top Bar */}
         <div className="faculty-topbar">
           <div className="faculty-brand">
-            <div className="faculty-brand-icon">I</div>
+            <BrandLogo className="faculty-brand-icon" />
             <span>InternLink</span>
           </div>
 
@@ -108,7 +109,7 @@ const response = await fetch(
                 <div className="faculty-body">
                   <div className="faculty-collar faculty-collar-left"></div>
                   <div className="faculty-collar faculty-collar-right"></div>
-                  <div className="faculty-body-logo">I</div>
+                  <BrandLogo className="faculty-body-logo" />
                 </div>
 
                 <div className="faculty-arm faculty-arm-left"></div>

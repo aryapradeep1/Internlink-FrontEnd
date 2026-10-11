@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function AdminLogin({ onLogin, onBack }) {
   const [email, setEmail] = useState("");
@@ -43,8 +44,8 @@ body: JSON.stringify({
       {/* TOP BAR */}
       <header className="admin-topbar">
         <div className="admin-brand">
-          <div className="admin-brand-mark">I</div>
-          <span>InterLink</span>
+          <BrandLogo className="admin-brand-mark" />
+          <span>InternLink</span>
         </div>
 
         <button
@@ -105,9 +106,7 @@ body: JSON.stringify({
                 {/* Sidebar */}
                 <div className="admin-mini-sidebar">
 
-                  <div className="admin-sidebar-logo">
-                    I
-                  </div>
+                  <BrandLogo className="admin-sidebar-logo" />
 
                   <div className="admin-sidebar-item active">
                     <span>⌂</span>

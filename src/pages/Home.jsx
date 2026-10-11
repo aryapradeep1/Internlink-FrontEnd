@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/Home.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 const Home = ({ onLogin, onSignup }) => {
   const scrollToSection = (id) => {
@@ -23,10 +24,7 @@ const Home = ({ onLogin, onSignup }) => {
             className="brand"
             onClick={() => scrollToSection("home")}
           >
-            <div className="brand-logo">
-              <span className="logo-i">I</span>
-              <span className="logo-link">↗</span>
-            </div>
+            <BrandLogo className="brand-logo" />
 
             <div className="brand-text">
               <span className="brand-name">InternLink</span>
@@ -1031,13 +1029,10 @@ const Home = ({ onLogin, onSignup }) => {
 
               <div className="brand">
 
-                <div className="brand-logo footer-logo">
-                  <span className="logo-i">I</span>
-                  <span className="logo-link">↗</span>
-                </div>
+                <BrandLogo className="brand-logo footer-logo" />
 
                 <div className="brand-text">
-                  <span className="brand-name">InterLink</span>
+                  <span className="brand-name">InternLink</span>
                   <span className="brand-tagline">
                     FYUGP Internship Platform
                   </span>

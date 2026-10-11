@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "./BrandLogo.jsx";
 
 function CompanyLogin({ onLogin, onBack, onRegister }) {
   const [email, setEmail] = useState("");
@@ -58,7 +59,7 @@ function CompanyLogin({ onLogin, onBack, onRegister }) {
         <div className="company-topbar">
 
           <div className="company-brand">
-            <div className="company-brand-icon">I</div>
+            <BrandLogo className="company-brand-icon" />
             <span>InternLink</span>
           </div>
 

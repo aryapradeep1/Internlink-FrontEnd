@@ -826,3 +826,9 @@
     border: 1px solid #d5b86a;
   }
 }
+
+.il-cert-seal-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}

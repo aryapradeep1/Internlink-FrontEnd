@@ -2636,3 +2636,177 @@
 .student-value-card:nth-child(2) { background: linear-gradient(110deg, #ffffff, rgba(232, 201, 217, .18)); }
 .student-value-card:nth-child(3) { background: linear-gradient(110deg, #ffffff, rgba(132, 167, 207, .14)); }
 
+/* Student workspace uses the Company Guide dashboard theme. */
+.student-dashboard {
+  --student-ink: #294139;
+  --student-green: #287653;
+  --student-green-deep: #174d3d;
+  --student-mint: #d8f3e5;
+  --student-coral: #ef9aa7;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(244, 201, 210, .55), transparent 25%),
+    radial-gradient(circle at 18% 85%, rgba(193, 238, 216, .55), transparent 30%),
+    linear-gradient(135deg, #eefaf4 0%, #f7fbf8 48%, #fff2f5 100%);
+  color: var(--student-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.student-sidebar {
+  background: linear-gradient(180deg, #245b49 0%, #2a6651 48%, #2f7059 100%);
+  border-right: 1px solid #1d4d3d;
+  box-shadow: 5px 0 24px rgba(23, 74, 58, .14);
+}
+.student-brand-logo {
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .08);
+  box-shadow: none;
+}
+.student-brand-logo .logo-i { color: #fff; }
+.student-brand-logo .logo-arrow { color: #ef9aa7; }
+.student-brand-tagline, .student-mini-details span { color: #b9d8ca; }
+.student-sidebar-divider { background: linear-gradient(90deg, rgba(216, 243, 229, .28), rgba(239, 130, 146, .32)); }
+.student-sidebar-label { color: #b8d6c9; }
+.student-nav-item { color: #e5f3ed; border-color: transparent; }
+.student-nav-item:hover {
+  background: linear-gradient(90deg, rgba(216, 243, 229, .18), rgba(239, 130, 146, .18));
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(10, 50, 38, .12);
+}
+.student-nav-item.active {
+  background: linear-gradient(90deg, #bfe8d2 0%, #ccefdc 55%, #f2d5dc 100%);
+  color: #174a3a;
+  box-shadow: inset 4px 0 0 #e98292, 0 7px 18px rgba(10, 50, 38, .16);
+}
+.student-nav-item.active .student-nav-icon { color: #174a3a; }
+.student-nav-icon { color: #bfe0d1; }
+.student-sidebar-bottom { border-top-color: rgba(216, 243, 229, .18); }
+.student-mini-profile { border-color: rgba(216, 243, 229, .12); background: rgba(216, 243, 229, .08); }
+.student-mini-avatar, .student-topbar-avatar {
+  color: #245b49;
+  background: linear-gradient(135deg, #d8f3e5, #9ed5b9);
+  border-color: rgba(255, 255, 255, .55);
+  box-shadow: 0 4px 12px rgba(40, 118, 83, .08);
+}
+.student-mini-details strong { color: #fff; }
+.student-bottom-button { color: #dceee7; }
+.student-bottom-button:hover { color: #fff; background: rgba(216, 243, 229, .15); }
+.student-bottom-button.logout:hover { color: #ffdce2; background: rgba(239, 130, 146, .18); }
+.student-topbar {
+  height: 82px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, .88), rgba(255, 247, 249, .9));
+  border-bottom-color: #dcebe4;
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+}
+.student-page-label { color: #829b91; }
+.student-topbar h1 { color: #294139; }
+.student-topbar-welcome { color: #83968e; }
+.student-page-content {
+  padding: 28px 36px 18px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(249, 215, 222, .35), transparent 25%),
+    radial-gradient(circle at 10% 90%, rgba(205, 239, 220, .35), transparent 28%);
+  scrollbar-color: #c5ded2 transparent;
+}
+.student-page-content::-webkit-scrollbar-thumb { background: #c5ded2; }
+.student-home-hero {
+  min-height: 340px;
+  border: 1px solid #e1eee8;
+  border-radius: 22px;
+  padding: 42px 48px;
+  background: linear-gradient(120deg, #fff 0%, #f5fcf8 100%);
+  box-shadow: 0 12px 35px rgba(39, 83, 68, .06);
+}
+.student-home-hero::before { background: rgba(216, 243, 229, .45); }
+.student-home-hero::after { background: rgba(249, 215, 222, .35); }
+.student-home-text h2 { color: #294139; }
+.student-home-text h2 span { color: #287653; }
+.student-home-text h2 strong { color: #183e32; }
+.student-home-text p { color: #5f746b; }
+.student-home-badge { color: #287653; background: #eaf7f0; border: 1px solid #d8ebe2; box-shadow: none; }
+.student-home-line span { background: #287653; }
+.student-home-line span:nth-child(2) { background: #9ed5b9; }
+.student-home-line span:nth-child(3) { background: #ef9aa7; }
+.student-illustration-area {
+  border-color: #d8ebe2;
+  background: linear-gradient(145deg, rgba(216, 243, 229, .7), rgba(249, 215, 222, .38));
+  box-shadow: inset 0 1px rgba(255, 255, 255, .55), 0 12px 28px rgba(39, 83, 68, .08);
+}
+.student-home-message { border-color: #e1eee8; background: #fff; box-shadow: 0 8px 25px rgba(39, 83, 68, .04); }
+.message-icon, .value-icon.green, .value-icon.coral, .value-icon.mint { color: #287653; background: #d8f3e5; box-shadow: 0 8px 20px rgba(40, 118, 83, .08); }
+.student-home-message span { color: #287653; }
+.student-home-message h3, .student-value-card h3 { color: #294139; }
+.student-home-message p, .student-value-card p { color: #5f746b; }
+.student-value-card, .student-value-card:nth-child(2), .student-value-card:nth-child(3) {
+  border-color: #e1eee8;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(39, 83, 68, .04);
+}
+.student-value-card:first-child { border-top: 2px solid #9ed5b9; }
+.student-value-card:nth-child(2) { border-top: 2px solid #ef9aa7; }
+.student-value-card:nth-child(3) { border-top: 2px solid #d8f3e5; }
+.student-value-card:hover { border-color: #cce5d9; box-shadow: 0 10px 28px rgba(39, 83, 68, .08); }
+.student-home-quote { border-color: #1d4d3d; background: linear-gradient(110deg, #245b49, #2f7059); box-shadow: 0 12px 30px rgba(23, 74, 58, .12); }
+.quote-mark, .quote-decoration { color: #d8f3e5; }
+.student-home-quote p { color: #fff; }
+.student-home-quote span { color: #b9d8ca; }
+.student-footer { color: #5f746b; border-top-color: #dcebe4; background: rgba(255, 255, 255, .82); }
+
+@media (max-width: 850px) {
+  .student-page-content { padding: 25px; }
+  .student-home-hero { padding: 34px; }
+}
+@media (max-width: 650px) {
+  .student-dashboard { background: linear-gradient(160deg, #eefaf4, #f7fbf8 55%, #fff2f5); }
+  .student-sidebar { background: linear-gradient(180deg, #245b49, #2f7059); }
+  .student-topbar { height: 72px; }
+  .student-page-content { padding: 20px 15px 28px; }
+  .student-home-hero { min-height: 0; padding: 26px 22px; }
+}
+
+/* Keep student navigation aligned with the InternLink brand palette. */
+.student-sidebar {
+  background: linear-gradient(180deg, #0e1a4c 0%, #20324a 52%, #28435f 100%);
+  border-right: 1px solid rgba(232, 201, 217, .24);
+  box-shadow: 5px 0 24px rgba(11, 27, 50, .18);
+}
+.student-brand-logo {
+  border-color: rgba(232, 201, 217, .3);
+  background: linear-gradient(145deg, #0e1a4c, #28435f);
+}
+.student-brand-logo .logo-arrow { color: #e8c9d9; }
+.student-brand-tagline, .student-mini-details span { color: rgba(232, 201, 217, .78); }
+.student-sidebar-divider {
+  background: linear-gradient(90deg, rgba(232, 201, 217, .05), rgba(232, 201, 217, .35), rgba(132, 167, 207, .12));
+}
+.student-sidebar-label { color: #e8c9d9; }
+.student-nav-item { color: rgba(255, 255, 255, .9); border-color: transparent; }
+.student-nav-item:hover {
+  color: #fff;
+  background: rgba(132, 167, 207, .18);
+  border-color: rgba(232, 201, 217, .2);
+  box-shadow: 0 5px 15px rgba(11, 27, 50, .16);
+}
+.student-nav-item.active {
+  color: #0e1a4c;
+  background: linear-gradient(100deg, #c48cb3, #84a7cf);
+  border-color: rgba(232, 201, 217, .42);
+  box-shadow: inset 4px 0 0 #e8c9d9, 0 7px 18px rgba(11, 27, 50, .2);
+}
+.student-nav-item.active .student-nav-icon { color: #0e1a4c; }
+.student-nav-icon { color: #e8c9d9; }
+.student-nav-item:hover .student-nav-icon { color: #fff; }
+.student-sidebar-bottom { border-top-color: rgba(232, 201, 217, .2); }
+.student-mini-profile {
+  border-color: rgba(232, 201, 217, .2);
+  background: rgba(255, 255, 255, .08);
+}
+.student-mini-avatar {
+  color: #0e1a4c;
+  background: linear-gradient(135deg, #c48cb3, #84a7cf);
+  box-shadow: 0 4px 12px rgba(11, 27, 50, .18);
+}
+.student-mini-details strong { color: #fff; }
+@media (max-width: 650px) {
+  .student-sidebar { background: linear-gradient(180deg, #0e1a4c, #28435f); }
+}

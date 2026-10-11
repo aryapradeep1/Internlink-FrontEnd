@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/Login.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CompanyGuideLogin({ onLogin, onBack, onRegister }) {
   const [email, setEmail] = useState("");
@@ -51,7 +52,7 @@ function CompanyGuideLogin({ onLogin, onBack, onRegister }) {
         {/* Top Bar */}
         <div className="guide-topbar">
           <div className="guide-brand">
-            <div className="guide-brand-icon">I</div>
+            <BrandLogo className="guide-brand-icon" />
             <span>InternLink</span>
           </div>
 
@@ -127,7 +128,7 @@ function CompanyGuideLogin({ onLogin, onBack, onRegister }) {
                 </div>
 
                 <div className="guide-mentor-body">
-                  <div className="guide-body-logo">I</div>
+                  <BrandLogo className="guide-body-logo" />
                 </div>
 
                 <div className="guide-mentor-arm guide-mentor-arm-left"></div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/Signup.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CompanyGuideRegister({
   onRegisterSuccess,
@@ -159,7 +160,7 @@ function CompanyGuideRegister({
     <div className="signup-page company-guide-signup">
 
       <div className="signup-brand" aria-label="InternLink">
-        <span className="signup-brand-mark">I</span>
+        <BrandLogo className="signup-brand-mark" />
       </div>
 
       {/* Decorative background */}

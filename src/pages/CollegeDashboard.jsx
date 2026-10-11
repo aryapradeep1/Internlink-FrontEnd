@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/CollegeDashboard.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CollegeDashboard({
   college,
@@ -18,6 +19,7 @@ function CollegeDashboard({
   const [students, setStudents] = useState([]);
   const [faculty, setFaculty] = useState([]);
   const [applications, setApplications] = useState([]);
+  const [expandedApprovedApplications, setExpandedApprovedApplications] = useState({});
 
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
@@ -406,251 +408,110 @@ function CollegeDashboard({
     if (activeSection === "dashboard") {
       return (
         <div className="college-page college-home-page">
-
           <div className="college-welcome-card">
-
             <div className="college-welcome-content">
-
               <span className="college-welcome-eyebrow">
-                WELCOME TO INTERNLINK
+                COLLEGE INTERNSHIP WORKSPACE
               </span>
-
               <h1>
-                Welcome,
-                <br />
-                <span>
-                  {college.collegeName}
-                </span>
+                Welcome to the <span>College Internship Dashboard</span>
               </h1>
-
               <p className="college-welcome-description">
-                Manage your college's internship activities
-                smoothly through one simple platform.
-                InternLink helps you coordinate students,
-                faculty, and internship applications from
-                one place.
+                Manage students, faculty, internships and internship activities
+                through one centralized platform.
               </p>
-
-              <div className="college-welcome-role">
-
-                <div className="college-welcome-role-icon">
-                  ✓
-                </div>
-
-                <div>
-                  <strong>
-                    Your role as a College Coordinator
-                  </strong>
-
-                  <p>
-                    Verify students, manage faculty,
-                    review internship applications, and
-                    approve internships for your students.
-                  </p>
-                </div>
-
-              </div>
-
             </div>
-
             <div className="college-welcome-visual">
-
-              <div className="college-visual-circle circle-one"></div>
-              <div className="college-visual-circle circle-two"></div>
-
-              <div className="college-visual-card">
-
-                <div className="college-visual-card-top">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-
-                <div className="college-visual-screen">
-
-                  <div className="college-screen-header">
-
-                    <div className="college-screen-avatar">
-                      {college.collegeName
-                        ? college.collegeName
-                            .charAt(0)
-                            .toUpperCase()
-                        : "C"}
-                    </div>
-
-                    <div>
-                      <span></span>
-                      <span></span>
-                    </div>
-
-                  </div>
-
-                  <div className="college-screen-row">
-                    <span></span>
-                    <span></span>
-                  </div>
-
-                  <div className="college-screen-row">
-                    <span></span>
-                    <span></span>
-                  </div>
-
-                  <div className="college-screen-row">
-                    <span></span>
-                    <span></span>
-                  </div>
-
-                  <div className="college-screen-check">
-                    ✓
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="college-floating-icon college-floating-student">
-                🎓
-              </div>
-
-              <div className="college-floating-icon college-floating-check">
-                ✓
-              </div>
-
-              <div className="college-floating-icon college-floating-link">
-                ↗
-              </div>
-
+              <img
+                className="college-welcome-image"
+                src="/internlink-student-career.svg"
+                alt="A student building career experience through an internship"
+              />
             </div>
-
           </div>
 
           <div className="college-role-section">
-
             <div className="college-role-heading">
-
               <span className="college-eyebrow">
-                YOUR ROLE
+                YOUR ROLE IN THE INTERNSHIP JOURNEY
               </span>
-
               <h2>
-                What you can manage
+                Coordinate learning from campus to workplace
               </h2>
-
-              <p>
-                Everything you need to coordinate
-                the internship process at your college.
-              </p>
-
             </div>
 
             <div className="college-role-grid">
-
               <div className="college-role-card">
-
                 <div className="college-role-icon">
                   🎓
                 </div>
-
                 <div>
                   <h3>
-                    Manage Students
+                    Students
                   </h3>
-
                   <p>
-                    Upload student verification
-                    records and view students
-                    registered under your college.
+                    Manage and support students participating in internships.
                   </p>
                 </div>
-
               </div>
 
               <div className="college-role-card">
-
                 <div className="college-role-icon">
                   👨‍🏫
                 </div>
-
                 <div>
                   <h3>
-                    Manage Faculty
+                    Faculty
                   </h3>
-
                   <p>
-                    Review faculty registration
-                    requests and approve faculty
-                    members from your institution.
+                    Coordinate faculty guides and student support.
                   </p>
                 </div>
-
               </div>
 
               <div className="college-role-card">
-
                 <div className="college-role-icon">
                   📄
                 </div>
-
                 <div>
                   <h3>
-                    Review Applications
+                    Internships
                   </h3>
-
                   <p>
-                    Review company-approved
-                    internship applications and
-                    verify student internship requests.
+                    Manage internship opportunities and student participation.
                   </p>
                 </div>
-
               </div>
 
               <div className="college-role-card">
-
                 <div className="college-role-icon">
                   ✓
                 </div>
-
                 <div>
                   <h3>
-                    Approve Internships
+                    Monitoring
                   </h3>
-
                   <p>
-                    Approve verified internships
-                    and help students continue
-                    their internship journey.
+                    Follow internship progress and completion across the college.
                   </p>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           <div className="college-home-footer">
-
             <div className="college-home-footer-icon">
               ✦
             </div>
-
             <div>
-
               <strong>
-                Internship management made simple.
+                One coordinated internship experience.
               </strong>
-
               <span>
-                InternLink connects your college,
-                students, faculty, and companies
-                in one place.
+                Keep students, faculty and workplace learning connected with InternLink.
               </span>
-
             </div>
-
           </div>
-
         </div>
       );
     }
@@ -1762,11 +1623,17 @@ function CollegeDashboard({
               <div className="college-approved-list">
 
                 {approvedApplications.map(
-                  (app) => (
+                  (app, index) => {
+                    const applicationKey = app._id || app.id || index;
+                    const isExpanded = Boolean(
+                      expandedApprovedApplications[applicationKey]
+                    );
+                    const detailsId = `college-approved-details-${applicationKey}`;
 
+                    return (
                     <div
-                      key={app._id}
-                      className="college-approved-card"
+                      key={applicationKey}
+                      className={`college-approved-card ${isExpanded ? "expanded" : ""}`}
                     >
 
                       <div className="college-approved-card-header">
@@ -1776,41 +1643,46 @@ function CollegeDashboard({
                           <div className="college-approved-avatar">
                             {app.student?.name
                               ?.charAt(0)
-                              ?.toUpperCase() ||
-                              "S"}
+                              ?.toUpperCase() || "S"}
                           </div>
 
-                          <div>
-
-                            <span>
-                              APPROVED STUDENT
-                            </span>
-
-                            <h3>
-                              {app.student?.name ||
-                                "Student"}
-                            </h3>
-
-                            <p>
-                              {app.student
-                                ?.registerNumber ||
-                                "Register number unavailable"}
-                            </p>
-
+                          <div className="college-approved-summary">
+                            <h3>{app.student?.name || "Student"}</h3>
+                            <p>{app.student?.department || "Department unavailable"}</p>
                           </div>
 
                         </div>
 
-                        <div className="college-approved-status">
-                          <span>
-                            ✓
+                        <button
+                          type="button"
+                          className="college-approved-toggle"
+                          aria-expanded={isExpanded}
+                          aria-controls={detailsId}
+                          onClick={() =>
+                            setExpandedApprovedApplications((previous) => ({
+                              ...previous,
+                              [applicationKey]: !previous[applicationKey],
+                            }))
+                          }
+                        >
+                          <span>{isExpanded ? "Minimize" : "View Details"}</span>
+                          <span className="college-approved-toggle-icon" aria-hidden="true">
+                            {isExpanded ? "▴" : "▾"}
                           </span>
-
-                          College Approved
-                        </div>
+                        </button>
 
                       </div>
 
+                      {isExpanded && (
+                        <div id={detailsId} className="college-approved-expanded">
+                          <div className="college-approved-expanded-heading">
+                            <span className="college-approved-status">
+                              <span>✓</span> College Approved
+                            </span>
+                            <span className="college-approved-register">
+                              Register Number: <strong>{app.student?.registerNumber || "Register number unavailable"}</strong>
+                            </span>
+                          </div>
 
                       <div className="college-approved-details">
 
@@ -1977,9 +1849,13 @@ function CollegeDashboard({
 
                       </div>
 
+                        </div>
+                      )}
+
                     </div>
 
-                  )
+                  );
+                  }
                 )}
 
               </div>
@@ -2225,16 +2101,10 @@ function CollegeDashboard({
 
         <div className="college-brand">
 
-          <div className="college-brand-logo">
-            IL
-          </div>
+          <BrandLogo className="college-brand-logo" />
 
           <div>
-
-            <h2>
-              Intern<span>Link</span>
-            </h2>
-
+            <h2>Intern<span>Link</span></h2>
             <p>
               College Portal
             </p>
@@ -2265,6 +2135,20 @@ function CollegeDashboard({
             <span>
               Dashboard
             </span>
+          </button>
+
+          <button
+            className={`college-nav-item ${
+              activeSection === "profile" ||
+              activeSection === "editProfile" ||
+              activeSection === "changePassword"
+                ? "active"
+                : ""
+            }`}
+            onClick={onGoToProfile}
+          >
+            <span className="college-nav-icon">👤</span>
+            <span>My Profile</span>
           </button>
 
 
@@ -2330,31 +2214,6 @@ function CollegeDashboard({
 
 
         <div className="college-sidebar-bottom">
-
-          <button
-            className={`college-nav-item ${
-              activeSection ===
-                "profile" ||
-              activeSection ===
-                "editProfile" ||
-              activeSection ===
-                "changePassword"
-                ? "active"
-                : ""
-            }`}
-            onClick={
-              onGoToProfile
-            }
-          >
-            <span className="college-nav-icon">
-              👤
-            </span>
-
-            <span>
-              My Profile
-            </span>
-          </button>
-
 
           <button
             className="college-logout-button"

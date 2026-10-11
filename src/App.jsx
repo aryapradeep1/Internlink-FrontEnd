@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Student
 import Register from "./pages/Register";
@@ -80,6 +80,7 @@ const [studentSection, setStudentSection] =
 
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedInternship, setSelectedInternship] = useState(null);
+  const applicationReturnToInternships = useRef(false);
   const [certificateAssignment, setCertificateAssignment] = useState(null);
 const [certificateHours, setCertificateHours] = useState(0);
 
@@ -595,6 +596,7 @@ if (page === "studentDashboard" && student) {
         setPage("studentDashboard");
       }}
       onGoToMyApplications={() => {
+        applicationReturnToInternships.current = false;
         setStudentSection("applications");
         setPage("studentDashboard");
       }}
@@ -663,7 +665,16 @@ if (page === "studentDashboard" && student) {
       {studentSection === "applications" && (
         <MyApplications
           student={student}
-          onBack={goToStudentDashboard}
+          onBack={() => {
+            if (applicationReturnToInternships.current) {
+              applicationReturnToInternships.current = false;
+              setStudentSection("internships");
+              setPage("studentDashboard");
+              return;
+            }
+
+            goToStudentDashboard();
+          }}
         />
       )}
 
@@ -953,10 +964,12 @@ if (page === "studentDashboard" && student) {
       company={selectedCompany}
       internship={selectedInternship}
       onBack={() => {
-        setStudentSection("internshipDetails");
+        applicationReturnToInternships.current = false;
+        setStudentSection("internships");
         setPage("studentDashboard");
       }}
       onSuccess={() => {
+        applicationReturnToInternships.current = true;
         setStudentSection("applications");
         setPage("studentDashboard");
       }}

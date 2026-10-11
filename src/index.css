@@ -35,6 +35,130 @@
   box-sizing: border-box;
 }
 
+.internlink-brand-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Give the complete stacked logo enough room in each shared brand slot. */
+img.internlink-brand-image:is(
+  .student-brand-logo,
+  .admin-brand-logo,
+  .college-brand-logo,
+  .company-brand-mark,
+  .cg-brand-mark,
+  .faculty-brand-logo
+) {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+img.internlink-brand-image:is(
+  .brand-logo,
+  .single-login-logo,
+  .signup-brand-mark,
+  .company-brand-icon,
+  .admin-brand-mark,
+  .college-brand-mark,
+  .guide-brand-icon,
+  .faculty-brand-icon,
+  .il-cert-logo
+) {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+img.internlink-brand-image:is(.footer-mini-logo, .admin-loading-logo) {
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+img.internlink-brand-image:is(.hub-logo, .company-profile-platform-mark) {
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+img.internlink-brand-image.company-home-bottom-mark {
+  width: 58px;
+  height: 58px;
+  flex: 0 0 58px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+@media (max-width: 650px) {
+  img.internlink-brand-image:is(
+    .student-brand-logo,
+    .admin-brand-logo,
+    .college-brand-logo,
+    .company-brand-mark,
+    .cg-brand-mark,
+    .faculty-brand-logo,
+    .company-home-bottom-mark
+  ) {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  img.internlink-brand-image:is(
+    .brand-logo,
+    .single-login-logo,
+    .company-brand-icon,
+    .admin-brand-mark,
+    .college-brand-mark,
+    .guide-brand-icon,
+    .faculty-brand-icon,
+    .il-cert-logo
+  ) {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+}
+
+/* Keep the app's many page-specific icon wrappers visually consistent. */
+[class*="-icon"],
+[class*="Icon"] {
+  font-variant-emoji: text;
+  font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  line-height: 1;
+}
+
+/* Emoji were being rendered in full colour on some pages and as text on
+   others. Prefer text presentation for a quieter, consistent interface. */
+body {
+  font-variant-emoji: text;
+}
+
 html,
 body {
   margin: 0;

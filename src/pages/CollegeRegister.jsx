@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Signup.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CollegeRegister({ onSuccess, onBack }) {
   const [formData, setFormData] = useState({
@@ -76,7 +77,7 @@ function CollegeRegister({ onSuccess, onBack }) {
     <div className="signup-page college-signup">
 
       <div className="signup-brand" aria-label="InternLink">
-        <span className="signup-brand-mark">I</span>
+        <BrandLogo className="signup-brand-mark" />
       </div>
 
       {/* Decorative background */}

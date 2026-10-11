@@ -6,20 +6,20 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding-bottom: 40px;
+  padding-bottom: 8px;
   color: #294139;
 }
 
 /* ---------- Header ---------- */
 
 .edit-faculty-header {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .edit-faculty-label {
   display: inline-block;
-  margin-bottom: 8px;
-  padding: 6px 11px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
   border-radius: 20px;
   background: #d8f3e5;
   color: #287653;
@@ -37,7 +37,7 @@
 }
 
 .edit-faculty-header p {
-  margin: 8px 0 0;
+  margin: 5px 0 0;
   color: #718078;
   font-size: 14px;
 }
@@ -49,8 +49,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
-  padding: 13px 16px;
+  margin-bottom: 12px;
+  padding: 9px 13px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
@@ -96,7 +96,7 @@
 .edit-faculty-card {
   width: 100%;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 22px 24px;
   border: 1px solid #e5eee9;
   border-radius: 18px;
   background: #ffffff;
@@ -109,9 +109,9 @@
 .edit-card-heading {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
-  padding-bottom: 22px;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
   border-bottom: 1px solid #edf2ef;
 }
 
@@ -119,8 +119,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
   border-radius: 12px;
   background: #d8f3e5;
@@ -146,13 +146,13 @@
 .edit-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px 20px;
+  gap: 14px 18px;
 }
 
 .edit-form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .edit-full-width {
@@ -168,8 +168,8 @@
 .edit-form-group input {
   width: 100%;
   box-sizing: border-box;
-  min-height: 46px;
-  padding: 11px 13px;
+  min-height: 40px;
+  padding: 8px 12px;
   border: 1px solid #dbe7e1;
   border-radius: 10px;
   outline: none;
@@ -204,9 +204,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 30px;
-  padding-top: 24px;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid #edf2ef;
 }
 
@@ -228,12 +228,13 @@
 .edit-back-btn {
   border: 1px solid #d7e4de;
   background: #ffffff;
-  color: #4d6259;
+  color: #294139;
 }
 
 .edit-back-btn:hover {
-  background: #f5faf7;
-  border-color: #c4d9ce;
+  background: #edf9f2;
+  border-color: #c7ead7;
+  color: #174d35;
   transform: translateY(-1px);
 }
 
@@ -243,15 +244,15 @@
   justify-content: center;
   gap: 8px;
   border: none;
-  background: #287653;
+  background: #174d3d;
   color: #ffffff;
-  box-shadow: 0 5px 12px rgba(40, 118, 83, 0.16);
+  box-shadow: 0 5px 12px rgba(23, 77, 61, 0.16);
 }
 
 .edit-save-btn:hover:not(:disabled) {
-  background: #226848;
+  background: #22664f;
   transform: translateY(-1px);
-  box-shadow: 0 7px 15px rgba(40, 118, 83, 0.20);
+  box-shadow: 0 7px 15px rgba(23, 77, 61, 0.20);
 }
 
 .edit-save-btn:disabled {
@@ -282,7 +283,7 @@
 
 @media (max-width: 700px) {
   .edit-faculty-page {
-    padding-bottom: 25px;
+    padding-bottom: 8px;
   }
 
   .edit-faculty-header h1 {
@@ -290,13 +291,13 @@
   }
 
   .edit-faculty-card {
-    padding: 22px;
+    padding: 18px;
     border-radius: 15px;
   }
 
   .edit-form-grid {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 12px;
   }
 
   .edit-full-width {

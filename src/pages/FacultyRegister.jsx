@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../css/Signup.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
   // ==========================================
@@ -230,7 +231,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
     <div className="signup-page faculty-signup-page">
 
       <div className="signup-brand" aria-label="InternLink">
-        <span className="signup-brand-mark">I</span>
+        <BrandLogo className="signup-brand-mark" />
       </div>
 
       {/* ==========================================

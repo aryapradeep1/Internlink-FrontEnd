@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Signup.css";
+import BrandLogo from "../components/BrandLogo.jsx";
 
 function CompanyRegister({ onBack, onLogin }) {
   const [formData, setFormData] = useState({
@@ -62,7 +63,7 @@ function CompanyRegister({ onBack, onLogin }) {
     <div className="signup-page company-signup-page">
 
       <div className="signup-brand" aria-label="InternLink">
-        <span className="signup-brand-mark">I</span>
+        <BrandLogo className="signup-brand-mark" />
       </div>
 
       {/* LEFT SIDE */}
