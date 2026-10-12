@@ -1,12 +1,14 @@
 
 import { useEffect, useState } from "react";
 import "../css/Companies.css";
+import { getInternshipDisplayStatus, isInternshipAvailableForApplications, isInternshipDeadlineExpired } from "../utils/internshipDeadline.js";
 
 function Companies({ onBack, onViewDetails }) {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [expandedInternship, setExpandedInternship] = useState(null);
+  const [expiredApplicationMessage, setExpiredApplicationMessage] = useState("");
 
   useEffect(() => {
     const fetchInternships = async () => {
@@ -50,6 +52,10 @@ function Companies({ onBack, onViewDetails }) {
   };
 
   const handleApply = (internship) => {
+    if (!isInternshipAvailableForApplications(internship)) {
+      setExpiredApplicationMessage(internship._id);
+      return;
+    }
     if (onViewDetails) {
       onViewDetails(
         internship.company,
@@ -202,6 +208,10 @@ function Companies({ onBack, onViewDetails }) {
 
                           </div>
 
+                          <span className={`internship-deadline-status ${getInternshipDisplayStatus(internship) === "Open" ? "open" : "closed"}`}>
+                            {getInternshipDisplayStatus(internship)}
+                          </span>
+
                         </div>
 
                       </div>
@@ -347,6 +357,14 @@ function Companies({ onBack, onViewDetails }) {
                         {/* APPLY */}
                         <div className="expanded-actions">
 
+                          {expiredApplicationMessage === internship._id && (
+                            <p className="expired-application-message" role="alert">
+                              {isInternshipDeadlineExpired(internship.deadline)
+                                ? "The application deadline has expired. This internship is now closed."
+                                : "Applications are not available for this internship."}
+                            </p>
+                          )}
+
                           <button
                             type="button"
                             className="apply-internship-btn"
@@ -356,7 +374,7 @@ function Companies({ onBack, onViewDetails }) {
                           >
 
                             <span>
-                              Apply Internship
+                              {isInternshipAvailableForApplications(internship) ? "Apply Internship" : "Applications Closed"}
                             </span>
 
                             <span className="apply-arrow">

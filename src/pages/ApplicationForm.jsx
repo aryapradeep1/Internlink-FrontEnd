@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/ApplicationForm.css";
+import { isInternshipAvailableForApplications, isInternshipDeadlineExpired } from "../utils/internshipDeadline.js";
 
 function ApplicationForm({
   student,
@@ -13,9 +14,18 @@ function ApplicationForm({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const deadlineExpired = isInternshipDeadlineExpired(internship?.deadline);
+  const applicationUnavailable = !isInternshipAvailableForApplications(internship);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isInternshipAvailableForApplications(internship)) {
+      setError(isInternshipDeadlineExpired(internship?.deadline)
+        ? "The application deadline has expired. This internship is now closed."
+        : "Applications are not available for this internship.");
+      return;
+    }
 
     // Check documents
     if (!resume) {
@@ -83,6 +93,7 @@ function ApplicationForm({
         {
           method: "POST",
           body: formData,
+          credentials: "include",
         }
       );
 
@@ -161,6 +172,14 @@ function ApplicationForm({
 
           <form onSubmit={handleSubmit}>
 
+          {applicationUnavailable && (
+            <p className="error-message expired-application-message" role="alert">
+              {deadlineExpired
+                ? "The application deadline has expired. This internship is now closed."
+                : "Applications are not available for this internship."}
+            </p>
+          )}
+
           {/* CV / Resume */}
 
           <div className="form-group">
@@ -217,9 +236,11 @@ function ApplicationForm({
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || applicationUnavailable}
             >
-              {loading
+              {applicationUnavailable
+                ? "Applications Closed"
+                : loading
                 ? "Submitting..."
                 : "Submit Application"}
             </button>

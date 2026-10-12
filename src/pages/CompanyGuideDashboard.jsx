@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/CompanyGuideDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function CompanyGuideDashboard({
   guide,
@@ -440,6 +441,7 @@ function CompanyGuideDashboard({
         "http://localhost:5000/api/attendance/company-guide/mark",
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -2688,6 +2690,10 @@ const renderLogbooks = () => {
                 </em>
               )}
             </button>
+            <NotificationCenter onNavigate={(target) => {
+              if (target === "logbooks") openSection("logbooks");
+              if (target === "attendance") openSection("attendance");
+            }} />
           </nav>
 
           <div className="cg-sidebar-bottom">

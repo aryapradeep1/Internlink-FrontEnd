@@ -537,7 +537,9 @@ function MyInternship({
 
           <span>
             {totalHours >= requiredHours
-              ? "✓ Required hours completed"
+              ? status === "Completed"
+                ? "✓ Internship completed"
+                : "Required hours completed — faculty approval is still needed"
               : `${requiredHours - totalHours} hours remaining`}
           </span>
 

@@ -9611,3 +9611,97 @@ body:has(.signup-page),
   font-size: inherit !important;
   line-height: inherit !important;
 }
+
+
+html,
+body,
+#root {
+  min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+}
+
+.college-dashboard,
+.college-main-content {
+  min-height: 100vh;
+  height: auto;
+  overflow-y: auto;
+}
+
+/* Let the complete student registration page scroll when its content is taller than the viewport. */
+html:has(.student-signup-page),
+body:has(.student-signup-page),
+#root:has(.student-signup-page) {
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.student-signup-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  max-height: none !important;
+  padding-bottom: 24px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.student-signup-page .signup-main {
+  height: auto !important;
+  min-height: calc(100dvh - 100px) !important;
+  max-height: none !important;
+  margin-bottom: 30px !important;
+  overflow: visible !important;
+}
+
+.student-signup-page .signup-intro,
+.student-signup-page .signup-form-area {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.student-signup-page .signup-card {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Give faculty registration the same page-level scrolling behavior. */
+html:has(.faculty-signup-page),
+body:has(.faculty-signup-page),
+#root:has(.faculty-signup-page) {
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+.signup-page.faculty-signup-page {
+  height: auto !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  max-height: none !important;
+  padding-bottom: 24px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  align-items: stretch !important;
+}
+
+.faculty-signup-page .faculty-signup-visual,
+.faculty-signup-page .signup-visual-content,
+.faculty-signup-page .signup-form-section {
+  height: auto !important;
+  min-height: 100dvh !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.faculty-signup-page .signup-form-card {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}

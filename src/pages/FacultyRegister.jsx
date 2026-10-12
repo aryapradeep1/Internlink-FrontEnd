@@ -32,6 +32,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
   const [message, setMessage] = useState("");
 
+ 
   // ==========================================
   // GET APPROVED COLLEGES
   // ==========================================
@@ -40,25 +41,30 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
     const fetchColleges = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/colleges"
+          "http://localhost:5000/api/colleges"
         );
 
         const data = await response.json();
 
-        if (response.ok) {
-          const approvedColleges = data.colleges.filter(
-            (college) => college.status === "Approved"
-          );
-
-          setColleges(approvedColleges);
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch colleges");
         }
+
+        setColleges(
+          (data.colleges || []).filter(
+            (collegeItem) => collegeItem.status === "Approved" ||
+              collegeItem.status === undefined
+          )
+        );
       } catch (error) {
         console.error("Error fetching colleges:", error);
+        setMessage("Unable to load colleges. Please refresh the page.");
       }
     };
 
     fetchColleges();
   }, []);
+ch
 
   // ==========================================
   // VERIFY FACULTY
@@ -177,6 +183,11 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
     if (!password.trim()) {
       setMessage("Please enter your password");
+      return;
+    }
+
+    if (password.length < 6) {
+      setMessage("Password must be at least 6 characters long.");
       return;
     }
 
@@ -690,6 +701,7 @@ function FacultyRegister({ onRegisterSuccess, onBackToLogin }) {
 
                     <input
                       type="password"
+                      minLength={6}
                       placeholder="Create a secure password"
                       value={password}
                       onChange={(e) =>

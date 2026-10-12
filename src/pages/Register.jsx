@@ -29,6 +29,7 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
 
   const [isRegistering, setIsRegistering] = useState(false);
 
+  
   // ======================================================
   // FETCH APPROVED COLLEGES
   // ======================================================
@@ -37,19 +38,19 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
     const fetchColleges = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/admin/colleges"
+          "http://localhost:5000/api/colleges"
         );
 
         const data = await response.json();
 
-        if (response.ok && data.status === "success") {
-          const approvedColleges = data.colleges.filter(
-            (college) => college.status === "Approved"
-          );
-
-          setColleges(approvedColleges);
+        if (response.ok && Array.isArray(data.colleges)) {
+          setColleges(data.colleges);
+          setMessage("");
         } else {
-          setMessage("Failed to load colleges");
+          console.error("Failed to load colleges:", data);
+          setMessage(
+            data.message || "Failed to load colleges"
+          );
         }
       } catch (error) {
         console.error("Fetch colleges error:", error);
@@ -200,6 +201,11 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
 
     if (!formData.password) {
       setMessage("Please enter your password");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setMessage("Password must be at least 6 characters long.");
       return;
     }
 
@@ -658,6 +664,7 @@ function Register({ onRegisterSuccess, onGoToLogin }) {
 
                       <input
                         type="password"
+                        minLength={6}
                         name="password"
                         placeholder="Create a password"
                         value={formData.password}

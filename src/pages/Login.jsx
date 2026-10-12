@@ -10,6 +10,7 @@ function Login({
   onGoToCompanyGuideRegister,
   onGoToCollegeRegister,
   onGoToHome,
+  onGoToForgotPassword,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -284,6 +285,17 @@ function Login({
                     </button>
                   </div>
                 </div>
+                ```jsx
+                {/* Forgot Password */}
+                <div className="forgot-password-link">
+                  <button
+                    type="button"
+                    onClick={onGoToForgotPassword}
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+```
 
                 {/* Submit */}
                 <button

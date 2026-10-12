@@ -1016,3 +1016,5 @@
   .student-dashboard .application-form-card .application-buttons { flex-direction: column-reverse; }
   .student-dashboard .application-form-card .application-buttons button { width: 100%; }
 }
+
+.application-form-card .expired-application-message { margin: 0 0 12px; color: #784d70; font-size: 14px; font-weight: 600; }

@@ -2975,3 +2975,42 @@ body,
   .admin-main { height: auto; min-height: calc(100vh - 150px); padding: 0 18px 22px; }
   .admin-topbar { margin-inline: -18px; padding-inline: 18px; }
 }
+
+/* Readability pass for Admin workspace and its management tables. */
+.admin-dashboard { font-size: 16px; }
+.admin-navigation .admin-nav-item { font-size: 15px; line-height: 1.35; }
+.sidebar-label { font-size: 12px; }
+.admin-user-info strong, .admin-user-info span, .sidebar-action { font-size: 14px; }
+.admin-topbar-heading span { font-size: 11px; }
+.admin-topbar-heading strong { font-size: 17px; }
+.admin-topbar-user strong { font-size: 14px; }
+.admin-topbar-user small { font-size: 12px; }
+.hero-kicker, .section-eyebrow { font-size: 12px; }
+.hero-greeting, .hero-description { font-size: 16px; }
+.hero-signature { font-size: 14px; }
+.ecosystem-hub small, .ecosystem-node small, .art-caption { font-size: 11px; }
+.ecosystem-hub strong, .ecosystem-node strong { font-size: 14px; }
+.role-heading p, .admin-principle-card p, .platform-statement p { font-size: 14px; }
+.admin-principle-card h3, .platform-statement strong { font-size: 16px; }
+.management-section-heading h2 { font-size: clamp(27px, 2.8vw, 36px); }
+.management-section-heading p { font-size: 16px; line-height: 1.5; }
+.pending-requests-box > summary strong { font-size: 17px; }
+.pending-requests-box > summary small { font-size: 14px; }
+.request-count { font-size: 14px; }
+.pending-request-group h3 { font-size: 16px; }
+.pending-request-group h3 span { font-size: 13px; }
+.request-row strong { font-size: 16px; }
+.request-row > div:first-child span, .request-empty { font-size: 14px; line-height: 1.5; }
+.organization-actions button, .admin-dashboard button { font-size: 15px; }
+.admin-dashboard input, .admin-dashboard select { font-size: 15px; }
+.admin-dashboard table th { font-size: 14px; }
+.admin-dashboard table td { font-size: 15px; }
+.admin-dashboard h1, .admin-dashboard h2, .admin-dashboard h3,
+.admin-dashboard p, .admin-dashboard td, .admin-dashboard th,
+.admin-dashboard strong, .admin-dashboard span { overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  .admin-topbar-heading strong { font-size: 15px; }
+  .request-row { gap: 14px; }
+  .organization-actions { flex-wrap: wrap; }
+}

@@ -31,7 +31,11 @@ function MyApplications({ student, onBack }) {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/applications/student/${studentId}`
+          `http://localhost:5000/api/applications/student/${studentId}`,
+          {
+             method: "GET",
+    credentials: "include",
+          }
         );
 
         const data = await response.json();
@@ -79,6 +83,7 @@ function MyApplications({ student, onBack }) {
         `http://localhost:5000/api/applications/forward-to-college/${applicationId}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
 

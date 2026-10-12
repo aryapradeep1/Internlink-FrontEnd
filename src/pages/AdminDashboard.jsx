@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/AdminDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function AdminDashboard({
   admin,
@@ -56,20 +57,31 @@ function AdminDashboard({
         pendingCollegeResponse,
         approvedCollegeResponse,
       ] = await Promise.all([
+      fetch(
+  "http://localhost:5000/api/admin/pending-companies",
+  {
+    credentials: "include",
+  }
+),
         fetch(
-          "http://localhost:5000/api/admin/pending-companies"
+          "http://localhost:5000/api/admin/approved-companies",
+          {
+            credentials: "include",
+          }
         ),
 
         fetch(
-          "http://localhost:5000/api/admin/approved-companies"
+          "http://localhost:5000/api/admin/pending-colleges",
+          {
+            credentials: "include",
+          }
         ),
 
         fetch(
-          "http://localhost:5000/api/admin/pending-colleges"
-        ),
-
-        fetch(
-          "http://localhost:5000/api/admin/approved-colleges"
+          "http://localhost:5000/api/admin/approved-colleges",
+          {
+            credentials: "include",
+          }
         ),
       ]);
 
@@ -131,10 +143,10 @@ function AdminDashboard({
   }, []);
 
   useEffect(() => {
-    if (!loading || children) {
-      resetAdminContentScroll();
-    }
-  }, [loading, children]);
+    // Section content changes should start at the top, but refreshing the
+    // approval lists must not move the Admin away from the active section.
+    if (children) resetAdminContentScroll();
+  }, [children]);
 
   useEffect(() => {
     const resetAfterSectionNavigation = () => {
@@ -157,6 +169,7 @@ function AdminDashboard({
         `http://localhost:5000/api/admin/approve-company/${id}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
 
@@ -192,6 +205,7 @@ function AdminDashboard({
         `http://localhost:5000/api/admin/reject-company/${id}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
 
@@ -227,6 +241,7 @@ function AdminDashboard({
         `http://localhost:5000/api/admin/approve-college/${id}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
 
@@ -262,6 +277,7 @@ function AdminDashboard({
         `http://localhost:5000/api/admin/reject-college/${id}`,
         {
           method: "PUT",
+          credentials: "include",
         }
       );
 
@@ -430,6 +446,10 @@ function AdminDashboard({
             <span>Pending Requests</span>
           </a>
 
+          <NotificationCenter onNavigate={(target) => {
+            window.location.hash = target === "requests" ? "admin-requests" : "admin-overview";
+          }} />
+
         </nav>
 
         {/* SIDEBAR BOTTOM */}
@@ -559,11 +579,11 @@ function AdminDashboard({
             <div className="pending-request-content">
               <div className="pending-request-group">
                 <h3>Company requests <span>{filteredPendingCompanies.length}</span></h3>
-                {filteredPendingCompanies.length === 0 ? <p className="request-empty">No company registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingCompanies.map((company) => <article className="request-row" key={company._id}><div><strong>{company.companyName}</strong><span>{company.email} · {company.location || "Location not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCompany(company._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCompany(company._id)}>× Reject</button></div></article>)}</div>}
+                {filteredPendingCompanies.length === 0 ? <p className="request-empty">No company registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingCompanies.map((company) => <article className="request-row" key={company._id}><div><strong>{company.companyName}</strong><span>Email: {company.email || "Not provided"}</span><span>Location: {company.location || "Not provided"}</span><span>Description: {company.description || "Not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCompany(company._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCompany(company._id)}>× Reject</button></div></article>)}</div>}
               </div>
               <div className="pending-request-group">
                 <h3>College requests <span>{filteredPendingColleges.length}</span></h3>
-                {filteredPendingColleges.length === 0 ? <p className="request-empty">No college registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingColleges.map((college) => <article className="request-row" key={college._id}><div><strong>{college.collegeName}</strong><span>{college.email} · {college.location || "Location not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCollege(college._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCollege(college._id)}>× Reject</button></div></article>)}</div>}
+                {filteredPendingColleges.length === 0 ? <p className="request-empty">No college registrations are waiting for approval.</p> : <div className="request-list">{filteredPendingColleges.map((college) => <article className="request-row" key={college._id}><div><strong>{college.collegeName}</strong><span>College Code: {college.collegeCode || "Not provided"}</span><span>Email: {college.email || "Not provided"}</span><span>Phone: {college.phone || "Not provided"}</span><span>Location: {college.location || "Not provided"}</span><span>Website: {college.website || "Not provided"}</span></div><div className="organization-actions"><button className="approve-button" onClick={() => handleApproveCollege(college._id)}>✓ Approve</button><button className="reject-button" onClick={() => handleRejectCollege(college._id)}>× Reject</button></div></article>)}</div>}
               </div>
             </div>
           </details>

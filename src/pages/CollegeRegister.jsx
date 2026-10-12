@@ -29,6 +29,11 @@ function CollegeRegister({ onSuccess, onBack }) {
     setMessage("");
     setError("");
 
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       const response = await fetch(
         "http://localhost:5000/api/colleges/register",
@@ -317,6 +322,7 @@ function CollegeRegister({ onSuccess, onBack }) {
 
                 <input
                   type="password"
+                  minLength={6}
                   name="password"
                   placeholder="Create a password"
                   value={formData.password}

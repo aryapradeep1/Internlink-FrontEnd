@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/CollegeDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function CollegeDashboard({
   college,
@@ -32,6 +33,12 @@ function CollegeDashboard({
   const [uploadingExcel, setUploadingExcel] = useState(false);
   const [uploadResult, setUploadResult] = useState(null);
   const [uploadedExcel, setUploadedExcel] = useState(null);
+
+  
+  const [selectedFacultyFile, setSelectedFacultyFile] = useState(null);
+  const [uploadingFacultyExcel, setUploadingFacultyExcel] = useState(false);
+  const [facultyUploadResult, setFacultyUploadResult] = useState(null);
+  const [uploadedFacultyExcel, setUploadedFacultyExcel] = useState(null);
 
   // ==========================================
   // LOAD COLLEGE DATA
@@ -175,6 +182,69 @@ function CollegeDashboard({
       setUploadingExcel(false);
     }
   };
+
+  
+  // ==========================================
+  // UPLOAD FACULTY EXCEL
+  // ==========================================
+
+  const handleFacultyExcelUpload = async () => {
+    if (!selectedFacultyFile) {
+      setMessage("Please select a faculty Excel file first.");
+      return;
+    }
+
+    const fileName = selectedFacultyFile.name.toLowerCase();
+
+    if (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls")) {
+      setMessage("Please select a valid Excel file (.xlsx or .xls).");
+      return;
+    }
+
+    try {
+      setUploadingFacultyExcel(true);
+      setMessage("");
+      setFacultyUploadResult(null);
+
+      const formData = new FormData();
+      formData.append("file", selectedFacultyFile);
+
+      const response = await fetch(
+        `http://localhost:5000/api/colleges/${college.id}/upload-faculty-excel`,
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setUploadedFacultyExcel({
+          name: selectedFacultyFile.name,
+          size: selectedFacultyFile.size,
+          uploadedAt: new Date(),
+        });
+
+        setFacultyUploadResult(data.summary);
+        setMessage("Faculty Excel file processed successfully.");
+        setSelectedFacultyFile(null);
+      } else {
+        setMessage(data.message || "Failed to upload faculty Excel file.");
+
+        if (data.summary) {
+          setFacultyUploadResult(data.summary);
+        }
+      }
+    } catch (error) {
+      console.error("Faculty Excel upload error:", error);
+      setMessage("Failed to upload faculty Excel file.");
+    } finally {
+      setUploadingFacultyExcel(false);
+    }
+  };
+
 
   // ==========================================
   // APPROVE FACULTY
@@ -960,9 +1030,7 @@ function CollegeDashboard({
               </h1>
 
               <p>
-                Review faculty registration
-                requests and manage approved
-                faculty members.
+                View the faculty members registered through your uploaded list.
               </p>
 
             </div>
@@ -970,126 +1038,125 @@ function CollegeDashboard({
           </div>
 
 
-          {/* PENDING FACULTY */}
+        
+  {/* FACULTY EXCEL UPLOAD */}
 
-          <div className="college-section-card">
+  <div className="college-section-card college-excel-upload-card">
+    <div className="college-section-header">
+      <div>
+        <span className="college-eyebrow">FACULTY VERIFICATION</span>
+        <h2>Upload Faculty Excel</h2>
+        <p>
+          Upload the authorized faculty list so faculty members
+          can register using their verification codes.
+        </p>
+      </div>
+    </div>
 
-            <div className="college-section-header">
+    <div className="college-excel-format-box">
+      <strong>Required Excel columns:</strong>
+      <span>Name, College, Department, Verification Code</span>
+    </div>
 
-              <div>
+    <div className="college-excel-upload-area">
+      <div className="college-file-input-wrapper">
+        <input
+          type="file"
+          accept=".xlsx,.xls"
+          id="facultyExcelFile"
+          onChange={(e) => {
+            setSelectedFacultyFile(e.target.files?.[0] || null);
+            setFacultyUploadResult(null);
+          }}
+        />
 
-                <h2>
-                  Pending Faculty Requests
-                </h2>
+        <label htmlFor="facultyExcelFile">
+          {selectedFacultyFile
+            ? selectedFacultyFile.name
+            : "Choose Faculty Excel File"}
+        </label>
+      </div>
 
-                <p>
-                  Faculty members waiting
-                  for approval.
-                </p>
+      <button
+        type="button"
+        className="college-excel-upload-button"
+        onClick={handleFacultyExcelUpload}
+        disabled={uploadingFacultyExcel}
+      >
+        {uploadingFacultyExcel ? "Uploading..." : "Upload Faculty Excel"}
+      </button>
+    </div>
 
-              </div>
+    {selectedFacultyFile && (
+      <div className="college-selected-file">
+        <span>📄</span>
+        <div>
+          <strong>{selectedFacultyFile.name}</strong>
+          <small>
+            {(selectedFacultyFile.size / 1024).toFixed(1)} KB
+          </small>
+        </div>
+      </div>
+    )}
 
-              <span className="college-count-badge">
-                {pendingFaculty.length}
-              </span>
+    {uploadedFacultyExcel && (
+      <div className="college-uploaded-excel-card">
+        <div className="college-uploaded-excel-icon">📊</div>
+        <div className="college-uploaded-excel-info">
+          <span className="college-uploaded-excel-label">
+            UPLOADED FACULTY DOCUMENT
+          </span>
+          <h3>{uploadedFacultyExcel.name}</h3>
+          <p>
+            Excel Spreadsheet
+            {uploadedFacultyExcel.size
+              ? ` • ${(uploadedFacultyExcel.size / 1024).toFixed(1)} KB`
+              : ""}
+          </p>
+        </div>
+        <div className="college-uploaded-excel-status">
+          ✓ Successfully Processed
+        </div>
+      </div>
+    )}
 
-            </div>
+    {facultyUploadResult && (
+      <div className="college-excel-result">
+        <h3>Faculty Upload Summary</h3>
 
-
-            {pendingFaculty.length === 0 ? (
-
-              <div className="college-small-empty">
-                No pending faculty
-                requests.
-              </div>
-
-            ) : (
-
-              <div className="college-table-wrapper">
-
-                <table className="college-table">
-
-                  <thead>
-
-                    <tr>
-                      <th>Name</th>
-                      <th>Department</th>
-                      <th>Designation</th>
-                      <th>Email</th>
-                      <th>Action</th>
-                    </tr>
-
-                  </thead>
-
-                  <tbody>
-
-                    {pendingFaculty.map(
-                      (f) => (
-
-                        <tr key={f._id}>
-
-                          <td>
-                            <strong>
-                              {f.name}
-                            </strong>
-                          </td>
-
-                          <td>
-                            {f.department}
-                          </td>
-
-                          <td>
-                            {f.designation}
-                          </td>
-
-                          <td>
-                            {f.email}
-                          </td>
-
-                          <td>
-
-                            <div className="college-action-group">
-
-                              <button
-                                onClick={() =>
-                                  approveFaculty(
-                                    f._id
-                                  )
-                                }
-                                className="college-approve-button"
-                              >
-                                Approve
-                              </button>
-
-                              <button
-                                onClick={() =>
-                                  rejectFaculty(
-                                    f._id
-                                  )
-                                }
-                                className="college-reject-button"
-                              >
-                                Reject
-                              </button>
-
-                            </div>
-
-                          </td>
-
-                        </tr>
-
-                      )
-                    )}
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            )}
-
+        <div className="college-excel-summary-grid">
+          <div>
+            <span>Total Rows</span>
+            <strong>{facultyUploadResult.totalRows ?? 0}</strong>
           </div>
+          <div>
+            <span>Imported</span>
+            <strong>{facultyUploadResult.imported ?? 0}</strong>
+          </div>
+          <div>
+            <span>Updated</span>
+            <strong>{facultyUploadResult.updated ?? 0}</strong>
+          </div>
+          <div>
+            <span>Skipped</span>
+            <strong>{facultyUploadResult.skipped ?? 0}</strong>
+          </div>
+        </div>
+
+        {facultyUploadResult.errors?.length > 0 && (
+          <div className="college-excel-errors">
+            <strong>Rows with errors:</strong>
+            <ul>
+              {facultyUploadResult.errors.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+
 
 
           {/* APPROVED FACULTY */}
@@ -1101,12 +1168,11 @@ function CollegeDashboard({
               <div>
 
                 <h2>
-                  Approved Faculty
+                  Registered Faculty
                 </h2>
 
                 <p>
-                  Faculty members currently
-                  approved by the college.
+                  Faculty members registered using the uploaded faculty list.
                 </p>
 
               </div>
@@ -1121,7 +1187,7 @@ function CollegeDashboard({
             {approvedFaculty.length === 0 ? (
 
               <div className="college-small-empty">
-                No approved faculty.
+              No registered faculty yet.
               </div>
 
             ) : (
@@ -2209,6 +2275,10 @@ function CollegeDashboard({
               Applications
             </span>
           </button>
+
+          <NotificationCenter onNavigate={(target) => {
+            if (target === "applications") onGoToApplications();
+          }} />
 
         </nav>
 

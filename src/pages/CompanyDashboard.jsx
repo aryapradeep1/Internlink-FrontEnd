@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../css/CompanyDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
 import "../css/CompanyDashboardHome.css";
+import { getInternshipDisplayStatus } from "../utils/internshipDeadline.js";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function CompanyDashboard({
   company,
@@ -10,12 +12,16 @@ function CompanyDashboard({
   onGoToProfile,
   onGoToDashboard,
   onGoToApplications,
+  onGoToPostedInternships,
   onGoToCompanyGuides,
   onGoToAccountSettings,
   activeSection = "dashboard",
   children,
 }) {
   const [applications, setApplications] = useState([]);
+  const [postedInternships, setPostedInternships] = useState([]);
+  const [internshipsLoading, setInternshipsLoading] = useState(true);
+  const [internshipsError, setInternshipsError] = useState("");
   const [guides, setGuides] = useState([]);
   const [certificateFiles, setCertificateFiles] = useState({});
   const [applicationView, setApplicationView] = useState("pending");
@@ -54,7 +60,10 @@ function CompanyDashboard({
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/applications/company/${companyId}`
+        `http://localhost:5000/api/applications/company/${companyId}`,
+        {
+             credentials: "include",
+        }
       );
 
       const data = await response.json();
@@ -132,6 +141,82 @@ function CompanyDashboard({
     fetchGuides();
   }, [company]);
 
+  useEffect(() => {
+    const fetchPostedInternships = async () => {
+      const companyId = getCompanyId();
+      if (!companyId) {
+        setPostedInternships([]);
+        setInternshipsError("Company information not found");
+        setInternshipsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/api/internships", {
+          credentials: "include",
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "Failed to fetch internships");
+        const internships = Array.isArray(data) ? data : data.internships || [];
+        setPostedInternships(internships.filter((internship) => {
+          const owner = internship.company;
+          const ownerId = owner && typeof owner === "object"
+            ? owner._id || owner.id
+            : owner;
+          return String(ownerId) === String(companyId);
+        }));
+        setInternshipsError("");
+      } catch (fetchError) {
+        console.error("Posted internships fetch error:", fetchError);
+        setInternshipsError("Unable to load your posted internships");
+      } finally {
+        setInternshipsLoading(false);
+      }
+    };
+
+    fetchPostedInternships();
+  }, [company]);
+
+  const renderPostedInternships = () => (
+    <section className="company-posted-internships" aria-labelledby="posted-internships-title">
+      <header className="company-posted-heading">
+        <div>
+          <span>INTERNSHIP MANAGEMENT</span>
+          <h1 id="posted-internships-title">My Posted Internships</h1>
+          <p>Opportunities published under your company account.</p>
+        </div>
+        <strong>{postedInternships.length}</strong>
+      </header>
+      {internshipsLoading ? <div className="company-posted-empty">Loading your internships…</div>
+        : internshipsError ? <div className="company-posted-empty">{internshipsError}</div>
+        : postedInternships.length === 0 ? <div className="company-posted-empty">You have not posted any internships yet.</div>
+        : <div className="company-posted-grid">{postedInternships.map((internship) => (
+          <article className="company-posted-card" key={internship._id}>
+            <div className="company-posted-card-top"><span>{internship.department || internship.location || "Internship opportunity"}</span><b className={getInternshipDisplayStatus(internship) === "Open" ? "company-posted-status open" : "company-posted-status closed"}>{getInternshipDisplayStatus(internship)}</b></div>
+            <h2>{internship.title}</h2>
+            {internship.description && <p>{internship.description}</p>}
+            <dl>
+              {internship.eligibility && <div><dt>Eligibility</dt><dd>{internship.eligibility}</dd></div>}
+              {internship.duration && <div><dt>Duration</dt><dd>{internship.duration}</dd></div>}
+              {internship.availablePositions != null && <div><dt>Available positions</dt><dd>{internship.availablePositions}</dd></div>}
+              {internship.deadline && <div><dt>Application deadline</dt><dd>{new Date(internship.deadline).toLocaleDateString()}</dd></div>}
+            </dl>
+          </article>
+        ))}</div>}
+    </section>
+  );
+
+  useEffect(() => {
+    const refreshApplications = () => {
+      fetchApplications();
+    };
+
+    window.addEventListener("focus", refreshApplications);
+    return () => {
+      window.removeEventListener("focus", refreshApplications);
+    };
+  }, [company]);
+
   // =====================================================
   // UPDATE APPLICATION STATUS
   // =====================================================
@@ -145,6 +230,7 @@ function CompanyDashboard({
         `http://localhost:5000/api/applications/status/${applicationId}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -200,6 +286,7 @@ function CompanyDashboard({
         `http://localhost:5000/api/company-guides/status/${guideId}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -267,6 +354,7 @@ function CompanyDashboard({
         `http://localhost:5000/api/internship-assignments/company-guide/${assignmentId}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -361,6 +449,7 @@ function CompanyDashboard({
           `http://localhost:5000/api/internship-assignments/certificate/${assignmentId}`,
           {
             method: "PUT",
+            credentials: "include",
             body: formData,
           }
         );
@@ -2006,6 +2095,14 @@ function CompanyDashboard({
             </button>
 
             <button
+              className={`company-nav-item ${activeSection === "postedInternships" ? "company-nav-active" : ""}`}
+              onClick={onGoToPostedInternships}
+            >
+              <span className="company-nav-icon">▤</span>
+              <span>My Posted Internships</span>
+            </button>
+
+            <button
               className={`company-nav-item ${
                 activeSection ===
                 "applications"
@@ -2075,6 +2172,12 @@ function CompanyDashboard({
                 Account Settings
               </span>
             </button>
+
+            <NotificationCenter onNavigate={(target) => {
+              if (target === "applications") onGoToApplications();
+              if (target === "guides") onGoToCompanyGuides();
+              if (target === "postedInternships") onGoToPostedInternships();
+            }} />
 
           </nav>
 
@@ -2151,12 +2254,17 @@ function CompanyDashboard({
             </div>
           )}
 
+          {activeSection === "postedInternships" && (
+            <div className="company-content-inner">{renderPostedInternships()}</div>
+          )}
+
           {activeSection !==
             "dashboard" &&
             activeSection !==
               "applications" &&
             activeSection !==
-              "guides" && (
+              "guides" &&
+            activeSection !== "postedInternships" && (
             <div className="company-content-inner company-child-page">
               {children}
             </div>

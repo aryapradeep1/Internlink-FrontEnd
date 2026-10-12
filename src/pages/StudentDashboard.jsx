@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "../css/StudentDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function StudentDashboard({
   student,
@@ -190,6 +191,17 @@ function StudentDashboard({
             Logbook
           </span>
         </button>
+
+        <NotificationCenter onNavigate={(target) => {
+          const destinations = {
+            internships: onGoToInternships,
+            applications: onGoToMyApplications,
+            myInternship: onGoToMyInternship,
+            logbook: onGoToLogbook,
+            attendance: onGoToAttendance,
+          };
+          destinations[target]?.();
+        }} />
 
 
         {/* =====================================================

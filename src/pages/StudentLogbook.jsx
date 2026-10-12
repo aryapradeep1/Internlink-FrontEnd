@@ -142,6 +142,7 @@ function StudentLogbook({ student, onBack }) {
         "http://localhost:5000/api/logbook/add",
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -332,7 +333,13 @@ function StudentLogbook({ student, onBack }) {
               {totalHours >= REQUIRED_HOURS ? (
                 <>
                   <strong>
-                    ✓ Requirement completed
+                    {assignment?.status === "Completed"
+                      ? "✓ Internship completed"
+                      : logbooks.some(
+                          (entry) => entry.facultyStatus === "Rejected"
+                        )
+                      ? "Required hours complete — rejected entries need attention"
+                      : "Required hours complete — awaiting faculty approval"}
                   </strong>
 
                   <span>

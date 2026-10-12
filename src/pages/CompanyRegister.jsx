@@ -24,6 +24,11 @@ function CompanyRegister({ onBack, onLogin }) {
     e.preventDefault();
     setMessage("");
 
+    if (formData.password.length < 6) {
+      setMessage("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       const response = await fetch(
         "http://localhost:5000/api/companies/register",
@@ -244,6 +249,7 @@ function CompanyRegister({ onBack, onLogin }) {
 
                 <input
                   type="password"
+                  minLength={6}
                   name="password"
                   placeholder="Create a secure password"
                   value={formData.password}

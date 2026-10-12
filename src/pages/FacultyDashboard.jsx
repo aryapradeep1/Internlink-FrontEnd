@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../css/FacultyDashboard.css";
 import BrandLogo from "../components/BrandLogo.jsx";
 import ChangePassword from "./ChangePassword";
+import NotificationCenter from "../components/NotificationCenter.jsx";
 
 function FacultyDashboard({
   faculty,
@@ -165,6 +166,7 @@ function FacultyDashboard({
       if (data.status === "success") {
         setMessage("Logbook approved successfully.");
         fetchLogbooks();
+        fetchAssignedStudents();
       } else {
         setMessage(data.message);
       }
@@ -191,6 +193,7 @@ function FacultyDashboard({
       if (data.status === "success") {
         setMessage("Logbook rejected.");
         fetchLogbooks();
+        fetchAssignedStudents();
       } else {
         setMessage(data.message);
       }
@@ -545,6 +548,11 @@ function FacultyDashboard({
               <span>👤</span>
               My Profile
             </button>
+
+            <NotificationCenter onNavigate={(target) => {
+              if (target === "logbooks") onGoToLogbooks();
+              if (target === "attendance") onGoToAttendance();
+            }} />
 
         </nav>
           <div className="faculty-sidebar-bottom">

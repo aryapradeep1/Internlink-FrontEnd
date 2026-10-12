@@ -52,8 +52,21 @@ import PostInternship from "./pages/PostInternship";
 //import InternshipDetails from "./pages/InternshipDetails";
 import InternshipCertificate from "./pages/InternshipCertificate";
 
+
+//forgot password
+
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
+
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+  if (window.location.pathname === "/reset-password") {
+    return "resetPassword";
+  }
+
+  return "home";
+});
   const [checkingSession, setCheckingSession] = useState(true);
   const [companySection, setCompanySection] =
   useState("dashboard");
@@ -99,17 +112,45 @@ const [certificateHours, setCertificateHours] = useState(0);
           }
         );
 
-        if (!response.ok) {
-          setCheckingSession(false);
-          return;
-        }
+      
+if (!response.ok) {
+  if (response.status === 401) {
+    setStudent(null);
+    setCompany(null);
+    setAdmin(null);
+    setFaculty(null);
+    setCompanyGuide(null);
+    setCollege(null);
+    if (window.location.pathname === "/reset-password") {
+  return;
+}
+    setPage("login");
+  }
+
+  return;
+}
+
 
         const data = await response.json();
 
-        if (data.status !== "success") {
-          setCheckingSession(false);
-          return;
-        }
+        
+
+if (data.status !== "success") {
+  setStudent(null);
+  setCompany(null);
+  setAdmin(null);
+  setFaculty(null);
+  setCompanyGuide(null);
+  setCollege(null);
+
+  if (window.location.pathname === "/reset-password") {
+    return;
+  }
+
+  setPage("login");
+  return;
+}
+
 
         const { role, user } = data;
 
@@ -147,6 +188,13 @@ const [certificateHours, setCertificateHours] = useState(0);
           setCollegeSection("dashboard");
           setPage("collegeDashboard");
         }
+        
+if (role === "college") {
+  setCollege(user);
+  setCollegeSection("dashboard");
+  setPage("collegeDashboard");
+}
+
       } catch (error) {
         console.error("Session restore failed:", error);
       } finally {
@@ -559,6 +607,26 @@ if (page === "login") {
       onGoToHome={() =>
         setPage("home")
       }
+      onGoToForgotPassword={() => setPage("forgotPassword")}
+    />
+  );
+}
+
+if (page === "forgotPassword") {
+  return (
+    <ForgotPassword
+      onBackToLogin={() => setPage("login")}
+    />
+  );
+}
+
+if (page === "resetPassword") {
+  return (
+    <ResetPassword
+      onBackToLogin={() => {
+        window.history.replaceState({}, "", "/");
+        setPage("login");
+      }}
     />
   );
 }
@@ -1156,6 +1224,9 @@ if (page === "companyDashboard" && company) {
       onGoToDashboard={goToCompanyDashboard}
       onGoToApplications={() => {
         setCompanySection("applications");
+      }}
+      onGoToPostedInternships={() => {
+        setCompanySection("postedInternships");
       }}
       onGoToCompanyGuides={() => {
         setCompanySection("guides");
